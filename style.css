@@ -1,6 +1,7 @@
 body {
   margin: 0;
   padding: 0;
+  min-height: 100vh;
   font-family: "Varela Round", sans-serif;
   display: flex;
   flex-direction: column;
@@ -147,7 +148,7 @@ li {
 }
 
 footer {
-  position: absolute;
+  position: relative;
   bottom: 0;
   display: flex;
   font-size: 0.85rem;

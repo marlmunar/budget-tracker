@@ -8,14 +8,7 @@ document
     let category = document.getElementById("category").value.trim();
     trackingList.addEntry(expense, amount, category);
     console.log(trackingList.getList());
-    // if (input === "") return;
-
-    // let items = JSON.parse(localStorage.getItem("items")) || [];
-    // items.push(input);
-    // localStorage.setItem("items", JSON.stringify(items));
-
-    // document.getElementById("itemInput").value = "";
-    // loadItems();
+    updateLog();
   });
 
 document.getElementById("clear").addEventListener("click", (e) => {
@@ -40,3 +33,23 @@ const trackingList = {
     this.list = {};
   },
 };
+
+function updateLog() {
+  console.log("Updating log");
+  const log = document.getElementById("log");
+  log.innerHTML = "";
+  for (let id in trackingList.list) {
+    log.insertAdjacentHTML(
+      "beforeend",
+      `
+            <li class="expense-item">
+                    <span class="expense-name">${trackingList.list[id].expense}</span>
+                    <span class="espense-amount">${trackingList.list[id].amount}</span>
+                    <span class="expense-category">${trackingList.list[id].category}</span>
+                    <button>Edit</button>
+                    <button>Delete</button>
+                  </li>
+        `
+    );
+  }
+}
