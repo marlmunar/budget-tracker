@@ -1,0 +1,159 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Varela Round", sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: radial-gradient(circle, #505081 10%, transparent 10%);
+  background-size: 10px 10px;
+}
+
+h1,
+h2 {
+  padding: 0;
+  margin: 0;
+}
+
+header h1,
+header p {
+  margin: 10px 0;
+}
+
+header {
+  text-align: center;
+  border-bottom: 1px solid black;
+  border-radius: 0 0 10px 10px;
+  width: 100%;
+  line-height: 90%;
+  padding: 15px 0;
+  background-color: #272757;
+  color: #ebebeb;
+  margin-bottom: 5px;
+}
+
+header h1 span {
+  color: #59b5f7;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+button {
+  background-color: #272757;
+  color: #ebebeb;
+  font-family: "Varela Round", sans-serif;
+  border: 1px solid #2f2f2f;
+}
+
+section {
+  width: 750px;
+  margin: 10px 0;
+  padding: 15px;
+  border-radius: 5px;
+  background-color: #f3f4fd;
+}
+
+section h2 {
+  color: #0f0e47;
+  border-radius: 15px;
+  background-color: #8686ac91;
+  padding: 10px;
+}
+
+#expense-form form {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0;
+  padding: 0 15px;
+}
+
+.input-row {
+  display: grid;
+  grid-template-columns: repeat(3, 32%);
+  gap: 10px;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.input-column {
+  display: flex;
+  flex-direction: column;
+  line-height: 2;
+}
+
+.input-column label {
+  font-weight: 550;
+  font-size: 1.2rem;
+}
+
+input {
+  font-family: "Varela Round", sans-serif;
+  height: 20px;
+  border: 1px solid #272757;
+  border-radius: 8px;
+  padding: 5px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.button-row {
+  display: flex;
+  justify-content: center;
+}
+
+.button-row button {
+  height: 45x;
+  width: 120px;
+  padding: 5px;
+  border-radius: 10px;
+  font-size: 1rem;
+  margin: 0px 5px;
+}
+
+ul,
+li {
+  list-style-type: none;
+}
+
+#expense-list ul {
+  padding: 0 10px;
+}
+#expense-list li {
+  border-radius: 15px;
+  background-color: #ededff91;
+  padding: 0 10px;
+  height: 40px;
+  display: grid;
+  grid-template-columns: 24% 24% 24% 10% 10%;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0;
+}
+
+#expense-list span {
+  display: flex;
+  align-items: center;
+}
+
+#expense-list button {
+  height: 30px;
+  font-size: 1.05rem;
+  border-radius: 10px;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  font-size: 0.85rem;
+  gap: 10px;
+}
+
+footer span {
+  font-weight: bold;
+}

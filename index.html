@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Expense Tracker</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header>
+      <!-- Title and a small description of the project. -->
+      <h1><span>Expense</span> Tracker</h1>
+      <p>
+        Log your expenses, categorize them, and view a total spending summary.
+      </p>
+    </header>
+    <main>
+      <section id="expense-form">
+        <h2>Log an Entry</h2>
+        <form id="expenseForm">
+          <div class="input-row">
+            <div class="input-column">
+              <label for="expense">Expense</label>
+              <input
+                id="expense"
+                type="text"
+                name="expense"
+                placeholder="Food"
+                autocomplete="off"
+                required
+              />
+            </div>
+            <div class="input-column">
+              <label for="amount">Amount</label>
+              <input
+                id="amount"
+                type="number"
+                name="amount"
+                placeholder="100"
+                autocomplete="off"
+                required
+              />
+            </div>
+            <div class="input-column">
+              <label for="category">Category</label>
+              <input
+                id="category"
+                type="text"
+                name="category"
+                placeholder="Needs"
+                autocomplete="off"
+                required
+              />
+            </div>
+          </div>
+          <div class="button-row">
+            <button type="submit">Save Entry</button>
+            <button id="clear">Clear Values</button>
+          </div>
+        </form>
+      </section>
+      <section id="expense-list">
+        <h2>Expense List</h2>
+        <ul>
+          <li class="expense-item">
+            <span class="expense-name">SampleExpense</span>
+            <span class="espense-amount">1.00</span>
+            <span class="expense-category">SampleCategory</span>
+            <button>Edit</button>
+            <button>Delete</button>
+          </li>
+        </ul>
+      </section>
+      <section id="expense-summary">
+        <h2>Expense Summary</h2>
+        <p>Total amount spent</p>
+        <ul>
+          <li class="per-category"></li>
+        </ul>
+      </section>
+    </main>
+    <footer>
+      <p>Project by <span>marl.dev</span></p>
+      <p>© 2025</p>
+    </footer>
+    <script src="main.js"></script>
+  </body>
+</html>
