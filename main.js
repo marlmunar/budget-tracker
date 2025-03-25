@@ -34,6 +34,14 @@ const trackingList = {
     console.log(this.list);
   },
 
+  editEntry(id, expense, amount, category) {
+    console.log("updating entry");
+    console.log("entry");
+    console.log(this.list[id]);
+    this.list[id] = { expense, amount, category };
+    console.log(this.list);
+  },
+
   getList() {
     return { ...this.list };
   },
@@ -85,7 +93,7 @@ document.getElementById("log").addEventListener("click", (e) => {
     return;
   }
 
-  e.target.matches("#save") && saveUpdate(id);
+  e.target.matches("#save") && saveUpdate();
   e.target.matches("#cancel") && closeUpdate();
 });
 
@@ -102,14 +110,14 @@ function updateEntry(id) {
   log.insertAdjacentHTML(
     "afterBegin",
     `<li class="update-entry" id="updateBox">
-        <form>
-          <div><h3>Edit entry</h3></div>
+        <form id=${id}>
+          <div><h3>Edit entrys</h3></div>
             <div>
               <div>
                 <div class="input-column">
                   <label for="expense">Expense</label>
                   <input
-                    id="expense"
+                    id="updateExpense"
                     type="text"
                     value="${trackingList.list[id].expense}";
                     name="expense"
@@ -120,7 +128,7 @@ function updateEntry(id) {
                 <div class="input-column">
                   <label for="amount">Amount</label>
                   <input
-                    id="amount"
+                    id="updateAmount"
                     type="number"
                     value="${trackingList.list[id].amount}";
                     name="amount"
@@ -131,7 +139,7 @@ function updateEntry(id) {
                 <div class="input-column">
                   <label for="category">Category</label>
                   <input
-                    id="category"
+                    id="updateCategory"
                     type="text"
                     value="${trackingList.list[id].category}";
                     name="category"
@@ -150,9 +158,14 @@ function updateEntry(id) {
   );
 }
 
-function saveUpdate(id) {
+function saveUpdate() {
+  let id = document.getElementById("updateBox").firstElementChild.id;
   console.log(`Saving updates for ${id}`);
-  closeUpdate();
+  let expense = document.getElementById("updateExpense").value.trim();
+  let amount = document.getElementById("updateAmount").value.trim();
+  let category = document.getElementById("updateCategory").value.trim();
+  trackingList.editEntry(id, expense, amount, category);
+  updateLog();
 }
 
 function closeUpdate() {
