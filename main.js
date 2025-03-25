@@ -84,4 +84,49 @@ function deleteEntry(id) {
 
 function updateEntry(id) {
   console.log("Update entry");
+  const log = document.getElementById("log");
+  log.insertAdjacentHTML(
+    "afterBegin",
+    `<li class="update-entry">
+            <div><h3>Edit entry</h3></div>
+            <div>
+              <div>
+                <div class="input-column">
+                  <label for="expense">Expense</label>
+                  <input
+                    id="expense"
+                    type="text"
+                    name="expense"
+                    autocomplete="off"
+                    required
+                  />
+                </div>
+                <div class="input-column">
+                  <label for="amount">Amount</label>
+                  <input
+                    id="amount"
+                    type="number"
+                    name="amount"
+                    autocomplete="off"
+                    required
+                  />
+                </div>
+                <div class="input-column">
+                  <label for="category">Category</label>
+                  <input
+                    id="category"
+                    type="text"
+                    name="category"
+                    autocomplete="off"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="button-row">
+                <button type="submit">Save</button>
+                <button type="button">Cancel</button>
+              </div>
+            </div>
+          </li>`
+  );
 }
