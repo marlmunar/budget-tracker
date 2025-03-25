@@ -27,7 +27,11 @@ const trackingList = {
   },
 
   removeEntry(id) {
-    delete this.list[this.id];
+    console.log("deleting entry");
+    console.log(" entry");
+    console.log(this.list[id]);
+    delete this.list[id];
+    console.log(this.list);
   },
 
   getList() {
@@ -42,7 +46,7 @@ const trackingList = {
 
 function updateLog() {
   console.log("Updating log");
-  console.log(Object.keys(trackingList.list));
+  console.log(Object.keys(trackingList.list)[0]);
   const log = document.getElementById("log");
   if (Object.keys(trackingList.list).length > 0) {
     log.innerHTML = "";
@@ -69,12 +73,20 @@ function updateLog() {
 
 document.getElementById("log").addEventListener("click", (e) => {
   const parent = e.target.closest("li");
-  console.log(parent.attributes.id);
-  const id = parent.attributes.id;
-  if (e.target.tagName === "BUTTON") {
+  console.log(parent.id);
+  const id = parent.id;
+  if (e.target.tagName !== "BUTTON") {
+    return;
+  }
+
+  if (id !== "updateBox") {
     e.target.matches("#delete") && deleteEntry(id);
     e.target.matches("#edit") && updateEntry(id);
+    return;
   }
+
+  e.target.matches("#save") && saveUpdate(id);
+  e.target.matches("#cancel") && closeUpdate();
 });
 
 function deleteEntry(id) {
@@ -84,11 +96,14 @@ function deleteEntry(id) {
 
 function updateEntry(id) {
   console.log("Update entry");
+  console.log(id);
+  console.log(trackingList.list[id]);
   const log = document.getElementById("log");
   log.insertAdjacentHTML(
     "afterBegin",
-    `<li class="update-entry">
-            <div><h3>Edit entry</h3></div>
+    `<li class="update-entry" id="updateBox">
+        <form>
+          <div><h3>Edit entry</h3></div>
             <div>
               <div>
                 <div class="input-column">
@@ -96,6 +111,7 @@ function updateEntry(id) {
                   <input
                     id="expense"
                     type="text"
+                    value="${trackingList.list[id].expense}";
                     name="expense"
                     autocomplete="off"
                     required
@@ -106,6 +122,7 @@ function updateEntry(id) {
                   <input
                     id="amount"
                     type="number"
+                    value="${trackingList.list[id].amount}";
                     name="amount"
                     autocomplete="off"
                     required
@@ -116,6 +133,7 @@ function updateEntry(id) {
                   <input
                     id="category"
                     type="text"
+                    value="${trackingList.list[id].category}";
                     name="category"
                     autocomplete="off"
                     required
@@ -123,10 +141,21 @@ function updateEntry(id) {
                 </div>
               </div>
               <div class="button-row">
-                <button type="submit">Save</button>
-                <button type="button">Cancel</button>
+                <button type="submit" id="save">Save</button>
+                <button type="button" id="cancel">Cancel</button>
               </div>
             </div>
+            </form>
           </li>`
   );
+}
+
+function saveUpdate(id) {
+  console.log(`Saving updates for ${id}`);
+  closeUpdate();
+}
+
+function closeUpdate() {
+  const updateBox = document.getElementById("updateBox");
+  updateBox.remove();
 }
