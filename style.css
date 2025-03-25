@@ -1,6 +1,7 @@
 body {
   margin: 0;
   padding: 0;
+  position: relative;
   min-height: 100vh;
   font-family: "Varela Round", sans-serif;
   display: flex;
@@ -124,7 +125,7 @@ li {
 #expense-list ul {
   padding: 0 10px;
 }
-#expense-list li {
+.expense-item {
   border-radius: 15px;
   background-color: #ededff91;
   padding: 0 10px;
@@ -141,6 +142,12 @@ li {
   align-items: center;
 }
 
+.no-data {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 #expense-list button {
   height: 30px;
   font-size: 1.05rem;
@@ -148,7 +155,7 @@ li {
 }
 
 footer {
-  position: relative;
+  position: absolute;
   bottom: 0;
   display: flex;
   font-size: 0.85rem;
