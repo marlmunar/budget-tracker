@@ -209,3 +209,39 @@ footer span {
   align-items: center;
   margin: 10px 0;
 }
+
+.header-row {
+  border-radius: 15px;
+  background-color: #ededff91;
+  padding: 0 10px;
+  height: 40px;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.log {
+  display: grid;
+  grid-template-columns: 24% 24% 24% 22%;
+}
+
+.summary {
+  display: flex;
+  padding: 0 20px;
+}
+
+.header-row span {
+  font-size: 1.15rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+}
+
+.total {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.hidden {
+  display: none;
+}

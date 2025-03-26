@@ -67,20 +67,36 @@
       </section>
       <section id="expense-list">
         <h2>Expense List</h2>
-        <ul id="log">
-          <li class="no-data">
-            <span class="no-data">No Data</span>
-          </li>
+        <ul>
+          <div class="hidden">
+            <li class="header-row log">
+              <span class="expense-name">Expense</span>
+              <span class="espense-amount">Amount</span>
+              <span class="expense-category">Category</span>
+              <span class="">Options</span>
+            </li>
+          </div>
+          <div id="log">
+            <li class="no-data">
+              <span class="no-data">No Data</span>
+            </li>
+          </div>
         </ul>
       </section>
       <section id="expense-summary">
         <h2>Expense Summary</h2>
-        <ul id="summary">
-          <div id="total-header"></div>
-          <li class="no-data">
-            <span class="no-data">No Data</span>
-          </li>
-          <div id="total-footer"></div>
+        <ul>
+          <div class="hidden">
+            <li class="header-row summary">
+              <span class="expense-name">Category</span>
+              <span class="espense-amount">Total</span>
+            </li>
+          </div>
+          <div id="summary">
+            <li class="no-data">
+              <span class="no-data">No Data</span>
+            </li>
+          </div>
         </ul>
       </section>
     </main>

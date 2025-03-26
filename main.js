@@ -200,20 +200,20 @@ function updateSummary() {
   console.log("unique categories");
   console.log(uniqueCategories);
   if (Object.keys(trackingList.list).length > 0) {
-    summary.innerHTML = `<li class="per-category">
-            <span><b>Total amount spent</b></span
-            ><span><b>${trackingList.getTotal()}</b></span>
-          </li>`;
+    summary.innerHTML = `<li class="per-category total">
+                            <span>Total amount spent</span>
+                            <span>${trackingList.getTotal()}</span>
+                          </li>`;
     uniqueCategories.sort().forEach((category) => {
       summary.insertAdjacentHTML(
         "afterbegin",
         `
             <li class="per-category">
-                    <span class="espense-amount">${category}</span>
-                    <span class="expense-category">${trackingList.sumByCategory(
-                      category
-                    )}</span>
-                  </li>
+              <span class="espense-amount">${category}</span>
+              <span class="expense-category">${trackingList.sumByCategory(
+                category
+              )}</span>
+            </li>
         `
       );
     });
