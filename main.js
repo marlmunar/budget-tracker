@@ -5,13 +5,17 @@ document.getElementById("expenseForm").addEventListener("submit", (e) => {
   let amount = document.getElementById("amount").value.trim();
   let category = document.getElementById("category").value.trim();
   trackingList.addEntry(expense, amount, category);
-  console.log(trackingList.getList());
-  updateLog();
-  updateSummary();
+  updateDOM();
   clearForm();
 });
 
 document.getElementById("expenseForm").addEventListener("reset", clearForm());
+
+function updateDOM() {
+  updateLog();
+  updateSummary();
+  toggleHeaders();
+}
 
 function clearForm() {
   console.log("clearing forms");
@@ -58,8 +62,8 @@ const trackingList = {
     return sum;
   },
 
-  getList() {
-    return { ...this.list };
+  isEmpty() {
+    return Object.keys(this.list).length > 0;
   },
 
   reset() {
@@ -72,7 +76,7 @@ function updateLog() {
   console.log("Updating log");
   console.log(Object.keys(trackingList.list)[0]);
   const log = document.getElementById("log");
-  if (Object.keys(trackingList.list).length > 0) {
+  if (trackingList.isEmpty()) {
     log.innerHTML = "";
     for (let id in trackingList.list) {
       log.insertAdjacentHTML(
@@ -115,8 +119,7 @@ document.getElementById("log").addEventListener("click", (e) => {
 
 function deleteEntry(id) {
   trackingList.removeEntry(id);
-  updateLog();
-  updateSummary();
+  updateDOM();
 }
 
 function updateEntry(id) {
@@ -182,8 +185,7 @@ function saveUpdate() {
   let amount = document.getElementById("updateAmount").value.trim();
   let category = document.getElementById("updateCategory").value.trim();
   trackingList.editEntry(id, expense, amount, category);
-  updateLog();
-  updateSummary();
+  updateDOM();
 }
 
 function closeUpdate() {
@@ -199,7 +201,7 @@ function updateSummary() {
   ];
   console.log("unique categories");
   console.log(uniqueCategories);
-  if (Object.keys(trackingList.list).length > 0) {
+  if (trackingList.isEmpty()) {
     summary.innerHTML = `<li class="per-category total">
                             <span>Total amount spent</span>
                             <span>${trackingList.getTotal()}</span>
@@ -224,4 +226,19 @@ function updateSummary() {
   summary.innerHTML = `<li class="no-data">
                   <span class="no-data">No Data</span>
                   </li>`;
+}
+
+function toggleHeaders() {
+  console.log("displaying headers");
+  const headers = document.querySelectorAll(".hidden");
+  console.log(headers);
+  if (trackingList.isEmpty()) {
+    headers.forEach((el) => {
+      el.style.display = "block";
+    });
+    return;
+  }
+  headers.forEach((el) => {
+    el.style.display = "none";
+  });
 }
