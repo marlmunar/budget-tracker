@@ -198,3 +198,14 @@ footer span {
   background-color: #8686ac91;
   padding: 10px;
 }
+
+.per-category {
+  border-radius: 15px;
+  background-color: #ededff91;
+  padding: 0 20px;
+  height: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0;
+}

@@ -7,6 +7,7 @@ document.getElementById("expenseForm").addEventListener("submit", (e) => {
   trackingList.addEntry(expense, amount, category);
   console.log(trackingList.getList());
   updateLog();
+  updateSummary();
   clearForm();
 });
 
@@ -40,6 +41,21 @@ const trackingList = {
     console.log(this.list[id]);
     this.list[id] = { expense, amount, category };
     console.log(this.list);
+  },
+
+  getTotal() {
+    const total = Object.values(this.list).reduce(
+      (sum, item) => +sum + +item.amount,
+      0
+    );
+    return total;
+  },
+
+  sumByCategory(category) {
+    const sum = Object.values(this.list)
+      .filter((item) => item.category === category)
+      .reduce((sum, item) => +sum + +item.amount, 0);
+    return sum;
   },
 
   getList() {
@@ -100,6 +116,7 @@ document.getElementById("log").addEventListener("click", (e) => {
 function deleteEntry(id) {
   trackingList.removeEntry(id);
   updateLog();
+  updateSummary();
 }
 
 function updateEntry(id) {
@@ -111,7 +128,7 @@ function updateEntry(id) {
     "afterBegin",
     `<li class="update-entry" id="updateBox">
         <form id=${id}>
-          <div><h3>Edit entrys</h3></div>
+          <div><h3>Edit entry</h3></div>
             <div>
               <div>
                 <div class="input-column">
@@ -166,9 +183,45 @@ function saveUpdate() {
   let category = document.getElementById("updateCategory").value.trim();
   trackingList.editEntry(id, expense, amount, category);
   updateLog();
+  updateSummary();
 }
 
 function closeUpdate() {
   const updateBox = document.getElementById("updateBox");
   updateBox.remove();
+}
+
+function updateSummary() {
+  const summary = document.getElementById("summary");
+  console.log("updating summary");
+  const uniqueCategories = [
+    ...new Set(Object.values(trackingList.list).map((item) => item.category)),
+  ];
+  console.log("unique categories");
+  console.log(uniqueCategories);
+  if (Object.keys(trackingList.list).length > 0) {
+    summary.innerHTML = `<li class="per-category">
+            <span><b>Total amount spent</b></span
+            ><span><b>${trackingList.getTotal()}</b></span>
+          </li>`;
+    uniqueCategories.sort().forEach((category) => {
+      summary.insertAdjacentHTML(
+        "afterbegin",
+        `
+            <li class="per-category">
+                    <span class="espense-amount">${category}</span>
+                    <span class="expense-category">${trackingList.sumByCategory(
+                      category
+                    )}</span>
+                  </li>
+        `
+      );
+    });
+    for (let id in trackingList.list) {
+    }
+    return;
+  }
+  summary.innerHTML = `<li class="no-data">
+                  <span class="no-data">No Data</span>
+                  </li>`;
 }
