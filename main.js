@@ -62,7 +62,7 @@ const trackingList = {
     return sum;
   },
 
-  isEmpty() {
+  isNotEmpty() {
     return Object.keys(this.list).length > 0;
   },
 
@@ -76,7 +76,7 @@ function updateLog() {
   console.log("Updating log");
   console.log(Object.keys(trackingList.list)[0]);
   const log = document.getElementById("log");
-  if (trackingList.isEmpty()) {
+  if (trackingList.isNotEmpty()) {
     log.innerHTML = "";
     for (let id in trackingList.list) {
       log.insertAdjacentHTML(
@@ -106,15 +106,30 @@ document.getElementById("log").addEventListener("click", (e) => {
   if (e.target.tagName !== "BUTTON") {
     return;
   }
+  e.target.matches("#delete") && deleteEntry(id);
+  e.target.matches("#edit") && updateEntry(id);
+});
 
-  if (id !== "updateBox") {
-    e.target.matches("#delete") && deleteEntry(id);
-    e.target.matches("#edit") && updateEntry(id);
+document.getElementById("update").addEventListener("click", (e) => {
+  if (e.target.tagName !== "BUTTON") {
     return;
   }
+  e.target.matches("#cancel") && closeUpdateForm();
+});
 
-  e.target.matches("#save") && saveUpdate();
-  e.target.matches("#cancel") && closeUpdate();
+document.getElementById("update").addEventListener("submit", (e) => {
+  if (e.target.matches("#updateForm")) {
+    e.preventDefault();
+
+    let id = document.getElementById("updateForm").firstElementChild.id;
+    console.log(`Saving updates for ${id}`);
+    let expense = document.getElementById("updateExpense").value.trim();
+    let amount = document.getElementById("updateAmount").value.trim();
+    let category = document.getElementById("updateCategory").value.trim();
+    trackingList.editEntry(id, expense, amount, category);
+    updateDOM();
+    closeUpdateForm();
+  }
 });
 
 function deleteEntry(id) {
@@ -126,86 +141,76 @@ function updateEntry(id) {
   console.log("Update entry");
   console.log(id);
   console.log(trackingList.list[id]);
-  const log = document.getElementById("log");
+  const log = document.getElementById("update");
   log.insertAdjacentHTML(
     "afterBegin",
-    `<li class="update-entry" id="updateBox">
-        <form id=${id}>
-          <div><h3>Edit entry</h3></div>
-            <div>
+    `<form id="updateForm" class="update-entry">
+              <div id="${id}"><h3>Edit entry</h3></div>
               <div>
-                <div class="input-column">
-                  <label for="expense">Expense</label>
-                  <input
-                    id="updateExpense"
-                    type="text"
-                    value="${trackingList.list[id].expense}";
-                    name="expense"
-                    autocomplete="off"
-                    required
-                  />
+                <div>
+                  <div class="input-column">
+                    <label for="expense">Expense</label>
+                    <input
+                      id="updateExpense"
+                      type="text"
+                      value="${trackingList.list[id].expense}"
+                      ;
+                      name="expense"
+                      autocomplete="off"
+                      required
+                    />
+                  </div>
+                  <div class="input-column">
+                    <label for="amount">Amount</label>
+                    <input
+                      id="updateAmount"
+                      type="number"
+                      value="${trackingList.list[id].amount}"
+                      ;
+                      name="amount"
+                      autocomplete="off"
+                      required
+                    />
+                  </div>
+                  <div class="input-column">
+                    <label for="category">Category</label>
+                    <input
+                      id="updateCategory"
+                      type="text"
+                      value="${trackingList.list[id].category}"
+                      ;
+                      name="category"
+                      autocomplete="off"
+                      required
+                    />
+                  </div>
                 </div>
-                <div class="input-column">
-                  <label for="amount">Amount</label>
-                  <input
-                    id="updateAmount"
-                    type="number"
-                    value="${trackingList.list[id].amount}";
-                    name="amount"
-                    autocomplete="off"
-                    required
-                  />
-                </div>
-                <div class="input-column">
-                  <label for="category">Category</label>
-                  <input
-                    id="updateCategory"
-                    type="text"
-                    value="${trackingList.list[id].category}";
-                    name="category"
-                    autocomplete="off"
-                    required
-                  />
+                <div class="button-row">
+                  <button type="submit">Save</button>
+                  <button type="button" id="cancel">Cancel</button>
                 </div>
               </div>
-              <div class="button-row">
-                <button type="submit" id="save">Save</button>
-                <button type="button" id="cancel">Cancel</button>
-              </div>
-            </div>
             </form>
-          </li>`
+          `
   );
 }
 
-function saveUpdate() {
-  let id = document.getElementById("updateBox").firstElementChild.id;
-  console.log(`Saving updates for ${id}`);
-  let expense = document.getElementById("updateExpense").value.trim();
-  let amount = document.getElementById("updateAmount").value.trim();
-  let category = document.getElementById("updateCategory").value.trim();
-  trackingList.editEntry(id, expense, amount, category);
-  updateDOM();
-}
-
-function closeUpdate() {
-  const updateBox = document.getElementById("updateBox");
+function closeUpdateForm() {
+  const updateBox = document.getElementById("updateForm");
   updateBox.remove();
 }
 
 function updateSummary() {
   const summary = document.getElementById("summary");
+  const total = document.getElementById("total");
   console.log("updating summary");
   const uniqueCategories = [
     ...new Set(Object.values(trackingList.list).map((item) => item.category)),
   ];
   console.log("unique categories");
   console.log(uniqueCategories);
-  if (trackingList.isEmpty()) {
-    summary.innerHTML = `<li class="per-category total">
-                            <span>Total amount spent</span>
-                            <span>${trackingList.getTotal()}</span>
-                          </li>`;
+  if (trackingList.isNotEmpty()) {
+    summary.innerHTML = "";
     uniqueCategories.sort().forEach((category) => {
       summary.insertAdjacentHTML(
         "afterbegin",
@@ -218,9 +223,8 @@ function updateSummary() {
             </li>
         `
       );
+      total.textContent = trackingList.getTotal();
     });
-    for (let id in trackingList.list) {
-    }
     return;
   }
   summary.innerHTML = `<li class="no-data">
@@ -232,7 +236,7 @@ function toggleHeaders() {
   console.log("displaying headers");
   const headers = document.querySelectorAll(".hidden");
   console.log(headers);
-  if (trackingList.isEmpty()) {
+  if (trackingList.isNotEmpty()) {
     headers.forEach((el) => {
       el.style.display = "block";
     });

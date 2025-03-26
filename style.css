@@ -1,17 +1,24 @@
 * {
   margin: 0;
   padding: 0;
+  font-family: "Varela Round", sans-serif;
+  box-sizing: border-box;
 }
 
 body {
   position: relative;
-  min-height: 100vh;
-  font-family: "Varela Round", sans-serif;
+  overflow-x: hidden;
+  height: 100vh;
+  width: 100vw;
   display: flex;
   flex-direction: column;
   align-items: center;
   background: radial-gradient(circle, #505081 10%, transparent 10%);
   background-size: 10px 10px;
+}
+
+body > * {
+  height: 100%;
 }
 
 h1,
@@ -23,6 +30,7 @@ h2 {
 header h1,
 header p {
   margin: 10px 0;
+  line-height: 90%;
 }
 
 header {
@@ -30,11 +38,10 @@ header {
   border-bottom: 1px solid black;
   border-radius: 0 0 10px 10px;
   width: 100%;
-  line-height: 90%;
+  max-height: 100px;
   padding: 15px 0;
   background-color: #272757;
   color: #ebebeb;
-  margin-bottom: 5px;
 }
 
 header h1 span {
@@ -44,18 +51,44 @@ header h1 span {
   font-size: 1.1em;
 }
 
+main {
+  flex: 1;
+  width: 90%;
+  padding: 15px;
+  min-height: 500px;
+  max-height: 83vh;
+  padding: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  justify-content: space-around;
+  align-content: start;
+  gap: 15px;
+}
+
 button {
   background-color: #272757;
+  padding: 10px;
   color: #ebebeb;
-  font-family: "Varela Round", sans-serif;
+  border-radius: 15px;
   border: 1px solid #2f2f2f;
+  transition: all 0.3s ease-in-out;
+}
+
+button:hover {
+  background-color: #59b5f7;
+  cursor: pointer;
+  color: #2f2f2f;
+  border-radius: 25px;
 }
 
 section {
-  width: 750px;
-  margin: 10px 0;
-  padding: 15px;
-  border-radius: 5px;
+  padding: 5px;
+  width: 100%;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 15px;
   background-color: #f3f4fd;
 }
 
@@ -66,10 +99,15 @@ section h2 {
   padding: 10px;
 }
 
+#expense-form {
+  grid-column: 1;
+  grid-row: 1;
+  max-height: 200px;
+}
+
 #expense-form form {
   display: flex;
   flex-direction: column;
-  margin: 10px 0;
   padding: 0 15px;
 }
 
@@ -93,11 +131,19 @@ section h2 {
 }
 
 input {
-  font-family: "Varela Round", sans-serif;
-  height: 20px;
+  height: 30px;
   border: 1px solid #272757;
   border-radius: 8px;
   padding: 5px;
+  transition: all 0.3s ease-in-out;
+}
+
+input:hover {
+  background-color: #efefef;
+}
+
+input:hover::placeholder {
+  color: #272757;
 }
 
 input::-webkit-outer-spin-button,
@@ -108,16 +154,21 @@ input::-webkit-inner-spin-button {
 
 .button-row {
   display: flex;
+  height: 40px;
   justify-content: center;
+  gap: 10px;
 }
 
 .button-row button {
   height: 45x;
-  width: 120px;
-  padding: 5px;
-  border-radius: 10px;
   font-size: 1rem;
-  margin: 0px 5px;
+}
+
+.ul-holder {
+  padding: 0 10px;
+  display: flex;
+  flex-direction: column;
+  max-height: 100%;
 }
 
 ul,
@@ -125,8 +176,13 @@ li {
   list-style-type: none;
 }
 
+#expense-list {
+  grid-column: 2;
+  grid-row: 1 / 3;
+  height: 100%;
+}
+
 #expense-list ul {
-  padding: 0 10px;
   position: relative;
 }
 
@@ -149,6 +205,7 @@ li {
 
 .no-data {
   margin: 10px;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -156,16 +213,25 @@ li {
 
 #expense-list button {
   height: 30px;
-  font-size: 1.05rem;
+  padding: 5px;
+  font-size: 0.9rem;
   border-radius: 10px;
 }
 
+#expense-summary {
+  grid-column: 1;
+  grid-row: 2;
+  max-height: 100%;
+}
+
 footer {
-  position: absolute;
-  bottom: 0;
+  margin-top: auto;
   display: flex;
-  font-size: 0.85rem;
-  gap: 10px;
+  height: 20px;
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
 }
 
 footer span {
@@ -199,6 +265,10 @@ footer span {
   padding: 10px;
 }
 
+.update-entry button {
+  width: 75px;
+}
+
 .per-category {
   border-radius: 15px;
   background-color: #ededff91;
@@ -218,6 +288,19 @@ footer span {
   justify-content: space-between;
   align-items: center;
   margin: 10px 0;
+}
+
+#summary,
+#log {
+  overflow: auto;
+}
+
+#summary {
+  max-height: 200px;
+}
+
+#log {
+  max-height: 440px;
 }
 
 .log {
