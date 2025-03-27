@@ -22,7 +22,7 @@
     </header>
     <main>
       <section id="expense-form">
-        <h2>Log an Entry</h2>
+        <div class="section-title"><h2>Log an Entry</h2></div>
         <form id="expenseForm">
           <div class="input-row">
             <div class="input-column">
@@ -66,49 +66,45 @@
         </form>
       </section>
       <section id="expense-list">
-        <h2>Expense List</h2>
-        <div class="ul-holder">
-          <ul>
-            <div class="hidden">
-              <li class="header-row log">
-                <span class="expense-name">Expense</span>
-                <span class="espense-amount">Amount</span>
-                <span class="expense-category">Category</span>
-                <span class="">Options</span>
-              </li>
-            </div>
-            <div id="update"></div>
-            <div id="log">
-              <li class="no-data">
-                <span class="no-data">No Data</span>
-              </li>
-            </div>
-          </ul>
-        </div>
+        <div class="section-title"><h2>Expense List</h2></div>
+        <ul>
+          <div class="hidden">
+            <li class="header-row log">
+              <span class="expense-name">Expense</span>
+              <span class="espense-amount">Amount</span>
+              <span class="expense-category">Category</span>
+              <span class="">Options</span>
+            </li>
+          </div>
+          <div id="update"></div>
+          <div id="log">
+            <li class="no-data">
+              <span class="no-data">No Data</span>
+            </li>
+          </div>
+        </ul>
       </section>
       <section id="expense-summary">
-        <h2>Expense Summary</h2>
-        <div class="ul-holder">
-          <ul>
-            <div class="hidden">
-              <li class="header-row summary">
-                <span class="expense-name">Category</span>
-                <span class="espense-amount">Total</span>
-              </li>
-            </div>
-            <div id="summary">
-              <li class="no-data">
-                <span class="no-data">No Data</span>
-              </li>
-            </div>
-            <div class="hidden">
-              <li class="per-category total">
-                <span>Total amount spent</span>
-                <span id="total"></span>
-              </li>
-            </div>
-          </ul>
-        </div>
+        <div class="section-title"><h2>Expense Summary</h2></div>
+        <ul>
+          <div class="hidden">
+            <li class="header-row summary">
+              <span class="expense-name">Category</span>
+              <span class="espense-amount">Total</span>
+            </li>
+          </div>
+          <div id="summary">
+            <li class="no-data">
+              <span class="no-data">No Data</span>
+            </li>
+          </div>
+          <div class="hidden">
+            <li class="per-category total">
+              <span>Total amount spent</span>
+              <span id="total"></span>
+            </li>
+          </div>
+        </ul>
       </section>
     </main>
     <footer>

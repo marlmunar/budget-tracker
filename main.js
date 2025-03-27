@@ -145,7 +145,7 @@ function updateEntry(id) {
   log.insertAdjacentHTML(
     "afterBegin",
     `<form id="updateForm" class="update-entry">
-              <div id="${id}"><h3>Edit entry</h3></div>
+              <div id="${id}" class="section-title"><h3>Edit entry</h3></div>
               <div>
                 <div>
                   <div class="input-column">
