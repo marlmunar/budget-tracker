@@ -2,7 +2,7 @@ document.getElementById("expenseForm").addEventListener("submit", (e) => {
   e.preventDefault();
 
   let expense = document.getElementById("expense").value.trim();
-  let amount = document.getElementById("amount").value.trim();
+  let amount = parseInt(document.getElementById("amount").value.trim());
   let category = document.getElementById("category").value.trim();
   trackingList.addEntry(expense, amount, category);
   updateDOM();
