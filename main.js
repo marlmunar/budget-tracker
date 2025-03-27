@@ -129,7 +129,9 @@ document.getElementById("update").addEventListener("submit", (e) => {
     trackingList.editEntry(id, expense, amount, category);
     updateDOM();
     closeUpdateForm();
-    document.getElementById(id).scrollIntoView({ behavior: "smooth" });
+    const edited = document.getElementById(id);
+    edited.scrollIntoView({ behavior: "smooth" });
+    edited.classList.add("highlighted");
   }
 });
 
