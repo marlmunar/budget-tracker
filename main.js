@@ -129,6 +129,7 @@ document.getElementById("update").addEventListener("submit", (e) => {
     trackingList.editEntry(id, expense, amount, category);
     updateDOM();
     closeUpdateForm();
+    document.getElementById(id).scrollIntoView({ behavior: "smooth" });
   }
 });
 
@@ -193,6 +194,7 @@ function updateEntry(id) {
             </form>
           `
   );
+  document.getElementById("updateForm").scrollIntoView({ behavior: "smooth" });
 }
 
 function closeUpdateForm() {
