@@ -399,6 +399,24 @@ h3 {
   font-weight: 600;
 }
 
+.download-form {
+  gap: var(--small-gap);
+  width: 45%;
+}
+
+.file-input {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--small-gap);
+  padding: calc(0.5 * var(--main-padding));
+  margin-bottom: calc(0.5 * var(--main-padding));
+}
+
+.file-input label {
+  padding-left: calc(0.35 * var(--main-padding));
+}
+
 /* Tablets (768px and above) */
 @media (min-width: 768px) {
   :root {

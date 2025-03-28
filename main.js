@@ -311,13 +311,6 @@ document.getElementById("filterBox").addEventListener("submit", (e) => {
     const categories = Array.from(selectedItems).map((item) => item.name);
     console.log(trackingList.filterBy(categories));
     const tempList = trackingList.filterBy(categories);
-    // let id = document.getElementById("updateForm").firstElementChild.id;
-    // console.log(`Saving updates for ${id}`);
-    // let expense = document.getElementById("updateExpense").value.trim();
-    // let amount = document.getElementById("updateAmount").value.trim();
-    // let category = document.getElementById("updateCategory").value.trim();
-    // trackingList.editEntry(id, expense, amount, category);
-    // updateDOM();
     updateDOM(tempList);
     closeFilterForm();
   }
@@ -326,4 +319,71 @@ document.getElementById("filterBox").addEventListener("submit", (e) => {
 function closeFilterForm() {
   const filterForm = document.getElementById("filterForm");
   filterForm.remove();
+}
+
+document.getElementById("downloadBox").addEventListener("click", (e) => {
+  if (e.target.tagName !== "BUTTON") {
+    return;
+  }
+  e.target.matches("#cancel") && closeDownloadForm();
+});
+
+document.getElementById("download").addEventListener("click", (e) => {
+  console.log("Open download");
+  const filterBox = document.getElementById("downloadBox");
+
+  filterBox.insertAdjacentHTML(
+    "afterBegin",
+    `<form id="downloadForm" class="absolute-box download-form">
+              <div class="section-title">
+                <h3>Save as Excel</h3>
+              </div>
+              <div>
+                <div class="file-input">
+                  <label for="fileName">Give a name</label>
+                  <input
+                    type="text"
+                    id="fileName"
+                    name="fileName"
+                    placeholder="MyExpenses"
+                    required
+                  />
+                </div>
+                <div class="button-row">
+                  <button type="submit">Save</button>
+                  <button type="button" id="cancel">Cancel</button>
+                </div>
+              </div>
+            </form>`
+  );
+});
+
+document.getElementById("downloadBox").addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const data = processData(trackingList.list);
+  const fileName = document.getElementById("fileName").value.trim();
+
+  let worksheet = XLSX.utils.json_to_sheet(data);
+  let workbook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
+
+  // Generate Excel file and trigger download
+  XLSX.writeFile(workbook, `${fileName}.xlsx`);
+});
+
+function processData(data) {
+  return Object.values(data).map((obj) => {
+    let transformedObj = {};
+    for (let key in obj) {
+      let capitalizedKey = key.charAt(0).toUpperCase() + key.slice(1);
+      transformedObj[capitalizedKey] = obj[key];
+    }
+    return transformedObj;
+  });
+}
+
+function closeDownloadForm() {
+  const downloadForm = document.getElementById("downloadForm");
+  downloadForm.remove();
 }
