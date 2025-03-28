@@ -15,7 +15,7 @@
   --main-padding: 10px;
   --item-template-columns: 19% 19% 19% 15% 15%;
   --header-template-columns: 19% 19% 19% 29%;
-  --update-width: 100%;
+  --update-width: 99%;
   font-size: 14px;
 }
 
@@ -115,12 +115,89 @@ section {
 }
 
 .section-title {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   border-radius: 15px;
   background-color: #8686ac91;
   padding: var(--main-padding);
 }
 
+.section-title > * {
+  flex: 1;
+}
+
+.section-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--small-gap);
+}
+
+.section-buttons button {
+  width: calc(1.85 * var(--section-font-large));
+}
+
+.absolute-box {
+  font-size: var(--section-font-small);
+  z-index: 1;
+  display: flex;
+  gap: var(--medium-gap);
+  top: 2%;
+  right: 0.5%;
+  background-color: #f3f4fd;
+  border-radius: 10px;
+  padding: calc(0.5 * var(--main-padding));
+  flex-direction: column;
+  position: absolute;
+  border-radius: 15px;
+  box-shadow: 0px 0px 10px 5px rgba(98, 127, 137, 0.508);
+}
+
+.filter-table {
+  top: 5%;
+  width: 45%;
+}
+
+.checklist {
+  padding: 0 calc(0.85 * var(--main-padding));
+  margin-bottom: calc(0.85 * var(--main-padding));
+}
+
+.checkbox {
+  display: flex;
+  gap: var(--medium-gap);
+  align-items: center;
+  margin-bottom: calc(0.3 * var(--main-padding));
+}
+
+.checkbox input[type="checkbox"] {
+  appearance: none;
+  width: calc(1.15 * var(--section-font-medium));
+  height: calc(1.15 * var(--section-font-medium));
+  border: 2px solid #333;
+  border-radius: 4px;
+  position: relative;
+  cursor: pointer;
+}
+
+.checkbox input[type="checkbox"]:checked::after {
+  content: "✔";
+  font-size: calc(0.8 * var(--section-font-small));
+  color: white;
+  position: absolute;
+  top: -0.75%;
+  left: 15%;
+}
+
+.checkbox input[type="checkbox"]:checked {
+  background-color: #272757;
+  border: 2px solid #333;
+}
+
 section h2 {
+  flex: 2;
   font-size: var(--section-font-large);
   color: #0f0e47;
 }
@@ -231,7 +308,7 @@ li {
   justify-content: center;
 }
 
-#expense-list button {
+#expense-item button {
   height: calc(1.5 * var(--section-font-large));
   font-size: calc(0.85 * var(--section-font-small));
   width: 100%;
@@ -254,20 +331,7 @@ footer span {
 }
 
 .update-entry {
-  font-size: var(--section-font-small);
-  z-index: 1;
-  display: flex;
-  gap: var(--small-gap);
-  top: 2%;
-  right: 1.25%;
-  background-color: #f3f4fd;
-  border-radius: 10px;
   width: var(--update-width);
-  padding: calc(0.5 * var(--main-padding));
-  flex-direction: column;
-  position: absolute;
-  border-radius: 15px;
-  box-shadow: 0px 0px 10px 5px rgba(98, 127, 137, 0.508);
 }
 
 .update-entry .button-row {
@@ -280,7 +344,7 @@ footer span {
   margin: 0 calc(0.5 * var(--main-padding));
 }
 
-.update-entry h3 {
+h3 {
   font-size: var(--section-font-medium);
   margin: 0;
   color: #0f0e47;
@@ -333,10 +397,6 @@ footer span {
 .total {
   font-size: calc(0.85 * var(--section-font-large));
   font-weight: 600;
-}
-
-.hidden {
-  display: none;
 }
 
 /* Tablets (768px and above) */
@@ -420,4 +480,8 @@ footer span {
     background-color: #65656dcb;
     box-shadow: 0 0 20px rgba(123, 123, 123, 0.7);
   }
+}
+
+.hidden {
+  display: none;
 }

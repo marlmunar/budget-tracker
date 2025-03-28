@@ -11,6 +11,10 @@
       href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
   </head>
   <body>
     <header>
@@ -66,7 +70,20 @@
         </form>
       </section>
       <section id="expense-list">
-        <div class="section-title"><h2>Expense List</h2></div>
+        <div class="section-title">
+          <h2>Expense List</h2>
+          <div id="filterBox"></div>
+          <div class="hidden">
+            <div class="section-buttons">
+              <button title="Filter Table" id="filter">
+                <i class="fa-solid fa-list-check"></i>
+              </button>
+              <button title="Download Table" id="download">
+                <i class="fas fa-file-arrow-down"></i>
+              </button>
+            </div>
+          </div>
+        </div>
         <ul>
           <div class="hidden">
             <li class="header-row log">
