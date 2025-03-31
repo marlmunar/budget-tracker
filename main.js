@@ -53,6 +53,8 @@ const trackingList = {
     );
   },
 
+  selectCategories() {},
+
   uniqueCategories() {
     return [...new Set(Object.values(this.list).map((item) => item.category))];
   },
