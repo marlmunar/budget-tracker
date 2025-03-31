@@ -1,3 +1,49 @@
+const trackingList = {
+  list: [],
+
+  addEntry(expense, amount, category) {
+    this.list.push({ id: Date.now(), expense, amount, category });
+  },
+
+  removeEntry(id) {
+    this.list = this.list.filter((entry) => entry.id !== id);
+  },
+
+  editEntry(id, expense, amount, category) {
+    this.list = this.list.map((entry) =>
+      entry.id === id ? { ...entry, expense, amount, category } : entry
+    );
+  },
+
+  filterBy(categories) {
+    return this.list.filter((item) => categories.includes(item.category));
+  },
+
+  selectedCategories() {},
+
+  uniqueCategories() {
+    return this.list.map((item) => item.category);
+  },
+
+  getTotal() {
+    return this.list.reduce((sum, item) => +sum + +item.amount, 0);
+  },
+
+  sumByCategory(category) {
+    return this.list
+      .filter((item) => item.category === category)
+      .reduce((sum, item) => +sum + +item.amount, 0);
+  },
+
+  isNotEmpty() {
+    return this.list.length > 0;
+  },
+
+  reset() {
+    this.list = [];
+  },
+};
+
 document.getElementById("expenseForm").addEventListener("submit", (e) => {
   e.preventDefault();
 
@@ -9,7 +55,7 @@ document.getElementById("expenseForm").addEventListener("submit", (e) => {
   clearForm();
 });
 
-document.getElementById("expenseForm").addEventListener("reset", clearForm());
+document.getElementById("expenseForm").addEventListener("reset", clearForm);
 
 function updateDOM(list) {
   updateLog(list);
@@ -18,100 +64,29 @@ function updateDOM(list) {
 }
 
 function clearForm() {
-  console.log("clearing forms");
   document.getElementById("expenseForm").reset();
 }
 
-const trackingList = {
-  id: 0,
-  list: {},
-
-  addEntry(expense, amount, category) {
-    this.id++;
-    this.list[this.id] = { expense, amount, category };
-  },
-
-  removeEntry(id) {
-    console.log("deleting entry");
-    console.log(" entry");
-    console.log(this.list[id]);
-    delete this.list[id];
-    console.log(this.list);
-  },
-
-  editEntry(id, expense, amount, category) {
-    console.log("updating entry");
-    console.log("entry");
-    console.log(this.list[id]);
-    this.list[id] = { expense, amount, category };
-    console.log(this.list);
-  },
-
-  filterBy(categories) {
-    return Object.values(this.list).filter((item) =>
-      categories.includes(item.category)
-    );
-  },
-
-  selectCategories() {},
-
-  uniqueCategories() {
-    return [...new Set(Object.values(this.list).map((item) => item.category))];
-  },
-
-  getTotal() {
-    return Object.values(this.list).reduce(
-      (sum, item) => +sum + +item.amount,
-      0
-    );
-  },
-
-  sumByCategory(category) {
-    return Object.values(this.list)
-      .filter((item) => item.category === category)
-      .reduce((sum, item) => +sum + +item.amount, 0);
-  },
-
-  isNotEmpty() {
-    return Object.keys(this.list).length > 0;
-  },
-
-  reset() {
-    this.id = 0;
-    this.list = {};
-  },
-};
+function renderExpenseItem({ id, expense, amount, category }) {
+  return `
+      <li class="expense-item" id="${id}">
+        <span class="expense-name">${expense}</span>
+        <span class="expense-amount">${amount}</span>
+        <span class="expense-category">${category}</span>
+        <button id="edit">Edit</button>
+        <button id="delete">Delete</button>
+      </li>`;
+}
 
 function updateLog(list) {
-  console.log("Updating log");
-  console.log(list);
   const log = document.getElementById("log");
-  if (Object.keys(list).length > 0) {
-    log.innerHTML = "";
-    for (let id in list) {
-      log.insertAdjacentHTML(
-        "beforeend",
-        `
-            <li class="expense-item" id="${id}">
-                    <span class="expense-name">${list[id].expense}</span>
-                    <span class="espense-amount">${list[id].amount}</span>
-                    <span class="expense-category">${list[id].category}</span>
-                    <button id="edit">Edit</button>
-                    <button id="delete">Delete</button>
-                  </li>
-        `
-      );
-    }
-    return;
-  }
-  log.innerHTML = `<li class="no-data">
-                  <span class="no-data">No Data</span>
-                  </li>`;
+  log.innerHTML = list.length
+    ? list.map(renderExpenseItem).join("")
+    : `<li class="no-data">No Data</li>`;
 }
 
 document.getElementById("log").addEventListener("click", (e) => {
   const parent = e.target.closest("li");
-  console.log(parent.id);
   const id = parent.id;
   if (e.target.tagName !== "BUTTON") {
     return;
@@ -132,7 +107,6 @@ document.getElementById("update").addEventListener("submit", (e) => {
     e.preventDefault();
 
     let id = document.getElementById("updateForm").firstElementChild.id;
-    console.log(`Saving updates for ${id}`);
     let expense = document.getElementById("updateExpense").value.trim();
     let amount = document.getElementById("updateAmount").value.trim();
     let category = document.getElementById("updateCategory").value.trim();
@@ -151,9 +125,6 @@ function deleteEntry(id) {
 }
 
 function updateEntry(id) {
-  console.log("Update entry");
-  console.log(id);
-  console.log(trackingList.list[id]);
   const log = document.getElementById("update");
   log.insertAdjacentHTML(
     "afterBegin",
@@ -214,40 +185,30 @@ function closeUpdateForm() {
   updateForm.remove();
 }
 
+function renderExpenseSummary(category) {
+  return `
+      <li class="per-category">
+        <span class="espense-amount">${category}</span>
+        <span class="expense-category">${trackingList.sumByCategory(
+          category
+        )}</span>
+      </li>`;
+}
+
 function updateSummary() {
   const summary = document.getElementById("summary");
+  const categories = trackingList.uniqueCategories().sort();
+
+  summary.innerHTML = trackingList.isNotEmpty
+    ? categories.map(renderExpenseSummary).join("")
+    : `<li class="no-data">No Data</li>`;
+
   const total = document.getElementById("total");
-  console.log("updating summary");
-  const categories = trackingList.uniqueCategories();
-  console.log("unique categories");
-  console.log(categories);
-  if (trackingList.isNotEmpty()) {
-    summary.innerHTML = "";
-    categories.sort().forEach((category) => {
-      summary.insertAdjacentHTML(
-        "afterbegin",
-        `
-            <li class="per-category">
-              <span class="espense-amount">${category}</span>
-              <span class="expense-category">${trackingList.sumByCategory(
-                category
-              )}</span>
-            </li>
-        `
-      );
-      total.textContent = trackingList.getTotal();
-    });
-    return;
-  }
-  summary.innerHTML = `<li class="no-data">
-                  <span class="no-data">No Data</span>
-                  </li>`;
+  total.textContent = trackingList.getTotal();
 }
 
 function toggleHeaders() {
-  console.log("displaying headers");
   const headers = document.querySelectorAll(".hidden");
-  console.log(headers);
   if (trackingList.isNotEmpty()) {
     headers.forEach((el) => {
       el.style.display = "block";
@@ -267,7 +228,6 @@ document.getElementById("filterBox").addEventListener("click", (e) => {
 });
 
 document.getElementById("filter").addEventListener("click", (e) => {
-  console.log("Open filter");
   const filterBox = document.getElementById("filterBox");
   const uniqueCategories = trackingList.uniqueCategories();
 
@@ -311,7 +271,6 @@ document.getElementById("filterBox").addEventListener("submit", (e) => {
       'input[type="checkbox"]:checked'
     );
     const categories = Array.from(selectedItems).map((item) => item.name);
-    console.log(trackingList.filterBy(categories));
     const tempList = trackingList.filterBy(categories);
     updateDOM(tempList);
     closeFilterForm();
@@ -331,7 +290,6 @@ document.getElementById("downloadBox").addEventListener("click", (e) => {
 });
 
 document.getElementById("download").addEventListener("click", (e) => {
-  console.log("Open download");
   const filterBox = document.getElementById("downloadBox");
 
   filterBox.insertAdjacentHTML(

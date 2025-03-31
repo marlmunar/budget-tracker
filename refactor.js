@@ -43,3 +43,32 @@ const trackingList = {
     this.list = [];
   },
 };
+
+document.getElementById("expenseForm").addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  let expense = document.getElementById("expense").value.trim();
+  let amount = parseInt(document.getElementById("amount").value.trim());
+  let category = document.getElementById("category").value.trim();
+  trackingList.addEntry(expense, amount, category);
+  e.target.reset();
+  updateLog(trackingList.list);
+});
+
+function renderExpenseItem(id, { expense, amount, category }) {
+  return `
+      <li class="expense-item" id="${id}">
+        <span class="expense-name">${expense}</span>
+        <span class="expense-amount">${amount}</span>
+        <span class="expense-category">${category}</span>
+        <button id="edit">Edit</button>
+        <button id="delete">Delete</button>
+      </li>`;
+}
+
+function updateLog(list) {
+  const log = document.getElementById("log");
+  log.innerHTML = list.length
+    ? list.map(renderExpenseItem).join("")
+    : `<li class="no-data">No Data</li>`;
+}
