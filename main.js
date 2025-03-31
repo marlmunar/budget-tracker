@@ -2,7 +2,7 @@ const trackingList = {
   list: [],
 
   addEntry(expense, amount, category) {
-    this.list.push({ id: Date.now(), expense, amount, category });
+    this.list.push({ id: Date.now().toString(), expense, amount, category });
   },
 
   removeEntry(id) {
@@ -15,24 +15,30 @@ const trackingList = {
     );
   },
 
-  filterBy(categories) {
-    return this.list.filter((item) => categories.includes(item.category));
+  getEntry(id) {
+    return this.list.filter((entry) => entry.id === id);
   },
 
-  selectedCategories() {},
+  filterBy(categories) {
+    return this.list.filter((entry) => categories.includes(entry.category));
+  },
+
+  selectedCategories(list) {
+    return list.map((entry) => entry.category);
+  },
 
   uniqueCategories() {
-    return this.list.map((item) => item.category);
+    return this.list.map((entry) => entry.category);
   },
 
   getTotal() {
-    return this.list.reduce((sum, item) => +sum + +item.amount, 0);
+    return this.list.reduce((sum, entry) => +sum + +entry.amount, 0);
   },
 
   sumByCategory(category) {
     return this.list
-      .filter((item) => item.category === category)
-      .reduce((sum, item) => +sum + +item.amount, 0);
+      .filter((entry) => entry.category === category)
+      .reduce((sum, entry) => +sum + +entry.amount, 0);
   },
 
   isNotEmpty() {
@@ -61,6 +67,9 @@ function updateDOM(list) {
   updateLog(list);
   updateSummary();
   toggleHeaders();
+  closeUpdateForm();
+  closeFilterForm();
+  closeDownloadForm();
 }
 
 function clearForm() {
@@ -70,9 +79,9 @@ function clearForm() {
 function renderExpenseItem({ id, expense, amount, category }) {
   return `
       <li class="expense-item" id="${id}">
-        <span class="expense-name">${expense}</span>
-        <span class="expense-amount">${amount}</span>
-        <span class="expense-category">${category}</span>
+        <span>${expense}</span>
+        <span>${amount}</span>
+        <span>${category}</span>
         <button id="edit">Edit</button>
         <button id="delete">Delete</button>
       </li>`;
@@ -82,40 +91,27 @@ function updateLog(list) {
   const log = document.getElementById("log");
   log.innerHTML = list.length
     ? list.map(renderExpenseItem).join("")
-    : `<li class="no-data">No Data</li>`;
+    : `<div class="no-data">No Data</div>`;
 }
 
 document.getElementById("log").addEventListener("click", (e) => {
   const parent = e.target.closest("li");
+  if (!parent) return;
+
   const id = parent.id;
-  if (e.target.tagName !== "BUTTON") {
-    return;
+  switch (e.target.id) {
+    case "delete":
+      deleteEntry(id);
+      break;
+    case "edit":
+      updateEntry(id);
+      break;
   }
-  e.target.matches("#delete") && deleteEntry(id);
-  e.target.matches("#edit") && updateEntry(id);
 });
 
 document.getElementById("update").addEventListener("click", (e) => {
-  if (e.target.tagName !== "BUTTON") {
-    return;
-  }
-  e.target.matches("#cancel") && closeUpdateForm();
-});
-
-document.getElementById("update").addEventListener("submit", (e) => {
-  if (e.target.matches("#updateForm")) {
-    e.preventDefault();
-
-    let id = document.getElementById("updateForm").firstElementChild.id;
-    let expense = document.getElementById("updateExpense").value.trim();
-    let amount = document.getElementById("updateAmount").value.trim();
-    let category = document.getElementById("updateCategory").value.trim();
-    trackingList.editEntry(id, expense, amount, category);
-    updateDOM(trackingList.list);
+  if (e.target.id === "cancel") {
     closeUpdateForm();
-    const edited = document.getElementById(id);
-    edited.scrollIntoView({ behavior: "smooth" });
-    edited.classList.add("highlighted");
   }
 });
 
@@ -125,10 +121,10 @@ function deleteEntry(id) {
 }
 
 function updateEntry(id) {
-  const log = document.getElementById("update");
-  log.insertAdjacentHTML(
-    "afterBegin",
-    `<form id="updateForm" class="update-entry absolute-box">
+  const update = document.getElementById("update");
+  const entry = trackingList.getEntry(id);
+
+  update.innerHTML = `<form id="updateForm" class="update-entry absolute-box">
               <div id="${id}" class="section-title"><h3>Edit entry</h3></div>
               <div>
                 <div>
@@ -137,8 +133,7 @@ function updateEntry(id) {
                     <input
                       id="updateExpense"
                       type="text"
-                      value="${trackingList.list[id].expense}"
-                      ;
+                      value="${entry[0].expense}"
                       name="expense"
                       autocomplete="off"
                       required
@@ -149,10 +144,12 @@ function updateEntry(id) {
                     <input
                       id="updateAmount"
                       type="number"
-                      value="${trackingList.list[id].amount}"
-                      ;
+                      value="${entry[0].amount}"
                       name="amount"
                       autocomplete="off"
+                      min="1"
+                      max="1000000"
+                      step="0.01"
                       required
                     />
                   </div>
@@ -161,8 +158,7 @@ function updateEntry(id) {
                     <input
                       id="updateCategory"
                       type="text"
-                      value="${trackingList.list[id].category}"
-                      ;
+                      value="${entry[0].category}"
                       name="category"
                       autocomplete="off"
                       required
@@ -175,14 +171,36 @@ function updateEntry(id) {
                 </div>
               </div>
             </form>
-          `
-  );
+          `;
+
   document.getElementById("updateForm").scrollIntoView({ behavior: "smooth" });
 }
 
+document.getElementById("update").addEventListener("submit", (e) => {
+  if (e.target.matches("#updateForm")) {
+    e.preventDefault();
+
+    let id = document.getElementById("updateForm").firstElementChild.id;
+    let expense = document.getElementById("updateExpense").value.trim();
+    let amount = document.getElementById("updateAmount").value.trim();
+    let category = document.getElementById("updateCategory").value.trim();
+
+    trackingList.editEntry(id, expense, amount, category);
+
+    updateDOM(trackingList.list);
+    closeUpdateForm();
+
+    const edited = document.getElementById(id);
+    edited.scrollIntoView({ behavior: "smooth" });
+    edited.classList.add("highlighted");
+  }
+});
+
 function closeUpdateForm() {
   const updateForm = document.getElementById("updateForm");
-  updateForm.remove();
+  if (updateForm) {
+    updateForm.remove();
+  }
 }
 
 function renderExpenseSummary(category) {
@@ -199,9 +217,9 @@ function updateSummary() {
   const summary = document.getElementById("summary");
   const categories = trackingList.uniqueCategories().sort();
 
-  summary.innerHTML = trackingList.isNotEmpty
+  summary.innerHTML = trackingList.isNotEmpty()
     ? categories.map(renderExpenseSummary).join("")
-    : `<li class="no-data">No Data</li>`;
+    : `<div class="no-data">No Data</div>`;
 
   const total = document.getElementById("total");
   total.textContent = trackingList.getTotal();
@@ -221,10 +239,9 @@ function toggleHeaders() {
 }
 
 document.getElementById("filterBox").addEventListener("click", (e) => {
-  if (e.target.tagName !== "BUTTON") {
-    return;
+  if (e.target.id === "cancel") {
+    closeFilterForm();
   }
-  e.target.matches("#cancel") && closeFilterForm();
 });
 
 document.getElementById("filter").addEventListener("click", (e) => {
@@ -270,7 +287,7 @@ document.getElementById("filterBox").addEventListener("submit", (e) => {
     const selectedItems = filterBox.querySelectorAll(
       'input[type="checkbox"]:checked'
     );
-    const categories = Array.from(selectedItems).map((item) => item.name);
+    const categories = Array.from(selectedItems).map((entry) => entry.name);
     const tempList = trackingList.filterBy(categories);
     updateDOM(tempList);
     closeFilterForm();
@@ -279,14 +296,15 @@ document.getElementById("filterBox").addEventListener("submit", (e) => {
 
 function closeFilterForm() {
   const filterForm = document.getElementById("filterForm");
-  filterForm.remove();
+  if (filterForm) {
+    filterForm.remove();
+  }
 }
 
 document.getElementById("downloadBox").addEventListener("click", (e) => {
-  if (e.target.tagName !== "BUTTON") {
-    return;
+  if (e.target.id === "cancel") {
+    closeDownloadForm();
   }
-  e.target.matches("#cancel") && closeDownloadForm();
 });
 
 document.getElementById("download").addEventListener("click", (e) => {
@@ -300,7 +318,7 @@ document.getElementById("download").addEventListener("click", (e) => {
               </div>
               <div>
                 <div class="file-input">
-                  <label for="fileName">Give a name</label>
+                  <label for="fileName">Give your file a name</label>
                   <input
                     type="text"
                     id="fileName"
@@ -321,7 +339,7 @@ document.getElementById("download").addEventListener("click", (e) => {
 document.getElementById("downloadBox").addEventListener("submit", (e) => {
   e.preventDefault();
 
-  const data = processData(trackingList.list);
+  const data = trackingList.list();
   const fileName = document.getElementById("fileName").value.trim();
 
   let worksheet = XLSX.utils.json_to_sheet(data);
@@ -332,18 +350,9 @@ document.getElementById("downloadBox").addEventListener("submit", (e) => {
   XLSX.writeFile(workbook, `${fileName}.xlsx`);
 });
 
-function processData(data) {
-  return Object.values(data).map((obj) => {
-    let transformedObj = {};
-    for (let key in obj) {
-      let capitalizedKey = key.charAt(0).toUpperCase() + key.slice(1);
-      transformedObj[capitalizedKey] = obj[key];
-    }
-    return transformedObj;
-  });
-}
-
 function closeDownloadForm() {
   const downloadForm = document.getElementById("downloadForm");
-  downloadForm.remove();
+  if (downloadForm) {
+    downloadForm.remove();
+  }
 }

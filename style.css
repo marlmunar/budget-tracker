@@ -16,6 +16,7 @@
   --item-template-columns: 19% 19% 19% 15% 15%;
   --header-template-columns: 19% 19% 19% 29%;
   --update-width: 99%;
+  --row-color: #c7c7e270;
   font-size: 14px;
 }
 
@@ -196,8 +197,8 @@ section {
   border: 2px solid #333;
 }
 
-section h2 {
-  flex: 2;
+.section-title h2 {
+  flex: 3;
   font-size: var(--section-font-large);
   color: #0f0e47;
 }
@@ -285,7 +286,7 @@ li {
 .expense-item {
   font-size: var(--section-font-small);
   border-radius: 15px;
-  background-color: #ededff91;
+  background-color: var(--row-color);
   padding: 0 calc(0.5 * var(--main-padding));
   height: calc(1.75 * var(--section-font-large));
   display: grid;
@@ -302,7 +303,7 @@ li {
 
 .no-data {
   font-size: calc(0.9 * var(--section-font-medium));
-  margin: 10px;
+  margin: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -358,7 +359,7 @@ h3 {
 .per-category {
   font-size: var(--section-font-small);
   border-radius: 15px;
-  background-color: #ededff91;
+  background-color: var(--row-color);
   padding: 0 calc(0.5 * var(--main-padding));
   height: calc(1.75 * var(--section-font-large));
   display: flex;
@@ -369,7 +370,7 @@ h3 {
 
 .header-row {
   border-radius: 15px;
-  background-color: #ededff91;
+  background-color: var(--row-color);
   padding: 0 calc(0.5 * var(--main-padding));
   height: 40px;
   justify-content: space-between;
