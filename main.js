@@ -20,11 +20,10 @@ const trackingList = {
     this.list = this.list.map((entry) =>
       entry.id === id ? { ...entry, expense, amount, category } : entry
     );
-    console.log(this.list);
   },
 
   getEntry(id) {
-    return this.list.filter((entry) => entry.id === id);
+    return this.list.find((entry) => entry.id === id);
   },
 
   setSelected(categories) {
@@ -56,7 +55,6 @@ const trackingList = {
   resetFilter() {
     this.selected = this.uniqueCategories();
     this.isFiltered = false;
-    console.log(this.isFiltered);
   },
 };
 
@@ -99,11 +97,9 @@ function renderExpenseItem({ id, expense, amount, category }) {
 }
 
 function updateLog() {
-  console.log(trackingList.isFiltered);
   const list = trackingList.isFiltered
     ? trackingList.applyFilter(trackingList.selected)
     : trackingList.list;
-  console.log(list);
   const log = document.getElementById("log");
   log.innerHTML = list.length
     ? list.map(renderExpenseItem).join("")
@@ -149,7 +145,7 @@ function updateEntry(id) {
                     <input
                       id="updateExpense"
                       type="text"
-                      value="${entry[0].expense}"
+                      value="${entry.expense}"
                       name="expense"
                       autocomplete="off"
                       required
@@ -160,7 +156,7 @@ function updateEntry(id) {
                     <input
                       id="updateAmount"
                       type="number"
-                      value="${entry[0].amount}"
+                      value="${entry.amount}"
                       name="amount"
                       autocomplete="off"
                       min="1"
@@ -174,7 +170,7 @@ function updateEntry(id) {
                     <input
                       id="updateCategory"
                       type="text"
-                      value="${entry[0].category}"
+                      value="${entry.category}"
                       name="category"
                       autocomplete="off"
                       required
@@ -207,8 +203,10 @@ document.getElementById("update").addEventListener("submit", (e) => {
     closeUpdateForm();
 
     const edited = document.getElementById(id);
-    edited.scrollIntoView({ behavior: "smooth" });
-    edited.classList.add("highlighted");
+    if (edited) {
+      edited.scrollIntoView({ behavior: "smooth" });
+      edited.classList.add("highlighted");
+    }
   }
 });
 
@@ -222,10 +220,8 @@ function closeUpdateForm() {
 function renderExpenseSummary(category) {
   return `
       <li class="per-category">
-        <span class="espense-amount">${category}</span>
-        <span class="expense-category">${trackingList.sumByCategory(
-          category
-        )}</span>
+        <span>${category}</span>
+        <span>${trackingList.sumByCategory(category)}</span>
       </li>`;
 }
 
@@ -255,13 +251,21 @@ function toggleHeaders() {
 }
 
 document.getElementById("filterBox").addEventListener("click", (e) => {
-  if (e.target.id === "cancel") {
-    closeFilterForm();
+  const target = e.target.id;
+
+  switch (target) {
+    case "removeFilter":
+      trackingList.resetFilter();
+      closeFilterForm();
+      renderFilterForm();
+      break;
+    case "cancel":
+      closeFilterForm();
+      break;
   }
 });
 
-document.getElementById("filter").addEventListener("click", (e) => {
-  let checked = "";
+function renderFilterForm() {
   const filterBox = document.getElementById("filterBox");
   const uniqueCategories = trackingList.uniqueCategories();
 
@@ -270,7 +274,7 @@ document.getElementById("filter").addEventListener("click", (e) => {
     `<form id="filterForm" class="absolute-box filter-table">
       <div class="section-title">
         <h3>Filter by Categories</h3>
-        <button id="remove-filter" title="Reset filter"><i class="fa-solid fa-filter-circle-xmark"></i></button>
+        <button type="button" id="removeFilter" title="Reset filter"><i class="fa-solid fa-filter-circle-xmark"></i></button>
       </div>
       <div>
         <div class="checklist">
@@ -281,8 +285,9 @@ document.getElementById("filter").addEventListener("click", (e) => {
               <div class="checkbox">
                 <input type="checkbox" id="category${
                   index + 1
-                }" name="${category}" ${(checked =
-                trackingList.selected.includes(category) ? "checked" : "")}/>
+                }" name="${category}" ${
+                trackingList.selected.includes(category) ? "checked" : ""
+              }/>
                 <label for="category${index + 1}">${category}</label>
               </div>
             `
@@ -296,21 +301,25 @@ document.getElementById("filter").addEventListener("click", (e) => {
       </div>
     </form>`
   );
+}
+
+document.getElementById("filter").addEventListener("click", (e) => {
+  renderFilterForm();
 });
 
 document.getElementById("filterBox").addEventListener("submit", (e) => {
   if (e.target.matches("#filterForm")) {
     e.preventDefault();
 
-    console.log("filtering form");
-
     const filterBox = document.getElementById("filterBox");
     const selectedItems = filterBox.querySelectorAll(
       'input[type="checkbox"]:checked'
     );
     const categories = Array.from(selectedItems).map((entry) => entry.name);
-    trackingList.setSelected(categories);
-    trackingList.isFiltered = true;
+    if (trackingList.uniqueCategories().length > categories.length) {
+      trackingList.setSelected(categories);
+      trackingList.isFiltered = true;
+    }
     closeFilterForm();
     updateDOM();
   }
@@ -329,10 +338,10 @@ document.getElementById("downloadBox").addEventListener("click", (e) => {
   }
 });
 
-document.getElementById("download").addEventListener("click", (e) => {
-  const filterBox = document.getElementById("downloadBox");
+function renderDownloadForm() {
+  const downloadBox = document.getElementById("downloadBox");
 
-  filterBox.insertAdjacentHTML(
+  downloadBox.insertAdjacentHTML(
     "afterBegin",
     `<form id="downloadForm" class="absolute-box download-form">
               <div class="section-title">
@@ -356,19 +365,23 @@ document.getElementById("download").addEventListener("click", (e) => {
               </div>
             </form>`
   );
+}
+
+document.getElementById("download").addEventListener("click", (e) => {
+  renderDownloadForm();
 });
 
 document.getElementById("downloadBox").addEventListener("submit", (e) => {
   e.preventDefault();
 
-  const data = trackingList.list();
-  const fileName = document.getElementById("fileName").value.trim();
+  const data = trackingList.list;
+  let fileName =
+    document.getElementById("fileName").value.trim() || "MyExpenses";
 
   let worksheet = XLSX.utils.json_to_sheet(data);
   let workbook = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
 
-  // Generate Excel file and trigger download
   XLSX.writeFile(workbook, `${fileName}.xlsx`);
 });
 

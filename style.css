@@ -115,6 +115,10 @@ section {
   background-color: #f3f4fd;
 }
 
+i {
+  pointer-events: none;
+}
+
 .section-title {
   position: relative;
   display: flex;
@@ -161,7 +165,7 @@ section {
   width: 45%;
 }
 
-#remove-filter {
+#removeFilter {
   height: calc(1.25 * var(--section-font-large));
   padding: calc(0.55 * var(--main-padding));
   display: flex;
