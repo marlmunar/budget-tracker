@@ -338,8 +338,9 @@ document.getElementById("filterBox").addEventListener("submit", (e) => {
       'input[type="checkbox"]:checked'
     );
     const categories = Array.from(selectedItems).map((entry) => entry.name);
+    console.log(categories);
+    trackingList.setSelected(categories);
     if (trackingList.uniqueCategories().length > categories.length) {
-      trackingList.setSelected(categories);
       trackingList.isFiltered = true;
     }
     closeFilterForm();
