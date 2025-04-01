@@ -115,6 +115,10 @@ section {
   background-color: #f3f4fd;
 }
 
+i {
+  pointer-events: none;
+}
+
 .section-title {
   position: relative;
   display: flex;
@@ -125,9 +129,9 @@ section {
   padding: var(--main-padding);
 }
 
-.section-title > * {
+/* .section-title > * {
   flex: 1;
-}
+} */
 
 .section-buttons {
   display: flex;
@@ -159,6 +163,19 @@ section {
 .filter-table {
   top: 5%;
   width: 45%;
+}
+
+#removeFilter {
+  height: calc(1.25 * var(--section-font-large));
+  padding: calc(0.55 * var(--main-padding));
+  display: flex;
+  align-items: center;
+}
+
+#remove-filter button:hover {
+  background-color: #59b5f7;
+  cursor: pointer;
+  color: #2f2f2f;
 }
 
 .checklist {
@@ -287,8 +304,8 @@ li {
   font-size: var(--section-font-small);
   border-radius: 15px;
   background-color: var(--row-color);
-  padding: 0 calc(0.5 * var(--main-padding));
-  height: calc(1.75 * var(--section-font-large));
+  padding: calc(0.55 * var(--main-padding));
+  height: calc(2.25 * var(--section-font-large));
   display: grid;
   grid-template-columns: var(--item-template-columns);
   justify-content: space-between;
@@ -360,8 +377,8 @@ h3 {
   font-size: var(--section-font-small);
   border-radius: 15px;
   background-color: var(--row-color);
-  padding: 0 calc(0.5 * var(--main-padding));
-  height: calc(1.75 * var(--section-font-large));
+  padding: calc(0.75 * var(--main-padding));
+  height: calc(2.25 * var(--section-font-large));
   display: flex;
   justify-content: space-between;
   align-items: center;
