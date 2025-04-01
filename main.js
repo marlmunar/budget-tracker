@@ -58,6 +58,27 @@ const trackingList = {
   },
 };
 
+function displayMessage(message) {
+  const messageBox = document.getElementById("message-box");
+  const content = document.createElement("div");
+
+  content.innerHTML = `<div id="message" class="absolute-box message">
+              <p>Entry succesfully added!</p>
+            </div>`;
+  messageBox.appendChild(content);
+
+  setTimeout(() => {
+    content.firstElementChild.classList.add("show");
+  }, 10);
+
+  setTimeout(() => {
+    content.firstElementChild.classList.add("fade-out");
+    setTimeout(() => {
+      content.remove();
+    }, 500);
+  }, 1500);
+}
+
 document.getElementById("expenseForm").addEventListener("submit", (e) => {
   e.preventDefault();
 
@@ -66,6 +87,7 @@ document.getElementById("expenseForm").addEventListener("submit", (e) => {
   let category = document.getElementById("category").value.trim();
   trackingList.addEntry(expense, amount, category);
   trackingList.resetFilter();
+  displayMessage();
   updateDOM();
   clearForm();
 });
