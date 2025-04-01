@@ -1,8 +1,15 @@
 const trackingList = {
   list: [],
+  selected: [],
+  isFiltered: false,
 
   addEntry(expense, amount, category) {
-    this.list.push({ id: Date.now().toString(), expense, amount, category });
+    this.list.push({
+      id: Date.now().toString(),
+      expense,
+      amount,
+      category,
+    });
   },
 
   removeEntry(id) {
@@ -13,22 +20,23 @@ const trackingList = {
     this.list = this.list.map((entry) =>
       entry.id === id ? { ...entry, expense, amount, category } : entry
     );
+    console.log(this.list);
   },
 
   getEntry(id) {
     return this.list.filter((entry) => entry.id === id);
   },
 
-  filterBy(categories) {
+  setSelected(categories) {
+    this.selected = [...categories];
+  },
+
+  applyFilter(categories) {
     return this.list.filter((entry) => categories.includes(entry.category));
   },
 
-  selectedCategories(list) {
-    return list.map((entry) => entry.category);
-  },
-
   uniqueCategories() {
-    return this.list.map((entry) => entry.category);
+    return [...new Set(this.list.map((entry) => entry.category))];
   },
 
   getTotal() {
@@ -45,8 +53,10 @@ const trackingList = {
     return this.list.length > 0;
   },
 
-  reset() {
-    this.list = [];
+  resetFilter() {
+    this.selected = this.uniqueCategories();
+    this.isFiltered = false;
+    console.log(this.isFiltered);
   },
 };
 
@@ -57,14 +67,15 @@ document.getElementById("expenseForm").addEventListener("submit", (e) => {
   let amount = parseInt(document.getElementById("amount").value.trim());
   let category = document.getElementById("category").value.trim();
   trackingList.addEntry(expense, amount, category);
-  updateDOM(trackingList.list);
+  trackingList.resetFilter();
+  updateDOM();
   clearForm();
 });
 
 document.getElementById("expenseForm").addEventListener("reset", clearForm);
 
-function updateDOM(list) {
-  updateLog(list);
+function updateDOM() {
+  updateLog();
   updateSummary();
   toggleHeaders();
   closeUpdateForm();
@@ -87,7 +98,12 @@ function renderExpenseItem({ id, expense, amount, category }) {
       </li>`;
 }
 
-function updateLog(list) {
+function updateLog() {
+  console.log(trackingList.isFiltered);
+  const list = trackingList.isFiltered
+    ? trackingList.applyFilter(trackingList.selected)
+    : trackingList.list;
+  console.log(list);
   const log = document.getElementById("log");
   log.innerHTML = list.length
     ? list.map(renderExpenseItem).join("")
@@ -117,7 +133,7 @@ document.getElementById("update").addEventListener("click", (e) => {
 
 function deleteEntry(id) {
   trackingList.removeEntry(id);
-  updateDOM(trackingList.list);
+  updateDOM();
 }
 
 function updateEntry(id) {
@@ -187,7 +203,7 @@ document.getElementById("update").addEventListener("submit", (e) => {
 
     trackingList.editEntry(id, expense, amount, category);
 
-    updateDOM(trackingList.list);
+    updateDOM();
     closeUpdateForm();
 
     const edited = document.getElementById(id);
@@ -245,6 +261,7 @@ document.getElementById("filterBox").addEventListener("click", (e) => {
 });
 
 document.getElementById("filter").addEventListener("click", (e) => {
+  let checked = "";
   const filterBox = document.getElementById("filterBox");
   const uniqueCategories = trackingList.uniqueCategories();
 
@@ -253,6 +270,7 @@ document.getElementById("filter").addEventListener("click", (e) => {
     `<form id="filterForm" class="absolute-box filter-table">
       <div class="section-title">
         <h3>Filter by Categories</h3>
+        <button id="remove-filter" title="Reset filter"><i class="fa-solid fa-filter-circle-xmark"></i></button>
       </div>
       <div>
         <div class="checklist">
@@ -263,7 +281,8 @@ document.getElementById("filter").addEventListener("click", (e) => {
               <div class="checkbox">
                 <input type="checkbox" id="category${
                   index + 1
-                }" name="${category}" checked/>
+                }" name="${category}" ${(checked =
+                trackingList.selected.includes(category) ? "checked" : "")}/>
                 <label for="category${index + 1}">${category}</label>
               </div>
             `
@@ -283,14 +302,17 @@ document.getElementById("filterBox").addEventListener("submit", (e) => {
   if (e.target.matches("#filterForm")) {
     e.preventDefault();
 
+    console.log("filtering form");
+
     const filterBox = document.getElementById("filterBox");
     const selectedItems = filterBox.querySelectorAll(
       'input[type="checkbox"]:checked'
     );
     const categories = Array.from(selectedItems).map((entry) => entry.name);
-    const tempList = trackingList.filterBy(categories);
-    updateDOM(tempList);
+    trackingList.setSelected(categories);
+    trackingList.isFiltered = true;
     closeFilterForm();
+    updateDOM();
   }
 });
 
