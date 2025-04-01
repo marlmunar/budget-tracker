@@ -58,12 +58,12 @@ const trackingList = {
   },
 };
 
-function displayMessage(message) {
+function displayMessage() {
   const messageBox = document.getElementById("message-box");
   const content = document.createElement("div");
 
   content.innerHTML = `<div id="message" class="absolute-box message">
-              <p>Entry succesfully added!</p>
+              <p>Entry successfully added!</p>
             </div>`;
   messageBox.appendChild(content);
 
