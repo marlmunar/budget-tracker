@@ -252,8 +252,9 @@ function updateSummary() {
   const summary = document.getElementById("summary");
   const categories = trackingList.uniqueCategories().sort();
   trackingList.summary = categories.map((category) => {
-    return [category, trackingList.sumByCategory(category)];
+    return { category, amount: trackingList.sumByCategory(category) };
   });
+  console.log(trackingList.list);
   console.log(trackingList.summary);
 
   summary.innerHTML = trackingList.isNotEmpty()
