@@ -1,6 +1,7 @@
 const trackingList = {
   list: [],
   selected: [],
+  summary: [],
   isFiltered: false,
 
   addEntry(expense, amount, category) {
@@ -250,6 +251,10 @@ function renderExpenseSummary(category) {
 function updateSummary() {
   const summary = document.getElementById("summary");
   const categories = trackingList.uniqueCategories().sort();
+  trackingList.summary = categories.map((category) => {
+    return [category, trackingList.sumByCategory(category)];
+  });
+  console.log(trackingList.summary);
 
   summary.innerHTML = trackingList.isNotEmpty()
     ? categories.map(renderExpenseSummary).join("")
