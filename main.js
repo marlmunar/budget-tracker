@@ -1,6 +1,7 @@
 const trackingList = {
   list: [],
   selected: [],
+  summary: [],
   isFiltered: false,
 
   addEntry(expense, amount, category) {
@@ -46,6 +47,22 @@ const trackingList = {
     return this.list
       .filter((entry) => entry.category === category)
       .reduce((sum, entry) => +sum + +entry.amount, 0);
+  },
+
+  countByCategory(category) {
+    return this.list
+      .filter((entry) => entry.category === category)
+      .reduce((count) => ++count, 0);
+  },
+
+  getExpenseList() {
+    return this.list.map((entry) => {
+      return {
+        expense: entry.expense,
+        amount: entry.amount,
+        category: entry.category,
+      };
+    });
   },
 
   isNotEmpty() {
@@ -250,6 +267,13 @@ function renderExpenseSummary(category) {
 function updateSummary() {
   const summary = document.getElementById("summary");
   const categories = trackingList.uniqueCategories().sort();
+  trackingList.summary = categories.map((category) => {
+    return {
+      category,
+      count: trackingList.countByCategory(category),
+      amount: trackingList.sumByCategory(category),
+    };
+  });
 
   summary.innerHTML = trackingList.isNotEmpty()
     ? categories.map(renderExpenseSummary).join("")
@@ -397,13 +421,53 @@ document.getElementById("download").addEventListener("click", (e) => {
 document.getElementById("downloadBox").addEventListener("submit", (e) => {
   e.preventDefault();
 
-  const data = trackingList.list;
   let fileName =
     document.getElementById("fileName").value.trim() || "MyExpenses";
 
-  let worksheet = XLSX.utils.json_to_sheet(data);
-  let workbook = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
+  const worksheetData1 = trackingList.getExpenseList();
+  const worksheetData2 = [...trackingList.summary];
+  console.log(worksheetData1);
+  console.log(worksheetData2);
+
+  const worksheet1 = XLSX.utils.json_to_sheet(worksheetData1);
+  const worksheet2 = XLSX.utils.json_to_sheet(worksheetData2);
+
+  const setHeaders = (worksheet, columns) => {
+    columns.forEach((col, index) => {
+      const cell = worksheet[XLSX.utils.encode_col(index) + "1"];
+      console.log(cell);
+      if (cell) {
+        cell.v = col;
+      }
+    });
+  };
+
+  const headers1 = ["Expense", "Amount", "Category"];
+  const headers2 = ["Category", "Total Count", "Total Amount"];
+
+  setHeaders(worksheet1, headers1);
+  setHeaders(worksheet2, headers2);
+
+  const getMaxColumnWidth = (data) => {
+    let maxWidths = [];
+
+    data.forEach((row, index) => {
+      const value = String(row);
+      const length = value.length;
+      if (!maxWidths[index] || length > maxWidths[index]) {
+        maxWidths[index] = length;
+      }
+    });
+
+    return maxWidths.map((length) => ({ wch: length + 2 }));
+  };
+
+  worksheet1["!cols"] = getMaxColumnWidth(headers1);
+  worksheet2["!cols"] = getMaxColumnWidth(headers2);
+
+  const workbook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(workbook, worksheet1, "Expense Details");
+  XLSX.utils.book_append_sheet(workbook, worksheet2, "Expense Summary");
 
   XLSX.writeFile(workbook, `${fileName}.xlsx`);
 });
