@@ -362,7 +362,6 @@ document.getElementById("filterBox").addEventListener("submit", (e) => {
       'input[type="checkbox"]:checked'
     );
     const categories = Array.from(selectedItems).map((entry) => entry.name);
-    console.log(categories);
     trackingList.setSelected(categories);
     if (trackingList.uniqueCategories().length > categories.length) {
       trackingList.isFiltered = true;
@@ -426,8 +425,6 @@ document.getElementById("downloadBox").addEventListener("submit", (e) => {
 
   const worksheetData1 = trackingList.getExpenseList();
   const worksheetData2 = [...trackingList.summary];
-  console.log(worksheetData1);
-  console.log(worksheetData2);
 
   const worksheet1 = XLSX.utils.json_to_sheet(worksheetData1);
   const worksheet2 = XLSX.utils.json_to_sheet(worksheetData2);
@@ -435,7 +432,6 @@ document.getElementById("downloadBox").addEventListener("submit", (e) => {
   const setHeaders = (worksheet, columns) => {
     columns.forEach((col, index) => {
       const cell = worksheet[XLSX.utils.encode_col(index) + "1"];
-      console.log(cell);
       if (cell) {
         cell.v = col;
       }
