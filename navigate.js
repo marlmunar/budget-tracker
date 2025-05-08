@@ -1,7 +1,9 @@
 const routes = {
   "/": { view: "/views/home.html", title: "Home" },
-  "/tracker": { view: "/views/about.html", title: "Tracker" },
+  "/tracker": { view: "/views/tracker.html", title: "Tracker" },
   "/profile": { view: "/views/profile.html", title: "Profile" },
+  "/signin": { view: "/views/signIn.html", title: "Sign In" },
+  "/register": { view: "/views/register.html", title: "Register" },
   "/logout": { path: "" },
 };
 
