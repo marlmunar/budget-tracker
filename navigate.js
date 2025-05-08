@@ -1,0 +1,43 @@
+const routes = {
+  "/": { view: "/views/home.html", title: "Home" },
+  "/tracker": { view: "/views/about.html", title: "Tracker" },
+  "/profile": { view: "/views/profile.html", title: "Profile" },
+  "/logout": { path: "" },
+};
+
+function navigateTo(url) {
+  history.pushState(null, null, url);
+  router();
+}
+
+async function router() {
+  const path = window.location.pathname;
+  const route = routes[path] || "<h1>404 Not Found</h1>";
+  console.log(routes[path]);
+
+  if (!route.view) {
+    return;
+  }
+  try {
+    const res = await fetch(route.view);
+    const html = await res.text();
+    document.getElementById("app").innerHTML = html;
+
+    document.title = `Expense Tracker - ${route.title}`;
+  } catch (err) {
+    document.getElementById("app").innerHTML = "<h1>Error loading page</h1>";
+    document.title = "Error";
+  }
+}
+
+window.addEventListener("popstate", router);
+
+document.addEventListener("DOMContentLoaded", () => {
+  document.body.addEventListener("click", (e) => {
+    if (e.target.matches("[data-navigate]")) {
+      e.preventDefault();
+      navigateTo(e.target.href);
+    }
+  });
+  router();
+});
