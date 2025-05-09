@@ -17,7 +17,6 @@
   --header-template-columns: 19% 19% 19% 29%;
   --update-width: 99%;
   --row-color: #c7c7e270;
-  font-size: 14px;
 }
 
 * {
@@ -26,7 +25,9 @@
   font-family: "Varela Round", sans-serif;
   box-sizing: border-box;
 }
-
+main {
+  min-width: 90%;
+}
 body {
   position: relative;
   overflow-x: hidden;
@@ -81,9 +82,9 @@ header p {
   font-size: var(--header-p-size);
 }
 
-main {
+#tracker {
   flex: 1;
-  width: 90%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: var(--medium-gap);
@@ -481,7 +482,7 @@ h3 {
     min-height: 95px;
   }
 
-  main {
+  #tracker {
     display: grid;
     grid-template-columns: 49% 49%;
     grid-template-rows: auto auto;
