@@ -8,10 +8,10 @@ form.addEventListener("submit", (e) => {
   e.preventDefault();
 
   const userInfo = {
-    userName,
-    userEmail,
-    userPassword,
-    confirmPassword,
+    name: userName.value.trim(),
+    email: userEmail.value.trim(),
+    password: userPassword.value.trim(),
+    confirmPassword: confirmPassword.value.trim(),
   };
 
   console.log(JSON.stringify(userInfo));
