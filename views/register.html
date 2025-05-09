@@ -1,2 +1,57 @@
 <h1>Register Page</h1>
 <p>Hello, this is the register page.</p>
+
+<form id="registerForm">
+  <div id="register" class="section-title"><h3>Register</h3></div>
+  <div>
+    <div>
+      <div class="input-column">
+        <label for="name">Name</label>
+        <input
+          id="userName"
+          type="text"
+          name="expense"
+          autocomplete="off"
+          required
+        />
+      </div>
+      <div class="input-column">
+        <label for="email">Email</label>
+        <input
+          id="userEmail"
+          type="email"
+          name="email"
+          autocomplete="off"
+          required
+        />
+      </div>
+      <div class="input-column">
+        <label for="password">Password</label>
+        <input
+          id="userPassword"
+          type="password"
+          name="password"
+          autocomplete="off"
+          required
+        />
+      </div>
+      <div class="input-column">
+        <label for="confirmPassword">Confirm Password</label>
+        <input
+          id="confirmPassword"
+          type="password"
+          name="confirmPassword"
+          autocomplete="off"
+          required
+        />
+      </div>
+    </div>
+    <div class="">
+      <button type="submit">Sign In</button>
+    </div>
+    <div class="">
+      <p>Already have an account?</p>
+      <a href="/signin" data-navigate>Sigin In Instead</a>
+    </div>
+  </div>
+</form>
