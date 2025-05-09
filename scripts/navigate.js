@@ -3,7 +3,11 @@ const routes = {
   "/tracker": { view: "/views/tracker.html", title: "Tracker" },
   "/profile": { view: "/views/profile.html", title: "Profile" },
   "/signin": { view: "/views/signIn.html", title: "Sign In" },
-  "/register": { view: "/views/register.html", title: "Register" },
+  "/register": {
+    view: "/views/register.html",
+    title: "Register",
+    script: "/scripts/register.js",
+  },
   "/logout": { path: "" },
 };
 
@@ -26,6 +30,13 @@ async function router() {
     document.getElementById("app").innerHTML = html;
 
     document.title = `Expense Tracker - ${route.title}`;
+
+    if (route.script) {
+      const script = document.createElement("script");
+      script.src = route.script;
+      script.defer = true;
+      document.body.appendChild(script);
+    }
   } catch (err) {
     document.getElementById("app").innerHTML = "<h1>Error loading page</h1>";
     document.title = "Error";
