@@ -2,11 +2,14 @@ import express from "express";
 
 const router = express.Router();
 
-router.post("/register", () => {});
-router.post("/login", () => {});
 router
-  .route("/profile/:id")
+  .route("/")
   .get(() => {})
-  .put(() => {});
+  .post(() => {});
+router
+  .route("/:id")
+  .get(() => {})
+  .put(() => {})
+  .delete(() => {});
 
 export default router;
