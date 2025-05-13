@@ -4,12 +4,12 @@ const router = express.Router();
 
 router
   .route("/")
-  .get(() => {})
-  .post(() => {});
+  .get((req, res) => {})
+  .post((req, res) => {});
 router
   .route("/:id")
-  .get(() => {})
-  .put(() => {})
-  .delete(() => {});
+  .get((req, res) => {})
+  .put((req, res) => {})
+  .delete((req, res) => {});
 
 export default router;

@@ -1,8 +1,8 @@
 import express from "express";
 import dotenv from "dotenv";
 
-import userRoutes from "./routes/user.routes";
-import logRoutes from "./routes/log.routes";
+import userRoutes from "./routes/user.routes.js";
+import logRoutes from "./routes/log.routes.js";
 
 dotenv.config();
 const PORT = process.env.PORT;
