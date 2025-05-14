@@ -27,8 +27,8 @@ const logoutUser = asyncHandler(async (req, res) => {
   });
 });
 
-// @desc Logout User
-// @route POST /api/logout
+// @desc Get Profile
+// @route GET /api/user/profile/:id
 // @access PUBLIC
 const getProfile = asyncHandler(async (req, res) => {
   res.status(200).json({
@@ -36,8 +36,8 @@ const getProfile = asyncHandler(async (req, res) => {
   });
 });
 
-// @desc Logout User
-// @route POST /api/logout
+// @desc Update Profile
+// @route PUT /api/user/profile/:id
 // @access PUBLIC
 const updateProfile = asyncHandler(async (req, res) => {
   res.status(200).json({
