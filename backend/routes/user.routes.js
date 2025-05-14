@@ -1,12 +1,17 @@
 import express from "express";
+import {
+  registerUser,
+  loginUser,
+  logoutUser,
+  getProfile,
+  updateProfile,
+} from "../controllers/user.controller.js";
 
 const router = express.Router();
 
-router.post("/register", (req, res) => {});
-router.post("/login", (req, res) => {});
-router
-  .route("/profile/:id")
-  .get((req, res) => {})
-  .put((req, res) => {});
+router.post("/register", registerUser);
+router.post("/login", loginUser);
+router.post("/logout", logoutUser);
+router.route("/profile/:id").get(getProfile).put(updateProfile);
 
 export default router;

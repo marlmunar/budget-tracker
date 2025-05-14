@@ -8,7 +8,7 @@ dotenv.config();
 const PORT = process.env.PORT;
 
 const app = express();
-app.use("/api/users/", userRoutes);
+app.use("/api/user", userRoutes);
 app.use("/api/logs", logRoutes);
 
 app.listen(PORT, () =>
