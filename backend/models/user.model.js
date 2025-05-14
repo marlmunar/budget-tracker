@@ -1,39 +1,42 @@
 import mongoose from "mongoose";
+import bcrypt from "bcryptjs";
 
-const logSchema = mongoose.Schema(
+const userSchema = mongoose.Schema(
   {
-    userId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+    name: {
+      type: String,
       required: true,
     },
-    name: { type: String, required: true },
-    categories: {
-      type: [
-        {
-          name: { type: String, required: true },
-          color: { type: String },
-        },
-      ],
-      validate: {
-        validator: function (categories) {
-          const names = categories.map((c) => c.name.toLowerCase());
-          return names.length === new Set(names).size;
-        },
-        message: "Category names must be unique.",
-      },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
     },
-    entries: [
-      {
-        amount: { type: Number, required: true },
-        category: { type: String, required: true },
-        note: { type: String },
-        date: { type: Date, default: Date.now },
-      },
-    ],
+    password: {
+      type: String,
+      required: true,
+    },
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+  }
 );
 
-const Log = mongoose.model("Log", logSchema);
-export default Log;
+userSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) {
+    return next();
+  }
+
+  try {
+    const saltRounds = 10;
+    const salt = await bcrypt.genSalt(saltRounds);
+    this.password = await bcrypt.hash(this.password, salt);
+    next();
+  } catch (err) {
+    next(err);
+  }
+});
+
+const User = mongoose.model("User", userSchema);
+
+export default User;
