@@ -6,8 +6,10 @@ import Log from "../models/log.model.js";
 // @route GET /api/logs
 // @access PUBLIC
 const getLogs = asyncHandler(async (req, res) => {
+  const logs = await Log.find({}, "_id name categories entries");
   res.status(200).json({
-    message: "Hello, this is get logs path",
+    message: "Successfully fetched",
+    data: logs,
   });
 });
 
@@ -20,7 +22,7 @@ const createLog = asyncHandler(async (req, res) => {
   const newLog = await Log.create({ userId, name, categories, entries });
 
   res.status(201).json({
-    message: "Successful",
+    message: "Successfully created",
     data: newLog,
   });
 });
@@ -29,8 +31,11 @@ const createLog = asyncHandler(async (req, res) => {
 // @route GET  /api/logs/:id
 // @access PUBLIC
 const getLog = asyncHandler(async (req, res) => {
+  const id = req.params.id;
+  const log = await Log.findById(id, "_id name categories entries");
   res.status(200).json({
-    message: "Hello, this is get log path",
+    message: "Successfully fetched",
+    data: log,
   });
 });
 
@@ -38,8 +43,17 @@ const getLog = asyncHandler(async (req, res) => {
 // @route PUT  /api/logs/:id
 // @access PUBLIC
 const updateLog = asyncHandler(async (req, res) => {
+  const { name, categories, entries } = req.body;
+  const log = { name, categories, entries };
+  const id = req.params.id;
+
+  const updatedLog = await Log.findByIdAndUpdate(id, log, {
+    new: true,
+    select: "_id name categories entries",
+  });
   res.status(200).json({
-    message: "Hello, this is update log path",
+    message: "Successfully updated",
+    data: updatedLog,
   });
 });
 
@@ -47,8 +61,10 @@ const updateLog = asyncHandler(async (req, res) => {
 // @route DELETE /api/logs/:id
 // @access PUBLIC
 const deleteLog = asyncHandler(async (req, res) => {
+  const id = req.params.id;
+  await Log.findByIdAndDelete(id);
   res.status(200).json({
-    message: "Hello, this is delete log path",
+    message: "Successfully deleted",
   });
 });
 
