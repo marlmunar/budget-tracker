@@ -4,7 +4,7 @@ import Log from "../models/log.model.js";
 
 // @desc Get Logs
 // @route GET /api/logs
-// @access PUBLIC
+// @access PRIVATE
 const getLogs = asyncHandler(async (req, res) => {
   const logs = await Log.find({}, "_id name categories entries");
   res.status(200).json({
@@ -15,7 +15,7 @@ const getLogs = asyncHandler(async (req, res) => {
 
 // @desc Create Log
 // @route POST /api/logs
-// @access PUBLIC
+// @access PRIVATE
 const createLog = asyncHandler(async (req, res) => {
   const userId = req.body?.userId || new mongoose.Types.ObjectId();
   const { name, categories, entries } = req.body;
@@ -29,7 +29,7 @@ const createLog = asyncHandler(async (req, res) => {
 
 // @desc Get Log
 // @route GET  /api/logs/:id
-// @access PUBLIC
+// @access PRIVATE
 const getLog = asyncHandler(async (req, res) => {
   const id = req.params.id;
   const log = await Log.findById(id, "_id name categories entries");
@@ -41,7 +41,7 @@ const getLog = asyncHandler(async (req, res) => {
 
 // @desc Update Log
 // @route PUT  /api/logs/:id
-// @access PUBLIC
+// @access PRIVATE
 const updateLog = asyncHandler(async (req, res) => {
   const { name, categories, entries } = req.body;
   const log = { name, categories, entries };
@@ -59,7 +59,7 @@ const updateLog = asyncHandler(async (req, res) => {
 
 // @desc Delete Log
 // @route DELETE /api/logs/:id
-// @access PUBLIC
+// @access PRIVATE
 const deleteLog = asyncHandler(async (req, res) => {
   const id = req.params.id;
   await Log.findByIdAndDelete(id);
