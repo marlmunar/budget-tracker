@@ -18,6 +18,10 @@ const errorHandler = (err, req, res, next) => {
     statusCode = 400;
   }
 
+  if (err.name === "TypeError") {
+    statusCode = 400;
+  }
+
   res.status(statusCode).json({
     message,
     stack: process.env.NODE_ENV === "production" ? null : err.stack,
