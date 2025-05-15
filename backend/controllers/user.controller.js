@@ -54,26 +54,50 @@ const loginUser = asyncHandler(async (req, res) => {
 // @route POST /api/logout
 // @access PUBLIC
 const logoutUser = asyncHandler(async (req, res) => {
-  res.status(201).json({
-    message: "Hello, this is logout user path",
+  res.cookie("jwt", "", {
+    httpOnly: true,
+    expires: new Date(0),
   });
+  res.status(200).json({ message: "User logged out" });
 });
 
 // @desc Get Profile
 // @route GET /api/user/profile/
 // @access PRIVATE
 const getProfile = asyncHandler(async (req, res) => {
-  res.status(200).json({
-    message: "Hello, this is get profile path",
-  });
+  const user = {
+    _id: req.user._id,
+    name: req.user.name,
+    email: req.user.email,
+  };
+
+  res.status(200).json(user);
 });
 
 // @desc Update Profile
 // @route PUT /api/user/profile/
 // @access PRIVATE
 const updateProfile = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user._id);
+
+  if (!user) {
+    res.status(404);
+    throw new Error(`User not found`);
+  }
+
+  user.name = req.body.name || user.name;
+  user.email = req.body.email || user.email;
+
+  if (req.body.password) {
+    user.password = req.body.password;
+  }
+
+  const updatedUser = await user.save();
+
   res.status(200).json({
-    message: "Hello, this is update profile path",
+    _id: updatedUser._id,
+    name: updatedUser.name,
+    email: updatedUser.email,
   });
 });
 
