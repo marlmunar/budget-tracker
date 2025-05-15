@@ -11,7 +11,7 @@ const validateId = async (req, res, next) => {
 
     const logExists = await Log.exists({ _id: id });
     if (!logExists) {
-      return res.status(404).json({ message: "Record not found" });
+      return res.status(404).json({ message: "Resource not found" });
     }
 
     next();
