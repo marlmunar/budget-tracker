@@ -1,24 +1,24 @@
 import mongoose from "mongoose";
 import Log from "../models/log.model.js";
+import asyncHandler from "express-async-handler";
 
-const validateId = async (req, res, next) => {
-  try {
-    const { id } = req.params;
+const validateId = asyncHandler(async (req, res, next) => {
+  const { id } = req.params;
 
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).json({ message: "Invalid ID format" });
-    }
-
-    const logExists = await Log.exists({ _id: id });
-    if (!logExists) {
-      return res.status(404).json({ message: "Resource not found" });
-    }
-
-    next();
-  } catch (error) {
-    console.error("Error validating ID:", error);
-    res.status(500).json({ message: "Internal server error" });
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    const error = new Error("Invalid ID format");
+    error.statusCode = 400;
+    throw error;
   }
-};
+
+  const logExists = await Log.exists({ _id: id });
+  if (!logExists) {
+    const error = new Error("Resource not found");
+    error.statusCode = 404;
+    throw error;
+  }
+
+  next();
+});
 
 export default validateId;
