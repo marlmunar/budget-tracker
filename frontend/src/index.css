@@ -1,1 +1,39 @@
+@import url("https://fonts.googleapis.com/css2?family=Outfit&display=swap");
 @import "tailwindcss";
+
+:root {
+  font-family: var(--font-outfit);
+}
+
+.header {
+  @apply py-3 relative text-lg
+  min-h-20
+   bg-[#FFB607] text-[#040F0F] 
+  flex justify-around items-center
+  md:justify-between md:px-10;
+}
+
+.header-h1 {
+  @apply text-2xl font-semibold;
+}
+
+.hamburger {
+  @apply border rounded py-2 px-4 min-w-[6rem] flex justify-center md:hidden;
+}
+
+.profile {
+  @apply hidden 
+    md:flex md:gap-1 md:cursor-pointer;
+}
+
+.nav-bar {
+  @apply bg-white mt-1 absolute shadow border rounded py-2 px-4 min-w-[6rem] md:hidden;
+}
+
+.nav-active {
+  @apply underline;
+}
+
+@theme {
+  --font-outfit: "Outfit", sans-serif;
+}
