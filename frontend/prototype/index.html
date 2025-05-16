@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Expense Tracker</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+  </head>
+  <body>
+    <header>
+      <!-- Title and a small description of the project. -->
+      <h1><span>Budgetarians'</span> Log</h1>
+      <nav>
+        <ul>
+          <li><a href="/" data-navigate>Home</a></li>
+          <li><a href="/profile" data-navigate>Profile</a></li>
+          <li><a href="/tracker" data-navigate>Tracker</a></li>
+          <li><a href="/logout" data-navigate>Logout</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main id="app"></main>
+    <footer>
+      <p>Project by <span>marl.dev</span></p>
+      <p>© 2025</p>
+    </footer>
+    <script src="scripts/navigate.js"></script>
+  </body>
+</html>
