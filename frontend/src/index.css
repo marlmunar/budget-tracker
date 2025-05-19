@@ -23,15 +23,29 @@
 
 .profile {
   @apply hidden 
-    md:flex md:gap-1 md:cursor-pointer;
+    md:flex md:gap-1;
+}
+
+.login {
+  @apply flex gap-2.5;
+}
+
+.login-button {
+  @apply border border-slate-900 rounded px-4 py-1 min-w-[6rem] cursor-pointer
+  transition-all duration-300 ease-in
+  hover:bg-[#ffc844] hover:border-transparent hover:shadow-md hover:shadow-slate-900;
 }
 
 .nav-bar {
-  @apply bg-white mt-1 absolute shadow border rounded py-2 px-4 min-w-[6rem] md:hidden;
+  @apply bg-white mt-1 md:right-10 md:mt-2 absolute shadow border rounded py-2 px-4 min-w-[6rem];
 }
 
 .nav-active {
   @apply underline;
+}
+
+.icon {
+  @apply text-2xl cursor-pointer hover:text-amber-100 hover:shadow hover:border-white transition-all duration-300;
 }
 
 @theme {
