@@ -7,10 +7,13 @@
 
 .header {
   @apply py-3 relative text-lg
+   bg-[#ffd700] text-[#040F0F];
+}
+
+.header-container {
+  @apply container mx-auto px-4
   min-h-20
-   bg-[#ffd700] text-[#040F0F] 
-  flex justify-around items-center
-  md:justify-between md:px-10;
+  flex items-center justify-between md:px-10;
 }
 
 .header-h1 {
@@ -50,4 +53,16 @@
 
 @theme {
   --font-outfit: "Outfit", sans-serif;
+}
+
+.hero {
+  @apply py-4
+  flex flex-col-reverse 
+  md:grid grid-rows-2 grid-cols-2 grid-flow-col 
+  gap-5 md:gap-2 
+  md:min-h-[60vh];
+}
+
+.hero-button {
+  @apply border py-1 text-center min-w-[8rem];
 }
