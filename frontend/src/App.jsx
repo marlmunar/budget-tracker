@@ -4,7 +4,7 @@ const App = () => {
   return (
     <>
       <Header />
-      <div className="container mx-auto border px-4 xl:px-10">
+      <div className="container mx-auto px-4 xl:px-10">
         <Home />
       </div>
     </>

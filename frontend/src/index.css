@@ -66,3 +66,15 @@
 .hero-button {
   @apply border py-1 text-center min-w-[8rem];
 }
+
+.homecard-title {
+  @apply text-2xl font-semibold mb-4;
+}
+
+.item {
+  @apply flex flex-col gap-2 justify-center h-50 md:h-75 p-5 rounded shadow shadow-slate-800;
+}
+
+.item-title {
+  @apply text-xl font-semibold self-center;
+}
