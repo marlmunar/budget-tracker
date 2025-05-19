@@ -8,7 +8,7 @@
 .header {
   @apply py-3 relative text-lg
   min-h-20
-   bg-[#FFB607] text-[#040F0F] 
+   bg-[#ffd700] text-[#040F0F] 
   flex justify-around items-center
   md:justify-between md:px-10;
 }
@@ -33,7 +33,7 @@
 .login-button {
   @apply border border-slate-900 rounded px-4 py-1 min-w-[6rem] cursor-pointer
   transition-all duration-300 ease-in
-  hover:bg-[#ffc844] hover:border-transparent hover:shadow-md hover:shadow-slate-900;
+   hover:border-transparent hover:shadow hover:shadow-slate-900;
 }
 
 .nav-bar {

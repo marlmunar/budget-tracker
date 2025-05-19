@@ -6,7 +6,7 @@ import { useState } from "react";
 
 const Header = () => {
   const [isClicked, setIsClicked] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   return (
     <header className="header">
@@ -45,8 +45,10 @@ const Header = () => {
           </>
         ) : (
           <div className="login">
-            <button className="login-button">Login</button>
-            <button className="login-button hidden md:block">Sign Up</button>
+            <button className="login-button ">Login</button>
+            <button className="login-button hidden md:block bg-[#0028FF] text-white">
+              Sign Up
+            </button>
           </div>
         )}
 
