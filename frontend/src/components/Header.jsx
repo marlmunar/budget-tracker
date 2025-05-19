@@ -3,6 +3,7 @@ import { BsPersonSquare } from "react-icons/bs";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { IoMdArrowDropup } from "react-icons/io";
 import { useState } from "react";
+import favicon from "../assets/favicon.png";
 
 const Header = () => {
   const [isClicked, setIsClicked] = useState(false);
@@ -11,7 +12,8 @@ const Header = () => {
   return (
     <header className="header">
       <div className="header-container">
-        <div>
+        <div className="flex items-center gap-2">
+          <img src={favicon} alt="Website logo" width={40} height={40} />
           <h1 className="header-h1">Budgetarians' Log</h1>
         </div>
 
