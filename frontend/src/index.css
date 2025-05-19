@@ -68,7 +68,7 @@
 }
 
 .homecard-title {
-  @apply text-2xl font-semibold mb-4;
+  @apply text-2xl font-semibold mb-4 underline;
 }
 
 .item {

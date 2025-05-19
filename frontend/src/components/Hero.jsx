@@ -13,8 +13,8 @@ const Hero = () => {
         </div>
       </div>
 
-      <div className="flex flex-col gap-2 justify-center">
-        <h2 className="text-2xl font-semibold ">What is this log?</h2>
+      <div className="flex flex-col gap-2 justify-center order-1 md:order-none">
+        <h2 className="homecard-title">What is this log?</h2>
         <p>
           A web-based tool to help you become a
           <i>
