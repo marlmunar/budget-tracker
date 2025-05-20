@@ -5,7 +5,7 @@ const Logs = () => {
   return (
     <div>
       <section className=" flex flex-col gap-2 p-4 shadow rounded">
-        <h2 className="text-xl font-semibold">Your Logs</h2>
+        <h2 className="text-2xl font-semibold">Your Logs</h2>
         <LogTools />
         <LogCard
           logName={"Log 2"}
