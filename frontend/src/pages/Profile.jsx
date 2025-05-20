@@ -3,7 +3,7 @@ import UserProfile from "../components/UserProfile";
 
 const Profile = () => {
   return (
-    <main className="my-4 md:grid grid-cols-2 gap-2">
+    <main className="md:grid grid-cols-2 gap-2">
       <UserProfile />
       <Logs />
     </main>

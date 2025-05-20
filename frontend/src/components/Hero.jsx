@@ -1,16 +1,18 @@
 const Hero = () => {
   return (
     <section className="hero">
-      <div className="flex flex-col gap-2">
-        <p className="text-2xl font-semibold mt-2">Become a Budgetarian</p>
-        <div className="flex gap-2">
-          <a className="hero-button" href="/signin" data-navigate>
-            Sign In
-          </a>
-          <a className="hero-button" href="/register" data-navigate>
-            Register
-          </a>
-        </div>
+      <div className="border-2 border-dotted m-2 p-3 flex flex-col gap-2 justify-center order-1 md:order-none shadow-lg">
+        <h2 className="text-2xl font-semibold">Budgetarian</h2>
+        <p className="pl-1 font-semibold">noun</p>
+        <p className="pl-1 max-w-[65ch]">
+          A term used by Filipinos to describe someone who is smart about
+          managing expenses. Budgetarians are careful with their spending and
+          usually only spend on important things.
+        </p>
+        <p className="pl-1 ">
+          <span className="font-semibold">Synonyms: </span>
+          thrifty person, frugal individual, economical spender
+        </p>
       </div>
 
       <div className="flex flex-col gap-2 justify-center order-1 md:order-none">
@@ -27,19 +29,32 @@ const Hero = () => {
         </p>
       </div>
 
-      <div className="border-2 p-3 flex flex-col gap-2 justify-center row-span-2">
-        <h2 className="text-2xl font-semibold">Budgetarian</h2>
-        <p className="pl-1 font-semibold">noun</p>
-        <p className="pl-1 max-w-[65ch]">
-          A term used by Filipinos to describe someone who is smart about
-          managing expenses. Budgetarians are careful with their spending and
-          usually only spend on important things.
-        </p>
-        <p className="pl-1 ">
-          <span className="font-semibold">Synonyms: </span>
-          thrifty person, frugal individual, economical spender
-        </p>
+      <div className="p-4  bg-amber-200  row-span-2 rounded shadow-lg">
+        <div className="p-2 bg-slate-50 flex flex-col justify-center gap-2 h-full rounded shadow">
+          <p className="text-2xl font-semibold mt-2">Welcome Back!</p>
+          <p className="">What do you want to visit?</p>
+          <div className="flex gap-2">
+            <a className="hero-button" href="/lastlog">
+              Last log
+            </a>
+            <a className="hero-button" href="/profile">
+              All logs
+            </a>
+          </div>
+        </div>
       </div>
+
+      {/* <div className="flex flex-col gap-2">
+        <p className="text-2xl font-semibold mt-2">Become a Budgetarian</p>
+        <div className="flex gap-2">
+          <a className="hero-button" href="/signin">
+            Sign In
+          </a>
+          <a className="hero-button" href="/register">
+            Register
+          </a>
+        </div>
+      </div> */}
     </section>
   );
 };

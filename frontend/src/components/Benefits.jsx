@@ -1,15 +1,17 @@
+import ColorDots from "./ColorDots";
 import HomeCard from "./HomeCard";
 
 const Benefits = () => {
   return (
     <HomeCard title={"Why use this log?"}>
-      <div className="px-2 flex flex-col md:grid grid-rows-2 grid-cols-2 gap-4">
+      <div className="px-2 flex flex-col md:grid grid-rows-2 grid-cols-2 gap-10">
         <div className="item">
           <h3 className="item-title ">Access Anywhere</h3>
           <p className="text-center">
             All you need is an account, and you can track your budget from
             anywhere.
           </p>
+          <ColorDots />
         </div>
 
         <div className="item">
@@ -18,6 +20,7 @@ const Benefits = () => {
             The tool is easy to use. Even beginners can start budgeting in no
             time.
           </p>
+          <ColorDots />
         </div>
 
         <div className="item">
@@ -26,6 +29,7 @@ const Benefits = () => {
             Use our tools to filter and search through your finances. You can
             also view your monthly spending history with ease.
           </p>
+          <ColorDots />
         </div>
 
         <div className="item">
@@ -34,6 +38,7 @@ const Benefits = () => {
             Save a copy of your expenses as a spreadsheet on your device. You
             can import it back into the tracker later.
           </p>
+          <ColorDots />
         </div>
       </div>
     </HomeCard>

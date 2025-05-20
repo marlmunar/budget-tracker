@@ -8,11 +8,11 @@ const App = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
-      <div className="container mx-auto px-4 xl:px-10">
-        {/* <Home /> */}
+      <div className="container mx-auto my-4 px-4 xl:px-10">
+        <Home />
         {/* <Profile /> */}
         {/* <LogIn /> */}
-        <Register />
+        {/* <Register /> */}
       </div>
       <Footer />
     </div>

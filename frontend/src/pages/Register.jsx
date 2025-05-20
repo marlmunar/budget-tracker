@@ -4,7 +4,7 @@ const Register = () => {
   };
 
   return (
-    <main className="mx-auto my-4 shadow-lg rounded p-10 md:max-w-[50vw] border-b-2 border-slate-700 min-h-[30rem]">
+    <main className="mx-auto shadow-lg rounded p-10 md:max-w-[50vw] border-b-2 border-slate-700 min-h-[30rem]">
       <form onSubmit={handleSubmit} className="flex flex-col gap-2">
         <h3 className="text-2xl font-semibold underline">Sign Up</h3>
 

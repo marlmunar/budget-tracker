@@ -1,7 +1,7 @@
 const UserProfile = () => {
   return (
-    <section className="flex flex-col border gap-2 items-start shadow-lg rounded p-4 max-h-[15rem]">
-      <h2 className="text-2xl font-semibold">User Name</h2>
+    <section className="flex flex-col border-2 border-slate-400 gap-2 items-start shadow-lg rounded p-4 max-h-[15rem]">
+      <h2 className="text-2xl font-semibold underline">User Name</h2>
       <button>Edit name</button>
       <button>Profile settings</button>
 

@@ -61,7 +61,7 @@ button {
 
 .hero {
   @apply py-4
-  flex flex-col-reverse 
+  flex flex-col
   md:grid grid-rows-2 grid-cols-2 grid-flow-col 
   gap-5 md:gap-2 
   md:min-h-[60vh];
@@ -76,7 +76,7 @@ button {
 }
 
 .item {
-  @apply flex flex-col gap-2 justify-center h-50 md:h-75 p-5 rounded shadow shadow-slate-800;
+  @apply relative flex flex-col gap-2 justify-center h-50 md:h-75 p-5 pl-15 rounded shadow shadow-slate-800;
 }
 
 .item-title {
