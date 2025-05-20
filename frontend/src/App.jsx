@@ -3,6 +3,7 @@ import Header from "./components/Header";
 import Home from "./pages/Home";
 import LogIn from "./pages/LogIn";
 import Profile from "./pages/Profile";
+import Register from "./pages/Register";
 const App = () => {
   return (
     <div className="flex flex-col min-h-screen">
@@ -10,7 +11,8 @@ const App = () => {
       <div className="container mx-auto px-4 xl:px-10">
         {/* <Home /> */}
         {/* <Profile /> */}
-        <LogIn />
+        {/* <LogIn /> */}
+        <Register />
       </div>
       <Footer />
     </div>
