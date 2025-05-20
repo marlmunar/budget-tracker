@@ -82,3 +82,11 @@ button {
 .item-title {
   @apply text-xl font-semibold self-center;
 }
+
+.form-input-container {
+  @apply flex flex-col max-w-[25rem];
+}
+
+.form-input {
+  @apply border rounded min-h-8 px-2;
+}
