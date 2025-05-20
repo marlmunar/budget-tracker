@@ -1,24 +1,11 @@
+import LogTools from "../components/LogTools";
 import UserProfile from "../components/UserProfile";
 
 const Profile = () => {
   return (
     <div>
       <UserProfile />
-      <section id="log-tools">
-        <h3>Log Tools</h3>
-        <div>
-          <label for="search-log">Search a Log</label>
-          <input
-            type="search"
-            id="search-log"
-            placeholder="Search by name..."
-          />
-        </div>
-        <div>
-          <button>Create New Log</button>
-          <button>Manage Logs</button>
-        </div>
-      </section>
+      <LogTools />
       <section id="logs">
         <h2>Your Logs</h2>
 

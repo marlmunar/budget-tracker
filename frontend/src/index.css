@@ -5,6 +5,10 @@
   font-family: var(--font-outfit);
 }
 
+button {
+  @apply cursor-pointer;
+}
+
 .header {
   @apply py-3 relative text-lg
    bg-[#ffd700] text-[#040F0F];
