@@ -8,7 +8,7 @@ import favicon from "../assets/favicon.png";
 
 const Header = () => {
   const [isClicked, setIsClicked] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [isLoggingIn, setIsLoggingIn] = useState(false);
 
   return (
