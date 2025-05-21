@@ -30,7 +30,7 @@ const Hero = () => {
       </div>
 
       <div className="p-4  bg-amber-200  row-span-2 rounded shadow-lg">
-        <div className="p-2 bg-slate-50 flex flex-col justify-center gap-2 h-full rounded shadow">
+        <div className="p-6 bg-slate-50 flex flex-col justify-center gap-2 h-full rounded shadow">
           <p className="text-2xl font-semibold mt-2">Welcome Back!</p>
           <p className="">What do you want to visit?</p>
           <div className="flex gap-2">

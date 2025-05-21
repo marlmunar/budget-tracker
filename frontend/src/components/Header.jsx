@@ -3,6 +3,7 @@ import { BsPersonSquare } from "react-icons/bs";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { IoMdArrowDropup } from "react-icons/io";
 import { useState } from "react";
+import { Link, NavLink } from "react-router-dom";
 import favicon from "../assets/favicon.png";
 
 const Header = () => {
@@ -12,10 +13,12 @@ const Header = () => {
   return (
     <header className="header">
       <div className="header-container">
-        <div className="flex items-center gap-2">
-          <img src={favicon} alt="Website logo" width={40} height={40} />
-          <h1 className="header-h1">Budgetarians' Log</h1>
-        </div>
+        <Link to="/">
+          <div className="flex items-center gap-2">
+            <img src={favicon} alt="Website logo" width={40} height={40} />
+            <h1 className="header-h1">Budgetarians' Log</h1>
+          </div>
+        </Link>
 
         <div>
           {isLoggedIn ? (
@@ -59,23 +62,31 @@ const Header = () => {
             <nav className="nav-bar">
               <ul>
                 <li>
-                  <a
-                    className="nav-active"
-                    href="/"
+                  <NavLink
+                    to="/"
+                    className={({ isActive }) => (isActive ? "nav-active" : "")}
                     onClick={() => setIsClicked(false)}
                   >
                     Home
-                  </a>
+                  </NavLink>
                 </li>
                 <li>
-                  <a href="/profile" onClick={() => setIsClicked(false)}>
+                  <NavLink
+                    to="/profile"
+                    className={({ isActive }) => (isActive ? "nav-active" : "")}
+                    onClick={() => setIsClicked(false)}
+                  >
                     Profile
-                  </a>
+                  </NavLink>
                 </li>
                 <li>
-                  <a href="/logout" onClick={() => setIsClicked(false)}>
+                  <NavLink
+                    to="/logout"
+                    className={({ isActive }) => (isActive ? "nav-active" : "")}
+                    onClick={() => setIsClicked(false)}
+                  >
                     Logout
-                  </a>
+                  </NavLink>
                 </li>
               </ul>
             </nav>
