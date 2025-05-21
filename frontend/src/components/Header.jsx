@@ -9,6 +9,7 @@ import favicon from "../assets/favicon.png";
 const Header = () => {
   const [isClicked, setIsClicked] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
 
   return (
     <header className="header">
@@ -50,18 +51,20 @@ const Header = () => {
               </div>
             </>
           ) : (
-            <div className="login">
-              <Link className="login-button" to="/login">
-                Log In
-              </Link>
+            isLoggingIn && (
+              <div className="login">
+                <Link className="login-button" to="/login">
+                  Log In
+                </Link>
 
-              <Link
-                className="login-button  hidden md:block bg-[#4d68ff] text-white"
-                to="/register"
-              >
-                Sign Up
-              </Link>
-            </div>
+                <Link
+                  className="login-button  hidden md:block bg-[#4d68ff] text-white"
+                  to="/register"
+                >
+                  Sign Up
+                </Link>
+              </div>
+            )
           )}
 
           {isClicked && (

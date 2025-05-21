@@ -85,11 +85,16 @@ button {
 }
 
 .form-container {
-  @apply mx-auto shadow-lg rounded p-10 md:max-w-[50vw] border-y-2 border-slate-700 min-h-[33rem];
+  @apply mx-auto shadow-lg rounded md:max-w-[50vw] border-y-2 border-slate-700 md:h-[33rem];
+}
+
+.form-body {
+  @apply flex flex-col gap-2 p-5 md:py-10  md:pl-10 shadow-lg rounded-r;
 }
 
 .form-button {
-  @apply mt-2 border rounded p-2 max-w-22 font-semibold;
+  @apply mt-2 border-2 rounded p-2 max-w-22 font-semibold bg-amber-400 transition-all duration-300 
+  hover:bg-amber-300 hover:border-transparent hover:shadow shadow-slate-800;
 }
 
 .form-input-container {
@@ -97,5 +102,5 @@ button {
 }
 
 .form-input {
-  @apply border rounded min-h-8 px-2;
+  @apply border rounded min-h-8 px-2 w-[90%];
 }

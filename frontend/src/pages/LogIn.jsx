@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import FormContainer from "../components/FormContainer";
 
 const Login = () => {
   const handleSubmit = (e) => {
@@ -7,44 +8,46 @@ const Login = () => {
   };
 
   return (
-    <main className="form-container">
-      <form onSubmit={handleSubmit} className="flex flex-col gap-2">
-        <h3 className="text-2xl font-semibold underline">Log In</h3>
+    <main>
+      <FormContainer>
+        <form onSubmit={handleSubmit} className="form-body">
+          <h3 className="text-2xl font-semibold underline">Log In</h3>
 
-        <div className="form-input-container">
-          <label for="email">Email</label>
-          <input
-            className="form-input"
-            id="userEmail"
-            type="email"
-            name="email"
-            autocomplete="off"
-            required
-          />
-        </div>
-        <div className="form-input-container">
-          <label for="password">Password</label>
-          <input
-            className="form-input"
-            id="userPassword"
-            type="password"
-            name="password"
-            autocomplete="off"
-            required
-          />
-        </div>
+          <div className="form-input-container">
+            <label for="email">Email</label>
+            <input
+              className="form-input"
+              id="userEmail"
+              type="email"
+              name="email"
+              autocomplete="off"
+              required
+            />
+          </div>
+          <div className="form-input-container">
+            <label for="password">Password</label>
+            <input
+              className="form-input"
+              id="userPassword"
+              type="password"
+              name="password"
+              autocomplete="off"
+              required
+            />
+          </div>
 
-        <button type="submit" className="form-button">
-          Log In
-        </button>
+          <button type="submit" className="form-button">
+            Log In
+          </button>
 
-        <div className="mt-10">
-          <p>New user?</p>
-          <Link to="/register" className="underline">
-            Sigin Up Instead
-          </Link>
-        </div>
-      </form>
+          <div className="mt-10">
+            <p>New user?</p>
+            <Link to="/register" className="underline">
+              Sigin Up Instead
+            </Link>
+          </div>
+        </form>
+      </FormContainer>
     </main>
   );
 };
