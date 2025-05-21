@@ -1,9 +1,15 @@
+import { TbSettings, TbEdit } from "react-icons/tb";
+
 const UserProfile = () => {
   return (
-    <section className="flex flex-col border-2 border-slate-400 gap-2 items-start shadow-lg rounded p-4 max-h-[15rem]">
-      <h2 className="text-2xl font-semibold underline">User Name</h2>
-      <button>Edit name</button>
-      <button>Profile settings</button>
+    <section className="flex flex-col border-2 border-slate-400 gap-4 items-start shadow-lg rounded p-4 lg:max-h-[12rem]">
+      <div className="flex justify-between w-full">
+        <h2 className="text-2xl font-semibold underline">User Name</h2>
+        <div className="flex gap-2 text-2xl items-center">
+          <TbEdit className="transition-all duration-300 hover:text-amber-500" />
+          <TbSettings className="transition-all duration-300 hover:text-amber-500" />
+        </div>
+      </div>
 
       <div className="grid grid-row-4 grid-cols-2 gap-x-5 gap-y-1">
         <span className="font-semibold">Logs:</span>
