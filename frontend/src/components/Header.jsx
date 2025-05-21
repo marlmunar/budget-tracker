@@ -8,15 +8,15 @@ import favicon from "../assets/favicon.png";
 
 const Header = () => {
   const [isClicked, setIsClicked] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
-  const [isLoggingIn, setIsLoggingIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggingIn, setIsLoggingIn] = useState(true);
 
   return (
     <header className="header">
       <div className="header-container">
         <Link to="/">
           <div className="flex items-center gap-2">
-            <img src={favicon} alt="Website logo" width={40} height={40} />
+            <img src={favicon} alt="Website logo" width="40" height="40" />
             <h1 className="header-h1">Budgetarians' Log</h1>
           </div>
         </Link>
@@ -58,7 +58,7 @@ const Header = () => {
                 </Link>
 
                 <Link
-                  className="login-button  hidden md:block bg-[#4d68ff] text-white"
+                  className="login-button hidden md:block bg-[#4d68ff] text-white"
                   to="/register"
                 >
                   Sign Up

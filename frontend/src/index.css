@@ -10,12 +10,13 @@ button {
 }
 
 .header {
-  @apply py-3 relative text-lg
+  @apply py-3 text-lg
    bg-[#ffd700] text-[#040F0F];
 }
 
 .header-container {
   @apply container mx-auto px-4
+  relative
   min-h-20
   flex items-center justify-between md:px-10;
 }
@@ -25,7 +26,7 @@ button {
 }
 
 .hamburger {
-  @apply border rounded py-2 px-4 min-w-[6rem] flex justify-center md:hidden;
+  @apply border-2 rounded py-2 px-4 min-w-[2rem] flex justify-center md:hidden;
 }
 
 .profile {
@@ -38,14 +39,14 @@ button {
 }
 
 .login-button {
-  @apply border-slate-900 border-2 rounded px-4 py-1 min-w-[6rem] cursor-pointer
+  @apply border-slate-900 border-2 rounded px-4 py-1 md:min-w-[6rem] cursor-pointer
   text-center
   transition-all duration-300 ease-in
    hover:border-transparent hover:shadow hover:shadow-slate-900;
 }
 
 .nav-bar {
-  @apply bg-white mt-1 md:right-10 md:mt-2 absolute shadow border rounded py-2 px-4 min-w-[6rem];
+  @apply bg-white mt-2 right-5 md:right-10 absolute shadow border rounded py-2 px-4 min-w-[6rem];
 }
 
 .nav-active {
