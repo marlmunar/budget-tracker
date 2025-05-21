@@ -38,7 +38,8 @@ button {
 }
 
 .login-button {
-  @apply border border-slate-900 rounded px-4 py-1 min-w-[6rem] cursor-pointer
+  @apply border-slate-900 border-2 rounded px-4 py-1 min-w-[6rem] cursor-pointer
+  text-center
   transition-all duration-300 ease-in
    hover:border-transparent hover:shadow hover:shadow-slate-900;
 }
@@ -81,6 +82,14 @@ button {
 
 .item-title {
   @apply text-xl font-semibold self-center;
+}
+
+.form-container {
+  @apply mx-auto shadow-lg rounded p-10 md:max-w-[50vw] border-y-2 border-slate-700 min-h-[33rem];
+}
+
+.form-button {
+  @apply mt-2 border rounded p-2 max-w-22 font-semibold;
 }
 
 .form-input-container {

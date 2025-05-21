@@ -1,12 +1,13 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-const LogIn = () => {
+const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
   };
 
   return (
-    <main className="mx-auto shadow-lg rounded p-10 md:max-w-[50vw] border-b-2 border-slate-700 min-h-[30rem]">
+    <main className="form-container">
       <form onSubmit={handleSubmit} className="flex flex-col gap-2">
         <h3 className="text-2xl font-semibold underline">Log In</h3>
 
@@ -33,22 +34,19 @@ const LogIn = () => {
           />
         </div>
 
-        <button
-          type="submit"
-          className="mt-2 border rounded p-2 max-w-22 font-semibold"
-        >
+        <button type="submit" className="form-button">
           Log In
         </button>
 
         <div className="mt-10">
           <p>New user?</p>
-          <a href="/register" className="underline">
+          <Link to="/register" className="underline">
             Sigin Up Instead
-          </a>
+          </Link>
         </div>
       </form>
     </main>
   );
 };
 
-export default LogIn;
+export default Login;

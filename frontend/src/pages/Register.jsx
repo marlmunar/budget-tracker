@@ -1,10 +1,12 @@
+import { Link } from "react-router-dom";
+
 const Register = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
   };
 
   return (
-    <main className="mx-auto shadow-lg rounded p-10 md:max-w-[50vw] border-b-2 border-slate-700 min-h-[30rem]">
+    <main className="form-container">
       <form onSubmit={handleSubmit} className="flex flex-col gap-2">
         <h3 className="text-2xl font-semibold underline">Sign Up</h3>
 
@@ -49,18 +51,15 @@ const Register = () => {
           />
         </div>
 
-        <button
-          type="submit"
-          className="mt-2 border rounded p-2 max-w-22 font-semibold"
-        >
+        <button type="submit" className="form-button">
           Sign Up
         </button>
 
         <div className="mt-10">
           <p>Already a user?</p>
-          <a href="/login" className="underline">
+          <Link to="/login" className="underline">
             Log In Instead
-          </a>
+          </Link>
         </div>
       </form>
     </main>

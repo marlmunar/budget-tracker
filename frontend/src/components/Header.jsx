@@ -8,7 +8,7 @@ import favicon from "../assets/favicon.png";
 
 const Header = () => {
   const [isClicked, setIsClicked] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
     <header className="header">
@@ -51,10 +51,16 @@ const Header = () => {
             </>
           ) : (
             <div className="login">
-              <button className="login-button ">Login</button>
-              <button className="login-button hidden md:block bg-[#0028FF] text-white">
+              <Link className="login-button" to="/login">
+                Log In
+              </Link>
+
+              <Link
+                className="login-button  hidden md:block bg-[#4d68ff] text-white"
+                to="/register"
+              >
                 Sign Up
-              </button>
+              </Link>
             </div>
           )}
 
