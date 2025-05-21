@@ -78,7 +78,7 @@ button {
 }
 
 .item {
-  @apply relative flex flex-col gap-2 justify-center h-50 md:h-75 p-5 pl-15 rounded shadow shadow-slate-800;
+  @apply relative flex flex-col gap-2 justify-center h-50 md:h-75 p-5 pl-[5rem] rounded shadow shadow-slate-800;
 }
 
 .item-title {
