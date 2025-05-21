@@ -1,4 +1,4 @@
-import React from "react";
+import { TbPencil, TbArrowsDiagonal2, TbTrash } from "react-icons/tb";
 
 const LogCard = ({ logName, logStats }) => {
   return (
@@ -10,10 +10,10 @@ const LogCard = ({ logName, logStats }) => {
           <p>Last edited: {logStats.lastEdited}</p>
         </div>
       </div>
-      <div className="flex gap-2 text-sm">
-        <button className="border px-2 py-1 rounded max-h-8">Rename</button>
-        <button className="border px-2 py-1 rounded max-h-8">Edit</button>
-        <button className="border px-2 py-1 rounded max-h-8">Delete</button>
+      <div className="flex gap-2">
+        <TbPencil title="Rename" className="tool-button" />
+        <TbArrowsDiagonal2 title="Open" className="tool-button" />
+        <TbTrash title="Delete" className="tool-button" />
       </div>
     </div>
   );
