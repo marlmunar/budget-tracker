@@ -1,6 +1,6 @@
 const AddEntryForm = () => {
   return (
-    <section className="shadow rounded p-4 bg-gray-100 row-span-2">
+    <section className="log-section-container row-span-2">
       <h3 className="log-section-header">Log an Entry</h3>
       <form>
         <div className="input-row">

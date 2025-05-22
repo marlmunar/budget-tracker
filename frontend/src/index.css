@@ -111,6 +111,10 @@ button {
   hover:bg-amber-400 hover:shadow-slate-800 hover:border-transparent hover:text-white;
 }
 
+.log-section-container {
+  @apply shadow rounded p-4 bg-gray-100;
+}
+
 .log-section-header {
   @apply bg-slate-400 p-2 rounded shadow text-xl/12 font-semibold min-h-12 items-center;
 }
@@ -136,6 +140,6 @@ button {
 }
 
 .button-row button {
-  @apply bg-blue-700 text-white  p-1 rounded transition-all duration-300 min-w-[7.25rem]
+  @apply bg-blue-700 shadow border-2 border-gray-300 text-white  p-1 rounded transition-all duration-300 min-w-[7.25rem]
    hover:shadow-slate-800 hover:border-transparent hover:shadow;
 }
