@@ -14,6 +14,7 @@ import Login from "./pages/Login.jsx";
 import Profile from "./pages/Profile";
 import Register from "./pages/Register";
 import NotFound from "./pages/NotFound.jsx";
+import LogScreen from "./pages/LogScreen.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -21,6 +22,7 @@ const router = createBrowserRouter(
       <Route index={true} path="/" element={<Home />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/log" element={<LogScreen />} />
       <Route path="/register" element={<Register />} />
       <Route path="/*" element={<NotFound />} />
     </Route>
