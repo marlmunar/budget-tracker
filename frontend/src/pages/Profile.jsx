@@ -3,7 +3,7 @@ import UserProfile from "../components/UserProfile";
 
 const Profile = () => {
   return (
-    <main className="flex flex-col gap-10 lg:grid  lg:grid-cols-[35%_65%] xl:grid-cols-[30%_70%]">
+    <main className="flex flex-col justify-between gap-10 lg:grid lg:grid-cols-[34%_64%] xl:grid-cols-[29%_69%]">
       <UserProfile />
       <Logs />
     </main>

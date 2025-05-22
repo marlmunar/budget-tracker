@@ -1,7 +1,7 @@
 const FormContainer = ({ children }) => {
   return (
     <div className="form-container">
-      <div className="grid md:grid-cols-[70%_30%] h-full ">
+      <div className="grid justify-between md:grid-cols-[70%_29.8%] h-full ">
         <>{children}</>
         <div className="relative overflow-hidden hidden md:block">
           <div className="min-h-full min-w-10 bg-amber-200 rounded-r"></div>

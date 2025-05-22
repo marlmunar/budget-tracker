@@ -1,6 +1,6 @@
 const AddEntryForm = () => {
   return (
-    <section className="log-section-container row-span-2">
+    <section className="log-section-container row-span-2 max-h-[16.8rem]">
       <h3 className="log-section-header">Log an Entry</h3>
       <form>
         <div className="input-row">
@@ -23,9 +23,7 @@ const AddEntryForm = () => {
               name="amount"
               placeholder="100"
               autoComplete="off"
-              min="1"
-              max="1000000"
-              step="0.01"
+              step={0.01}
               required
             />
           </div>
