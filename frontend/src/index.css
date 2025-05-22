@@ -110,3 +110,32 @@ button {
   @apply text-2xl border-2 p-1 h-8 w-8 rounded transition-all duration-300 
   hover:bg-amber-400 hover:shadow-slate-800 hover:border-transparent hover:text-white;
 }
+
+.log-section-header {
+  @apply bg-slate-400 p-2 rounded shadow text-xl/12 font-semibold min-h-12 items-center;
+}
+
+.input-row {
+  @apply p-2;
+}
+
+.input-column {
+  @apply flex justify-between min-h-8 mb-2;
+}
+
+.input-column label {
+  @apply text-lg;
+}
+
+.input-column input {
+  @apply bg-white min-w-[20rem] px-2 rounded border-[2px];
+}
+
+.button-row {
+  @apply flex px-2 justify-end gap-2;
+}
+
+.button-row button {
+  @apply bg-blue-700 text-white  p-1 rounded transition-all duration-300 min-w-[7.25rem]
+   hover:shadow-slate-800 hover:border-transparent hover:shadow;
+}
