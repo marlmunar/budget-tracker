@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import FormContainer from "../components/FormContainer";
+import { Helmet } from "react-helmet";
 
 const Login = () => {
   const handleSubmit = (e) => {
@@ -9,6 +10,9 @@ const Login = () => {
 
   return (
     <main>
+      <Helmet>
+        <title>Budgetarians' Log - Login</title>
+      </Helmet>
       <FormContainer>
         <form onSubmit={handleSubmit} className="form-body">
           <h3 className="text-2xl font-semibold underline">Log In</h3>
