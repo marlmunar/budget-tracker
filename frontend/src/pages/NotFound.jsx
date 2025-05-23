@@ -1,12 +1,10 @@
-import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 
 const NotFound = () => {
   return (
     <main className="text-center p-8">
-      <Helmet>
-        <title>Budgetarians' Log - Page Not Found</title>
-      </Helmet>
+      <title>Budgetarians' Log - Page Not Found</title>
+
       <h1 className="text-3xl font-bold mb-4 underline">
         404 - Page Not Found
       </h1>

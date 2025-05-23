@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import FormContainer from "../components/FormContainer";
-import { Helmet } from "react-helmet";
 
 const Register = () => {
   const handleSubmit = (e) => {
@@ -9,9 +8,8 @@ const Register = () => {
 
   return (
     <main>
-      <Helmet>
-        <title>Budgetarians' Log - Register</title>
-      </Helmet>
+      <title>Budgetarians' Log - Register</title>
+
       <FormContainer>
         <form onSubmit={handleSubmit} className="form-body">
           <h3 className="text-2xl font-semibold underline">Sign Up</h3>
