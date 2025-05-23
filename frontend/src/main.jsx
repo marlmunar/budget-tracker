@@ -23,8 +23,8 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route index={true} path="/" element={<Home />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
+      <Route path="login" element={<Login />} />
+      <Route path="register" element={<Register />} />
       <Route element={<PrivateRoute />}>
         <Route path="log" element={<LogScreen />} />
         <Route path="profile" element={<Profile />} />

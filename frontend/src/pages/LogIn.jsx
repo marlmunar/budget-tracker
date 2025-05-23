@@ -14,24 +14,24 @@ const Login = () => {
           <h3 className="text-2xl font-semibold underline">Log In</h3>
 
           <div className="form-input-container">
-            <label for="email">Email</label>
+            <label htmlFor="email">Email</label>
             <input
               className="form-input"
               id="userEmail"
               type="email"
               name="email"
-              autocomplete="off"
+              autoComplete="off"
               required
             />
           </div>
           <div className="form-input-container">
-            <label for="password">Password</label>
+            <label htmlFor="password">Password</label>
             <input
               className="form-input"
               id="userPassword"
               type="password"
               name="password"
-              autocomplete="off"
+              autoComplete="off"
               required
             />
           </div>
