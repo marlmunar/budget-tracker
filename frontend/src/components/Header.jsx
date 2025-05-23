@@ -5,10 +5,11 @@ import { IoMdArrowDropup } from "react-icons/io";
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import favicon from "../assets/favicon.png";
+import { useSelector } from "react-redux";
 
 const Header = () => {
+  const { userInfo } = useSelector((state) => state.auth);
   const [isClicked, setIsClicked] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoggingIn, setIsLoggingIn] = useState(true);
 
   return (
@@ -22,7 +23,7 @@ const Header = () => {
         </Link>
 
         <div>
-          {isLoggedIn ? (
+          {!!userInfo ? (
             <>
               <button
                 className="hamburger"
