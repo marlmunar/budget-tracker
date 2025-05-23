@@ -9,8 +9,8 @@ import { useSelector } from "react-redux";
 
 const Header = () => {
   const { userInfo } = useSelector((state) => state.auth);
+  const { isLoggingIn } = useSelector((state) => state.user);
   const [isClicked, setIsClicked] = useState(false);
-  const [isLoggingIn, setIsLoggingIn] = useState(true);
 
   return (
     <header className="header">
@@ -52,7 +52,7 @@ const Header = () => {
               </div>
             </>
           ) : (
-            isLoggingIn && (
+            !isLoggingIn && (
               <div className="login">
                 <Link className="login-button" to="/login">
                   Log In

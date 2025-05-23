@@ -1,7 +1,19 @@
 import { Link } from "react-router-dom";
 import FormContainer from "../components/FormContainer";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setIsLoggingIn } from "../slices/userSlice";
 
 const Register = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setIsLoggingIn(true));
+    return () => {
+      dispatch(setIsLoggingIn(false));
+    };
+  }, [dispatch]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
   };
