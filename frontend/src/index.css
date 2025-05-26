@@ -103,7 +103,7 @@ button {
 }
 
 .form-input {
-  @apply border rounded min-h-8 px-2 w-[90%];
+  @apply rounded min-h-8 px-2 w-[90%] border-2;
 }
 
 .tool-button {

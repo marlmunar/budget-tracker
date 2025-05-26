@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { IoClose } from "react-icons/io5";
 
 const Modal = ({ isOpen, onClose, title, children }) => {
@@ -17,9 +17,15 @@ const Modal = ({ isOpen, onClose, title, children }) => {
   }, [isOpen, onClose]);
 
   return (
-    <div className="flex justify-center items-center absolute bg-slate-300/60 z-10 top-0 lef-0 right-0 bottom-0 h-full w-full">
-      <div className="relative bg-white shadow-xl rounded p-4 min-h-[10rem] min-w-[30rem]">
-        <h2 className="text-2xl text-center">{title}</h2>
+    <div
+      className="flex justify-center items-center absolute bg-slate-300/60 z-10 top-0 lef-0 right-0 bottom-0 h-full w-full"
+      onClick={onClose}
+    >
+      <div
+        className="relative bg-white shadow-xl rounded p-4 min-h-[10rem] min-w-[30rem]"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <h2 className="text-2xl text-center font-semibold">{title}</h2>
         <div>{children}</div>
 
         <IoClose
