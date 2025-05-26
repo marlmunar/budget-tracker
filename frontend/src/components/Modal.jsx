@@ -25,12 +25,12 @@ const Modal = ({ isOpen, onClose, title, children }) => {
         className="relative bg-white shadow-xl rounded p-4 min-h-[10rem] sm:min-w-[30rem]"
         onClick={(e) => e.stopPropagation()}
       >
-        <h2 className="text-2xl text-center font-semibold">{title}</h2>
+        <h2 className="text-lg text-center font-semibold">{title}</h2>
         <div>{children}</div>
 
         <IoClose
           onClick={onClose}
-          className="absolute  top-2 right-2 tool-button"
+          className="absolute top-2 right-2 tool-button"
         />
       </div>
     </div>
