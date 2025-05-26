@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { TbPencil, TbArrowsDiagonal2, TbTrash } from "react-icons/tb";
 
 const LogCard = ({ logName, logStats }) => {
@@ -12,7 +13,9 @@ const LogCard = ({ logName, logStats }) => {
       </div>
       <div className="flex gap-2">
         <TbPencil title="Rename" className="tool-button" />
-        <TbArrowsDiagonal2 title="Open" className="tool-button" />
+        <Link to="/log">
+          <TbArrowsDiagonal2 title="Open" className="tool-button" />
+        </Link>
         <TbTrash title="Delete" className="tool-button" />
       </div>
     </div>
