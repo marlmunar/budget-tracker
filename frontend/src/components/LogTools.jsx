@@ -1,11 +1,18 @@
+import { useState } from "react";
 import { TbSearch, TbPlus, TbAdjustmentsAlt } from "react-icons/tb";
+import Modal from "./Modal";
 
 const LogTools = () => {
+  const [isAdding, setIsAdding] = useState(false);
+  const [logName, setLogName] = useState("");
   return (
     <section className="bg-gray-400 p-2 rounded-lg shadow">
       <div className="flex justify-between lg:min-h-12 items-center">
         <div className="flex gap-2">
-          <button className="bg-blue-800 text-white border-2 min-h-8 px-2 py-1 rounded lg:min-w-[7.5rem] hover:border-transparent hover:shadow shadow-slate-800">
+          <button
+            className="bg-blue-800 text-white border-2 min-h-8 px-2 py-1 rounded lg:min-w-[7.5rem] hover:border-transparent hover:shadow shadow-slate-800"
+            onClick={() => setIsAdding(true)}
+          >
             <span className="hidden lg:block">Add New Log</span>
             <TbPlus className="text-xl lg:hidden" />
           </button>
@@ -27,6 +34,50 @@ const LogTools = () => {
           </button>
         </div>
       </div>
+      {isAdding && (
+        <Modal
+          isOpen={isAdding}
+          onClose={() => {
+            setIsAdding(false);
+            setLogName("");
+          }}
+          title="Add New Log"
+        >
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              setIsAdding(false);
+              setLogName("");
+            }}
+            className="flex flex-col items-center gap-2 p-2"
+          >
+            <label htmlFor="logName">Please provide your log name</label>
+            <input
+              type="text"
+              name="logName"
+              className="form-input"
+              value={logName}
+              onChange={(e) => setLogName(e.target.value)}
+              autoComplete="off"
+            />
+            <div className="button-row">
+              <button className="modal-button" type="submit">
+                Save
+              </button>
+              <button
+                className="modal-button"
+                type="button"
+                onClick={() => {
+                  setIsAdding(false);
+                  setLogName("");
+                }}
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </Modal>
+      )}
     </section>
   );
 };
