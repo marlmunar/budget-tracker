@@ -22,7 +22,7 @@ const Modal = ({ isOpen, onClose, title, children }) => {
       onClick={onClose}
     >
       <div
-        className="relative bg-white shadow-xl rounded p-4 min-h-[10rem] min-w-[30rem]"
+        className="relative bg-white shadow-xl rounded p-4 min-h-[10rem] sm:min-w-[30rem]"
         onClick={(e) => e.stopPropagation()}
       >
         <h2 className="text-2xl text-center font-semibold">{title}</h2>
