@@ -1,4 +1,5 @@
 import { TbSettings, TbEdit } from "react-icons/tb";
+import Modal from "./Modal";
 
 const UserProfile = () => {
   return (
@@ -10,6 +11,8 @@ const UserProfile = () => {
           <TbSettings className="transition-all duration-300 hover:text-amber-500" />
         </div>
       </div>
+
+      <Modal />
 
       <div className="grid grid-row-4 grid-cols-2 gap-x-5 gap-y-1">
         <span className="font-semibold">Logs:</span>
