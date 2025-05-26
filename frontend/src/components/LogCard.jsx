@@ -1,12 +1,13 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { TbPencil, TbArrowsDiagonal2, TbTrash } from "react-icons/tb";
 import { useState } from "react";
-import Modal from "./Modal";
 import Rename from "./Rename";
+import Delete from "./Delete";
 
 const LogCard = ({ logName, logStats }) => {
+  const navigate = useNavigate();
   const [isRenaming, setIsRenaming] = useState(false);
-  const [isDeleting, setDeleting] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
   const [displayName, setDisplayName] = useState(logName);
 
   return (
@@ -24,10 +25,18 @@ const LogCard = ({ logName, logStats }) => {
           className="tool-button"
           onClick={() => setIsRenaming(true)}
         />
-        <Link to="/log">
-          <TbArrowsDiagonal2 title="Open" className="tool-button" />
-        </Link>
-        <TbTrash title="Delete" className="tool-button" />
+
+        <TbArrowsDiagonal2
+          title="Open"
+          className="tool-button"
+          onClick={() => navigate("/log")}
+        />
+
+        <TbTrash
+          title="Delete"
+          className="tool-button"
+          onClick={() => setIsDeleting(true)}
+        />
       </div>
       {isRenaming && (
         <Rename
@@ -37,6 +46,13 @@ const LogCard = ({ logName, logStats }) => {
           setDisplayName={setDisplayName}
           title="Edit Log Name"
           description="Edit the name of your log"
+        />
+      )}
+      {isDeleting && (
+        <Delete
+          isDeleting={isDeleting}
+          setIsDeleting={setIsDeleting}
+          description={`Delelete ${displayName}?`}
         />
       )}
     </div>

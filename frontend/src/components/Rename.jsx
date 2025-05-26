@@ -22,7 +22,7 @@ const Rename = ({
           setIsRenaming(false);
           setDisplayName(tempName);
         }}
-        className="flex flex-col items-center gap-2 mx-10"
+        className="flex flex-col items-center gap-2 p-2"
       >
         <label htmlFor="tempName">{description}</label>
         <input
