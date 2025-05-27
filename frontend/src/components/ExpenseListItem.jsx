@@ -1,5 +1,5 @@
 import { TbTrash, TbEdit } from "react-icons/tb";
-const ExpenseCard = ({ name, amount, category }) => {
+const ExpenseListItem = ({ name, amount, category }) => {
   return (
     <div className="my-2 bg-white shadow rounded px-4 p-2 grid grid-rows-2 grid-cols-3 items-center hover:bg-slate-200/50 transition-all duration-300">
       <p className="text-lg font-semibold col-span-2">{name}</p>
@@ -13,4 +13,4 @@ const ExpenseCard = ({ name, amount, category }) => {
   );
 };
 
-export default ExpenseCard;
+export default ExpenseListItem;
