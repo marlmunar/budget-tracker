@@ -12,6 +12,7 @@ const ExpenseList = () => {
         amount="300"
         category="Needs"
         timeStamps="05/07/2025"
+        bgColor="#FFEB3B"
       />
       <ExpenseListItem
         name="Savings 2"
