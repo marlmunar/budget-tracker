@@ -1,3 +1,4 @@
+import ExpenseCard from "./ExpenseCard";
 import NoRecords from "./NoRecords";
 
 const ExpenseList = () => {
@@ -6,6 +7,7 @@ const ExpenseList = () => {
       <h2 className="log-section-header">Expense List</h2>
 
       <NoRecords />
+      <ExpenseCard name="Food 1" amount="300" category="Needs" />
     </section>
   );
 };
