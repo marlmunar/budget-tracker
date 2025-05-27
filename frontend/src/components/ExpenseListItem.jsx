@@ -14,7 +14,7 @@ const ExpenseListItem = ({
       </div>
       <p>{amount}</p>
       <p
-        className="border max-w-20 text-center rounded-xl"
+        className="max-w-20 text-center rounded-xl"
         style={{ backgroundColor: bgColor }}
       >
         {category}
