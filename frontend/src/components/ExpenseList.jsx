@@ -8,6 +8,8 @@ const ExpenseList = () => {
 
       <NoRecords />
       <ExpenseCard name="Food 1" amount="300" category="Needs" />
+      <ExpenseCard name="Savings 2" amount="40000" category="Savings" />
+      <ExpenseCard name="Savings 3" amount="40000" category="Savings" />
     </section>
   );
 };
