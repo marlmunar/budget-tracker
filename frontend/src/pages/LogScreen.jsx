@@ -24,7 +24,7 @@ const LogScreen = () => {
         )}
       </div>
 
-      <div className="py-4 grid grid-cols-1 justify-between lg:grid-cols-[39%_59%] grid-rows-2 my-2 gap-4">
+      <div className="py-4 grid grid-cols-1 justify-between lg:grid-cols-[39%_59%] grid-rows-[min-content_min-content] my-2 gap-4">
         <AddEntryForm />
         <ExpenseList />
         <ExpenseSummary />
