@@ -2,9 +2,9 @@ import { TbSettings, TbEdit } from "react-icons/tb";
 import { useState } from "react";
 import RenameModal from "./RenameModal";
 
-const UserProfile = () => {
+const UserProfile = ({ userInfo }) => {
   const [isRenaming, setIsRenaming] = useState(false);
-  const [userName, setUserName] = useState("User Name");
+  const [userName, setUserName] = useState(userInfo);
 
   return (
     <section className="flex flex-col border-2 border-slate-400 gap-4 items-start shadow-lg rounded p-4 lg:max-h-[12rem]">
