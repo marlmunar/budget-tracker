@@ -3,10 +3,14 @@ import FormContainer from "../components/FormContainer";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsLoggingIn } from "../slices/userSlice";
+import { useLoginMutation } from "../slices/userApiSlice";
+import { setCredentials } from "../slices/authSlice";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const [login, { isLoading }] = useLoginMutation();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -23,8 +27,15 @@ const Login = () => {
     };
   }, [dispatch]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+      const res = await login({ email, password }).unwrap();
+      dispatch(setCredentials({ ...res }));
+      navigate("/");
+    } catch (error) {
+      console.log(error?.data?.message || error.message);
+    }
   };
 
   return (

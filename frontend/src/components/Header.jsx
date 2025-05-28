@@ -36,7 +36,7 @@ const Header = () => {
                   <BsPersonSquare className="text-2xl mr-1" />
                 </button>
                 <p>
-                  Hello, <span className="font-bold">Current User!</span>
+                  Hello, <span className="font-bold">{userInfo.name}!</span>
                 </p>
                 <button
                   onClick={() => {
