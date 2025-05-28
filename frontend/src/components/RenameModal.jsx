@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Modal from "./Modal";
 
-const Rename = ({
+const RenameModal = ({
   isRenaming,
   setIsRenaming,
   displayName,
@@ -50,4 +50,4 @@ const Rename = ({
   );
 };
 
-export default Rename;
+export default RenameModal;

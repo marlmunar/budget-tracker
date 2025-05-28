@@ -8,7 +8,7 @@ import favicon from "../assets/favicon.png";
 import { useDispatch, useSelector } from "react-redux";
 import { useLogoutMutation } from "../slices/userApiSlice";
 import { clearCredentials } from "../slices/authSlice";
-import Logout from "./Logout";
+import ConfirmModal from "./ConfirmModal";
 
 const Header = () => {
   const [isLoggingOut, setIsLoggingOut] = useState(false);
@@ -125,13 +125,14 @@ const Header = () => {
         </div>
       </div>
       {isLoggingOut && (
-        <Logout
-          isLoggingOut={isLoggingOut}
-          setIsLoggingOut={setIsLoggingOut}
+        <ConfirmModal
+          isOpen={isLoggingOut}
+          setIsOpen={setIsLoggingOut}
           handleConfirm={() => {
             setIsLoggingOut(false);
             handleLogout();
           }}
+          action="Logout"
           description={"Are you sure you want to logout?"}
         />
       )}

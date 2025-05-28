@@ -1,6 +1,6 @@
 import { TbSettings, TbEdit } from "react-icons/tb";
 import { useState } from "react";
-import Rename from "./Rename";
+import RenameModal from "./RenameModal";
 
 const UserProfile = () => {
   const [isRenaming, setIsRenaming] = useState(false);
@@ -20,7 +20,7 @@ const UserProfile = () => {
       </div>
 
       {isRenaming && (
-        <Rename
+        <RenameModal
           isRenaming={isRenaming}
           setIsRenaming={setIsRenaming}
           displayName={userName}

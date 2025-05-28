@@ -1,8 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { TbPencil, TbArrowsDiagonal2, TbTrash } from "react-icons/tb";
 import { useState } from "react";
-import Rename from "./Rename";
-import Delete from "./Delete";
+
+import ConfirmModal from "./ConfirmModal";
+import RenameModal from "./RenameModal";
 
 const LogCard = ({ logName, logStats }) => {
   const navigate = useNavigate();
@@ -39,7 +40,7 @@ const LogCard = ({ logName, logStats }) => {
         />
       </div>
       {isRenaming && (
-        <Rename
+        <RenameModal
           isRenaming={isRenaming}
           setIsRenaming={setIsRenaming}
           displayName={displayName}
@@ -49,9 +50,14 @@ const LogCard = ({ logName, logStats }) => {
         />
       )}
       {isDeleting && (
-        <Delete
-          isDeleting={isDeleting}
-          setIsDeleting={setIsDeleting}
+        <ConfirmModal
+          isOpem={isDeleting}
+          setIsOpen={setIsDeleting}
+          handleConfirm={() => {
+            setIsDeleting(false);
+            console.log("Deleting....");
+          }}
+          action="Delete"
           description={`Delelete ${displayName}?`}
         />
       )}
