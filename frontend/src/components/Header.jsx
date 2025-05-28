@@ -8,8 +8,10 @@ import favicon from "../assets/favicon.png";
 import { useDispatch, useSelector } from "react-redux";
 import { useLogoutMutation } from "../slices/userApiSlice";
 import { clearCredentials } from "../slices/authSlice";
+import Logout from "./Logout";
 
 const Header = () => {
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
   const { userInfo } = useSelector((state) => state.auth);
   const { isLoggingIn } = useSelector((state) => state.user);
   const [isClicked, setIsClicked] = useState(false);
@@ -111,7 +113,7 @@ const Header = () => {
                     className="cursor-pointer"
                     onClick={() => {
                       setIsClicked(false);
-                      handleLogout();
+                      setIsLoggingOut(true);
                     }}
                   >
                     Logout
@@ -122,6 +124,17 @@ const Header = () => {
           )}
         </div>
       </div>
+      {isLoggingOut && (
+        <Logout
+          isLoggingOut={isLoggingOut}
+          setIsLoggingOut={setIsLoggingOut}
+          handleConfirm={() => {
+            setIsLoggingOut(false);
+            handleLogout();
+          }}
+          description={"Are you sure you want to logout?"}
+        />
+      )}
     </header>
   );
 };
