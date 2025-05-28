@@ -3,14 +3,31 @@ import { BsPersonSquare } from "react-icons/bs";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { IoMdArrowDropup } from "react-icons/io";
 import { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import favicon from "../assets/favicon.png";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useLogoutMutation } from "../slices/userApiSlice";
+import { clearCredentials } from "../slices/authSlice";
 
 const Header = () => {
   const { userInfo } = useSelector((state) => state.auth);
   const { isLoggingIn } = useSelector((state) => state.user);
   const [isClicked, setIsClicked] = useState(false);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [logout, { isLoading }] = useLogoutMutation();
+
+  const handleLogout = async () => {
+    try {
+      const res = await logout().unwrap();
+      dispatch(clearCredentials());
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <header className="header">
@@ -90,13 +107,15 @@ const Header = () => {
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink
-                    to="/logout"
-                    className={({ isActive }) => (isActive ? "nav-active" : "")}
-                    onClick={() => setIsClicked(false)}
+                  <span
+                    className="cursor-pointer"
+                    onClick={() => {
+                      setIsClicked(false);
+                      handleLogout();
+                    }}
                   >
                     Logout
-                  </NavLink>
+                  </span>
                 </li>
               </ul>
             </nav>
