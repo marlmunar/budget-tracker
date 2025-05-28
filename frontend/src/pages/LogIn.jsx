@@ -1,11 +1,20 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import FormContainer from "../components/FormContainer";
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { setIsLoggingIn } from "../slices/userSlice";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { userInfo } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (!!userInfo) navigate("/");
+  }, [navigate, userInfo]);
 
   useEffect(() => {
     dispatch(setIsLoggingIn(true));
@@ -29,9 +38,10 @@ const Login = () => {
             <label htmlFor="email">Email</label>
             <input
               className="form-input"
-              id="userEmail"
               type="email"
               name="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               autoComplete="off"
               required
             />
@@ -40,10 +50,11 @@ const Login = () => {
             <label htmlFor="password">Password</label>
             <input
               className="form-input"
-              id="userPassword"
               type="password"
               name="password"
               autoComplete="off"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>
