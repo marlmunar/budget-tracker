@@ -1,7 +1,7 @@
 import { apiSlice } from "./apiSlice";
 const LOGS_URL = "/logs";
 
-export const usersApiSlice = apiSlice.injectEndpoints({
+export const logsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getLogs: builder.query({
       query: () => LOGS_URL,
@@ -9,4 +9,4 @@ export const usersApiSlice = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useGetLogsQuery } = usersApiSlice;
+export const { useLazyGetLogsQuery } = logsApiSlice;

@@ -1,20 +1,45 @@
+import { useEffect, useState } from "react";
 import LogCard from "./LogCard";
 import LogTools from "./LogTools";
+import NoRecords from "./NoRecords";
+import { useLazyGetLogsQuery } from "../slices/logsApiSlice";
 
 const Logs = () => {
+  const [logs, setLogs] = useState([]);
+  const [getLogs, { data, isLoading }] = useLazyGetLogsQuery();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await getLogs().unwrap();
+        setLogs(res.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, [getLogs]);
+
   return (
     <div>
       <section className=" flex flex-col gap-4 p-4 shadow rounded">
         <h2 className="text-2xl font-semibold">Your Logs</h2>
         <LogTools />
-        <LogCard
-          logName={"Log 2"}
-          logStats={{ categories: "21 categories", lastEdited: "2 days ago" }}
-        />
-        <LogCard
-          logName={"Log 1"}
-          logStats={{ categories: "5 categories", lastEdited: "a month ago" }}
-        />
+
+        {!!logs ? (
+          <>
+            {logs.map((log, index) => (
+              <div key={index}>
+                <h1>{log.name}</h1>
+              </div>
+            ))}
+          </>
+        ) : (
+          <div>
+            <NoRecords />
+          </div>
+        )}
       </section>
     </div>
   );
