@@ -1,10 +1,29 @@
 import { TbSettings, TbEdit } from "react-icons/tb";
 import { useState } from "react";
 import RenameModal from "./RenameModal";
+import { useUpdateMutation } from "../slices/userApiSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { setCredentials } from "../slices/authSlice";
 
-const UserProfile = ({ userInfo }) => {
+const UserProfile = () => {
+  const dispatch = useDispatch();
+  const { userInfo } = useSelector((state) => state.auth);
+  const [updateProfile, { isLoading }] = useUpdateMutation();
   const [isRenaming, setIsRenaming] = useState(false);
-  const [userName, setUserName] = useState(userInfo);
+  const [userName, setUserName] = useState(userInfo.name);
+
+  // const submitHandler = async (e) => {
+  //   e.preventDefault();
+
+  //   try {
+  //     const res = await updateProfile({
+  //       name: userName,
+  //     }).unwrap();
+  //     dispatch(setCredentials({ ...res }));
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   return (
     <section className="flex flex-col border-2 border-slate-400 gap-4 items-start shadow-lg rounded p-4 lg:max-h-[12rem]">
@@ -24,7 +43,10 @@ const UserProfile = ({ userInfo }) => {
           isRenaming={isRenaming}
           setIsRenaming={setIsRenaming}
           displayName={userName}
-          setDisplayName={setUserName}
+          handleSubmit={(tempName) => {
+            setIsRenaming(false);
+            setUserName(tempName);
+          }}
           title="Edit User Name"
           description="Update your user name"
         />

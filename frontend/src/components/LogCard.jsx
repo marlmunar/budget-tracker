@@ -41,10 +41,13 @@ const LogCard = ({ logName, logStats }) => {
       </div>
       {isRenaming && (
         <RenameModal
-          isRenaming={isRenaming}
+          sRenaming={isRenaming}
           setIsRenaming={setIsRenaming}
           displayName={displayName}
-          setDisplayName={setDisplayName}
+          handleSubmit={(tempName) => {
+            setIsRenaming(false);
+            setDisplayName(tempName);
+          }}
           title="Edit Log Name"
           description="Edit the name of your log"
         />

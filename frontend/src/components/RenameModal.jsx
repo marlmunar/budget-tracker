@@ -5,7 +5,7 @@ const RenameModal = ({
   isRenaming,
   setIsRenaming,
   displayName,
-  setDisplayName,
+  handleSubmit,
   title,
   description,
 }) => {
@@ -19,8 +19,7 @@ const RenameModal = ({
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          setIsRenaming(false);
-          setDisplayName(tempName);
+          handleSubmit(tempName);
         }}
         className="flex flex-col items-center gap-2 p-2"
       >

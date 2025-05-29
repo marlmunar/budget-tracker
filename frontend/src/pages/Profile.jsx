@@ -11,7 +11,7 @@ const Profile = () => {
         {`Budgetarians' Log - ${userInfo ? userInfo.name : "User Name"}`}
       </title>
 
-      <UserProfile userInfo={userInfo ? userInfo.name : "User Name"} />
+      <UserProfile />
       <Logs />
     </main>
   );
