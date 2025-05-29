@@ -1,11 +1,26 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import FormContainer from "../components/FormContainer";
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { setIsLoggingIn } from "../slices/userSlice";
+import { useRegisterMutation } from "../slices/userApiSlice";
+import { setCredentials } from "../slices/authSlice";
 
 const Register = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const [register, { isLoading }] = useRegisterMutation();
+
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { userInfo } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (!!userInfo) navigate("/");
+  }, [navigate, userInfo]);
 
   useEffect(() => {
     dispatch(setIsLoggingIn(true));
@@ -14,8 +29,19 @@ const Register = () => {
     };
   }, [dispatch]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    try {
+      if (password !== confirmPassword) {
+        throw new Error("Passwords do not match");
+      }
+      const res = await register({ name, email, password }).unwrap();
+      dispatch(setCredentials({ ...res }));
+      navigate("/");
+    } catch (error) {
+      console.log(error?.data?.message || error.message);
+    }
   };
 
   return (
@@ -33,6 +59,8 @@ const Register = () => {
               type="text"
               name="name"
               autoComplete="off"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               required
             />
           </div>
@@ -43,6 +71,8 @@ const Register = () => {
               type="email"
               name="email"
               autoComplete="off"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
             />
           </div>
@@ -53,6 +83,8 @@ const Register = () => {
               type="password"
               name="password"
               autoComplete="off"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>
@@ -63,6 +95,8 @@ const Register = () => {
               type="password"
               name="confirmPassword"
               autoComplete="off"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
               required
             />
           </div>
