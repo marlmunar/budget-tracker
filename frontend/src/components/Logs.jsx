@@ -20,6 +20,7 @@ const Logs = () => {
 
     fetchData();
   }, [getLogs]);
+  console.log(logs);
 
   return (
     <div>
@@ -30,9 +31,14 @@ const Logs = () => {
         {!!logs ? (
           <>
             {logs.map((log, index) => (
-              <div key={index}>
-                <h1>{log.name}</h1>
-              </div>
+              <LogCard
+                key={index}
+                logName={log.name}
+                logStats={{
+                  categories: log.categories.length,
+                  lastEdited: log.updatedAt.split("T")[0],
+                }}
+              />
             ))}
           </>
         ) : (
