@@ -7,11 +7,12 @@ import Log from "../models/log.model.js";
 // @access PRIVATE
 const getLogs = asyncHandler(async (req, res) => {
   const userId = req.user?._id;
-  console.log(req.user?._id);
+
   if (!userId) {
     res.status(400);
     throw new Error("Bad request: UserId is missing");
   }
+
   const logs = await Log.find({ userId });
   res.status(200).json({
     message: "Successfully fetched",

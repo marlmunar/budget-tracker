@@ -12,18 +12,18 @@ const UserProfile = () => {
   const [isRenaming, setIsRenaming] = useState(false);
   const [userName, setUserName] = useState(userInfo.name);
 
-  // const submitHandler = async (e) => {
-  //   e.preventDefault();
-
-  //   try {
-  //     const res = await updateProfile({
-  //       name: userName,
-  //     }).unwrap();
-  //     dispatch(setCredentials({ ...res }));
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+  const editHandler = async (tempName) => {
+    let name = tempName;
+    try {
+      const res = await updateProfile({
+        name,
+      }).unwrap();
+      dispatch(setCredentials({ ...res }));
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <section className="flex flex-col border-2 border-slate-400 gap-4 items-start shadow-lg rounded p-4 lg:max-h-[12rem]">
@@ -46,6 +46,7 @@ const UserProfile = () => {
           handleSubmit={(tempName) => {
             setIsRenaming(false);
             setUserName(tempName);
+            editHandler(tempName);
           }}
           title="Edit User Name"
           description="Update your user name"
