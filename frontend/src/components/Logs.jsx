@@ -28,7 +28,7 @@ const Logs = () => {
         <h2 className="text-2xl font-semibold">Your Logs</h2>
         <LogTools />
 
-        {!!logs ? (
+        {logs.length > 0 ? (
           <>
             {logs.map((log, index) => (
               <LogCard
@@ -42,9 +42,7 @@ const Logs = () => {
             ))}
           </>
         ) : (
-          <div>
-            <NoRecords />
-          </div>
+          <NoRecords />
         )}
       </section>
     </div>
