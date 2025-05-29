@@ -6,7 +6,8 @@ import Log from "../models/log.model.js";
 // @route GET /api/logs
 // @access PRIVATE
 const getLogs = asyncHandler(async (req, res) => {
-  const userId = req.query.userId ?? null;
+  const userId = req.user?._id;
+  console.log(req.user?._id);
   if (!userId) {
     res.status(400);
     throw new Error("Bad request: UserId is missing");
@@ -22,7 +23,7 @@ const getLogs = asyncHandler(async (req, res) => {
 // @route POST /api/logs
 // @access PRIVATE
 const createLog = asyncHandler(async (req, res) => {
-  const userId = req.body?.userId || new mongoose.Types.ObjectId();
+  const userId = req.user._id;
   const { name, categories, entries } = req.body;
   const newLog = await Log.create({ userId, name, categories, entries });
 
