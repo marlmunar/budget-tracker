@@ -2,11 +2,16 @@ import asyncHandler from "express-async-handler";
 import mongoose from "mongoose";
 import Log from "../models/log.model.js";
 
-// @desc Get Logs
+// @desc Get Logs based on UserId
 // @route GET /api/logs
 // @access PRIVATE
 const getLogs = asyncHandler(async (req, res) => {
-  const logs = await Log.find({}, "_id name categories entries");
+  const userId = req.query.userId ?? null;
+  if (!userId) {
+    res.status(400);
+    throw new Error("Bad request: UserId is missing");
+  }
+  const logs = await Log.find({ userId });
   res.status(200).json({
     message: "Successfully fetched",
     data: logs,
