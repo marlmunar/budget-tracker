@@ -5,7 +5,7 @@ const initialState = {
 };
 
 const userSlice = createSlice({
-  name: "path",
+  name: "user",
   initialState,
   reducers: {
     setIsLoggingIn(state, action) {
