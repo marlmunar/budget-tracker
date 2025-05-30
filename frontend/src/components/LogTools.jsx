@@ -1,10 +1,30 @@
 import { useState } from "react";
 import { TbSearch, TbPlus, TbAdjustmentsAlt } from "react-icons/tb";
 import Modal from "./Modal";
+import { useSelector } from "react-redux";
+import { useCreateLogMutation } from "../slices/logsApiSlice";
 
 const LogTools = () => {
+  const { defeaultCategories } = useSelector((state) => state.logs);
+  const [createLog, { isLoading }] = useCreateLogMutation();
   const [isAdding, setIsAdding] = useState(false);
   const [logName, setLogName] = useState("");
+  console.log(defeaultCategories);
+
+  const handleAdd = async () => {
+    try {
+      const res = await createLog({
+        name: logName,
+        categories: defeaultCategories,
+      }).unwrap();
+      console.log(res);
+    } catch (error) {
+      console.log(error?.data?.message || error.message);
+    }
+
+    setLogName("");
+  };
+
   return (
     <section className="bg-gray-400 p-2 rounded-lg shadow">
       <div className="flex justify-between lg:min-h-12 items-center">
@@ -47,7 +67,7 @@ const LogTools = () => {
             onSubmit={(e) => {
               e.preventDefault();
               setIsAdding(false);
-              setLogName("");
+              handleAdd();
             }}
             className="flex flex-col items-center gap-2 p-2"
           >

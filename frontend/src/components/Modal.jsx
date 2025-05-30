@@ -1,7 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { IoClose } from "react-icons/io5";
 
 const Modal = ({ isOpen, onClose, title, children }) => {
+  const scrollToRef = useRef(null);
+
   useEffect(() => {
     function handleKeyDown(e) {
       if (e.key === "Escape") onClose();
@@ -16,13 +18,29 @@ const Modal = ({ isOpen, onClose, title, children }) => {
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [isOpen, onClose]);
 
+  useEffect(() => {
+    const offset = 150;
+    const element = scrollToRef.current;
+
+    if (element) {
+      const topPosition =
+        element.getBoundingClientRect().top + window.scrollY - offset;
+
+      window.scrollTo({
+        top: topPosition,
+        behavior: "smooth",
+      });
+    }
+  });
+
   return (
     <div
-      className="flex justify-center items-center absolute bg-slate-300/60 z-10 top-0 lef-0 right-0 bottom-0 h-full w-full"
+      className="flex justify-center absolute bg-slate-300/60 z-10 top-0 lef-0 right-0 bottom-0 h-full w-full"
       onClick={onClose}
     >
       <div
-        className="relative bg-white shadow-xl rounded p-4 min-h-[5rem] sm:min-w-[15rem]"
+        ref={scrollToRef}
+        className="relative bg-white shadow-xl rounded p-4 mt-15 max-h-fit sm:min-w-[15rem]"
         onClick={(e) => e.stopPropagation()}
       >
         <h2 className="text-lg text-center font-semibold">{title}</h2>

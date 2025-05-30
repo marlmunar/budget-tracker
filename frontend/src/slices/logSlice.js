@@ -2,11 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 const defaultCategories = [
   {
     name: "Food",
-    color: "#82e0aa",
+    color: "#82E0AA",
   },
   {
     name: "Savings",
-    color: "#f7dc6f",
+    color: "#F7DC6F",
   },
   {
     name: "Health",
