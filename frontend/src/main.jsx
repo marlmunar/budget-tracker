@@ -26,7 +26,7 @@ const router = createBrowserRouter(
       <Route path="login" element={<Login />} />
       <Route path="register" element={<Register />} />
       {/* <Route element={<PrivateRoute />}> */}
-      <Route path="log" element={<LogScreen />} />
+      <Route path="log/:logId" element={<LogScreen />} />
       <Route path="profile" element={<Profile />} />
       {/* </Route> */}
       <Route path="*" element={<NotFound />} />
