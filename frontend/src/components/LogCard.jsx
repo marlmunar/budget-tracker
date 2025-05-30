@@ -5,7 +5,7 @@ import { useState } from "react";
 import ConfirmModal from "./ConfirmModal";
 import RenameModal from "./RenameModal";
 
-const LogCard = ({ logName, logStats }) => {
+const LogCard = ({ logName, logStats, logId }) => {
   const navigate = useNavigate();
   const [isRenaming, setIsRenaming] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -30,7 +30,9 @@ const LogCard = ({ logName, logStats }) => {
         <TbArrowsDiagonal2
           title="Open"
           className="tool-button"
-          onClick={() => navigate("/log")}
+          onClick={(e) => {
+            navigate(`/log/${logId}`);
+          }}
         />
 
         <TbTrash

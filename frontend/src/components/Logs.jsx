@@ -40,6 +40,7 @@ const Logs = () => {
                   entries: log.entries.length,
                   lastEdited: log.updatedAt.split("T")[0],
                 }}
+                logId={log._id}
               />
             ))}
           </>
