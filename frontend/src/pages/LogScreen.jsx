@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 import AddEntryForm from "../components/AddEntryForm";
 import ExpenseList from "../components/ExpenseList";
 import ExpenseSummary from "../components/ExpenseSummary";
@@ -12,12 +13,13 @@ import {
 } from "react-icons/tb";
 
 const LogScreen = () => {
+  const { logId } = useParams();
   const [isSelecting, setIsSelecting] = useState(false);
   return (
     <main className="mx-auto md:max-w-[90%] lg:max-w-none">
-      <title>Budgetarians' Log - Log Name</title>
+      <title>{`Budgetarians' Log - ${logId}`}</title>
       <div className="relative flex justify-between items-center">
-        <h2 className="text-2xl font-semibold underline">Log Name</h2>
+        <h2 className="text-2xl font-semibold underline">Log #{logId}</h2>
         <div className="flex gap-2 text-3xl">
           <TbDeviceSdCard className="p-1 rounded cursor-pointer w-12 h-10 hover:bg-slate-300/50 hover:shadow-md hover:border-transparent transition-all duration-300" />
           <TbFileDots

@@ -25,8 +25,8 @@ const getLogs = asyncHandler(async (req, res) => {
 // @access PRIVATE
 const createLog = asyncHandler(async (req, res) => {
   const userId = req.user._id;
-  const { name, categories, entries } = req.body;
-  const newLog = await Log.create({ userId, name, categories, entries });
+  const { name, categories } = req.body;
+  const newLog = await Log.create({ userId, name, categories });
 
   res.status(201).json({
     message: "Successfully created",
