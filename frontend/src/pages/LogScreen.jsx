@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import AddEntryForm from "../components/AddEntryForm";
 import ExpenseList from "../components/ExpenseList";
@@ -11,15 +11,32 @@ import {
   TbFileAnalytics,
   TbFileX,
 } from "react-icons/tb";
+import { useLazyGetLogQuery } from "../slices/logsApiSlice";
 
 const LogScreen = () => {
+  const [logData, setLogData] = useState({});
+  const [getLog, { data, isLoading }] = useLazyGetLogQuery();
   const { logId } = useParams();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await getLog(logId).unwrap();
+        setLogData(res.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, [logId, getLog]);
+
   const [isSelecting, setIsSelecting] = useState(false);
   return (
     <main className="mx-auto md:max-w-[90%] lg:max-w-none">
       <title>{`Budgetarians' Log - ${logId}`}</title>
       <div className="relative flex justify-between items-center">
-        <h2 className="text-2xl font-semibold underline">Log #{logId}</h2>
+        <h2 className="text-2xl font-semibold underline">{logData.name}</h2>
         <div className="flex gap-2 text-3xl">
           <TbDeviceSdCard className="p-1 rounded cursor-pointer w-12 h-10 hover:bg-slate-300/50 hover:shadow-md hover:border-transparent transition-all duration-300" />
           <TbFileDots

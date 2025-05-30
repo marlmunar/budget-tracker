@@ -6,6 +6,9 @@ export const logsApiSlice = apiSlice.injectEndpoints({
     getLogs: builder.query({
       query: () => LOGS_URL,
     }),
+    getLog: builder.query({
+      query: (id) => `${LOGS_URL}/${id}`,
+    }),
     createLog: builder.mutation({
       query: (data) => ({
         url: LOGS_URL,
@@ -16,4 +19,5 @@ export const logsApiSlice = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useLazyGetLogsQuery, useCreateLogMutation } = logsApiSlice;
+export const { useLazyGetLogsQuery, useLazyGetLogQuery, useCreateLogMutation } =
+  logsApiSlice;

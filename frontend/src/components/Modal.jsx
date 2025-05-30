@@ -31,7 +31,7 @@ const Modal = ({ isOpen, onClose, title, children }) => {
         behavior: "smooth",
       });
     }
-  });
+  }, []);
 
   return (
     <div

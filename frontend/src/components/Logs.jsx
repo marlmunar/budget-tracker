@@ -20,7 +20,6 @@ const Logs = () => {
 
     fetchData();
   }, [getLogs]);
-  console.log(logs);
 
   return (
     <div>
