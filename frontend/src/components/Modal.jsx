@@ -19,7 +19,7 @@ const Modal = ({ isOpen, onClose, title, children }) => {
   }, [isOpen, onClose]);
 
   useEffect(() => {
-    const offset = 150;
+    const offset = 200;
     const element = scrollToRef.current;
 
     if (element) {

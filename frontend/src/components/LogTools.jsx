@@ -5,17 +5,17 @@ import { useSelector } from "react-redux";
 import { useCreateLogMutation } from "../slices/logsApiSlice";
 
 const LogTools = () => {
-  const { defeaultCategories } = useSelector((state) => state.logs);
+  const { defaultCategories } = useSelector((state) => state.logs);
   const [createLog, { isLoading }] = useCreateLogMutation();
   const [isAdding, setIsAdding] = useState(false);
   const [logName, setLogName] = useState("");
-  console.log(defeaultCategories);
+  console.log(JSON.stringify(defaultCategories));
 
   const handleAdd = async () => {
     try {
       const res = await createLog({
         name: logName,
-        categories: defeaultCategories,
+        categories: defaultCategories,
       }).unwrap();
       console.log(res);
     } catch (error) {

@@ -30,7 +30,7 @@ const initialState = {
   defaultCategories,
 };
 
-const userSlice = createSlice({
+const logSlice = createSlice({
   name: "logs",
   initialState,
   reducers: {
@@ -40,5 +40,5 @@ const userSlice = createSlice({
   },
 });
 
-export default userSlice.reducer;
-export const { setDefaultCategories } = userSlice.actions;
+export default logSlice.reducer;
+export const { setDefaultCategories } = logSlice.actions;
