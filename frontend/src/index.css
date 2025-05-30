@@ -143,3 +143,7 @@ button {
   @apply bg-blue-700 shadow border-2 border-gray-300 text-white  p-1 rounded transition-all duration-300 min-w-[7.25rem]
    hover:shadow-slate-800 hover:border-transparent hover:shadow;
 }
+
+.log-options {
+  @apply w-full px-1 flex justify-start items-center gap-1 rounded cursor-pointer hover:bg-slate-400/50;
+}
