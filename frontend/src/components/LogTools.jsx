@@ -3,13 +3,14 @@ import { TbSearch, TbPlus, TbAdjustmentsAlt } from "react-icons/tb";
 import Modal from "./Modal";
 import { useSelector } from "react-redux";
 import { useCreateLogMutation } from "../slices/logsApiSlice";
+import { useNavigate } from "react-router-dom";
 
 const LogTools = () => {
+  const navigate = useNavigate();
   const { defaultCategories } = useSelector((state) => state.logs);
   const [createLog, { isLoading }] = useCreateLogMutation();
   const [isAdding, setIsAdding] = useState(false);
   const [logName, setLogName] = useState("");
-  console.log(JSON.stringify(defaultCategories));
 
   const handleAdd = async () => {
     try {
@@ -17,7 +18,7 @@ const LogTools = () => {
         name: logName,
         categories: defaultCategories,
       }).unwrap();
-      console.log(res);
+      navigate(`/log/${res.data._id}`);
     } catch (error) {
       console.log(error?.data?.message || error.message);
     }
