@@ -12,7 +12,10 @@ const Logs = () => {
     const fetchData = async () => {
       try {
         const res = await getLogs().unwrap();
-        setLogs(res.data);
+        let sorted = [...res.data].sort(
+          (a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)
+        );
+        setLogs(sorted);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -34,7 +37,7 @@ const Logs = () => {
                 key={index}
                 logName={log.name}
                 logStats={{
-                  categories: log.categories.length,
+                  entries: log.entries.length,
                   lastEdited: log.updatedAt.split("T")[0],
                 }}
               />

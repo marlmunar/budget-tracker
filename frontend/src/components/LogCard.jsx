@@ -16,7 +16,7 @@ const LogCard = ({ logName, logStats }) => {
       <div className="flex flex-col gap-2">
         <h3 className="text-lg font-semibold underline">{displayName}</h3>
         <div className="text-sm text-gray-800">
-          <p>Categories: {logStats.categories}</p>
+          <p>Entries: {logStats.entries}</p>
           <p>Last edited: {logStats.lastEdited}</p>
         </div>
       </div>
