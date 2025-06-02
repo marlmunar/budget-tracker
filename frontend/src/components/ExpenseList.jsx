@@ -4,7 +4,6 @@ import NoRecords from "./NoRecords";
 
 const ExpenseList = () => {
   const { tempEntries } = useSelector((state) => state.logs);
-  console.log(tempEntries);
   return (
     <section className="log-section-container">
       <h2 className="log-section-header">Expense List</h2>
@@ -17,7 +16,7 @@ const ExpenseList = () => {
             name={entry.expense}
             amount={entry.amount}
             category={entry.category.name}
-            timeStamps={entry.date}
+            timeStamps={entry.date.split("T")[0]}
             bgColor={entry.category.color}
           />
         ))

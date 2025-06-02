@@ -12,10 +12,14 @@ import {
   TbFileAnalytics,
   TbFileX,
 } from "react-icons/tb";
-import { useLazyGetLogQuery } from "../slices/logsApiSlice";
-import { useDispatch } from "react-redux";
+import {
+  useLazyGetLogQuery,
+  useUpdateLogMutation,
+} from "../slices/logsApiSlice";
+import { useDispatch, useSelector } from "react-redux";
 import { startLoading, stopLoading } from "../slices/appSlice";
 import OutsideClick from "../components/OutsideClick";
+import { setTempEntries } from "../slices/logSlice";
 
 const LogScreen = () => {
   const dispatch = useDispatch();
@@ -23,7 +27,11 @@ const LogScreen = () => {
 
   const [logData, setLogData] = useState({});
   const [categories, setCategories] = useState([]);
+  const [isSelecting, setIsSelecting] = useState(false);
+
   const [getLog, { data }] = useLazyGetLogQuery();
+  const [updateLog, { isLoading }] = useUpdateLogMutation();
+  const { tempEntries } = useSelector((state) => state.logs);
   const { logId } = useParams();
 
   useEffect(() => {
@@ -33,6 +41,7 @@ const LogScreen = () => {
         const res = await getLog(logId).unwrap();
         setLogData(res.data);
         setCategories(res.data.categories);
+        dispatch(setTempEntries([...res.data.entries]));
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
@@ -43,8 +52,20 @@ const LogScreen = () => {
     fetchData();
   }, [logId, getLog, dispatch]);
 
-  const [isSelecting, setIsSelecting] = useState(false);
-
+  const handleSave = async () => {
+    try {
+      dispatch(startLoading());
+      const res = await updateLog({
+        id: logId,
+        data: { name: logData.name, categories, entries: tempEntries },
+      }).unwrap();
+      console.log(res);
+    } catch (error) {
+      console.log(error?.data?.message || error.message);
+    } finally {
+      dispatch(stopLoading());
+    }
+  };
   return (
     <main className="mx-auto md:max-w-[90%] lg:max-w-none">
       <title>{`Budgetarians' Log - ${logId}`}</title>
@@ -59,7 +80,7 @@ const LogScreen = () => {
 
         <div className="relative flex text-3xl">
           <div className="flex">
-            <button className="log-button">
+            <button className="log-button" onClick={handleSave}>
               <TbDeviceSdCard />
             </button>
             <button

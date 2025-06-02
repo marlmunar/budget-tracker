@@ -26,7 +26,7 @@ const AddEntryForm = ({ categories }) => {
       expense,
       amount,
       category,
-      date: new Date().toISOString().split("T")[0],
+      date: new Date().toISOString(),
     };
     dispatch(addTempEntry(newLog));
     console.log(newLog);
@@ -35,7 +35,7 @@ const AddEntryForm = ({ categories }) => {
   return (
     <section className="log-section-container row-span-2 max-h-[16.8rem]">
       <h3 className="log-section-header">Log an Entry</h3>
-      <form onSubmit={handleSubmit}>
+      <form method="POST" onSubmit={handleSubmit}>
         <div className="input-row">
           <div className="input-column">
             <label htmlFor="expense">Expense</label>
