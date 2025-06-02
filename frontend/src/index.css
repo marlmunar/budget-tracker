@@ -46,7 +46,14 @@ button {
 }
 
 .nav-bar {
-  @apply bg-white mt-2 right-5 md:right-10 absolute shadow border rounded py-2 px-4 min-w-[6rem] z-10;
+  @apply bg-white mt-2 right-5 md:right-10 
+  absolute shadow border-2 rounded 
+  p-2 min-w-[6rem] z-10
+  flex flex-col gap-2;
+}
+
+.nav-bar ul > li {
+  @apply p-1 px-2 rounded hover:bg-slate-400/50;
 }
 
 .nav-active {
