@@ -1,6 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Outfit&display=swap");
 @import "tailwindcss";
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 :root {
   font-family: var(--font-outfit);
 }
@@ -141,7 +147,8 @@ button > * {
   @apply text-lg;
 }
 
-.input-column input {
+.input-column input,
+.input-column .custom-select {
   @apply block bg-white w-44 sm:min-w-[15rem] px-2 rounded border-[2px];
 }
 

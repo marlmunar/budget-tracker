@@ -22,6 +22,7 @@ const LogScreen = () => {
   const navigate = useNavigate();
 
   const [logData, setLogData] = useState({});
+  const [categories, setCategories] = useState([]);
   const [getLog, { data }] = useLazyGetLogQuery();
   const { logId } = useParams();
 
@@ -31,6 +32,8 @@ const LogScreen = () => {
         dispatch(startLoading());
         const res = await getLog(logId).unwrap();
         setLogData(res.data);
+        setCategories(res.data.categories);
+        console.log(res.data.categories);
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
@@ -79,22 +82,22 @@ const LogScreen = () => {
               }}
             >
               <menu className="absolute right-0 border-2 w-32 text-base p-2 flex flex-col items-center gap-2 mt-12 shadow-lg bg-white rounded ">
-                <div className="log-options">
+                <li className="log-options">
                   <TbFilePencil />
                   <span>Rename</span>
-                </div>
-                <div className="log-options">
+                </li>
+                <li className="log-options">
                   <TbFileDownload />
                   <span>Download</span>
-                </div>
-                <div className="log-options">
+                </li>
+                <li className="log-options">
                   <TbFileAnalytics />
                   <span>Visualize</span>
-                </div>
-                <div className="log-options text-red-500">
+                </li>
+                <li className="log-options text-red-500">
                   <TbFileX />
                   <span>Delete</span>
-                </div>
+                </li>
               </menu>
             </OutsideClick>
           )}
@@ -102,7 +105,7 @@ const LogScreen = () => {
       </div>
 
       <div className="py-4 grid grid-cols-1 justify-between lg:grid-cols-[39%_59%] grid-rows-[min-content_min-content] my-2 gap-4">
-        <AddEntryForm />
+        <AddEntryForm categories={categories} />
         <ExpenseList />
         <ExpenseSummary />
       </div>
