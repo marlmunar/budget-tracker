@@ -1,7 +1,6 @@
 import { RxDotsHorizontal } from "react-icons/rx";
 import { BsPersonSquare } from "react-icons/bs";
-import { IoMdArrowDropdown } from "react-icons/io";
-import { IoMdArrowDropup } from "react-icons/io";
+import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 import { useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import favicon from "../assets/favicon.png";
@@ -9,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLogoutMutation } from "../slices/userApiSlice";
 import { clearCredentials } from "../slices/authSlice";
 import ConfirmModal from "./ConfirmModal";
+import OutsideClick from "./OutsideClick";
 
 const Header = () => {
   const [isLoggingOut, setIsLoggingOut] = useState(false);
@@ -41,9 +41,9 @@ const Header = () => {
           </div>
         </Link>
 
-        <div>
+        <div className="flex flex-col items-end">
           {!!userInfo ? (
-            <>
+            <div>
               <button
                 className="hamburger"
                 onClick={() => setIsClicked((i) => !i)}
@@ -69,7 +69,7 @@ const Header = () => {
                   )}
                 </button>
               </div>
-            </>
+            </div>
           ) : (
             !isLoggingIn && (
               <div className="login">
@@ -86,42 +86,49 @@ const Header = () => {
               </div>
             )
           )}
-
-          {isClicked && (
-            <nav className="nav-bar">
-              <ul>
-                <li>
-                  <NavLink
-                    to="/"
-                    className={({ isActive }) => (isActive ? "nav-active" : "")}
-                    onClick={() => setIsClicked(false)}
-                  >
-                    Home
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to="/profile"
-                    className={({ isActive }) => (isActive ? "nav-active" : "")}
-                    onClick={() => setIsClicked(false)}
-                  >
-                    Profile
-                  </NavLink>
-                </li>
-                <li>
-                  <span
-                    className="cursor-pointer"
-                    onClick={() => {
-                      setIsClicked(false);
-                      setIsLoggingOut(true);
-                    }}
-                  >
-                    Logout
-                  </span>
-                </li>
-              </ul>
-            </nav>
-          )}
+          <div className="relative">
+            {isClicked && (
+              <OutsideClick onOutsideClick={() => setIsClicked(false)}>
+                <nav className="nav-bar">
+                  <ul>
+                    <li>
+                      <NavLink
+                        to="/"
+                        className={({ isActive }) =>
+                          isActive ? "nav-active" : ""
+                        }
+                        onClick={() => setIsClicked(false)}
+                      >
+                        Home
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink
+                        to="/profile"
+                        className={({ isActive }) =>
+                          isActive ? "nav-active" : ""
+                        }
+                        onClick={() => setIsClicked(false)}
+                      >
+                        Profile
+                      </NavLink>
+                    </li>
+                    <li>
+                      <span
+                        className="cursor-pointer"
+                        onClick={() => {
+                          setIsClicked(false);
+                          setIsLoggingOut(true);
+                        }}
+                      >
+                        Logout
+                      </span>
+                    </li>
+                  </ul>
+                </nav>
+              </OutsideClick>
+            )}
+          </div>
         </div>
       </div>
       {isLoggingOut && (
