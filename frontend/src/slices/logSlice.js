@@ -28,6 +28,7 @@ const defaultCategories = [
 
 const initialState = {
   defaultCategories,
+  tempEntries: [],
 };
 
 const logSlice = createSlice({
@@ -37,8 +38,11 @@ const logSlice = createSlice({
     setDefaultCategories(state, action) {
       state.defaultCategories = action.payload;
     },
+    setTempEntries(state, action) {
+      state.tempEntries = action.payload;
+    },
   },
 });
 
 export default logSlice.reducer;
-export const { setDefaultCategories } = logSlice.actions;
+export const { setDefaultCategories, setTempEntries } = logSlice.actions;

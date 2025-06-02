@@ -13,12 +13,16 @@ const AddEntryForm = ({ categories }) => {
   const [category, setCategory] = useState({});
   const [selectedCategory, setSelectedCategory] = useState("");
 
-  const handleSubmit = () => {};
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const newLog = { expense, amount, category };
+    console.log(newLog);
+  };
 
   return (
     <section className="log-section-container row-span-2 max-h-[16.8rem]">
       <h3 className="log-section-header">Log an Entry</h3>
-      <form onSubmit={() => handleSubmit()}>
+      <form onSubmit={handleSubmit}>
         <div className="input-row">
           <div className="input-column">
             <label htmlFor="expense">Expense</label>
