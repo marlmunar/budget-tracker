@@ -1,4 +1,8 @@
-import { TbCaretDownFilled, TbCaretUpFilled } from "react-icons/tb";
+import {
+  TbCaretDownFilled,
+  TbCaretUpFilled,
+  TbCirclePlus,
+} from "react-icons/tb";
 import OutsideClick from "./OutsideClick";
 import { useState } from "react";
 
@@ -53,6 +57,7 @@ const AddEntryForm = ({ categories }) => {
                     {categories.map((cat, index) => (
                       <li
                         className="log-options"
+                        style={{ backgroundColor: cat.color }}
                         key={index}
                         onClick={() => {
                           setSelectedCategory(cat.name);
@@ -62,6 +67,9 @@ const AddEntryForm = ({ categories }) => {
                         {cat.name}
                       </li>
                     ))}
+                    <li className="log-options">
+                      <TbCirclePlus /> Add New
+                    </li>
                   </menu>
                 </OutsideClick>
               )}
