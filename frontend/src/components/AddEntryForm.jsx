@@ -5,8 +5,11 @@ import {
 } from "react-icons/tb";
 import OutsideClick from "./OutsideClick";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addTempEntry } from "../slices/logSlice";
 
 const AddEntryForm = ({ categories }) => {
+  const dispatch = useDispatch();
   const [isSelecting, setIsSelecting] = useState(false);
   const [expense, setExpense] = useState("");
   const [amount, setAmount] = useState("");
@@ -15,7 +18,17 @@ const AddEntryForm = ({ categories }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newLog = { expense, amount, category };
+    if (!selectedCategory) {
+      console.error("Category field cannot be blank");
+      return;
+    }
+    const newLog = {
+      expense,
+      amount,
+      category,
+      date: new Date().toISOString().split("T")[0],
+    };
+    dispatch(addTempEntry(newLog));
     console.log(newLog);
   };
 

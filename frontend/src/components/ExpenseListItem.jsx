@@ -12,7 +12,7 @@ const ExpenseListItem = ({
         <p className="text-lg font-semibold my-1">{name}</p>
         <p className="text-xs">{timeStamps}</p>
       </div>
-      <p>{amount}</p>
+      <p>PHP {amount}</p>
       <p
         className="max-w-20 text-center rounded-xl"
         style={{ backgroundColor: bgColor }}

@@ -1,31 +1,27 @@
+import { useSelector } from "react-redux";
 import ExpenseListItem from "./ExpenseListItem";
 import NoRecords from "./NoRecords";
 
 const ExpenseList = () => {
+  const { tempEntries } = useSelector((state) => state.logs);
+  console.log(tempEntries);
   return (
     <section className="log-section-container">
       <h2 className="log-section-header">Expense List</h2>
-
-      <NoRecords />
-      <ExpenseListItem
-        name="Food 1"
-        amount="300"
-        category="Needs"
-        timeStamps="05/07/2025"
-        bgColor="#FFEB3B"
-      />
-      <ExpenseListItem
-        name="Savings 2"
-        amount="40000"
-        category="Savings"
-        timeStamps="05/05/2025"
-      />
-      <ExpenseListItem
-        name="Savings 1"
-        amount="40000"
-        category="Savings"
-        timeStamps="05/01/2025"
-      />
+      {tempEntries.length < 1 ? (
+        <NoRecords />
+      ) : (
+        tempEntries.map((entry, index) => (
+          <ExpenseListItem
+            key={index}
+            name={entry.expense}
+            amount={entry.amount}
+            category={entry.category.name}
+            timeStamps={entry.date}
+            bgColor={entry.category.color}
+          />
+        ))
+      )}
     </section>
   );
 };

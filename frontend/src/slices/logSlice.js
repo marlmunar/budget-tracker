@@ -41,8 +41,12 @@ const logSlice = createSlice({
     setTempEntries(state, action) {
       state.tempEntries = action.payload;
     },
+    addTempEntry(state, action) {
+      state.tempEntries.push(action.payload);
+    },
   },
 });
 
 export default logSlice.reducer;
-export const { setDefaultCategories, setTempEntries } = logSlice.actions;
+export const { setDefaultCategories, setTempEntries, addTempEntry } =
+  logSlice.actions;
