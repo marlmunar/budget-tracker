@@ -20,6 +20,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { startLoading, stopLoading } from "../slices/appSlice";
 import OutsideClick from "../components/OutsideClick";
 import { setTempEntries } from "../slices/logSlice";
+import RenameModal from "../components/RenameModal";
 
 const LogScreen = () => {
   const dispatch = useDispatch();
@@ -28,6 +29,8 @@ const LogScreen = () => {
   const [logData, setLogData] = useState({});
   const [categories, setCategories] = useState([]);
   const [isSelecting, setIsSelecting] = useState(false);
+  const [isRenaming, setIsRenaming] = useState(false);
+  const [displayName, setDisplayName] = useState("");
 
   const [getLog, { data }] = useLazyGetLogQuery();
   const [updateLog, { isLoading }] = useUpdateLogMutation();
@@ -41,6 +44,7 @@ const LogScreen = () => {
         const res = await getLog(logId).unwrap();
         setLogData(res.data);
         setCategories(res.data.categories);
+        setDisplayName(res.data.name);
         dispatch(setTempEntries([...res.data.entries]));
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -66,6 +70,22 @@ const LogScreen = () => {
       dispatch(stopLoading());
     }
   };
+
+  const handleRename = async (name) => {
+    try {
+      dispatch(startLoading());
+      const res = await updateLog({
+        id: logId,
+        data: { name },
+      }).unwrap();
+      console.log(res);
+    } catch (error) {
+      console.log(error?.data?.message || error.message);
+    } finally {
+      dispatch(stopLoading());
+    }
+  };
+
   return (
     <main className="mx-auto md:max-w-[90%] lg:max-w-none">
       <title>{`Budgetarians' Log - ${logId}`}</title>
@@ -75,7 +95,7 @@ const LogScreen = () => {
             onClick={() => navigate("/profile")}
             className="p-1 rounded cursor-pointer w-12 h-10 hover:bg-slate-300/50 hover:shadow-md hover:border-transparent transition-all duration-300"
           />
-          <h2 className="text-2xl font-semibold underline">{logData.name}</h2>
+          <h2 className="text-2xl font-semibold underline">{displayName}</h2>
         </div>
 
         <div className="relative flex text-3xl">
@@ -102,21 +122,34 @@ const LogScreen = () => {
               }}
             >
               <menu className="absolute right-0 border-2 w-32 text-base p-2 flex flex-col items-center gap-2 mt-12 shadow-lg bg-white rounded ">
-                <li className="log-options">
-                  <TbFilePencil />
-                  <span>Rename</span>
+                <li>
+                  <button
+                    className="log-options"
+                    onClick={() => {
+                      setIsRenaming(true);
+                    }}
+                  >
+                    <TbFilePencil />
+                    <span>Rename</span>
+                  </button>
                 </li>
-                <li className="log-options">
-                  <TbFileDownload />
-                  <span>Download</span>
+                <li>
+                  <button className="log-options">
+                    <TbFileDownload />
+                    <span>Download</span>
+                  </button>
                 </li>
-                <li className="log-options">
-                  <TbFileAnalytics />
-                  <span>Visualize</span>
+                <li>
+                  <button className="log-options">
+                    <TbFileAnalytics />
+                    <span>Visualize</span>
+                  </button>
                 </li>
-                <li className="log-options text-red-500">
-                  <TbFileX />
-                  <span>Delete</span>
+                <li>
+                  <button className="log-options text-red-500">
+                    <TbFileX />
+                    <span>Delete</span>
+                  </button>
                 </li>
               </menu>
             </OutsideClick>
@@ -129,6 +162,20 @@ const LogScreen = () => {
         <ExpenseList />
         <ExpenseSummary />
       </div>
+      {isRenaming && (
+        <RenameModal
+          isRenaming={isRenaming}
+          setIsRenaming={setIsRenaming}
+          displayName={displayName}
+          handleSubmit={(tempName) => {
+            setIsRenaming(false);
+            setDisplayName(tempName);
+            handleRename(tempName);
+          }}
+          title="Edit Log Name"
+          description="Edit the name of your log"
+        />
+      )}
     </main>
   );
 };

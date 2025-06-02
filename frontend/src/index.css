@@ -123,7 +123,7 @@ button > * {
 }
 
 .tool-button {
-  @apply text-2xl border-2 p-1 h-8 w-8 rounded transition-all duration-300 
+  @apply flex justify-center items-center text-2xl border-2 p-1 h-8 w-8 rounded transition-all duration-300 
   hover:bg-amber-400 hover:shadow-slate-800 hover:border-transparent hover:text-white;
 }
 
@@ -169,4 +169,13 @@ button > * {
 
 .log-options {
   @apply w-full px-1 flex justify-start items-center gap-1 rounded cursor-pointer hover:bg-slate-400/50;
+}
+
+menu li {
+  @apply w-full;
+}
+
+.log-tool-button {
+  @apply flex justify-center items-center text-2xl border-2 p-1 h-8 w-8 rounded transition-all duration-300 
+   hover:bg-slate-600/50 hover:shadow-slate-800 hover:border-transparent;
 }

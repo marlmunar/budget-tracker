@@ -4,12 +4,26 @@ import { useState } from "react";
 
 import ConfirmModal from "./ConfirmModal";
 import RenameModal from "./RenameModal";
+import { useUpdateLogMutation } from "../slices/logsApiSlice";
 
 const LogCard = ({ logName, logStats, logId }) => {
   const navigate = useNavigate();
   const [isRenaming, setIsRenaming] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [displayName, setDisplayName] = useState(logName);
+  const [updateLog, { isLoading }] = useUpdateLogMutation();
+
+  const handleRename = async (name) => {
+    try {
+      const res = await updateLog({
+        id: logId,
+        data: { name },
+      }).unwrap();
+      console.log(res);
+    } catch (error) {
+      console.log(error?.data?.message || error.message);
+    }
+  };
 
   return (
     <div className="p-2 pb-4 flex justify-between gap-2 border-b-2 border-slate-500 rounded">
@@ -21,25 +35,30 @@ const LogCard = ({ logName, logStats, logId }) => {
         </div>
       </div>
       <div className="flex gap-2">
-        <TbPencil
+        <button
           title="Rename"
           className="tool-button"
           onClick={() => setIsRenaming(true)}
-        />
-
-        <TbArrowsDiagonal2
+        >
+          <TbPencil />
+        </button>
+        <button
           title="Open"
           className="tool-button"
           onClick={(e) => {
             navigate(`/log/${logId}`);
           }}
-        />
+        >
+          <TbArrowsDiagonal2 />
+        </button>
 
-        <TbTrash
+        <button
           title="Delete"
           className="tool-button"
           onClick={() => setIsDeleting(true)}
-        />
+        >
+          <TbTrash />
+        </button>
       </div>
       {isRenaming && (
         <RenameModal
@@ -49,6 +68,7 @@ const LogCard = ({ logName, logStats, logId }) => {
           handleSubmit={(tempName) => {
             setIsRenaming(false);
             setDisplayName(tempName);
+            handleRename(tempName);
           }}
           title="Edit Log Name"
           description="Edit the name of your log"

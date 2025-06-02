@@ -20,8 +20,12 @@ const ExpenseListItem = ({
         {category}
       </p>
       <div className="py-2 flex gap-2 justify-end row-start-1 col-start-3 row-span-2 self-start">
-        <TbEdit className="rounded text-3xl p-1 border-2 md:min-w-10 bg-white" />
-        <TbTrash className="rounded text-3xl p-1 border-2 md:min-w-10 bg-white" />
+        <button className="log-tool-button">
+          <TbEdit />
+        </button>
+        <button className="log-tool-button">
+          <TbTrash />
+        </button>
       </div>
     </div>
   );
