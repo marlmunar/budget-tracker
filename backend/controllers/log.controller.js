@@ -50,14 +50,15 @@ const getLog = asyncHandler(async (req, res) => {
 // @route PUT  /api/logs/:id
 // @access PRIVATE
 const updateLog = asyncHandler(async (req, res) => {
-  const { name, categories, entries } = req.body;
-  const log = { name, categories, entries };
   const id = req.params.id;
+  const log = await Log.findById(id);
 
-  const updatedLog = await Log.findByIdAndUpdate(id, log, {
-    new: true,
-    select: "_id name categories entries",
-  });
+  log.name = req.body.name ?? log.name;
+  log.categories = req.body.categories ?? log.categories;
+  log.entries = req.body.entries ?? log.entries;
+
+  const updatedLog = await log.save();
+
   res.status(200).json({
     message: "Successfully updated",
     data: updatedLog,
