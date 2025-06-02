@@ -108,7 +108,16 @@ const AddEntryForm = ({ categories }) => {
         </div>
         <div className="button-row">
           <button type="submit">Save Entry</button>
-          <button type="reset">Clear Values</button>
+          <button
+            type="reset"
+            onClick={() => {
+              setExpense("");
+              setAmount("");
+              setSelectedCategory("");
+            }}
+          >
+            Clear Values
+          </button>
         </div>
       </form>
     </section>
