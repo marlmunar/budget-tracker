@@ -33,7 +33,6 @@ const LogScreen = () => {
         const res = await getLog(logId).unwrap();
         setLogData(res.data);
         setCategories(res.data.categories);
-        console.log(res.data.categories);
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {

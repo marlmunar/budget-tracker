@@ -8,18 +8,26 @@ import { useState } from "react";
 
 const AddEntryForm = ({ categories }) => {
   const [isSelecting, setIsSelecting] = useState(false);
+  const [expense, setExpense] = useState("");
+  const [amount, setAmount] = useState("");
+  const [category, setCategory] = useState({});
   const [selectedCategory, setSelectedCategory] = useState("");
+
+  const handleSubmit = () => {};
+
   return (
     <section className="log-section-container row-span-2 max-h-[16.8rem]">
       <h3 className="log-section-header">Log an Entry</h3>
-      <form>
+      <form onSubmit={() => handleSubmit()}>
         <div className="input-row">
           <div className="input-column">
             <label htmlFor="expense">Expense</label>
             <input
               type="text"
               name="expense"
-              placeholder="Food"
+              value={expense}
+              onChange={(e) => setExpense(e.target.value)}
+              placeholder="Lunch"
               autoComplete="off"
               required
             />
@@ -29,6 +37,8 @@ const AddEntryForm = ({ categories }) => {
             <input
               type="number"
               name="amount"
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
               placeholder="100"
               autoComplete="off"
               step={0.01}
@@ -38,15 +48,17 @@ const AddEntryForm = ({ categories }) => {
           <div className="input-column">
             <label htmlFor="category">Category</label>
             <div className="relative custom-select">
-              <div className="py-1 flex justify-between items-center">
-                <span>
+              <div
+                className="py-1 flex justify-between items-center *:pointer-events-none"
+                data-info="exempted"
+                onClick={() => setIsSelecting((prev) => !prev)}
+              >
+                <span className={!!selectedCategory ? "" : "text-gray-500"}>
                   {!!selectedCategory ? selectedCategory : "Select a category"}
                 </span>
                 <button
-                  className="flex rounded justify-between items-center hover:shadow shadow-slate-400 transition-all delay-300"
+                  className="flex rounded justify-between items-center"
                   type="button"
-                  data-info="exempted"
-                  onClick={() => setIsSelecting((prev) => !prev)}
                 >
                   {isSelecting ? <TbCaretUpFilled /> : <TbCaretDownFilled />}
                 </button>
@@ -61,6 +73,7 @@ const AddEntryForm = ({ categories }) => {
                         key={index}
                         onClick={() => {
                           setSelectedCategory(cat.name);
+                          setCategory(cat);
                           setIsSelecting(false);
                         }}
                       >

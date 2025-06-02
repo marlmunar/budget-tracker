@@ -12,7 +12,7 @@ const logSchema = mongoose.Schema(
       type: [
         {
           name: { type: String, required: true },
-          color: { type: String },
+          color: { type: String, required: true },
         },
       ],
       _id: false,
@@ -27,9 +27,12 @@ const logSchema = mongoose.Schema(
     entries: {
       type: [
         {
+          expense: { type: String, required: true },
           amount: { type: Number, required: true },
-          category: { type: String, required: true },
-          note: { type: String },
+          category: {
+            name: { type: String, required: true },
+            color: { type: String, required: true },
+          },
           date: { type: Date, default: Date.now },
         },
       ],
