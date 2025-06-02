@@ -55,12 +55,14 @@ const LogScreen = () => {
           <h2 className="text-2xl font-semibold underline">{logData.name}</h2>
         </div>
 
-        <div className="border relative flex text-3xl">
+        <div className="relative flex text-3xl">
           <div className="flex">
             <button className="log-button">
               <TbDeviceSdCard />
             </button>
             <button
+              data-info="exempted"
+              name="buttoners"
               className="log-button"
               onClick={() => {
                 setIsSelecting((prev) => !prev);
@@ -76,7 +78,7 @@ const LogScreen = () => {
                 setIsSelecting(false);
               }}
             >
-              <div className="absolute right-0 w-32 text-base p-2 flex flex-col items-center gap-2 mt-12 shadow-lg bg-white rounded ">
+              <menu className="absolute right-0 border-2 w-32 text-base p-2 flex flex-col items-center gap-2 mt-12 shadow-lg bg-white rounded ">
                 <div className="log-options">
                   <TbFilePencil />
                   <span>Rename</span>
@@ -93,7 +95,7 @@ const LogScreen = () => {
                   <TbFileX />
                   <span>Delete</span>
                 </div>
-              </div>
+              </menu>
             </OutsideClick>
           )}
         </div>

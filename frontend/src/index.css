@@ -9,6 +9,10 @@ button {
   @apply cursor-pointer;
 }
 
+button > * {
+  @apply pointer-events-none;
+}
+
 .header {
   @apply py-3 text-lg
    bg-[#ffd700] text-[#040F0F];

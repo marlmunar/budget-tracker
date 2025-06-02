@@ -4,11 +4,13 @@ function OutsideClick({ children, onOutsideClick }) {
   const ref = useRef(null);
 
   useEffect(() => {
-    function handleClickOutside(event) {
-      if (ref.current && !ref.current.contains(event.target)) {
+    function handleClickOutside(e) {
+      if (
+        ref.current &&
+        !ref.current.contains(e.target) &&
+        !e.target.dataset.info
+      ) {
         onOutsideClick();
-
-        console.log("Clicked");
       }
     }
 
