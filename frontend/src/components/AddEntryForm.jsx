@@ -111,7 +111,13 @@ const AddEntryForm = ({
                         {cat.name}
                       </li>
                     ))}
-                    <li className="log-options">
+                    <li
+                      className="log-options"
+                      onClick={() => {
+                        setIsAddingEntry(false);
+                        setIsAddingCategory(true);
+                      }}
+                    >
                       <TbCirclePlus /> Add New
                     </li>
                   </menu>
