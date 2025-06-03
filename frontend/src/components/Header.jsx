@@ -50,6 +50,7 @@ const Header = () => {
             <div>
               <button
                 className="hamburger"
+                data-info="exempted"
                 onClick={() => setIsClicked((i) => !i)}
               >
                 <RxDotsHorizontal className="text-2xl" />
@@ -62,6 +63,7 @@ const Header = () => {
                   Hello, <span className="font-bold">{userInfo.name}!</span>
                 </p>
                 <button
+                  data-info="exempted"
                   onClick={() => {
                     setIsClicked((i) => !i);
                   }}
@@ -94,7 +96,7 @@ const Header = () => {
             {isClicked && (
               <OutsideClick onOutsideClick={() => setIsClicked(false)}>
                 <nav className="nav-bar">
-                  <ul>
+                  <ul className="flex flex-col gap-1">
                     <li>
                       <NavLink
                         to="/"

@@ -57,8 +57,7 @@ button > * {
 .nav-bar {
   @apply bg-white mt-2 right-0
   absolute shadow border-2 rounded 
-  p-2 min-w-[6rem] z-10
-  flex flex-col gap-2;
+  p-2 min-w-[6.25rem] z-10 text-[1.15rem];
 }
 
 .nav-bar ul > li {
@@ -66,7 +65,7 @@ button > * {
 }
 
 .nav-active {
-  @apply underline;
+  @apply text-amber-400 font-semibold border-b-2;
 }
 
 .icon {
