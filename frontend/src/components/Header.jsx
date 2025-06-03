@@ -9,6 +9,7 @@ import { useLogoutMutation } from "../slices/userApiSlice";
 import { clearCredentials } from "../slices/authSlice";
 import ConfirmModal from "./ConfirmModal";
 import OutsideClick from "./OutsideClick";
+import { startLoading, stopLoading } from "../slices/appSlice";
 
 const Header = () => {
   const [isLoggingOut, setIsLoggingOut] = useState(false);
@@ -23,11 +24,14 @@ const Header = () => {
 
   const handleLogout = async () => {
     try {
+      dispatch(startLoading());
       const res = await logout().unwrap();
       dispatch(clearCredentials());
       navigate("/");
     } catch (error) {
       console.log(error);
+    } finally {
+      dispatch(stopLoading());
     }
   };
 
