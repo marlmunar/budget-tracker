@@ -90,11 +90,11 @@ const LogScreen = () => {
     <main className="mx-auto md:max-w-[90%] lg:max-w-none">
       <title>{`Budgetarians' Log - ${logId}`}</title>
       <div className="flex justify-between items-center">
-        <div className="flex gap-2text-3xl items-center">
-          <TbArrowBackUp
-            onClick={() => navigate("/profile")}
-            className="p-1 rounded cursor-pointer w-12 h-10 hover:bg-slate-300/50 hover:shadow-md hover:border-transparent transition-all duration-300"
-          />
+        <div className="flex gap-2 text-3xl items-center">
+          <button className="log-button" onClick={() => navigate("/profile")}>
+            <TbArrowBackUp />
+          </button>
+
           <h2 className="text-2xl font-semibold underline">{displayName}</h2>
         </div>
 

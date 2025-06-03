@@ -9,10 +9,14 @@ import { startLoading, stopLoading } from "../slices/appSlice";
 const Logs = () => {
   const dispatch = useDispatch();
   const [logs, setLogs] = useState([]);
+  const [lastAction, setLastAction] = useState("");
   const [getLogs, { data, isLoading }] = useLazyGetLogsQuery();
 
   useEffect(() => {
     const fetchData = async () => {
+      console.log("Hello, I am fired!");
+      console.log(Date.now());
+      console.log(lastAction);
       try {
         dispatch(startLoading());
         const res = await getLogs().unwrap();
@@ -20,6 +24,7 @@ const Logs = () => {
           (a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)
         );
         setLogs(sorted);
+        console.log(JSON.stringify(sorted, null, 2));
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
@@ -28,7 +33,7 @@ const Logs = () => {
     };
 
     fetchData();
-  }, [getLogs]);
+  }, [lastAction]);
 
   return (
     <div>
@@ -38,9 +43,10 @@ const Logs = () => {
 
         {logs.length > 0 ? (
           <>
-            {logs.map((log, index) => (
+            {logs.map((log) => (
               <LogCard
-                key={index}
+                key={log._id}
+                setLastAction={setLastAction}
                 logName={log.name}
                 logStats={{
                   entries: log.entries.length,

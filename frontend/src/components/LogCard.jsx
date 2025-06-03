@@ -6,7 +6,7 @@ import ConfirmModal from "./ConfirmModal";
 import RenameModal from "./RenameModal";
 import { useUpdateLogMutation } from "../slices/logsApiSlice";
 
-const LogCard = ({ logName, logStats, logId }) => {
+const LogCard = ({ logName, logStats, logId, setLastAction }) => {
   const navigate = useNavigate();
   const [isRenaming, setIsRenaming] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -20,6 +20,7 @@ const LogCard = ({ logName, logStats, logId }) => {
         data: { name },
       }).unwrap();
       console.log(res);
+      setLastAction(Date.now());
     } catch (error) {
       console.log(error?.data?.message || error.message);
     }
