@@ -148,7 +148,7 @@ button > * {
 
 .input-column input,
 .input-column .custom-select {
-  @apply block bg-white w-44 sm:min-w-[15rem] px-2 rounded border-[2px];
+  @apply block bg-white w-44 sm:min-w-[15rem] min-h-8 px-2 rounded border-[2px];
 }
 
 .button-row {

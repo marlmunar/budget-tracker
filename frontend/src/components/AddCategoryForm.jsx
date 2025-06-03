@@ -1,9 +1,10 @@
 import { TbArrowLeft } from "react-icons/tb";
 import { useState } from "react";
+import { HexColorPicker } from "react-colorful";
 
 const AddCategoryForm = ({ setIsAddingCategory }) => {
   const [name, setName] = useState("");
-  const [color, setColor] = useState("");
+  const [color, setColor] = useState("#000000");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -24,10 +25,10 @@ const AddCategoryForm = ({ setIsAddingCategory }) => {
       <form method="POST" onSubmit={handleSubmit}>
         <div className="input-row">
           <div className="input-column">
-            <label htmlFor="expense">Name</label>
+            <label htmlFor="name">Name</label>
             <input
               type="text"
-              name="expense"
+              name="name"
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Category name"
@@ -36,7 +37,20 @@ const AddCategoryForm = ({ setIsAddingCategory }) => {
             />
           </div>
           <div className="input-column">
-            <label htmlFor="amount">Color</label>
+            <label htmlFor="color">Color</label>
+            <div className="flex flex-col gap-1">
+              <input
+                type="text"
+                value={color}
+                placeholder="#000000"
+                onChange={(e) => setColor(e.target.value)}
+              />
+              <HexColorPicker
+                className="w-full"
+                color={color}
+                onChange={setColor}
+              />
+            </div>
           </div>
         </div>
         <div className="button-row">
