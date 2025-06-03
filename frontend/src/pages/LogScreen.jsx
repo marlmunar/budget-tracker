@@ -21,6 +21,7 @@ import { startLoading, stopLoading } from "../slices/appSlice";
 import OutsideClick from "../components/OutsideClick";
 import { setTempEntries } from "../slices/logSlice";
 import RenameModal from "../components/RenameModal";
+import EntryOptions from "../components/EntryOptions";
 
 const LogScreen = () => {
   const dispatch = useDispatch();
@@ -157,8 +158,9 @@ const LogScreen = () => {
         </div>
       </div>
 
-      <div className="py-4 grid grid-cols-1 justify-between lg:grid-cols-[39%_59%] grid-rows-[min-content_min-content] my-2 gap-4">
-        <AddEntryForm categories={categories} />
+      <div className="py-4 grid grid-cols-1 lg:grid-cols-[min-content_auto] grid-rows-[min-content_min-content] my-2 gap-4">
+        {/* <AddEntryForm categories={categories} /> */}
+        <EntryOptions />
         <ExpenseList />
         <ExpenseSummary />
       </div>

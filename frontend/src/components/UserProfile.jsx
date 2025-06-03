@@ -30,11 +30,12 @@ const UserProfile = () => {
       <div className="flex justify-between w-full">
         <h2 className="text-2xl font-semibold underline">{userName}</h2>
         <div className="flex gap-2 text-2xl items-center">
-          <TbEdit
-            className="transition-all duration-300 hover:text-amber-500"
-            onClick={() => setIsRenaming(true)}
-          />
-          <TbSettings className="transition-all duration-300 hover:text-amber-500" />
+          <button className="group" onClick={() => setIsRenaming(true)}>
+            <TbEdit className="transition-all duration-300 group-hover:text-amber-500" />
+          </button>
+          <button className="group">
+            <TbSettings className="transition-all duration-300 group-hover:text-amber-500" />
+          </button>
         </div>
       </div>
 

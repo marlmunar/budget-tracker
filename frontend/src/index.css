@@ -131,7 +131,7 @@ button > * {
 }
 
 .log-section-header {
-  @apply bg-slate-400 p-2 rounded shadow text-xl/12 font-semibold min-h-12 items-center;
+  @apply bg-slate-400 p-2 rounded shadow text-xl font-semibold h-14 flex items-center;
 }
 
 .input-row {
@@ -177,4 +177,9 @@ menu li {
 .log-tool-button {
   @apply flex justify-center items-center text-2xl border-2 p-1 h-8 w-8 rounded transition-all duration-300 
    hover:bg-slate-600/50 hover:shadow-slate-800 hover:border-transparent;
+}
+
+.entry-button {
+  @apply bg-slate-700 shadow border-2 border-gray-300 text-white p-1 rounded transition-all duration-300 min-w-full
+   hover:shadow-slate-800 hover:border-transparent hover:shadow;
 }

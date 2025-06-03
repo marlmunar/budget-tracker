@@ -2,6 +2,7 @@ import {
   TbCaretDownFilled,
   TbCaretUpFilled,
   TbCirclePlus,
+  TbArrowLeft,
 } from "react-icons/tb";
 import OutsideClick from "./OutsideClick";
 import { useState } from "react";
@@ -33,7 +34,10 @@ const AddEntryForm = ({ categories }) => {
   };
 
   return (
-    <section className="log-section-container row-span-2 max-h-[16.8rem]">
+    <section className="log-section-container row-span-2 max-h-[20rem] min-w-[calc(0.25*100vw)]">
+      <button className="log-tool-button my-1">
+        <TbArrowLeft />
+      </button>
       <h3 className="log-section-header">Log an Entry</h3>
       <form method="POST" onSubmit={handleSubmit}>
         <div className="input-row">
