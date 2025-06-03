@@ -23,7 +23,6 @@ import Loading from "./pages/Loading.jsx";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
-      <Route index={true} path="/" element={<Home />} />
       <Route path="login" element={<Login />} />
       <Route path="register" element={<Register />} />
       {/* <Route element={<PrivateRoute />}> */}
@@ -31,6 +30,7 @@ const router = createBrowserRouter(
       <Route element={<Loading />}>
         <Route path="profile" element={<Profile />} />
         <Route path="log/:logId" element={<LogScreen />} />
+        <Route index={true} path="/" element={<Home />} />
       </Route>
 
       {/* </Route> */}

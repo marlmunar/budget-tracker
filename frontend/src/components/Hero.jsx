@@ -1,7 +1,34 @@
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { startLoading, stopLoading } from "../slices/appSlice";
+import { useLazyGetLogsQuery } from "../slices/logsApiSlice";
+
 const Hero = () => {
   const { userInfo } = useSelector((state) => state.auth);
+  const [getLogs, { data, isLoading }] = useLazyGetLogsQuery();
+  const [lastLog, setLastLog] = useState({});
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        dispatch(startLoading());
+        const res = await getLogs().unwrap();
+        let sorted = [...res.data].sort(
+          (a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)
+        );
+        setLastLog(sorted[0]);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        dispatch(stopLoading());
+      }
+    };
+
+    fetchData();
+  }, [getLogs]);
+
   return (
     <section className="hero">
       <div className="border-2 border-dotted m-2 p-5 flex flex-col gap-2  justify-center order-1 md:order-none shadow-lg">
@@ -41,7 +68,7 @@ const Hero = () => {
               <p className="text-2xl font-semibold mt-2">Welcome Back!</p>
               <p className="">What do you want to visit?</p>
               <div className="flex gap-2">
-                <Link className="hero-button" to="/lastlog">
+                <Link className="hero-button" to={`/log/${lastLog._id}`}>
                   Last log
                 </Link>
                 <Link className="hero-button" to="/profile">
