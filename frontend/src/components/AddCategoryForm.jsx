@@ -30,7 +30,7 @@ const AddCategoryForm = ({ setIsAddingCategory }) => {
       <form method="POST" onSubmit={handleSubmit}>
         <div className="input-row">
           <div className="input-column">
-            <label htmlFor="name">Name</label>
+            <label htmlFor="name">Name:</label>
             <input
               type="text"
               name="name"
@@ -42,14 +42,21 @@ const AddCategoryForm = ({ setIsAddingCategory }) => {
             />
           </div>
           <div className="input-column">
-            <label htmlFor="color">Color</label>
+            <label htmlFor="color">Color:</label>
             <div className="flex flex-col gap-1">
-              <input
-                type="text"
-                value={color}
-                placeholder="#000000"
-                onChange={(e) => handleChange(e.target.value)}
-              />
+              <div className="relative">
+                <input
+                  type="text"
+                  value={color}
+                  placeholder="#000000"
+                  onChange={(e) => handleChange(e.target.value)}
+                />
+                <div
+                  className="absolute top-1 right-1 w-6 h-6 border rounded"
+                  style={{ backgroundColor: color }}
+                ></div>
+              </div>
+
               <div className="color-picker">
                 <HexColorPicker color={color} onChange={handleChange} />
               </div>
