@@ -22,6 +22,7 @@ import OutsideClick from "../components/OutsideClick";
 import { setTempEntries } from "../slices/logSlice";
 import RenameModal from "../components/RenameModal";
 import EntryOptions from "../components/EntryOptions";
+import AddCategoryForm from "../components/AddCategoryForm";
 
 const LogScreen = () => {
   const dispatch = useDispatch();
@@ -170,7 +171,10 @@ const LogScreen = () => {
           />
         )}
         {isAddingEntry && (
-          <AddEntryForm
+          <AddEntryForm setIsAddingCategory={setIsAddingCategory} />
+        )}
+        {isAddingCategory && (
+          <AddCategoryForm
             categories={categories}
             setIsAddingEntry={setIsAddingEntry}
             setIsAddingCategory={setIsAddingCategory}
