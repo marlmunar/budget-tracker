@@ -156,7 +156,7 @@ button > * {
 }
 
 .button-row button {
-  @apply bg-blue-700 shadow border-2 border-white text-white  p-1 rounded transition-all duration-300 min-w-[7.25rem]
+  @apply bg-blue-700 shadow border-2 border-white text-white  p-1 rounded transition-all duration-300 min-w-[8.25rem]
    hover:shadow-slate-800 hover:border-transparent hover:shadow;
 }
 
@@ -182,4 +182,27 @@ menu li {
 .entry-button {
   @apply bg-blue-700 shadow border-2 border-white text-white p-1 rounded transition-all duration-300 min-w-full
    hover:shadow-slate-800 hover:border-transparent hover:shadow;
+}
+
+.color-picker .react-colorful {
+  @apply w-full bg-white p-4 rounded border-2;
+}
+
+.color-picker .react-colorful__hue,
+.color-picker .react-colorful__saturation {
+  @apply rounded p-2 border-slate-400 border my-1;
+}
+
+.color-picker .react-colorful__hue {
+  @apply h-2;
+}
+
+.color-picker .react-colorful__hue-pointer,
+.color-picker .react-colorful__saturation-pointer {
+  @apply rounded border;
+}
+
+.color-picker .react-colorful__saturation-pointer,
+.color-picker .react-colorful__hue-pointer {
+  @apply w-4 h-4;
 }

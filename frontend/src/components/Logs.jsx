@@ -14,9 +14,6 @@ const Logs = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      console.log("Hello, I am fired!");
-      console.log(Date.now());
-      console.log(lastAction);
       try {
         dispatch(startLoading());
         const res = await getLogs().unwrap();
@@ -24,7 +21,6 @@ const Logs = () => {
           (a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)
         );
         setLogs(sorted);
-        console.log(JSON.stringify(sorted, null, 2));
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {

@@ -171,14 +171,14 @@ const LogScreen = () => {
           />
         )}
         {isAddingEntry && (
-          <AddEntryForm setIsAddingCategory={setIsAddingCategory} />
-        )}
-        {isAddingCategory && (
-          <AddCategoryForm
+          <AddEntryForm
             categories={categories}
             setIsAddingEntry={setIsAddingEntry}
             setIsAddingCategory={setIsAddingCategory}
           />
+        )}
+        {isAddingCategory && (
+          <AddCategoryForm setIsAddingCategory={setIsAddingCategory} />
         )}
         <ExpenseList />
         <ExpenseSummary />

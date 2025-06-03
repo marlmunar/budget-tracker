@@ -19,7 +19,7 @@ const AddCategoryForm = ({ setIsAddingCategory }) => {
         >
           <TbArrowLeft />
         </button>
-        <h3>Log an Entry</h3>
+        <h3>Add a Category</h3>
       </div>
 
       <form method="POST" onSubmit={handleSubmit}>
@@ -45,11 +45,9 @@ const AddCategoryForm = ({ setIsAddingCategory }) => {
                 placeholder="#000000"
                 onChange={(e) => setColor(e.target.value)}
               />
-              <HexColorPicker
-                className="w-full"
-                color={color}
-                onChange={setColor}
-              />
+              <div className="color-picker">
+                <HexColorPicker color={color} onChange={setColor} />
+              </div>
             </div>
           </div>
         </div>
