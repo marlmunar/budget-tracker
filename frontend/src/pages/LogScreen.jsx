@@ -23,6 +23,7 @@ import { setTempEntries } from "../slices/logSlice";
 import RenameModal from "../components/RenameModal";
 import EntryOptions from "../components/EntryOptions";
 import AddCategoryForm from "../components/AddCategoryForm";
+import EditCategoryForm from "../components/EditCategoryForm";
 
 const LogScreen = () => {
   const dispatch = useDispatch();
@@ -179,6 +180,12 @@ const LogScreen = () => {
         )}
         {isAddingCategory && (
           <AddCategoryForm setIsAddingCategory={setIsAddingCategory} />
+        )}
+        {isEditingCategories && (
+          <EditCategoryForm
+            categories={categories}
+            setIsEditingCategories={setIsEditingCategories}
+          />
         )}
         <ExpenseList />
         <ExpenseSummary />
