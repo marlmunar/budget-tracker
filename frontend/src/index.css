@@ -156,7 +156,7 @@ button > * {
 }
 
 .button-row button {
-  @apply bg-blue-700 shadow border-2 border-gray-300 text-white  p-1 rounded transition-all duration-300 min-w-[7.25rem]
+  @apply bg-blue-700 shadow border-2 border-white text-white  p-1 rounded transition-all duration-300 min-w-[7.25rem]
    hover:shadow-slate-800 hover:border-transparent hover:shadow;
 }
 
@@ -180,6 +180,6 @@ menu li {
 }
 
 .entry-button {
-  @apply bg-slate-700 shadow border-2 border-gray-300 text-white p-1 rounded transition-all duration-300 min-w-full
+  @apply bg-blue-700 shadow border-2 border-white text-white p-1 rounded transition-all duration-300 min-w-full
    hover:shadow-slate-800 hover:border-transparent hover:shadow;
 }

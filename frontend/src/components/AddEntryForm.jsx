@@ -9,7 +9,11 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addTempEntry } from "../slices/logSlice";
 
-const AddEntryForm = ({ categories }) => {
+const AddEntryForm = ({
+  categories,
+  setIsAddingEntry,
+  setIsAddingCategory,
+}) => {
   const dispatch = useDispatch();
   const [isSelecting, setIsSelecting] = useState(false);
   const [expense, setExpense] = useState("");
@@ -34,11 +38,17 @@ const AddEntryForm = ({ categories }) => {
   };
 
   return (
-    <section className="log-section-container row-span-2 max-h-[20rem] min-w-[calc(0.25*100vw)]">
-      <button className="log-tool-button my-1">
-        <TbArrowLeft />
-      </button>
-      <h3 className="log-section-header">Log an Entry</h3>
+    <section className="log-section-container row-span-2 max-h-[min-content] min-w-[calc(0.25*100vw)]">
+      <div className="log-section-header">
+        <button
+          className="log-tool-button my-1 mr-2.5"
+          onClick={() => setIsAddingEntry(false)}
+        >
+          <TbArrowLeft />
+        </button>
+        <h3>Log an Entry</h3>
+      </div>
+
       <form method="POST" onSubmit={handleSubmit}>
         <div className="input-row">
           <div className="input-column">

@@ -32,6 +32,9 @@ const LogScreen = () => {
   const [isSelecting, setIsSelecting] = useState(false);
   const [isRenaming, setIsRenaming] = useState(false);
   const [displayName, setDisplayName] = useState("");
+  const [isAddingEntry, setIsAddingEntry] = useState(false);
+  const [isAddingCategory, setIsAddingCategory] = useState(false);
+  const [isEditingCategories, setIsEditingCategories] = useState(false);
 
   const [getLog, { data }] = useLazyGetLogQuery();
   const [updateLog, { isLoading }] = useUpdateLogMutation();
@@ -159,8 +162,20 @@ const LogScreen = () => {
       </div>
 
       <div className="py-4 grid grid-cols-1 lg:grid-cols-[min-content_auto] grid-rows-[min-content_min-content] my-2 gap-4">
-        {/* <AddEntryForm categories={categories} /> */}
-        <EntryOptions />
+        {!isAddingEntry && !isAddingCategory && !isEditingCategories && (
+          <EntryOptions
+            setIsAddingEntry={setIsAddingEntry}
+            setIsAddingCategory={setIsAddingCategory}
+            setIsEditingCategories={setIsEditingCategories}
+          />
+        )}
+        {isAddingEntry && (
+          <AddEntryForm
+            categories={categories}
+            setIsAddingEntry={setIsAddingEntry}
+            setIsAddingCategory={setIsAddingCategory}
+          />
+        )}
         <ExpenseList />
         <ExpenseSummary />
       </div>
