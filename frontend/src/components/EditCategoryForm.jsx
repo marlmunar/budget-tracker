@@ -17,6 +17,11 @@ const EditCategoryForm = ({ categories, setIsEditingCategories }) => {
     e.preventDefault();
   };
 
+  const handleChange = (newColor) => {
+    const uppercase = newColor.toUpperCase();
+    setColor(uppercase);
+  };
+
   return (
     <section className="log-section-container row-span-2 max-h-[min-content] min-w-[calc(0.25*100vw)]">
       <div className="log-section-header">
@@ -93,10 +98,10 @@ const EditCategoryForm = ({ categories, setIsEditingCategories }) => {
                 type="text"
                 value={color}
                 placeholder="#000000"
-                onChange={(e) => setColor(e.target.value)}
+                onChange={(e) => handleChange(e.target.value)}
               />
               <div className="color-picker">
-                <HexColorPicker color={color} onChange={setColor} />
+                <HexColorPicker color={color} onChange={handleChange} />
               </div>
             </div>
           </div>

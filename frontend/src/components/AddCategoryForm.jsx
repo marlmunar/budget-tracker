@@ -10,6 +10,11 @@ const AddCategoryForm = ({ setIsAddingCategory }) => {
     e.preventDefault();
   };
 
+  const handleChange = (newColor) => {
+    const uppercase = newColor.toUpperCase();
+    setColor(uppercase);
+  };
+
   return (
     <section className="log-section-container row-span-2 max-h-[min-content] min-w-[calc(0.25*100vw)]">
       <div className="log-section-header">
@@ -43,10 +48,10 @@ const AddCategoryForm = ({ setIsAddingCategory }) => {
                 type="text"
                 value={color}
                 placeholder="#000000"
-                onChange={(e) => setColor(e.target.value)}
+                onChange={(e) => handleChange(e.target.value)}
               />
               <div className="color-picker">
-                <HexColorPicker color={color} onChange={setColor} />
+                <HexColorPicker color={color} onChange={handleChange} />
               </div>
             </div>
           </div>
@@ -57,7 +62,7 @@ const AddCategoryForm = ({ setIsAddingCategory }) => {
             type="reset"
             onClick={() => {
               setName("");
-              setCategory("");
+              setColor("#000000");
             }}
           >
             Clear Values
