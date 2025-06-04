@@ -130,7 +130,7 @@ const LogScreen = () => {
                 setIsSelecting(false);
               }}
             >
-              <menu className="absolute right-0 border-2 w-32 text-base p-2 flex flex-col items-center gap-2 mt-12 shadow-lg bg-white rounded ">
+              <menu className="z-10 absolute right-0 border-2 w-32 text-base p-2 flex flex-col items-center gap-2 mt-12 shadow-lg bg-white rounded ">
                 <li>
                   <button
                     className="log-options"
