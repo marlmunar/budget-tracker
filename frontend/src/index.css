@@ -130,6 +130,10 @@ button > * {
   @apply shadow rounded p-4 bg-gray-100;
 }
 
+.log-form-container {
+  @apply shadow rounded p-4 bg-slate-500 row-span-2 max-h-[min-content];
+}
+
 .log-section-header {
   @apply bg-slate-400 p-2 rounded shadow text-xl font-semibold h-14 flex items-center;
 }
@@ -148,7 +152,7 @@ button > * {
 
 .input-column input,
 .input-column .custom-select {
-  @apply block bg-white w-44 sm:min-w-[15rem] min-h-8 px-2 rounded border-[2px];
+  @apply block bg-white w-44 min-w-[12rem] sm:min-w-[20rem] md:min-w-[24rem] lg:min-w-[16rem] min-h-8 px-2 rounded border-[2px];
 }
 
 .button-row {

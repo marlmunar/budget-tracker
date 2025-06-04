@@ -10,7 +10,7 @@ const EntryOptions = ({
   const [isSelecting, setIsSelecting] = useState(false);
 
   return (
-    <section className="rounded p-2 bg-slate-500 row-span-2 max-h-[min-content] min-w-[min-content] justify-center">
+    <section className="log-form-container min-w-[min-content] justify-center">
       {isSelecting ? (
         <>
           <div className="log-section-header min-w-[15rem]">
@@ -40,7 +40,7 @@ const EntryOptions = ({
           </div>
         </>
       ) : (
-        <div className="flex flex-col gap-2">
+        <div className="flex md:flex-col gap-2">
           <div className="bg-slate-100 rounded p-1 h-[min-content] w-[min-content]">
             <button
               className="log-tool-button"
