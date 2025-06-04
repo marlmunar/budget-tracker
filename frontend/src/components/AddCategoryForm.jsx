@@ -1,13 +1,39 @@
 import { TbArrowLeft } from "react-icons/tb";
 import { useState } from "react";
 import { HexColorPicker } from "react-colorful";
+import { useDispatch } from "react-redux";
+import { useUpdateLogMutation } from "../slices/logsApiSlice";
 
-const AddCategoryForm = ({ setIsAddingCategory }) => {
+const AddCategoryForm = ({
+  logId,
+  categories,
+  setIsAddingCategory,
+  setLastAction,
+}) => {
   const [name, setName] = useState("");
   const [color, setColor] = useState("#000000");
 
-  const handleSubmit = (e) => {
+  const dispatch = useDispatch();
+  const [updateLog, { isLoading }] = useUpdateLogMutation();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    const newCategory = { name, color };
+    const newCategories = [...categories, newCategory];
+    try {
+      const res = await updateLog({
+        id: logId,
+        data: { categories: newCategories },
+      }).unwrap();
+
+      console.log(res);
+
+      setName("");
+      setColor("#000000");
+      setLastAction(Date.now());
+    } catch (error) {
+      console.log(error?.data?.message || error.message);
+    }
   };
 
   const handleChange = (newColor) => {

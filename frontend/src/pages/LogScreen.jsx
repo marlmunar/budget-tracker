@@ -37,6 +37,7 @@ const LogScreen = () => {
   const [isAddingEntry, setIsAddingEntry] = useState(false);
   const [isAddingCategory, setIsAddingCategory] = useState(false);
   const [isEditingCategories, setIsEditingCategories] = useState(false);
+  const [lastAction, setLastAction] = useState("");
 
   const [getLog, { data }] = useLazyGetLogQuery();
   const [updateLog, { isLoading }] = useUpdateLogMutation();
@@ -60,7 +61,7 @@ const LogScreen = () => {
     };
 
     fetchData();
-  }, [logId, getLog, dispatch]);
+  }, [logId, getLog, dispatch, lastAction]);
 
   const handleSave = async () => {
     try {
@@ -179,7 +180,12 @@ const LogScreen = () => {
           />
         )}
         {isAddingCategory && (
-          <AddCategoryForm setIsAddingCategory={setIsAddingCategory} />
+          <AddCategoryForm
+            categories={categories}
+            logId={logId}
+            setIsAddingCategory={setIsAddingCategory}
+            setLastAction={setLastAction}
+          />
         )}
         {isEditingCategories && (
           <EditCategoryForm
