@@ -9,27 +9,34 @@ const DeleteCategoryForm = ({
   setLastAction,
 }) => {
   const [tempCategories, setTempCategories] = useState(categories);
-  const [selectedCategory, setSelectedCategory] = useState("");
 
   const [updateLog, { isLoading }] = useUpdateLogMutation();
 
+  const handleClick = (selectedCategory) => {
+    if (tempCategories.length > 1) {
+      const newTempCategories = tempCategories.filter(
+        (cat) => cat !== selectedCategory
+      );
+      setTempCategories(newTempCategories);
+      return;
+    }
+
+    console.error("Categories cannot be empty");
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // try {
-    //   const res = await updateLog({
-    //     id: logId,
-    //     data: { categories: newCategories },
-    //   }).unwrap();
+    try {
+      const res = await updateLog({
+        id: logId,
+        data: { categories: tempCategories },
+      }).unwrap();
 
-    //   console.log(res);
+      console.log(res);
 
-    //   setName("");
-    //   setColor("#000000");
-    //   setSelectedCategory("");
-    //   setLastAction(Date.now());
-    // } catch (error) {
-    //   console.log(error?.data?.message || error.message);
-    // }
+      setLastAction(Date.now());
+    } catch (error) {
+      console.log(error?.data?.message || error.message);
+    }
   };
 
   return (
@@ -46,7 +53,7 @@ const DeleteCategoryForm = ({
 
       <form method="POST" onSubmit={handleSubmit}>
         <menu className="input-row flex flex-col gap-1.5 mb-2">
-          {categories.map((cat, index) => (
+          {tempCategories.map((cat, index) => (
             <li
               key={index}
               className="flex justify-between items-center shadow shadow-gray-400/50 bg-white rounded min-h-12 p-2"
@@ -54,7 +61,13 @@ const DeleteCategoryForm = ({
             >
               <span>{cat.name}</span>
               <div className="bg-white w-7 h-7 rounded flex justify-center items-center">
-                <button className="text-xl border-2 rounded  text-red-400 hover:bg-red-300 hover:border-transparent hover:shadow shadow-gray-700/50 transition-all duration-300">
+                <button
+                  type="button"
+                  onClick={() => {
+                    handleClick(cat);
+                  }}
+                  className="text-xl border-2 rounded  text-red-400 hover:bg-red-300 hover:border-transparent hover:shadow shadow-gray-700/50 transition-all duration-300"
+                >
                   <TbX />
                 </button>
               </div>
