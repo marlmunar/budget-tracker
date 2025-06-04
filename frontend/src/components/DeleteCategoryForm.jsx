@@ -8,19 +8,13 @@ const DeleteCategoryForm = ({
   setIsDeletingCategory,
   setLastAction,
 }) => {
-  const [isSelecting, setIsSelecting] = useState(false);
+  const [tempCategories, setTempCategories] = useState(categories);
   const [selectedCategory, setSelectedCategory] = useState("");
-  const [name, setName] = useState("");
-  const [color, setColor] = useState("#000000");
 
   const [updateLog, { isLoading }] = useUpdateLogMutation();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const newCategory = { name, color };
-    const newCategories = categories.map((cat) =>
-      cat.name === selectedCategory ? newCategory : cat
-    );
     // try {
     //   const res = await updateLog({
     //     id: logId,
@@ -51,13 +45,21 @@ const DeleteCategoryForm = ({
       </div>
 
       <form method="POST" onSubmit={handleSubmit}>
-        <menu className="input-row">
-          <li className="flex justify-between items-center shadow shadow-gray-400/50 bg-white rounded min-h-12 p-2">
-            <span>Category 1</span>
-            <button className="text-xl border-2 rounded  text-red-500 hover:bg-red-300 hover:border-transparent hover:shadow shadow-gray-700/50 transition-all duration-300">
-              <TbX />
-            </button>
-          </li>
+        <menu className="input-row flex flex-col gap-1.5 mb-2">
+          {categories.map((cat, index) => (
+            <li
+              key={index}
+              className="flex justify-between items-center shadow shadow-gray-400/50 bg-white rounded min-h-12 p-2"
+              style={{ backgroundColor: cat.color }}
+            >
+              <span>{cat.name}</span>
+              <div className="bg-white w-7 h-7 rounded flex justify-center items-center">
+                <button className="text-xl border-2 rounded  text-red-400 hover:bg-red-300 hover:border-transparent hover:shadow shadow-gray-700/50 transition-all duration-300">
+                  <TbX />
+                </button>
+              </div>
+            </li>
+          ))}
         </menu>
 
         <div className="button-row">
@@ -65,9 +67,7 @@ const DeleteCategoryForm = ({
           <button
             type="reset"
             onClick={() => {
-              setName("");
-              setColor("#000000");
-              setSelectedCategory("");
+              setTempCategories(categories);
             }}
           >
             Reset Values
