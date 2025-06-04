@@ -6,7 +6,6 @@ import {
 import { useState } from "react";
 import { HexColorPicker } from "react-colorful";
 import OutsideClick from "./OutsideClick";
-import { useDispatch } from "react-redux";
 import { useUpdateLogMutation } from "../slices/logsApiSlice";
 
 const EditCategoryForm = ({
@@ -20,7 +19,6 @@ const EditCategoryForm = ({
   const [name, setName] = useState("");
   const [color, setColor] = useState("#000000");
 
-  const dispatch = useDispatch();
   const [updateLog, { isLoading }] = useUpdateLogMutation();
 
   const handleSubmit = async (e) => {

@@ -2,6 +2,7 @@ const EntryOptions = ({
   setIsAddingEntry,
   setIsAddingCategory,
   setIsEditingCategories,
+  setIsDeletingCategory,
 }) => {
   return (
     <section className="log-section-container row-span-2 max-h-[min-content] min-w-[15rem] justify-center">
@@ -21,6 +22,12 @@ const EntryOptions = ({
           onClick={() => setIsEditingCategories(true)}
         >
           Edit Categories
+        </button>
+        <button
+          className="entry-button"
+          onClick={() => setIsDeletingCategory(true)}
+        >
+          Delete Categories
         </button>
       </div>
     </section>

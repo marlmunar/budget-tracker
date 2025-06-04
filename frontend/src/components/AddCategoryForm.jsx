@@ -1,7 +1,6 @@
 import { TbArrowLeft } from "react-icons/tb";
 import { useState } from "react";
 import { HexColorPicker } from "react-colorful";
-import { useDispatch } from "react-redux";
 import { useUpdateLogMutation } from "../slices/logsApiSlice";
 
 const AddCategoryForm = ({
@@ -13,7 +12,6 @@ const AddCategoryForm = ({
   const [name, setName] = useState("");
   const [color, setColor] = useState("#000000");
 
-  const dispatch = useDispatch();
   const [updateLog, { isLoading }] = useUpdateLogMutation();
 
   const handleSubmit = async (e) => {

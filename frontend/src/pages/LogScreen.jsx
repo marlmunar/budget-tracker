@@ -24,6 +24,7 @@ import RenameModal from "../components/RenameModal";
 import EntryOptions from "../components/EntryOptions";
 import AddCategoryForm from "../components/AddCategoryForm";
 import EditCategoryForm from "../components/EditCategoryForm";
+import DeleteCategoryForm from "../components/DeleteCategoryForm";
 
 const LogScreen = () => {
   const dispatch = useDispatch();
@@ -37,6 +38,7 @@ const LogScreen = () => {
   const [isAddingEntry, setIsAddingEntry] = useState(false);
   const [isAddingCategory, setIsAddingCategory] = useState(false);
   const [isEditingCategories, setIsEditingCategories] = useState(false);
+  const [isDeletingCategory, setIsDeletingCategory] = useState(false);
   const [lastAction, setLastAction] = useState("");
 
   const [getLog, { data }] = useLazyGetLogQuery();
@@ -165,13 +167,17 @@ const LogScreen = () => {
       </div>
 
       <div className="py-4 grid grid-cols-1 lg:grid-cols-[min-content_auto] grid-rows-[min-content_min-content] my-2 gap-4">
-        {!isAddingEntry && !isAddingCategory && !isEditingCategories && (
-          <EntryOptions
-            setIsAddingEntry={setIsAddingEntry}
-            setIsAddingCategory={setIsAddingCategory}
-            setIsEditingCategories={setIsEditingCategories}
-          />
-        )}
+        {!isAddingEntry &&
+          !isAddingCategory &&
+          !isEditingCategories &&
+          !isDeletingCategory && (
+            <EntryOptions
+              setIsAddingEntry={setIsAddingEntry}
+              setIsAddingCategory={setIsAddingCategory}
+              setIsEditingCategories={setIsEditingCategories}
+              setIsDeletingCategory={setIsDeletingCategory}
+            />
+          )}
         {isAddingEntry && (
           <AddEntryForm
             categories={categories}
@@ -192,6 +198,14 @@ const LogScreen = () => {
             logId={logId}
             categories={categories}
             setIsEditingCategories={setIsEditingCategories}
+            setLastAction={setLastAction}
+          />
+        )}
+        {isDeletingCategory && (
+          <DeleteCategoryForm
+            logId={logId}
+            categories={categories}
+            setIsDeletingCategory={setIsDeletingCategory}
             setLastAction={setLastAction}
           />
         )}
