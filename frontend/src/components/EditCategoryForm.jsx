@@ -50,7 +50,7 @@ const EditCategoryForm = ({
   };
 
   return (
-    <section className="log-section-container row-span-2 max-h-[min-content] min-w-[calc(0.25*100vw)]">
+    <section className="rounded p-2 bg-slate-500 row-span-2 max-h-[min-content] min-w-[calc(0.25*100vw)]">
       <div className="log-section-header">
         <button
           className="log-tool-button my-1 mr-2.5"
@@ -61,9 +61,13 @@ const EditCategoryForm = ({
         <h3>Edit Categories</h3>
       </div>
 
-      <form method="POST" onSubmit={handleSubmit}>
+      <form
+        method="POST"
+        onSubmit={handleSubmit}
+        className="bg-slate-100 rounded mt-2 pb-2"
+      >
         <div className="input-row">
-          <div className="text-lg my-2 font-semibold">Old Value</div>
+          <div className="text-lg font-semibold">Old Value</div>
           <div className="input-column">
             <label htmlFor="category">Category</label>
             <div className="relative custom-select">

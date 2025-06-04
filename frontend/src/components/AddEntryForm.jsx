@@ -38,7 +38,7 @@ const AddEntryForm = ({
   };
 
   return (
-    <section className="log-section-container row-span-2 max-h-[min-content] min-w-[calc(0.25*100vw)]">
+    <section className="rounded p-2 bg-slate-500 row-span-2 max-h-[min-content] min-w-[calc(0.25*100vw)]">
       <div className="log-section-header">
         <button
           className="log-tool-button my-1 mr-2.5"
@@ -49,7 +49,11 @@ const AddEntryForm = ({
         <h3>Log an Entry</h3>
       </div>
 
-      <form method="POST" onSubmit={handleSubmit}>
+      <form
+        method="POST"
+        onSubmit={handleSubmit}
+        className="bg-slate-100 rounded mt-2 pb-2"
+      >
         <div className="input-row">
           <div className="input-column">
             <label htmlFor="expense">Expense</label>

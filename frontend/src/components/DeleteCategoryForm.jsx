@@ -40,7 +40,7 @@ const DeleteCategoryForm = ({
   };
 
   return (
-    <section className="log-section-container row-span-2 max-h-[min-content] min-w-[calc(0.25*100vw)]">
+    <section className="rounded p-2 bg-slate-500 row-span-2 max-h-[min-content] min-w-[calc(0.25*100vw)]">
       <div className="log-section-header">
         <button
           className="log-tool-button my-1 mr-2.5"
@@ -51,7 +51,11 @@ const DeleteCategoryForm = ({
         <h3>Delete Categories</h3>
       </div>
 
-      <form method="POST" onSubmit={handleSubmit}>
+      <form
+        method="POST"
+        onSubmit={handleSubmit}
+        className="bg-slate-100 rounded mt-2 pb-2"
+      >
         <menu className="input-row flex flex-col gap-1.5 mb-2">
           {tempCategories.map((cat, index) => (
             <li
