@@ -173,7 +173,6 @@ const LogScreen = () => {
           !isDeletingCategory && (
             <EntryOptions
               setIsAddingEntry={setIsAddingEntry}
-              setIsAddingCategory={setIsAddingCategory}
               setIsEditingCategories={setIsEditingCategories}
               setIsDeletingCategory={setIsDeletingCategory}
             />
@@ -209,7 +208,7 @@ const LogScreen = () => {
             setLastAction={setLastAction}
           />
         )}
-        <ExpenseList />
+        <ExpenseList categories={categories} />
         <ExpenseSummary />
       </div>
       {isRenaming && (

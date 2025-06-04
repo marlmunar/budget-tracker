@@ -3,7 +3,6 @@ import { TbPlus, TbDots, TbArrowLeft } from "react-icons/tb";
 
 const EntryOptions = ({
   setIsAddingEntry,
-  setIsAddingCategory,
   setIsEditingCategories,
   setIsDeletingCategory,
 }) => {

@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import ExpenseListItem from "./ExpenseListItem";
 import NoRecords from "./NoRecords";
 
-const ExpenseList = () => {
+const ExpenseList = ({ categories }) => {
   const { tempEntries } = useSelector((state) => state.logs);
   return (
     <section className="log-section-container">
@@ -18,6 +18,7 @@ const ExpenseList = () => {
             category={entry.category.name}
             timeStamps={entry.date.split("T")[0]}
             bgColor={entry.category.color}
+            categories={categories}
           />
         ))
       )}
