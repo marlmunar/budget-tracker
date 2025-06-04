@@ -26,7 +26,11 @@ const ExpenseListItem = ({
           className="log-tool-button"
           onClick={() => {
             setIsEditing(true);
-            setEntry({ expense, amount, category });
+            setEntry({
+              expense,
+              amount,
+              category: { name: category, color: bgColor },
+            });
           }}
         >
           <TbEdit />

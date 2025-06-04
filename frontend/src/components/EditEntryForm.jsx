@@ -1,17 +1,45 @@
 import { useState } from "react";
 import {
-  TbTrash,
-  TbEdit,
   TbCheck,
   TbX,
   TbCaretUpFilled,
   TbCaretDownFilled,
 } from "react-icons/tb";
 import OutsideClick from "./OutsideClick";
+import { useDispatch, useSelector } from "react-redux";
+import { setTempEntries } from "../slices/logSlice";
 
 const EditEntryForm = ({ categories, setIsEditing, entry }) => {
+  const dispatch = useDispatch();
+  const { tempEntries } = useSelector((state) => state.logs);
   const [isSelecting, setIsSelecting] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState(entry.category);
+  const [expense, setExpense] = useState(entry.expense);
+  const [amount, setAmount] = useState(entry.amount);
+  const [category, setCategory] = useState(entry.category);
+  const [selectedCategory, setSelectedCategory] = useState(entry.category.name);
+  const [color, setColor] = useState("");
+
+  const handleSave = () => {
+    const newEntry = {
+      expense,
+      amount,
+      category,
+    };
+    console.log(entry.expense);
+    console.log(tempEntries[0].expense);
+    const newTempEntries = tempEntries.map((tempEntry) =>
+      tempEntry.expense === entry.expense
+        ? {
+            ...tempEntry,
+            expense: newEntry.expense,
+            amount: newEntry.amount,
+            category: newEntry.category,
+          }
+        : tempEntry
+    );
+    dispatch(setTempEntries(newTempEntries));
+    setIsEditing(false);
+  };
 
   return (
     <div className="sticky top-5">
@@ -20,7 +48,7 @@ const EditEntryForm = ({ categories, setIsEditing, entry }) => {
           <div className="font-semibold text-xl bg-slate-400 p-2 rounded flex justify-between items-center">
             <h3>Edit Entry</h3>
             <div className="py-2 flex gap-2 ">
-              <button className="log-tool-button">
+              <button className="log-tool-button" onClick={handleSave}>
                 <TbCheck />
               </button>
               <button
@@ -37,7 +65,8 @@ const EditEntryForm = ({ categories, setIsEditing, entry }) => {
               <input
                 type="text"
                 name="expense"
-                value={entry.expense}
+                value={expense}
+                onChange={(e) => setExpense(e.target.value)}
                 autoComplete="off"
                 required
               />
@@ -47,7 +76,8 @@ const EditEntryForm = ({ categories, setIsEditing, entry }) => {
               <input
                 type="number"
                 name="expense"
-                value={entry.amount}
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
                 autoComplete="off"
                 required
               />
@@ -83,6 +113,7 @@ const EditEntryForm = ({ categories, setIsEditing, entry }) => {
                           onClick={() => {
                             setSelectedCategory(cat.name);
                             setIsSelecting(false);
+                            setCategory({ name: cat.name, color: cat.color });
                           }}
                         >
                           {cat.name}

@@ -7,7 +7,11 @@ import { useState } from "react";
 const ExpenseList = ({ categories }) => {
   const { tempEntries } = useSelector((state) => state.logs);
   const [isEditing, setIsEditing] = useState(false);
-  const [entry, setEntry] = useState({ expense: "", amount: "", category: "" });
+  const [entry, setEntry] = useState({
+    expense: "",
+    amount: "",
+    category: { name: "", color: "" },
+  });
 
   return (
     <section className="log-section-container">
