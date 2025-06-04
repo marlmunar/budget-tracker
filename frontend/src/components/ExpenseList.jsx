@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import ExpenseListItem from "./ExpenseListItem";
 import NoRecords from "./NoRecords";
+import EditEntryForm from "./EditEntryForm";
 
 const ExpenseList = ({ categories }) => {
   const { tempEntries } = useSelector((state) => state.logs);
@@ -10,17 +11,19 @@ const ExpenseList = ({ categories }) => {
       {tempEntries.length < 1 ? (
         <NoRecords />
       ) : (
-        tempEntries.map((entry, index) => (
-          <ExpenseListItem
-            key={index}
-            name={entry.expense}
-            amount={entry.amount}
-            category={entry.category.name}
-            timeStamps={entry.date.split("T")[0]}
-            bgColor={entry.category.color}
-            categories={categories}
-          />
-        ))
+        <div className="relative">
+          <EditEntryForm categories={categories} />
+          {tempEntries.map((entry, index) => (
+            <ExpenseListItem
+              key={index}
+              name={entry.expense}
+              amount={entry.amount}
+              category={entry.category.name}
+              timeStamps={entry.date.split("T")[0]}
+              bgColor={entry.category.color}
+            />
+          ))}
+        </div>
       )}
     </section>
   );
