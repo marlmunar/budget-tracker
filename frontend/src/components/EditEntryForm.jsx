@@ -9,9 +9,10 @@ import {
 } from "react-icons/tb";
 import OutsideClick from "./OutsideClick";
 
-const EditEntryForm = ({ categories }) => {
+const EditEntryForm = ({ categories, setIsEditing, entry }) => {
   const [isSelecting, setIsSelecting] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState(entry.category);
+
   return (
     <div className="sticky top-5">
       <div className="absolute bg-white p-2 shadow-xl rounded flex flex-col gap-2 right-0 top-0">
@@ -22,7 +23,10 @@ const EditEntryForm = ({ categories }) => {
               <button className="log-tool-button">
                 <TbCheck />
               </button>
-              <button className="log-tool-button">
+              <button
+                className="log-tool-button"
+                onClick={() => setIsEditing(false)}
+              >
                 <TbX />
               </button>
             </div>
@@ -33,7 +37,7 @@ const EditEntryForm = ({ categories }) => {
               <input
                 type="text"
                 name="expense"
-                className="border-2"
+                value={entry.expense}
                 autoComplete="off"
                 required
               />
@@ -43,7 +47,7 @@ const EditEntryForm = ({ categories }) => {
               <input
                 type="number"
                 name="expense"
-                className="border-2"
+                value={entry.amount}
                 autoComplete="off"
                 required
               />
