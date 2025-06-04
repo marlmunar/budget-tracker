@@ -6,15 +6,44 @@ import {
 import { useState } from "react";
 import { HexColorPicker } from "react-colorful";
 import OutsideClick from "./OutsideClick";
+import { useDispatch } from "react-redux";
+import { useUpdateLogMutation } from "../slices/logsApiSlice";
 
-const EditCategoryForm = ({ categories, setIsEditingCategories }) => {
+const EditCategoryForm = ({
+  logId,
+  categories,
+  setIsEditingCategories,
+  setLastAction,
+}) => {
   const [isSelecting, setIsSelecting] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [name, setName] = useState("");
   const [color, setColor] = useState("#000000");
 
-  const handleSubmit = (e) => {
+  const dispatch = useDispatch();
+  const [updateLog, { isLoading }] = useUpdateLogMutation();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    const newCategory = { name, color };
+    const newCategories = categories.map((cat) =>
+      cat.name === selectedCategory ? newCategory : cat
+    );
+    try {
+      const res = await updateLog({
+        id: logId,
+        data: { categories: newCategories },
+      }).unwrap();
+
+      console.log(res);
+
+      setName("");
+      setColor("#000000");
+      setSelectedCategory("");
+      setLastAction(Date.now());
+    } catch (error) {
+      console.log(error?.data?.message || error.message);
+    }
   };
 
   const handleChange = (newColor) => {

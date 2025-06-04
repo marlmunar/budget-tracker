@@ -181,16 +181,18 @@ const LogScreen = () => {
         )}
         {isAddingCategory && (
           <AddCategoryForm
-            categories={categories}
             logId={logId}
+            categories={categories}
             setIsAddingCategory={setIsAddingCategory}
             setLastAction={setLastAction}
           />
         )}
         {isEditingCategories && (
           <EditCategoryForm
+            logId={logId}
             categories={categories}
             setIsEditingCategories={setIsEditingCategories}
+            setLastAction={setLastAction}
           />
         )}
         <ExpenseList />
