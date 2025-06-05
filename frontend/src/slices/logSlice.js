@@ -29,6 +29,7 @@ const defaultCategories = [
 const initialState = {
   defaultCategories,
   tempEntries: [],
+  isNotSaved: "",
 };
 
 const logSlice = createSlice({
@@ -44,9 +45,16 @@ const logSlice = createSlice({
     addTempEntry(state, action) {
       state.tempEntries.push(action.payload);
     },
+    setIsNotSaved(state, action) {
+      state.isNotSaved = action.payload;
+    },
   },
 });
 
 export default logSlice.reducer;
-export const { setDefaultCategories, setTempEntries, addTempEntry } =
-  logSlice.actions;
+export const {
+  setDefaultCategories,
+  setTempEntries,
+  addTempEntry,
+  setIsNotSaved,
+} = logSlice.actions;

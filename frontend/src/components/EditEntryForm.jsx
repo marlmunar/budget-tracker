@@ -46,7 +46,12 @@ const EditEntryForm = ({ categories, setIsEditing, entry }) => {
           <div className="font-semibold text-xl bg-slate-400 p-2 rounded flex justify-between items-center">
             <h3>Edit Entry</h3>
             <div className="py-2 flex gap-2 ">
-              <button className="log-tool-button" onClick={handleSave}>
+              <button
+                className="log-tool-button"
+                type="submit"
+                form="editForm"
+                onClick={handleSave}
+              >
                 <TbCheck />
               </button>
               <button
@@ -57,7 +62,7 @@ const EditEntryForm = ({ categories, setIsEditing, entry }) => {
               </button>
             </div>
           </div>
-          <form method="POST" className="edit-entry-form">
+          <form method="POST" id="editForm" className="edit-entry-form">
             <div className="input-row">
               <label htmlFor="expense">Expense</label>
               <input
