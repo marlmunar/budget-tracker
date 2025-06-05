@@ -13,7 +13,6 @@ const ExpenseSummary = ({ entries }) => {
       }, 0),
     }))
     .sort((a, b) => b.amount - a.amount);
-  console.log(sumPerCategory);
   return (
     <section className="log-section-container">
       <h2 className="log-section-header">Expense Summary</h2>

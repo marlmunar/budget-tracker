@@ -7,7 +7,7 @@ import {
 import OutsideClick from "./OutsideClick";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addTempEntry } from "../slices/logSlice";
+import { addTempEntry, setIsNotSaved } from "../slices/logSlice";
 
 const AddEntryForm = ({
   categories,
@@ -35,6 +35,7 @@ const AddEntryForm = ({
     };
     dispatch(addTempEntry(newLog));
     setIsAddingEntry(false);
+    dispatch(setIsNotSaved(true));
   };
 
   return (

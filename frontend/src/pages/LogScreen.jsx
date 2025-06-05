@@ -20,7 +20,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { startLoading, stopLoading } from "../slices/appSlice";
 import OutsideClick from "../components/OutsideClick";
-import { setTempEntries } from "../slices/logSlice";
+import { setIsNotSaved, setTempEntries } from "../slices/logSlice";
 import RenameModal from "../components/RenameModal";
 import EntryOptions from "../components/EntryOptions";
 import AddCategoryForm from "../components/AddCategoryForm";
@@ -48,6 +48,7 @@ const LogScreen = () => {
   const [updateLog] = useUpdateLogMutation();
   const [deleteLog] = useDeleteLogMutation();
   const { tempEntries } = useSelector((state) => state.logs);
+  const { isNotSaved } = useSelector((state) => state.logs);
   const { logId } = useParams();
 
   useEffect(() => {
@@ -77,6 +78,7 @@ const LogScreen = () => {
         data: { name: logData.name, categories, entries: tempEntries },
       }).unwrap();
       console.log(res);
+      dispatch(setIsNotSaved(false));
     } catch (error) {
       console.log(error?.data?.message || error.message);
     } finally {
@@ -124,7 +126,10 @@ const LogScreen = () => {
         </div>
 
         <div className="relative flex text-3xl">
-          <div className="flex">
+          <div className="flex items-center gap-2">
+            <span className="text-sm italic">
+              {isNotSaved ? "Changes not saved!" : "Changes saved"}
+            </span>
             <button className="log-button" onClick={handleSave}>
               <TbDeviceSdCard />
             </button>
@@ -242,6 +247,7 @@ const LogScreen = () => {
             setIsRenaming(false);
             setDisplayName(tempName);
             handleRename(tempName);
+            dispatch(setIsNotSaved(true));
           }}
           title="Edit Log Name"
           description="Edit the name of your log"

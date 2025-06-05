@@ -7,7 +7,7 @@ import {
 } from "react-icons/tb";
 import OutsideClick from "./OutsideClick";
 import { useDispatch, useSelector } from "react-redux";
-import { setTempEntries } from "../slices/logSlice";
+import { setIsNotSaved, setTempEntries } from "../slices/logSlice";
 
 const EditEntryForm = ({ categories, setIsEditing, entry }) => {
   const dispatch = useDispatch();
@@ -36,6 +36,7 @@ const EditEntryForm = ({ categories, setIsEditing, entry }) => {
         : tempEntry
     );
     dispatch(setTempEntries(newTempEntries));
+    dispatch(setIsNotSaved(true));
     setIsEditing(false);
   };
 

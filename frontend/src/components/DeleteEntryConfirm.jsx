@@ -1,6 +1,6 @@
 import { TbCheck, TbX } from "react-icons/tb";
 import { useDispatch, useSelector } from "react-redux";
-import { setTempEntries } from "../slices/logSlice";
+import { setIsNotSaved, setTempEntries } from "../slices/logSlice";
 
 const DeleteEntryConfirm = ({ setIsDeleting, entry }) => {
   const dispatch = useDispatch();
@@ -13,6 +13,7 @@ const DeleteEntryConfirm = ({ setIsDeleting, entry }) => {
 
     dispatch(setTempEntries(newTempEntries));
     setIsDeleting(false);
+    dispatch(setIsNotSaved(true));
   };
 
   return (
