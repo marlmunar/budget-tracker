@@ -96,7 +96,7 @@ const LogScreen = () => {
   };
 
   return (
-    <main className="mx-auto md:max-w-[90%] lg:max-w-none">
+    <main className="mx-auto md:max-w-[90%] lg:max-w-[80%]">
       <title>{`Budgetarians' Log - ${logId}`}</title>
       <div className="flex justify-between items-center">
         <div className="flex gap-2 text-3xl items-center">
