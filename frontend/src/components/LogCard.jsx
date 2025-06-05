@@ -45,7 +45,14 @@ const LogCard = ({ logName, logStats, logId, setLastAction }) => {
   return (
     <div className="p-2 pb-4 flex justify-between gap-2 border-b-2 border-slate-500 rounded">
       <div className="flex flex-col gap-2">
-        <h3 className="text-lg font-semibold underline">{displayName}</h3>
+        <h3
+          className="text-lg font-semibold underline cursor-pointer"
+          onClick={(e) => {
+            navigate(`/log/${logId}`);
+          }}
+        >
+          {displayName}
+        </h3>
         <div className="text-sm text-gray-800">
           <p>Entries: {logStats.entries}</p>
           <p>Last edited: {logStats.lastEdited}</p>

@@ -13,6 +13,7 @@ import {
   TbFileX,
 } from "react-icons/tb";
 import {
+  useDeleteLogMutation,
   useLazyGetLogQuery,
   useUpdateLogMutation,
 } from "../slices/logsApiSlice";
@@ -25,6 +26,7 @@ import EntryOptions from "../components/EntryOptions";
 import AddCategoryForm from "../components/AddCategoryForm";
 import EditCategoryForm from "../components/EditCategoryForm";
 import DeleteCategoryForm from "../components/DeleteCategoryForm";
+import ConfirmModal from "../components/ConfirmModal";
 
 const LogScreen = () => {
   const dispatch = useDispatch();
@@ -34,6 +36,7 @@ const LogScreen = () => {
   const [categories, setCategories] = useState([]);
   const [isSelecting, setIsSelecting] = useState(false);
   const [isRenaming, setIsRenaming] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
   const [displayName, setDisplayName] = useState("");
   const [isAddingEntry, setIsAddingEntry] = useState(false);
   const [isAddingCategory, setIsAddingCategory] = useState(false);
@@ -42,7 +45,8 @@ const LogScreen = () => {
   const [lastAction, setLastAction] = useState("");
 
   const [getLog, { data }] = useLazyGetLogQuery();
-  const [updateLog, { isLoading }] = useUpdateLogMutation();
+  const [updateLog] = useUpdateLogMutation();
+  const [deleteLog] = useDeleteLogMutation();
   const { tempEntries } = useSelector((state) => state.logs);
   const { logId } = useParams();
 
@@ -92,6 +96,18 @@ const LogScreen = () => {
       console.log(error?.data?.message || error.message);
     } finally {
       dispatch(stopLoading());
+    }
+  };
+
+  const handleDelete = async () => {
+    try {
+      const res = await deleteLog({
+        id: logId,
+      }).unwrap();
+      console.log(res);
+      navigate("/profile");
+    } catch (error) {
+      console.log(error?.data?.message || error.message);
     }
   };
 
@@ -155,7 +171,12 @@ const LogScreen = () => {
                   </button>
                 </li>
                 <li>
-                  <button className="log-options text-red-500">
+                  <button
+                    className="log-options text-red-500"
+                    onClick={() => {
+                      setIsDeleting(true);
+                    }}
+                  >
                     <TbFileX />
                     <span>Delete</span>
                   </button>
@@ -224,6 +245,18 @@ const LogScreen = () => {
           }}
           title="Edit Log Name"
           description="Edit the name of your log"
+        />
+      )}
+      {isDeleting && (
+        <ConfirmModal
+          isOpem={isDeleting}
+          setIsOpen={setIsDeleting}
+          handleConfirm={() => {
+            setIsDeleting(false);
+            handleDelete();
+          }}
+          action="Delete"
+          description={`Delelete ${displayName}?`}
         />
       )}
     </main>

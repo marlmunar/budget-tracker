@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { TbSearch, TbPlus, TbAdjustmentsAlt } from "react-icons/tb";
+import { TbSearch, TbPlus } from "react-icons/tb";
 import Modal from "./Modal";
 import { useSelector } from "react-redux";
 import { useCreateLogMutation } from "../slices/logsApiSlice";
@@ -31,15 +31,11 @@ const LogTools = () => {
       <div className="flex justify-between lg:min-h-12 items-center">
         <div className="flex gap-2">
           <button
-            className="bg-blue-800 text-white border-2 min-h-8 px-2 py-1 rounded lg:min-w-[7.5rem] hover:border-transparent hover:shadow shadow-slate-800"
+            className="bg-blue-800 text-white border-2 min-h-8 px-2 py-1 rounded lg:min-w-[6rem] hover:border-transparent hover:shadow shadow-slate-800"
             onClick={() => setIsAdding(true)}
           >
-            <span className="hidden lg:block">Add New Log</span>
+            <span className="hidden lg:block">Add New</span>
             <TbPlus className="text-xl lg:hidden" />
-          </button>
-          <button className="bg-blue-800 text-white border-2 min-h-8 px-2 py-1 rounded lg:min-w-[7.5rem] hover:border-transparent hover:shadow shadow-slate-800">
-            <span className="hidden lg:block">Manage Logs</span>
-            <TbAdjustmentsAlt className="text-xl lg:hidden" />
           </button>
         </div>
         <div className="flex gap-2">
