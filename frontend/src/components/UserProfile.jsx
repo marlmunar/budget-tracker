@@ -5,7 +5,7 @@ import { useUpdateMutation } from "../slices/userApiSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { setCredentials } from "../slices/authSlice";
 
-const UserProfile = () => {
+const UserProfile = ({ userLogs }) => {
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.auth);
   const [updateProfile, { isLoading }] = useUpdateMutation();
@@ -56,13 +56,13 @@ const UserProfile = () => {
 
       <div className="grid grid-row-4 grid-cols-2 gap-x-5 gap-y-1">
         <span className="font-semibold">Logs:</span>
-        <span> 2</span>
+        <span> {userLogs}</span>
         <span className="font-semibold">Monthly Income:</span>
-        <span> 23,000</span>
+        <span>---</span>
         <span className="font-semibold">Monthly Expense:</span>
-        <span> 21,892</span>
+        <span>---</span>
         <span className="font-semibold">Budgetarian Grade:</span>
-        <span> Good</span>
+        <span>---</span>
       </div>
     </section>
   );

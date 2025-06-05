@@ -6,7 +6,7 @@ import { useLazyGetLogsQuery } from "../slices/logsApiSlice";
 import { useDispatch } from "react-redux";
 import { startLoading, stopLoading } from "../slices/appSlice";
 
-const Logs = () => {
+const Logs = ({ setUserLogs }) => {
   const dispatch = useDispatch();
   const [logs, setLogs] = useState([]);
   const [lastAction, setLastAction] = useState("");
@@ -21,6 +21,7 @@ const Logs = () => {
           (a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)
         );
         setLogs(sorted);
+        setUserLogs(sorted.length);
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
