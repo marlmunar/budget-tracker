@@ -27,6 +27,7 @@ import AddCategoryForm from "../components/AddCategoryForm";
 import EditCategoryForm from "../components/EditCategoryForm";
 import DeleteCategoryForm from "../components/DeleteCategoryForm";
 import ConfirmModal from "../components/ConfirmModal";
+import LogScreenStatus from "../components/LogScreenStatus";
 
 const LogScreen = () => {
   const dispatch = useDispatch();
@@ -78,6 +79,7 @@ const LogScreen = () => {
         data: { name: logData.name, categories, entries: tempEntries },
       }).unwrap();
       console.log(res);
+      setLastAction(Date.now());
       dispatch(setIsNotSaved(false));
     } catch (error) {
       console.log(error?.data?.message || error.message);
@@ -128,7 +130,10 @@ const LogScreen = () => {
         <div className="relative flex text-3xl">
           <div className="flex items-center gap-2">
             <span className="text-sm italic">
-              {isNotSaved ? "Changes not saved!" : "Changes saved"}
+              <LogScreenStatus
+                isNotSaved={isNotSaved}
+                lastAction={lastAction}
+              />
             </span>
             <button className="log-button" onClick={handleSave}>
               <TbDeviceSdCard />

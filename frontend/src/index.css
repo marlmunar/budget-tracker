@@ -223,3 +223,21 @@ menu li {
 .edit-entry-form .input-row .custom-select {
   @apply flex flex-col justify-center h-8 px-2 p-1 rounded border-[2px] w-[12rem] lg:w-[14rem] bg-white text-base;
 }
+
+@layer utilities {
+  @keyframes fade-out {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+
+  .disappear {
+    animation-name: fade-out;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+  }
+}

@@ -29,7 +29,7 @@ const defaultCategories = [
 const initialState = {
   defaultCategories,
   tempEntries: [],
-  isNotSaved: true,
+  isNotSaved: false,
 };
 
 const logSlice = createSlice({
