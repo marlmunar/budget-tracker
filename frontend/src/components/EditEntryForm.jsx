@@ -25,8 +25,6 @@ const EditEntryForm = ({ categories, setIsEditing, entry }) => {
       amount,
       category,
     };
-    console.log(entry.expense);
-    console.log(tempEntries[0].expense);
     const newTempEntries = tempEntries.map((tempEntry) =>
       tempEntry.expense === entry.expense
         ? {

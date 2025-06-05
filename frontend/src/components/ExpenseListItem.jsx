@@ -6,6 +6,7 @@ const ExpenseListItem = ({
   timeStamps,
   bgColor = "#4CAF50",
   setIsEditing,
+  setIsDeleting,
   setEntry,
 }) => {
   return (
@@ -27,17 +28,27 @@ const ExpenseListItem = ({
         <button
           className="log-tool-button"
           onClick={() => {
-            setIsEditing(true);
             setEntry({
               expense,
               amount,
               category: { name: category, color: bgColor },
             });
+            setIsEditing(true);
           }}
         >
           <TbEdit />
         </button>
-        <button className="log-tool-button">
+        <button
+          className="log-tool-button"
+          onClick={() => {
+            setEntry({
+              expense,
+              amount,
+              category: { name: category, color: bgColor },
+            });
+            setIsDeleting(true);
+          }}
+        >
           <TbTrash />
         </button>
       </div>

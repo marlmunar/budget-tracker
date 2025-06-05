@@ -1,12 +1,15 @@
 import { useSelector } from "react-redux";
+import { useState } from "react";
 import ExpenseListItem from "./ExpenseListItem";
 import NoRecords from "./NoRecords";
 import EditEntryForm from "./EditEntryForm";
-import { useState } from "react";
+import DeleteEntryConfirm from "./DeleteEntryConfirm";
 
 const ExpenseList = ({ categories }) => {
   const { tempEntries } = useSelector((state) => state.logs);
   const [isEditing, setIsEditing] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+
   const [entry, setEntry] = useState({
     expense: "",
     amount: "",
@@ -27,6 +30,9 @@ const ExpenseList = ({ categories }) => {
               entry={entry}
             />
           )}
+          {isDeleting && (
+            <DeleteEntryConfirm setIsDeleting={setIsDeleting} entry={entry} />
+          )}
           {tempEntries.map((entry, index) => (
             <ExpenseListItem
               key={index}
@@ -36,6 +42,7 @@ const ExpenseList = ({ categories }) => {
               timeStamps={entry.date.split("T")[0]}
               bgColor={entry.category.color}
               setIsEditing={setIsEditing}
+              setIsDeleting={setIsDeleting}
               setEntry={setEntry}
             />
           ))}

@@ -212,7 +212,7 @@ menu li {
 }
 
 .edit-entry-form {
-  @apply w-full p-1 my-2 bg-slate-100;
+  @apply w-full p-1 my-2 rounded bg-slate-100;
 }
 
 .edit-entry-form .input-row {
