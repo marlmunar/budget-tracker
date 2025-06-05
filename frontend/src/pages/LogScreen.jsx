@@ -188,6 +188,7 @@ const LogScreen = () => {
           <AddCategoryForm
             logId={logId}
             categories={categories}
+            setIsAddingEntry={setIsAddingEntry}
             setIsAddingCategory={setIsAddingCategory}
             setLastAction={setLastAction}
           />

@@ -63,7 +63,7 @@ const LogCard = ({ logName, logStats, logId, setLastAction }) => {
       </div>
       {isRenaming && (
         <RenameModal
-          sRenaming={isRenaming}
+          isRenaming={isRenaming}
           setIsRenaming={setIsRenaming}
           displayName={displayName}
           handleSubmit={(tempName) => {
