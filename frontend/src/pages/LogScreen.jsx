@@ -231,7 +231,7 @@ const LogScreen = () => {
           />
         )}
         <ExpenseList categories={categories} />
-        <ExpenseSummary />
+        <ExpenseSummary entries={tempEntries} />
       </div>
       {isRenaming && (
         <RenameModal

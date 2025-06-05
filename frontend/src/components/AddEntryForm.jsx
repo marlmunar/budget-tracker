@@ -34,7 +34,7 @@ const AddEntryForm = ({
       date: new Date().toISOString(),
     };
     dispatch(addTempEntry(newLog));
-    console.log(newLog);
+    setIsAddingEntry(false);
   };
 
   return (
