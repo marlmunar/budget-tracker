@@ -23,6 +23,12 @@ export const logsApiSlice = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+    deleteLog: builder.mutation({
+      query: ({ id }) => ({
+        url: `${LOGS_URL}/${id}`,
+        method: "DELETE",
+      }),
+    }),
   }),
 });
 
@@ -31,4 +37,5 @@ export const {
   useLazyGetLogQuery,
   useCreateLogMutation,
   useUpdateLogMutation,
+  useDeleteLogMutation,
 } = logsApiSlice;

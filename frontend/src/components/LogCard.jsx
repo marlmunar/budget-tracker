@@ -4,20 +4,36 @@ import { useState } from "react";
 
 import ConfirmModal from "./ConfirmModal";
 import RenameModal from "./RenameModal";
-import { useUpdateLogMutation } from "../slices/logsApiSlice";
+import {
+  useDeleteLogMutation,
+  useUpdateLogMutation,
+} from "../slices/logsApiSlice";
 
 const LogCard = ({ logName, logStats, logId, setLastAction }) => {
   const navigate = useNavigate();
   const [isRenaming, setIsRenaming] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [displayName, setDisplayName] = useState(logName);
-  const [updateLog, { isLoading }] = useUpdateLogMutation();
+  const [updateLog] = useUpdateLogMutation();
+  const [deleteLog] = useDeleteLogMutation();
 
   const handleRename = async (name) => {
     try {
       const res = await updateLog({
         id: logId,
         data: { name },
+      }).unwrap();
+      console.log(res);
+      setLastAction(Date.now());
+    } catch (error) {
+      console.log(error?.data?.message || error.message);
+    }
+  };
+
+  const handleDelete = async () => {
+    try {
+      const res = await deleteLog({
+        id: logId,
       }).unwrap();
       console.log(res);
       setLastAction(Date.now());
@@ -81,7 +97,7 @@ const LogCard = ({ logName, logStats, logId, setLastAction }) => {
           setIsOpen={setIsDeleting}
           handleConfirm={() => {
             setIsDeleting(false);
-            console.log("Deleting....");
+            handleDelete();
           }}
           action="Delete"
           description={`Delelete ${displayName}?`}
