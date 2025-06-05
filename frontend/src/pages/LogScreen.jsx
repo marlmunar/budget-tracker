@@ -28,6 +28,8 @@ import EditCategoryForm from "../components/EditCategoryForm";
 import DeleteCategoryForm from "../components/DeleteCategoryForm";
 import ConfirmModal from "../components/ConfirmModal";
 import LogScreenStatus from "../components/LogScreenStatus";
+import usePrompt from "../hooks/usePrompt";
+import Modal from "../components/Modal";
 
 const LogScreen = () => {
   const dispatch = useDispatch();
@@ -38,6 +40,7 @@ const LogScreen = () => {
   const [isSelecting, setIsSelecting] = useState(false);
   const [isRenaming, setIsRenaming] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+
   const [displayName, setDisplayName] = useState("");
   const [isAddingEntry, setIsAddingEntry] = useState(false);
   const [isAddingCategory, setIsAddingCategory] = useState(false);
@@ -51,6 +54,8 @@ const LogScreen = () => {
   const { tempEntries } = useSelector((state) => state.logs);
   const { isNotSaved } = useSelector((state) => state.logs);
   const { logId } = useParams();
+
+  const { show, confirm, cancel } = usePrompt(isNotSaved);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -260,7 +265,7 @@ const LogScreen = () => {
       )}
       {isDeleting && (
         <ConfirmModal
-          isOpem={isDeleting}
+          isOpen={isDeleting}
           setIsOpen={setIsDeleting}
           handleConfirm={() => {
             setIsDeleting(false);
@@ -269,6 +274,17 @@ const LogScreen = () => {
           action="Delete"
           description={`Delelete ${displayName}?`}
         />
+      )}
+      {show && (
+        <Modal isOpen={show} onClose={cancel} title="Confirm Exit">
+          <div className="flex flex-col items-center gap-2 p-2">
+            <p>Leave with unsave changes?</p>
+            <div className="button-row">
+              <button onClick={confirm}>Confirm</button>
+              <button onClick={cancel}>Cancel</button>
+            </div>
+          </div>
+        </Modal>
       )}
     </main>
   );

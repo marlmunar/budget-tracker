@@ -100,7 +100,7 @@ const LogCard = ({ logName, logStats, logId, setLastAction }) => {
       )}
       {isDeleting && (
         <ConfirmModal
-          isOpem={isDeleting}
+          isOpen={isDeleting}
           setIsOpen={setIsDeleting}
           handleConfirm={() => {
             setIsDeleting(false);
