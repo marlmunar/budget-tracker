@@ -19,6 +19,9 @@ const RenameModal = ({
       <form
         onSubmit={(e) => {
           e.preventDefault();
+          if (!tempName) {
+            return;
+          }
           handleSubmit(tempName);
         }}
         className="flex flex-col items-center gap-2 p-2"

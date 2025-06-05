@@ -19,7 +19,11 @@ const EditEntryForm = ({ categories, setIsEditing, entry }) => {
   const [selectedCategory, setSelectedCategory] = useState(entry.category.name);
   const [color, setColor] = useState("");
 
-  const handleSave = () => {
+  const handleSave = (e) => {
+    e.preventDefault();
+    if (!expense || !amount || !category) {
+      return;
+    }
     const newEntry = {
       expense,
       amount,
