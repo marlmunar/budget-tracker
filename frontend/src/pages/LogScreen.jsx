@@ -60,7 +60,7 @@ const LogScreen = () => {
         setLogData(res.data);
         setCategories(res.data.categories);
         setDisplayName(res.data.name);
-        dispatch(setTempEntries([...res.data.entries]));
+        if (!isNotSaved) dispatch(setTempEntries([...res.data.entries]));
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {

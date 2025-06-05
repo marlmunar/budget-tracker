@@ -1,6 +1,7 @@
 import { TbArrowLeft, TbX } from "react-icons/tb";
 import { useState } from "react";
 import { useUpdateLogMutation } from "../slices/logsApiSlice";
+import { useSelector } from "react-redux";
 
 const DeleteCategoryForm = ({
   logId,
@@ -11,17 +12,26 @@ const DeleteCategoryForm = ({
   const [tempCategories, setTempCategories] = useState(categories);
 
   const [updateLog, { isLoading }] = useUpdateLogMutation();
+  const { tempEntries } = useSelector((state) => state.logs);
+  const activeCategories = [
+    ...new Set(tempEntries.map((cat) => cat.category.name)),
+  ];
 
   const handleClick = (selectedCategory) => {
-    if (tempCategories.length > 1) {
-      const newTempCategories = tempCategories.filter(
-        (cat) => cat !== selectedCategory
-      );
-      setTempCategories(newTempCategories);
+    if (tempCategories.length < 0) {
+      console.error("Categories cannot be empty");
+      return;
+    }
+    if (activeCategories.includes(selectedCategory.name)) {
+      console.error("Cannot delete a category in use");
       return;
     }
 
-    console.error("Categories cannot be empty");
+    const newTempCategories = tempCategories.filter(
+      (cat) => cat !== selectedCategory
+    );
+    setTempCategories(newTempCategories);
+    return;
   };
   const handleSubmit = async (e) => {
     e.preventDefault();

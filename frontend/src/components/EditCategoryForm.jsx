@@ -7,6 +7,8 @@ import { useState } from "react";
 import { HexColorPicker } from "react-colorful";
 import OutsideClick from "./OutsideClick";
 import { useUpdateLogMutation } from "../slices/logsApiSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { setIsNotSaved, setTempEntries } from "../slices/logSlice";
 
 const EditCategoryForm = ({
   logId,
@@ -14,19 +16,27 @@ const EditCategoryForm = ({
   setIsEditingCategories,
   setLastAction,
 }) => {
+  const dispatch = useDispatch();
   const [isSelecting, setIsSelecting] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [name, setName] = useState("");
   const [color, setColor] = useState("#000000");
 
   const [updateLog, { isLoading }] = useUpdateLogMutation();
+  const { tempEntries } = useSelector((state) => state.logs);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const newCategory = { name, color };
+    const updatedCategory = { name, color };
     const newCategories = categories.map((cat) =>
-      cat.name === selectedCategory ? newCategory : cat
+      cat.name === selectedCategory ? updatedCategory : cat
     );
+    const newTempEntries = tempEntries.map((entry) =>
+      entry.category.name === selectedCategory
+        ? { ...entry, category: updatedCategory }
+        : entry
+    );
+
     try {
       const res = await updateLog({
         id: logId,
@@ -39,6 +49,9 @@ const EditCategoryForm = ({
       setColor("#000000");
       setSelectedCategory("");
       setLastAction(Date.now());
+      dispatch(setTempEntries(newTempEntries));
+      dispatch(setIsNotSaved(true));
+      setIsEditingCategories(false);
     } catch (error) {
       console.log(error?.data?.message || error.message);
     }
