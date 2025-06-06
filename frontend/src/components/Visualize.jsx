@@ -34,6 +34,7 @@ const Visualize = () => {
   const { logId } = useParams();
   const [logData, setLogData] = useState({});
   const [entries, setEntries] = useState([]);
+  const [dayWithEntries, setDaysWithEntries] = useState([]);
 
   const [month, setMonth] = useState(new Date().getMonth());
   const [year, setYear] = useState(new Date().getFullYear());
@@ -45,49 +46,6 @@ const Visualize = () => {
   const firstDay = firstOfMonth.getDay();
   const daysInMonth = new Date(year, month + 1, 0).getDate();
   const lastDateOfLastMonth = new Date(year, month, 0).getDate();
-  const lastDayOfLastMonth = new Date(year, month, 0).getDay();
-
-  // const grids = [];
-  // let i = 0;
-  // let dayCount = 0;
-  // let lastDays = lastDayOfLastMonth;
-  // let fillerDays = 1;
-  // while (i < 42) {
-  //   if (i === firstDay) {
-  //     dayCount = 1;
-  //   }
-
-  //   if (i <= lastDayOfLastMonth && lastDayOfLastMonth < 6) {
-  //     grids.push(
-  //       <div key={i} className={`border rounded p-2 text-gray-500`}>
-  //         {lastDateOfLastMonth - lastDays}
-  //       </div>
-  //     );
-  //     lastDays--;
-  //   } else if (dayCount > 0 && dayCount <= daysInMonth) {
-  //     grids.push(
-  //       <div
-  //         key={i}
-  //         className={
-  //           presentMonth === month && presentDate === dayCount
-  //             ? `rounded p-2 bg-blue-400 border-2`
-  //             : `border rounded p-2 `
-  //         }
-  //       >
-  //         {dayCount}
-  //       </div>
-  //     );
-  //     dayCount++;
-  //   } else {
-  //     grids.push(
-  //       <div key={i} className={`border rounded p-2 text-gray-500`}>
-  //         {fillerDays}
-  //       </div>
-  //     );
-  //     fillerDays++;
-  //   }
-  //   i++;
-  // }
 
   const calendarCells = Array(42)
     .fill(null)
@@ -108,6 +66,7 @@ const Visualize = () => {
       }
     });
 
+  const checkDaysWithEntries = (entries) => {};
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -115,6 +74,7 @@ const Visualize = () => {
         const res = await getLog(logId).unwrap();
         setLogData(res.data);
         setEntries(res.data.entries);
+        checkDaysWithEntries(res.data.entries);
         console.log(res.data);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -179,17 +139,33 @@ const Visualize = () => {
           let styles = "border";
 
           if (cell.type === "today") {
-            styles = "border-2 bg-amber-300";
+            styles = "border-2 bg-amber-300/70";
           }
 
           if (cell.type === "filler") {
             styles = "text-gray-200 opacity-95";
           }
           return (
-            <div key={i} className={`${styles} rounded p-2 grid items-start`}>
+            <div
+              key={i}
+              className={`${styles} rounded p-2 grid grid-cols-[10%_88%] items-start`}
+            >
               <span>{cell.value}</span>
-              <div className="bg-white rounded m-full h-full">
-                <span> === </span>
+              <div className="bg-white rounded m-full h-full text-xs flex flex-col p-1 gap-1">
+                {entries.map((entry, index) =>
+                  new Date(entry.date.split("T")[0]).getDate() === cell.value &&
+                  cell.type === "day" ? (
+                    <span
+                      key={index}
+                      className="px-2 rounded"
+                      style={{ backgroundColor: entry.category.color }}
+                    >
+                      {`${entry.amount} - ${entry.expense}`}
+                    </span>
+                  ) : (
+                    ""
+                  )
+                )}
               </div>
             </div>
           );
