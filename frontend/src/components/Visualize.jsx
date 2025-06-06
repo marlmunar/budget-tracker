@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useLazyGetLogQuery } from "../slices/logsApiSlice";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { startLoading, stopLoading } from "../slices/appSlice";
+import { TbArrowBackUp } from "react-icons/tb";
 const days = [
   "Sunday",
   "Monday",
@@ -30,6 +31,7 @@ const months = [
 
 const Visualize = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [getLog, { data }] = useLazyGetLogQuery();
   const { logId } = useParams();
   const [logData, setLogData] = useState({});
@@ -67,20 +69,18 @@ const Visualize = () => {
     });
 
   const checkDaysWithEntries = (data) => {
-    const entriesThisMonth = data.filter(
-      (entry) => new Date(entry.date).getMonth() === month
-    );
+    const entriesThisMonth = data.filter((entry) => {
+      const entryDate = new Date(entry.date);
+      return entryDate.getMonth() === month && entryDate.getFullYear() === year;
+    });
     const datesOfEntries = entriesThisMonth.map((entry) =>
       new Date(entry.date).getDate()
     );
 
     const uniqueDates = [...new Set(datesOfEntries)];
+    console.log(uniqueDates);
     setDaysWithEntries(uniqueDates);
   };
-
-  useEffect(() => {
-    checkDaysWithEntries(logData.entries);
-  }, [month]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -104,6 +104,13 @@ const Visualize = () => {
     fetchData();
   }, [logId, getLog, dispatch]);
 
+  useEffect(() => {
+    if (!entries) {
+      return;
+    }
+    checkDaysWithEntries(entries);
+  }, [month]);
+
   const changeMonth = (direction) => {
     if (direction === "prev") {
       if (month === 0) {
@@ -123,73 +130,92 @@ const Visualize = () => {
   };
 
   return (
-    <div className="border-2 min-h-[100%] flex flex-col gap-1 rounded shadow-lg p-2 ">
-      <div className="flex text-xl justify-between items-center h-12 shadow bg-slate-400 rounded p-2">
+    <>
+      <div className="flex mb-2 gap-2 text-3xl items-center">
         <button
-          className="bg-white rounded lg:min-w-[12rem] px-2 p-1 font-semibold flex justify-center items-center"
-          onClick={() => changeMonth("prev")}
+          className="log-button"
+          onClick={() => navigate(`/log/${logId}`)}
         >
-          {"< PREV"}
+          <TbArrowBackUp />
         </button>
-        <div className="bg-white rounded lg:min-w-[12rem] px-2 p-1 font-semibold flex justify-center items-center">
-          {`${months[month].toUpperCase()} - ${year}`}
-        </div>
-        <button
-          className="bg-white rounded lg:min-w-[12rem] px-2 p-1 font-semibold flex justify-center items-center"
-          onClick={() => changeMonth("next")}
-        >
-          {"NEXT >"}
-        </button>
+
+        <h2 className="text-2xl font-semibold underline">{logData.name}</h2>
       </div>
-      <div className="p-1 grow min-h-[100%] grid grid-cols-7 grid-rows-[3rem_repeat(6,minmax(10rem,1fr))] border-2 rounded gap-1">
-        {days.map((day) => (
-          <div
-            key={day}
-            className="truncate p-2 border flex justify-center items-center font-semibold"
+
+      <div className="border-2 min-h-[100%] flex flex-col gap-1 rounded shadow-lg p-2 ">
+        <div className="flex text-xl justify-between items-center h-12 shadow bg-slate-400 rounded p-2">
+          <button
+            className="bg-white rounded lg:min-w-[12rem] px-2 p-1 font-semibold flex justify-center items-center"
+            onClick={() => changeMonth("prev")}
           >
-            {day}
+            {"< PREV"}
+          </button>
+          <div className="bg-white rounded lg:min-w-[12rem] px-2 p-1 font-semibold flex justify-center items-center">
+            {`${months[month].toUpperCase()} - ${year}`}
           </div>
-        ))}
-        {calendarCells.map((cell, i) => {
-          let styles = "border";
-
-          if (cell.type === "today") {
-            styles = "border-5 border-amber-500";
-          }
-
-          if (cell.type === "filler") {
-            styles = "text-gray-200 opacity-95";
-          }
-          console.log(cell.value);
-          console.log(daysWithEntries);
-          return (
+          <button
+            className="bg-white rounded lg:min-w-[12rem] px-2 p-1 font-semibold flex justify-center items-center"
+            onClick={() => changeMonth("next")}
+          >
+            {"NEXT >"}
+          </button>
+        </div>
+        <div className="p-1 grow min-h-[100%] grid grid-cols-7 grid-rows-[3rem_repeat(6,minmax(10rem,1fr))] border-2 rounded gap-1">
+          {days.map((day) => (
             <div
-              key={i}
-              className={`${styles} rounded p-2 flex flex-col lg:grid grid-cols-[11%_88%] items-start`}
+              key={day}
+              className="truncate p-2 border flex justify-center items-center font-semibold"
             >
-              <span>{cell.value}</span>
-              <div className="bg-white rounded w-full h-full text-xs flex flex-col p-1 gap-1">
-                {daysWithEntries.includes(cell.value) &&
-                  entries.map((entry, index) =>
-                    new Date(entry.date.split("T")[0]).getDate() ===
-                      cell.value && cell.type === "day" ? (
-                      <span
-                        key={index}
-                        className="px-2 rounded w-full truncate"
-                        style={{ backgroundColor: entry.category.color }}
-                      >
-                        {`${entry.amount} - ${entry.expense}`}
-                      </span>
-                    ) : (
-                      ""
-                    )
-                  )}
-              </div>
+              {day}
             </div>
-          );
-        })}
+          ))}
+          {calendarCells.map((cell, i) => {
+            let styles = "border";
+
+            if (cell.type === "today") {
+              styles = "border-5 border-amber-500";
+            }
+
+            if (cell.type === "filler") {
+              styles = "text-gray-200 opacity-95";
+            }
+            console.log(daysWithEntries);
+
+            return (
+              <div
+                key={i}
+                className={`${styles} rounded p-2 flex flex-col lg:grid grid-cols-[11%_88%] items-start`}
+              >
+                <span>{cell.value}</span>
+
+                {daysWithEntries.includes(cell.value) && (
+                  <div className="bg-white rounded w-full h-full text-xs flex flex-col p-1 gap-1">
+                    {entries.map((entry, index) =>
+                      new Date(entry.date.split("T")[0]).getDate() ===
+                        cell.value && cell.type !== "filler" ? (
+                        <span
+                          key={index}
+                          className="px-2 rounded w-full truncate"
+                          style={{ backgroundColor: entry.category.color }}
+                        >
+                          <span className="font-semibold">{entry.amount}</span>
+                          <span>
+                            {" - "}
+                            {entry.category.name}
+                          </span>
+                        </span>
+                      ) : (
+                        ""
+                      )
+                    )}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
