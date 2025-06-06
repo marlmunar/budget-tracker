@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TbFilter } from "react-icons/tb";
 import ExpenseListItem from "./ExpenseListItem";
 import NoRecords from "./NoRecords";
@@ -13,24 +13,51 @@ const ExpenseList = ({ categories }) => {
   const [isDeleting, setIsDeleting] = useState(false);
   const [isFiltering, setIsFiltering] = useState(false);
 
+  const [selectedCategories, setSelectedCategories] = useState([]);
+
+  useEffect(() => {
+    if (categories.length > 0) {
+      const categoryNames = categories.map((cat) => cat.name);
+      setSelectedCategories(categoryNames);
+    }
+  }, [categories]);
+
   const [entry, setEntry] = useState({
     expense: "",
     amount: "",
     category: { name: "", color: "" },
   });
 
+  const filteredList = tempEntries.filter((entry) =>
+    selectedCategories.includes(entry.category.name)
+  );
+
+  console.log(selectedCategories);
+
   return (
     <section className="log-section-container">
       <div className="log-section-header flex justify-between items-center">
-        <h2>Expense List</h2>
-        <button
-          className="log-tool-button h-15"
-          onClick={() => setIsFiltering(true)}
-        >
-          <TbFilter />
-        </button>
+        <div className="flex justify-between items-center w-full">
+          <h2>Expense List</h2>
+          <button
+            className="log-tool-button h-15"
+            onClick={() => setIsFiltering(true)}
+          >
+            <TbFilter />
+          </button>
+        </div>
+        <div className="relative">
+          {isFiltering && (
+            <ExpenseListFilter
+              setIsFiltering={setIsFiltering}
+              categories={categories}
+              selectedCategories={selectedCategories}
+              setSelectedCategories={setSelectedCategories}
+            />
+          )}
+        </div>
       </div>
-      {tempEntries.length < 1 ? (
+      {filteredList.length < 1 ? (
         <NoRecords />
       ) : (
         <div className="relative">
@@ -44,13 +71,7 @@ const ExpenseList = ({ categories }) => {
           {isDeleting && (
             <DeleteEntryConfirm setIsDeleting={setIsDeleting} entry={entry} />
           )}
-          {isFiltering && (
-            <ExpenseListFilter
-              setIsFiltering={setIsFiltering}
-              categories={categories}
-            />
-          )}
-          {tempEntries.map((entry, index) => (
+          {filteredList.map((entry, index) => (
             <ExpenseListItem
               key={index}
               expense={entry.expense}
