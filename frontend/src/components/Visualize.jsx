@@ -34,7 +34,7 @@ const Visualize = () => {
   const { logId } = useParams();
   const [logData, setLogData] = useState({});
   const [entries, setEntries] = useState([]);
-  const [dayWithEntries, setDaysWithEntries] = useState([]);
+  const [daysWithEntries, setDaysWithEntries] = useState([]);
 
   const [month, setMonth] = useState(new Date().getMonth());
   const [year, setYear] = useState(new Date().getFullYear());
@@ -66,7 +66,22 @@ const Visualize = () => {
       }
     });
 
-  const checkDaysWithEntries = (entries) => {};
+  const checkDaysWithEntries = (data) => {
+    const entriesThisMonth = data.filter(
+      (entry) => new Date(entry.date).getMonth() === month
+    );
+    const datesOfEntries = entriesThisMonth.map((entry) =>
+      new Date(entry.date).getDate()
+    );
+
+    const uniqueDates = [...new Set(datesOfEntries)];
+    setDaysWithEntries(uniqueDates);
+  };
+
+  useEffect(() => {
+    checkDaysWithEntries(logData.entries);
+  }, [month]);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -108,29 +123,29 @@ const Visualize = () => {
   };
 
   return (
-    <div className="min-h-[100%] flex flex-col gap-1 rounded shadow-lg p-2 ">
+    <div className="border-2 min-h-[100%] flex flex-col gap-1 rounded shadow-lg p-2 ">
       <div className="flex text-xl justify-between items-center h-12 shadow bg-slate-400 rounded p-2">
         <button
-          className="bg-white rounded min-w-[12rem] px-2 p-1 font-semibold flex justify-center items-center"
+          className="bg-white rounded lg:min-w-[12rem] px-2 p-1 font-semibold flex justify-center items-center"
           onClick={() => changeMonth("prev")}
         >
           {"< PREV"}
         </button>
-        <div className="bg-white rounded min-w-[12rem] px-2 p-1 font-semibold flex justify-center items-center">
+        <div className="bg-white rounded lg:min-w-[12rem] px-2 p-1 font-semibold flex justify-center items-center">
           {`${months[month].toUpperCase()} - ${year}`}
         </div>
         <button
-          className="bg-white rounded min-w-[12rem] px-2 p-1 font-semibold flex justify-center items-center"
+          className="bg-white rounded lg:min-w-[12rem] px-2 p-1 font-semibold flex justify-center items-center"
           onClick={() => changeMonth("next")}
         >
           {"NEXT >"}
         </button>
       </div>
-      <div className="p-1 grow min-h-[100%] grid grid-cols-7 grid-rows-[3rem_repeat(6,minmax(5rem,1fr))] border-2 rounded gap-1">
+      <div className="p-1 grow min-h-[100%] grid grid-cols-7 grid-rows-[3rem_repeat(6,minmax(10rem,1fr))] border-2 rounded gap-1">
         {days.map((day) => (
           <div
             key={day}
-            className="p-2 border flex justify-center items-center font-semibold"
+            className="truncate p-2 border flex justify-center items-center font-semibold"
           >
             {day}
           </div>
@@ -139,33 +154,36 @@ const Visualize = () => {
           let styles = "border";
 
           if (cell.type === "today") {
-            styles = "border-2 bg-amber-300/70";
+            styles = "border-5 border-amber-500";
           }
 
           if (cell.type === "filler") {
             styles = "text-gray-200 opacity-95";
           }
+          console.log(cell.value);
+          console.log(daysWithEntries);
           return (
             <div
               key={i}
-              className={`${styles} rounded p-2 grid grid-cols-[10%_88%] items-start`}
+              className={`${styles} rounded p-2 flex flex-col lg:grid grid-cols-[11%_88%] items-start`}
             >
               <span>{cell.value}</span>
-              <div className="bg-white rounded m-full h-full text-xs flex flex-col p-1 gap-1">
-                {entries.map((entry, index) =>
-                  new Date(entry.date.split("T")[0]).getDate() === cell.value &&
-                  cell.type === "day" ? (
-                    <span
-                      key={index}
-                      className="px-2 rounded"
-                      style={{ backgroundColor: entry.category.color }}
-                    >
-                      {`${entry.amount} - ${entry.expense}`}
-                    </span>
-                  ) : (
-                    ""
-                  )
-                )}
+              <div className="bg-white rounded w-full h-full text-xs flex flex-col p-1 gap-1">
+                {daysWithEntries.includes(cell.value) &&
+                  entries.map((entry, index) =>
+                    new Date(entry.date.split("T")[0]).getDate() ===
+                      cell.value && cell.type === "day" ? (
+                      <span
+                        key={index}
+                        className="px-2 rounded w-full truncate"
+                        style={{ backgroundColor: entry.category.color }}
+                      >
+                        {`${entry.amount} - ${entry.expense}`}
+                      </span>
+                    ) : (
+                      ""
+                    )
+                  )}
               </div>
             </div>
           );
