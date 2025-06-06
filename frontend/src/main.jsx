@@ -19,6 +19,7 @@ import NotFound from "./pages/NotFound.jsx";
 import LogScreen from "./pages/LogScreen.jsx";
 import PrivateRoute from "./components/PrivateRoute.jsx";
 import Loading from "./pages/Loading.jsx";
+import Visualize from "./components/Visualize.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -31,6 +32,7 @@ const router = createBrowserRouter(
         <Route path="profile" element={<Profile />} />
         <Route path="log/:logId" element={<LogScreen />} />
         <Route index={true} path="/" element={<Home />} />
+        <Route path="/Visualize" element={<Visualize />} />
       </Route>
 
       {/* </Route> */}

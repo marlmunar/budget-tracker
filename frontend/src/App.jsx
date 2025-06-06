@@ -6,8 +6,8 @@ const App = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
-      <div className="relative grow w-full h-full">
-        <div className="container mx-auto my-[1.75rem] px-4 xl:px-10">
+      <div className="relative grow grid min-h-[100%] py-4 ">
+        <div className="container min-h-[100%] px-4 xl:px-10">
           <Outlet />
         </div>
       </div>
