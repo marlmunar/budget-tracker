@@ -55,8 +55,6 @@ const Visualize = () => {
           {lastDateOfLastMonth - lastDays}
         </div>
       );
-      console.log(i);
-      console.log(lastDayOfLastMonth, lastDateOfLastMonth);
       lastDays--;
     } else if (dayCount > 0 && dayCount <= daysInMonth) {
       grids.push(

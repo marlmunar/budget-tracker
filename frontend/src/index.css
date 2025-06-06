@@ -135,7 +135,7 @@ button > * {
 }
 
 .log-section-header {
-  @apply bg-slate-400 p-2 rounded shadow text-xl font-semibold h-14 flex items-center;
+  @apply bg-slate-400 p-2 px-3 rounded shadow text-xl font-semibold h-14 flex items-center;
 }
 
 .input-row {

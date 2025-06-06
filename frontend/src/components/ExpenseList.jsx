@@ -1,14 +1,17 @@
 import { useSelector } from "react-redux";
 import { useState } from "react";
+import { TbFilter } from "react-icons/tb";
 import ExpenseListItem from "./ExpenseListItem";
 import NoRecords from "./NoRecords";
 import EditEntryForm from "./EditEntryForm";
 import DeleteEntryConfirm from "./DeleteEntryConfirm";
+import ExpenseListFilter from "./ExpenseListFilter";
 
 const ExpenseList = ({ categories }) => {
   const { tempEntries } = useSelector((state) => state.logs);
   const [isEditing, setIsEditing] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [isFiltering, setIsFiltering] = useState(false);
 
   const [entry, setEntry] = useState({
     expense: "",
@@ -18,7 +21,15 @@ const ExpenseList = ({ categories }) => {
 
   return (
     <section className="log-section-container">
-      <h2 className="log-section-header">Expense List</h2>
+      <div className="log-section-header flex justify-between items-center">
+        <h2>Expense List</h2>
+        <button
+          className="log-tool-button h-15"
+          onClick={() => setIsFiltering(true)}
+        >
+          <TbFilter />
+        </button>
+      </div>
       {tempEntries.length < 1 ? (
         <NoRecords />
       ) : (
@@ -32,6 +43,12 @@ const ExpenseList = ({ categories }) => {
           )}
           {isDeleting && (
             <DeleteEntryConfirm setIsDeleting={setIsDeleting} entry={entry} />
+          )}
+          {isFiltering && (
+            <ExpenseListFilter
+              setIsFiltering={setIsFiltering}
+              categories={categories}
+            />
           )}
           {tempEntries.map((entry, index) => (
             <ExpenseListItem

@@ -48,7 +48,7 @@ const EditEntryForm = ({ categories, setIsEditing, entry }) => {
     <div className="sticky top-5">
       <div className="absolute bg-white p-2 shadow-xl rounded flex flex-col gap-2 right-0 top-0">
         <div className="lg:w-[min-content] bg-slate-500 p-4 rounded">
-          <div className="font-semibold text-xl bg-slate-400 p-2 rounded flex justify-between items-center">
+          <div className="font-semibold text-lg bg-slate-400 p-2 rounded flex justify-between items-center">
             <h3>Edit Entry</h3>
             <div className="py-2 flex gap-2 ">
               <button
