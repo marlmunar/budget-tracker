@@ -183,7 +183,12 @@ const LogScreen = () => {
                   </button>
                 </li>
                 <li>
-                  <button className="log-options">
+                  <button
+                    className="log-options"
+                    onClick={() => {
+                      navigate(`/visualize/${logId}`);
+                    }}
+                  >
                     <TbFileAnalytics />
                     <span>Visualize</span>
                   </button>

@@ -1,4 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useLazyGetLogQuery } from "../slices/logsApiSlice";
+import { useParams } from "react-router-dom";
+import { startLoading, stopLoading } from "../slices/appSlice";
 const days = [
   "Sunday",
   "Monday",
@@ -25,6 +29,12 @@ const months = [
 ];
 
 const Visualize = () => {
+  const dispatch = useDispatch();
+  const [getLog, { data }] = useLazyGetLogQuery();
+  const { logId } = useParams();
+  const [logData, setLogData] = useState({});
+  const [entries, setEntries] = useState([]);
+
   const [month, setMonth] = useState(new Date().getMonth());
   const [year, setYear] = useState(new Date().getFullYear());
   const present = new Date();
@@ -36,8 +46,6 @@ const Visualize = () => {
   const daysInMonth = new Date(year, month + 1, 0).getDate();
   const lastDateOfLastMonth = new Date(year, month, 0).getDate();
   const lastDayOfLastMonth = new Date(year, month, 0).getDay();
-  console.log(lastDayOfLastMonth);
-  console.log(lastDateOfLastMonth);
 
   const grids = [];
   let i = 0;
@@ -80,6 +88,27 @@ const Visualize = () => {
     }
     i++;
   }
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        dispatch(startLoading());
+        const res = await getLog(logId).unwrap();
+        setLogData(res.data);
+        setEntries(res.data.entries);
+        console.log(res.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        if (error.status == 400) {
+          navigate("/not-found");
+        }
+      } finally {
+        dispatch(stopLoading());
+      }
+    };
+
+    fetchData();
+  }, [logId, getLog, dispatch]);
 
   const changeMonth = (direction) => {
     if (direction === "prev") {
