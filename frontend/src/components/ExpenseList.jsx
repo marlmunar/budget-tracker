@@ -71,19 +71,21 @@ const ExpenseList = ({ categories }) => {
           {isDeleting && (
             <DeleteEntryConfirm setIsDeleting={setIsDeleting} entry={entry} />
           )}
-          {filteredList.map((entry, index) => (
-            <ExpenseListItem
-              key={index}
-              expense={entry.expense}
-              amount={entry.amount}
-              category={entry.category.name}
-              timeStamps={entry.date.split("T")[0]}
-              bgColor={entry.category.color}
-              setIsEditing={setIsEditing}
-              setIsDeleting={setIsDeleting}
-              setEntry={setEntry}
-            />
-          ))}
+          {filteredList
+            .sort((a, b) => new Date(b.date) - new Date(a.date))
+            .map((entry, index) => (
+              <ExpenseListItem
+                key={index}
+                expense={entry.expense}
+                amount={entry.amount}
+                category={entry.category.name}
+                timeStamps={entry.date.split("T")[0]}
+                bgColor={entry.category.color}
+                setIsEditing={setIsEditing}
+                setIsDeleting={setIsDeleting}
+                setEntry={setEntry}
+              />
+            ))}
         </div>
       )}
     </section>
