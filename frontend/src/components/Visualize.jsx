@@ -47,47 +47,66 @@ const Visualize = () => {
   const lastDateOfLastMonth = new Date(year, month, 0).getDate();
   const lastDayOfLastMonth = new Date(year, month, 0).getDay();
 
-  const grids = [];
-  let i = 0;
-  let dayCount = 0;
-  let lastDays = lastDayOfLastMonth;
-  let fillerDays = 1;
-  while (i < 42) {
-    if (i === firstDay) {
-      dayCount = 1;
-    }
+  // const grids = [];
+  // let i = 0;
+  // let dayCount = 0;
+  // let lastDays = lastDayOfLastMonth;
+  // let fillerDays = 1;
+  // while (i < 42) {
+  //   if (i === firstDay) {
+  //     dayCount = 1;
+  //   }
 
-    if (i <= lastDayOfLastMonth && lastDayOfLastMonth < 6) {
-      grids.push(
-        <div key={i} className={`border rounded p-2 text-gray-500`}>
-          {lastDateOfLastMonth - lastDays}
-        </div>
-      );
-      lastDays--;
-    } else if (dayCount > 0 && dayCount <= daysInMonth) {
-      grids.push(
-        <div
-          key={i}
-          className={
-            presentMonth === month && presentDate === dayCount
-              ? `rounded p-2 bg-blue-400 border-2`
-              : `border rounded p-2 `
-          }
-        >
-          {dayCount}
-        </div>
-      );
-      dayCount++;
-    } else {
-      grids.push(
-        <div key={i} className={`border rounded p-2 text-gray-500`}>
-          {fillerDays}
-        </div>
-      );
-      fillerDays++;
-    }
-    i++;
-  }
+  //   if (i <= lastDayOfLastMonth && lastDayOfLastMonth < 6) {
+  //     grids.push(
+  //       <div key={i} className={`border rounded p-2 text-gray-500`}>
+  //         {lastDateOfLastMonth - lastDays}
+  //       </div>
+  //     );
+  //     lastDays--;
+  //   } else if (dayCount > 0 && dayCount <= daysInMonth) {
+  //     grids.push(
+  //       <div
+  //         key={i}
+  //         className={
+  //           presentMonth === month && presentDate === dayCount
+  //             ? `rounded p-2 bg-blue-400 border-2`
+  //             : `border rounded p-2 `
+  //         }
+  //       >
+  //         {dayCount}
+  //       </div>
+  //     );
+  //     dayCount++;
+  //   } else {
+  //     grids.push(
+  //       <div key={i} className={`border rounded p-2 text-gray-500`}>
+  //         {fillerDays}
+  //       </div>
+  //     );
+  //     fillerDays++;
+  //   }
+  //   i++;
+  // }
+
+  const calendarCells = Array(42)
+    .fill(null)
+    .map((_, i) => {
+      if (i >= firstDay && i < firstDay + daysInMonth) {
+        let value = i - firstDay + 1;
+        if (presentMonth === month && presentDate === value) {
+          return { type: "today", value };
+        }
+        return { type: "day", value };
+      } else if (i < firstDay) {
+        return {
+          type: "filler",
+          value: lastDateOfLastMonth - (firstDay - 1 - i),
+        };
+      } else {
+        return { type: "filler", value: i - daysInMonth };
+      }
+    });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -156,7 +175,25 @@ const Visualize = () => {
             {day}
           </div>
         ))}
-        {grids.map((grid) => grid)}
+        {calendarCells.map((cell, i) => {
+          let styles = "border";
+
+          if (cell.type === "today") {
+            styles = "border-2 bg-amber-300";
+          }
+
+          if (cell.type === "filler") {
+            styles = "text-gray-200 opacity-95";
+          }
+          return (
+            <div key={i} className={`${styles} rounded p-2 grid items-start`}>
+              <span>{cell.value}</span>
+              <div className="bg-white rounded m-full h-full">
+                <span> === </span>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
