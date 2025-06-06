@@ -68,6 +68,9 @@ const LogScreen = () => {
         if (!isNotSaved) dispatch(setTempEntries([...res.data.entries]));
       } catch (error) {
         console.error("Error fetching data:", error);
+        if (error.status == 400) {
+          navigate("/not-found");
+        }
       } finally {
         dispatch(stopLoading());
       }

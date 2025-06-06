@@ -6,6 +6,7 @@ import NoRecords from "./NoRecords";
 import EditEntryForm from "./EditEntryForm";
 import DeleteEntryConfirm from "./DeleteEntryConfirm";
 import ExpenseListFilter from "./ExpenseListFilter";
+import OutsideClick from "./OutsideClick";
 
 const ExpenseList = ({ categories }) => {
   const { tempEntries } = useSelector((state) => state.logs);
@@ -32,44 +33,47 @@ const ExpenseList = ({ categories }) => {
     selectedCategories.includes(entry.category.name)
   );
 
-  console.log(selectedCategories);
-
   return (
     <section className="log-section-container">
-      <div className="log-section-header flex justify-between items-center">
-        <div className="flex justify-between items-center w-full">
-          <h2>Expense List</h2>
-          <button
-            className="log-tool-button h-15"
-            onClick={() => setIsFiltering(true)}
-          >
-            <TbFilter />
-          </button>
-        </div>
-        <div className="relative">
-          {isFiltering && (
+      <div className="relative">
+        {isFiltering && (
+          <OutsideClick onOutsideClick={() => setIsFiltering(false)}>
             <ExpenseListFilter
               setIsFiltering={setIsFiltering}
               categories={categories}
               selectedCategories={selectedCategories}
               setSelectedCategories={setSelectedCategories}
             />
-          )}
-        </div>
+          </OutsideClick>
+        )}
       </div>
+      <div className="log-section-header flex justify-between items-center">
+        <h2>Expense List</h2>
+        <button
+          className="log-tool-button h-15"
+          onClick={() => setIsFiltering(true)}
+        >
+          <TbFilter />
+        </button>
+      </div>
+
       {filteredList.length < 1 ? (
         <NoRecords />
       ) : (
         <div className="relative">
           {isEditing && (
-            <EditEntryForm
-              categories={categories}
-              setIsEditing={setIsEditing}
-              entry={entry}
-            />
+            <OutsideClick onOutsideClick={() => setIsEditing(false)}>
+              <EditEntryForm
+                categories={categories}
+                setIsEditing={setIsEditing}
+                entry={entry}
+              />
+            </OutsideClick>
           )}
           {isDeleting && (
-            <DeleteEntryConfirm setIsDeleting={setIsDeleting} entry={entry} />
+            <OutsideClick onOutsideClick={() => setIsDeleting(false)}>
+              <DeleteEntryConfirm setIsDeleting={setIsDeleting} entry={entry} />
+            </OutsideClick>
           )}
           {filteredList
             .sort((a, b) => new Date(b.date) - new Date(a.date))
