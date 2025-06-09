@@ -32,7 +32,15 @@ const LogTools = () => {
     e.preventDefault();
   };
 
-  const handleSearchText = async () => {};
+  const handleSearchText = async (e) => {
+    setSearchText(e.target.value);
+    if (e.target.value === "") {
+      setIsSearching(false);
+      return;
+    }
+
+    setIsSearching(true);
+  };
 
   return (
     <section className="bg-gray-400 p-2 rounded-lg shadow">
@@ -47,16 +55,14 @@ const LogTools = () => {
           </button>
         </div>
         <form className="flex gap-2" method="POST">
-          <div
-            onBlur={() => setIsSearching(false)}
-            className="bg-white border text-black rounded-xl px-4 min-h-8 lg:w-[18rem] lg:max-w-none flex items-center justify-between"
-          >
+          <div className="bg-white border text-black rounded-xl px-4 min-h-8 lg:w-[18rem] lg:max-w-none flex items-center justify-between">
             <input
               className="focus:outline-none focus:ring-0"
               type="text"
               id="search-log"
               placeholder="Search by name..."
-              onChange={() => handleSearchText()}
+              onChange={(e) => handleSearchText(e)}
+              value={searchText}
               autoComplete="off"
             />
             {isSearching && (
