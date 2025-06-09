@@ -4,7 +4,7 @@ const UserSettings = () => {
   return (
     <>
       <title>Budgetarians' Log - User Settings</title>
-      <main className="lg:w-[50%] mx-auto mt-2 rounded p-2 shadow-lg bg-gray-50">
+      <main className="lg:w-[50%] mx-auto mt-2 rounded p-2 shadow-lg">
         <div className="flex gap-2 text-2xl items-center p-2">
           <Link className="log-button" to="/profile">
             <TbArrowBackUp />
