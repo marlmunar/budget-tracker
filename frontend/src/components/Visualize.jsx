@@ -130,6 +130,9 @@ const Visualize = () => {
 
   return (
     <>
+      <title>{`Budgetarians' Log ${
+        logData.name ? `- ${logData.name}` : ""
+      }`}</title>
       <div className="flex mb-2 gap-2 text-3xl items-center">
         <Link className="log-button" to={`/log/${logId}`}>
           <TbArrowBackUp />
