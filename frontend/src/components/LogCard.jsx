@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { TbPencil, TbArrowsDiagonal2, TbTrash } from "react-icons/tb";
 import { useState } from "react";
 
@@ -10,7 +10,6 @@ import {
 } from "../slices/logsApiSlice";
 
 const LogCard = ({ logName, logStats, logId, setLastAction }) => {
-  const navigate = useNavigate();
   const [isRenaming, setIsRenaming] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [displayName, setDisplayName] = useState(logName);
@@ -45,13 +44,8 @@ const LogCard = ({ logName, logStats, logId, setLastAction }) => {
   return (
     <div className="p-2 pb-4 flex justify-between gap-2 border-b-2 border-slate-500 rounded">
       <div className="flex flex-col gap-2">
-        <h3
-          className="text-lg font-semibold underline cursor-pointer"
-          onClick={(e) => {
-            navigate(`/log/${logId}`);
-          }}
-        >
-          {displayName}
+        <h3 className="text-lg font-semibold underline cursor-pointer">
+          <Link to={`/log/${logId}`}>{displayName}</Link>
         </h3>
         <div className="text-sm text-gray-800">
           <p>Entries: {logStats.entries}</p>
@@ -66,15 +60,9 @@ const LogCard = ({ logName, logStats, logId, setLastAction }) => {
         >
           <TbPencil />
         </button>
-        <button
-          title="Open"
-          className="tool-button"
-          onClick={(e) => {
-            navigate(`/log/${logId}`);
-          }}
-        >
+        <Link title="Open" className="tool-button" to={`/log/${logId}`}>
           <TbArrowsDiagonal2 />
-        </button>
+        </Link>
 
         <button
           title="Delete"

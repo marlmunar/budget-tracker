@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import AddEntryForm from "../components/AddEntryForm";
 import ExpenseList from "../components/ExpenseList";
 import ExpenseSummary from "../components/ExpenseSummary";
@@ -128,9 +128,9 @@ const LogScreen = () => {
       <title>{`Budgetarians' Log - ${logId}`}</title>
       <div className="flex justify-between items-center">
         <div className="flex gap-2 text-3xl items-center">
-          <button className="log-button" onClick={() => navigate("/profile")}>
+          <Link className="log-button" to="/profile">
             <TbArrowBackUp />
-          </button>
+          </Link>
 
           <h2 className="text-2xl font-semibold underline">{displayName}</h2>
         </div>
@@ -183,15 +183,10 @@ const LogScreen = () => {
                   </button>
                 </li>
                 <li>
-                  <button
-                    className="log-options"
-                    onClick={() => {
-                      navigate(`/visualize/${logId}`);
-                    }}
-                  >
+                  <Link className="log-options" to={`/visualize/${logId}`}>
                     <TbFileAnalytics />
                     <span>Visualize</span>
-                  </button>
+                  </Link>
                 </li>
                 <li>
                   <button
