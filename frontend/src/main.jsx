@@ -20,6 +20,8 @@ import LogScreen from "./pages/LogScreen.jsx";
 import PrivateRoute from "./components/PrivateRoute.jsx";
 import Loading from "./pages/Loading.jsx";
 import Visualize from "./components/Visualize.jsx";
+import UserProfile from "./components/UserProfile.jsx";
+import UserSettings from "./pages/UserSettings.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -32,6 +34,7 @@ const router = createBrowserRouter(
         <Route path="profile" element={<Profile />} />
         <Route path="log/:logId" element={<LogScreen />} />
         <Route index={true} path="/" element={<Home />} />
+        <Route path="settings/" element={<UserSettings />} />
         <Route path="visualize/:logId" element={<Visualize />} />
       </Route>
 

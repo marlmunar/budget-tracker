@@ -4,6 +4,7 @@ import RenameModal from "./RenameModal";
 import { useUpdateMutation } from "../slices/userApiSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { setCredentials } from "../slices/authSlice";
+import { Link } from "react-router-dom";
 
 const UserProfile = ({ userLogs }) => {
   const dispatch = useDispatch();
@@ -33,9 +34,9 @@ const UserProfile = ({ userLogs }) => {
           <button className="group" onClick={() => setIsRenaming(true)}>
             <TbEdit className="transition-all duration-300 group-hover:text-amber-500" />
           </button>
-          <button className="group">
+          <Link to="/settings">
             <TbSettings className="transition-all duration-300 group-hover:text-amber-500" />
-          </button>
+          </Link>
         </div>
       </div>
 
