@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { TbSearch, TbPlus } from "react-icons/tb";
+import { TbSearch, TbPlus, TbX } from "react-icons/tb";
 import Modal from "./Modal";
 import { useSelector } from "react-redux";
 import { useCreateLogMutation } from "../slices/logsApiSlice";
@@ -11,6 +11,8 @@ const LogTools = () => {
   const [createLog, { isLoading }] = useCreateLogMutation();
   const [isAdding, setIsAdding] = useState(false);
   const [logName, setLogName] = useState("");
+  const [isSearching, setIsSearching] = useState(false);
+  const [searchText, setSearchText] = useState("");
 
   const handleAdd = async () => {
     try {
@@ -26,6 +28,12 @@ const LogTools = () => {
     setLogName("");
   };
 
+  const handleSearch = async (e) => {
+    e.preventDefault();
+  };
+
+  const handleSearchText = async () => {};
+
   return (
     <section className="bg-gray-400 p-2 rounded-lg shadow">
       <div className="flex justify-between lg:min-h-12 items-center">
@@ -38,18 +46,34 @@ const LogTools = () => {
             <TbPlus className="text-xl lg:hidden" />
           </button>
         </div>
-        <div className="flex gap-2">
-          <input
-            className="bg-white border rounded-xl px-4 min-h-8 max-w-[10.95rem] lg:max-w-none hidden lg:block"
-            type="search"
-            id="search-log"
-            placeholder="Search by name..."
-          />
-          <button className="bg-blue-800 text-white border-2 min-h-8 px-2 py-1 rounded lg:min-w-[5rem] hover:border-transparent hover:shadow shadow-slate-800">
+        <form className="flex gap-2" method="POST">
+          <div
+            onBlur={() => setIsSearching(false)}
+            className="bg-white border text-black rounded-xl px-4 min-h-8 lg:w-[18rem] lg:max-w-none flex items-center justify-between"
+          >
+            <input
+              className="focus:outline-none focus:ring-0"
+              type="text"
+              id="search-log"
+              placeholder="Search by name..."
+              onChange={() => handleSearchText()}
+              autoComplete="off"
+            />
+            {isSearching && (
+              <button className="rounded-xl h-[min-content] w-[min-content] text-lg border-2 hover:shadow hover:shadow-slate-700 hover:border-transparent">
+                <TbX />
+              </button>
+            )}
+          </div>
+
+          <button
+            onClick={(e) => handleSearch(e)}
+            className="bg-blue-800 text-white border-2 min-h-8 px-2 py-1 rounded lg:min-w-[5rem] hover:border-transparent hover:shadow shadow-slate-800"
+          >
             <span className="hidden lg:block">Search</span>
             <TbSearch className="text-xl lg:hidden" />
           </button>
-        </div>
+        </form>
       </div>
       {isAdding && (
         <Modal
