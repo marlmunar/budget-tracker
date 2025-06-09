@@ -22,6 +22,7 @@ import Loading from "./pages/Loading.jsx";
 import Visualize from "./components/Visualize.jsx";
 import UserProfile from "./components/UserProfile.jsx";
 import UserSettings from "./pages/UserSettings.jsx";
+import NewTabChecker from "./components/NewTabChecker.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -32,10 +33,13 @@ const router = createBrowserRouter(
 
       <Route element={<Loading />}>
         <Route path="profile" element={<Profile />} />
-        <Route path="log/:logId" element={<LogScreen />} />
+
         <Route index={true} path="/" element={<Home />} />
         <Route path="settings/" element={<UserSettings />} />
-        <Route path="visualize/:logId" element={<Visualize />} />
+        <Route element={<NewTabChecker />}>
+          <Route path="visualize/:logId" element={<Visualize />} />
+          <Route path="log/:logId" element={<LogScreen />} />
+        </Route>
       </Route>
 
       {/* </Route> */}
