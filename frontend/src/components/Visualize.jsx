@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useLazyGetLogQuery } from "../slices/logsApiSlice";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { startLoading, stopLoading } from "../slices/appSlice";
 import { TbArrowBackUp } from "react-icons/tb";
 const days = [
@@ -78,7 +78,6 @@ const Visualize = () => {
     );
 
     const uniqueDates = [...new Set(datesOfEntries)];
-    console.log(uniqueDates);
     setDaysWithEntries(uniqueDates);
   };
 
@@ -132,12 +131,9 @@ const Visualize = () => {
   return (
     <>
       <div className="flex mb-2 gap-2 text-3xl items-center">
-        <button
-          className="log-button"
-          onClick={() => navigate(`/log/${logId}`)}
-        >
+        <Link className="log-button" to={`/log/${logId}`}>
           <TbArrowBackUp />
-        </button>
+        </Link>
 
         <h2 className="text-2xl font-semibold underline">{logData.name}</h2>
       </div>
