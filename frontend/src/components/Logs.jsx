@@ -9,8 +9,27 @@ import { startLoading, stopLoading } from "../slices/appSlice";
 const Logs = ({ setUserLogs }) => {
   const dispatch = useDispatch();
   const [logs, setLogs] = useState([]);
+  const [results, setResults] = useState([]);
   const [lastAction, setLastAction] = useState("");
   const [getLogs, { data, isLoading }] = useLazyGetLogsQuery();
+  const [searchState, setSearchState] = useState({
+    isSearching: false,
+    searchText: "",
+  });
+
+  useEffect(() => {
+    if (!searchState.isSearching) {
+      setResults(logs);
+      return;
+    }
+
+    let filteredlogs = logs.filter((log) =>
+      log.name.toLowerCase().includes(searchState.searchText.toLowerCase())
+    );
+
+    setResults(filteredlogs);
+    console.log(filteredlogs);
+  }, [searchState.searchText, logs]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,15 +51,22 @@ const Logs = ({ setUserLogs }) => {
     fetchData();
   }, [lastAction]);
 
+  useEffect;
+
   return (
     <div>
       <section className=" flex flex-col gap-4 p-4 shadow rounded">
         <h2 className="text-2xl font-semibold">Your Logs</h2>
-        <LogTools />
-
-        {logs.length > 0 ? (
+        <LogTools searchState={searchState} setSearchState={setSearchState} />
+        {searchState.isSearching && (
+          <span className="ml-5 text-sm">
+            Showing results for keyword: "
+            <span className="italic">{searchState.searchText}</span>"
+          </span>
+        )}
+        {results.length > 0 ? (
           <>
-            {logs.map((log) => (
+            {results.map((log) => (
               <LogCard
                 key={log._id}
                 setLastAction={setLastAction}

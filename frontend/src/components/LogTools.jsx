@@ -5,14 +5,13 @@ import { useSelector } from "react-redux";
 import { useCreateLogMutation } from "../slices/logsApiSlice";
 import { useNavigate } from "react-router-dom";
 
-const LogTools = () => {
+const LogTools = ({ searchState, setSearchState }) => {
   const navigate = useNavigate();
   const { defaultCategories } = useSelector((state) => state.logs);
   const [createLog, { isLoading }] = useCreateLogMutation();
   const [isAdding, setIsAdding] = useState(false);
   const [logName, setLogName] = useState("");
-  const [isSearching, setIsSearching] = useState(false);
-  const [searchText, setSearchText] = useState("");
+  const { isSearching, searchText } = searchState;
 
   const handleAdd = async () => {
     try {
@@ -33,13 +32,12 @@ const LogTools = () => {
   };
 
   const handleSearchText = async (e) => {
-    setSearchText(e.target.value);
+    setSearchState((prev) => ({ ...prev, searchText: e.target.value }));
     if (e.target.value === "") {
-      setIsSearching(false);
+      setSearchState((prev) => ({ ...prev, isSearching: false }));
       return;
     }
-
-    setIsSearching(true);
+    setSearchState((prev) => ({ ...prev, isSearching: true }));
   };
 
   return (
@@ -55,7 +53,7 @@ const LogTools = () => {
           </button>
         </div>
         <form className="flex gap-2" method="POST">
-          <div className="bg-white border text-black rounded-xl px-4 min-h-8 lg:w-[18rem] lg:max-w-none flex items-center justify-between">
+          <div className="bg-white border text-black rounded-xl px-4 min-h-8 lg:w-[16.5rem] lg:max-w-none flex items-center justify-between">
             <input
               className="focus:outline-none focus:ring-0"
               type="text"
@@ -66,7 +64,16 @@ const LogTools = () => {
               autoComplete="off"
             />
             {isSearching && (
-              <button className="rounded-xl h-[min-content] w-[min-content] text-lg border-2 hover:shadow hover:shadow-slate-700 hover:border-transparent">
+              <button
+                type="button"
+                onClick={() => {
+                  setSearchState((prev) => ({
+                    isSearching: false,
+                    searchText: "",
+                  }));
+                }}
+                className="rounded-xl h-[min-content] w-[min-content] text-lg border-2 hover:shadow hover:shadow-slate-700 hover:border-transparent"
+              >
                 <TbX />
               </button>
             )}
