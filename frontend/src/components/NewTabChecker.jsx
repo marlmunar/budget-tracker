@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setActiveLogTab } from "../slices/logSlice";
 import Modal from "./Modal";
@@ -7,48 +7,69 @@ import Modal from "./Modal";
 const NewTabChecker = () => {
   const channel = new BroadcastChannel("budgetarian");
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { activeLogTab } = useSelector((state) => state.logs);
   const [isNotActive, setIsNotActive] = useState(false);
+  const [tabId] = useState(() => {
+    const existing = sessionStorage.getItem("tabId");
+    if (existing) return existing;
+    const newId = `${Date.now()}-${Math.random()}`;
+    sessionStorage.setItem("tabId", newId);
+    return newId;
+  });
 
-  const setActiveTab = (tabId) => {
-    dispatch(setActiveLogTab(tabId));
-    localStorage.setItem("activeTabId", tabId);
+  const setActiveTab = (id) => {
+    dispatch(setActiveLogTab(id));
+    localStorage.setItem("activeTabId", id);
   };
 
   useEffect(() => {
-    const tabId = sessionStorage.getItem("tabId")
-      ? sessionStorage.getItem("tabId")
-      : sessionStorage.setItem("tabId", Date.now());
+    const handleMessage = (event) => {
+      const { type, tabId: senderId } = event.data;
 
-    channel.onmessage = (event) => {
-      switch (event.data) {
-        case "denied":
-          setIsNotActive(true);
-          break;
-        case "lock":
-          channel.postMessage("denied");
-          break;
+      if (senderId === tabId) return;
+
+      switch (type) {
         case "request":
-          channel.postMessage("approved");
+          if (activeLogTab === tabId) {
+            channel.postMessage({ type: "denied", tabId });
+          }
           break;
         case "approved":
-          setActiveTab(tabId);
-          setIsNotActive(false);
-          channel.postMessage("denied");
+          if (senderId !== tabId) {
+            setActiveTab(senderId);
+            setIsNotActive(true);
+          }
+          break;
+        case "denied":
+          setIsNotActive(true);
           break;
       }
     };
 
-    if (activeLogTab === null) {
+    channel.onmessage = handleMessage;
+
+    if (!activeLogTab) {
       setActiveTab(tabId);
     } else if (activeLogTab !== tabId) {
-      channel.postMessage("lock");
+      setIsNotActive(true);
     }
 
     return () => {
       channel.close();
     };
-  }, [isNotActive]);
+  }, [activeLogTab, tabId]);
+
+  const requestControl = () => {
+    channel.postMessage({ type: "request", tabId });
+    setTimeout(() => {
+      if (activeLogTab !== tabId) {
+        setActiveTab(tabId);
+        channel.postMessage({ type: "approved", tabId });
+        setIsNotActive(false);
+      }
+    }, 500);
+  };
 
   return (
     <>
@@ -56,29 +77,17 @@ const NewTabChecker = () => {
       {isNotActive && (
         <Modal
           isOpen={isNotActive}
-          onClose={() => setIsNotActive(false)}
+          onClose={() => navigate("/profile")}
           title="Edit in this Tab?"
         >
           <div className="flex flex-col items-center gap-2 p-2">
             <p className="w-[30ch] text-center">
-              Page is currently active on another tab, continuing may lead to
-              unsaved changes?
+              Page is currently active on another tab. Continuing may lead to
+              unsaved changes.
             </p>
             <div className="button-row">
-              <button
-                onClick={() => {
-                  channel.postMessage("request");
-                }}
-              >
-                Confirm
-              </button>
-              <button
-                onClick={() => {
-                  window.close();
-                }}
-              >
-                Cancel
-              </button>
+              <button onClick={requestControl}>Confirm</button>
+              <button onClick={() => navigate("/profile")}>Cancel</button>
             </div>
           </div>
         </Modal>
