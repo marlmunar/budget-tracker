@@ -20,7 +20,6 @@ import LogScreen from "./pages/LogScreen.jsx";
 import PrivateRoute from "./components/PrivateRoute.jsx";
 import Loading from "./pages/Loading.jsx";
 import Visualize from "./components/Visualize.jsx";
-import UserProfile from "./components/UserProfile.jsx";
 import UserSettings from "./pages/UserSettings.jsx";
 import NewTabChecker from "./components/NewTabChecker.jsx";
 
