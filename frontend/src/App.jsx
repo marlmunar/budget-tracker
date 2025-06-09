@@ -7,6 +7,7 @@ import { setActiveLogTab } from "./slices/logSlice";
 import Modal from "./components/Modal";
 
 const App = () => {
+  const channel = new BroadcastChannel("budgetarian");
   const dispatch = useDispatch();
   const { activeLogTab } = useSelector((state) => state.logs);
   const [isNotActive, setIsNotActive] = useState(false);
@@ -17,11 +18,9 @@ const App = () => {
   };
 
   useEffect(() => {
-    const channel = new BroadcastChannel("budgetarian");
     const tabId = sessionStorage.getItem("tabId")
       ? sessionStorage.getItem("tabId")
       : sessionStorage.setItem("tabId", Date.now());
-    console.log(tabId);
 
     channel.onmessage = (event) => {
       switch (event.data) {
@@ -36,11 +35,14 @@ const App = () => {
           break;
         case "approved":
           setActiveTab(tabId);
+          setIsNotActive(false);
+          channel.postMessage("denied");
+          break;
       }
     };
 
     if (activeLogTab === null) {
-      channel.postMessage("request");
+      setActiveTab(tabId);
     } else if (activeLogTab !== tabId) {
       channel.postMessage("lock");
     }
@@ -48,7 +50,7 @@ const App = () => {
     return () => {
       channel.close();
     };
-  }, []);
+  }, [isNotActive]);
 
   return (
     <div className="flex flex-col min-h-screen ">
@@ -68,8 +70,20 @@ const App = () => {
                   to unsaved changes?
                 </p>
                 <div className="button-row">
-                  <button onClick={() => {}}>Confirm</button>
-                  <button onClick={() => {}}>Cancel</button>
+                  <button
+                    onClick={() => {
+                      channel.postMessage("request");
+                    }}
+                  >
+                    Confirm
+                  </button>
+                  <button
+                    onClick={() => {
+                      window.close();
+                    }}
+                  >
+                    Cancel
+                  </button>
                 </div>
               </div>
             </Modal>
