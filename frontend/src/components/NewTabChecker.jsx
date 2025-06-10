@@ -29,21 +29,15 @@ const NewTabChecker = () => {
     } else {
       updatedActiveTabs = [...activeLogTabs, { tabId: id, logId: logId }];
     }
-    console.log(updatedActiveTabs);
-
     dispatch(setActiveLogTabs(updatedActiveTabs));
     localStorage.setItem("activeTabIds", JSON.stringify(updatedActiveTabs));
   };
 
   useEffect(() => {
-    console.log(tabId);
-    console.log(logId);
-    console.log(activeLogTabs);
     const newActiveIDs = [...activeLogTabs];
 
     const newActiveLogs = newActiveIDs.map((id) => id.logId);
     const newActiveTab = newActiveIDs.find((id) => id.logId === logId)?.tabId;
-    console.log(newActiveTab);
 
     const handleMessage = (event) => {
       const { type, tabId: senderId, logId: logData } = event.data;
