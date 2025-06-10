@@ -47,22 +47,36 @@ const UserSettings = () => {
     }
   };
 
-  const saveIncome = async (e) => {
+  const saveStats = async (e) => {
     e.preventDefault();
-    const newIncome = income || userInfo.stats.monthlySavings;
+    let newIncome = income || (userInfo?.stats?.monthlyIncome ?? "blank");
+    let newGoals = goals || (userInfo?.stats?.savingGoals ?? "blank");
 
     try {
-      if (income <= 0) {
-        throw new Error("Monhtly income should be greater than zero");
+      console.log(newIncome);
+      if (newGoals === "blank" || newIncome === "blank") {
+        if (newIncome > 0) newGoals = +newIncome * 0.8;
+        else {
+          throw new Error("Save a monthly income value first");
+        }
       }
+      if (newIncome <= 0 || newGoals <= 0) {
+        throw new Error(
+          "Monhtly income and saving goals should be greater than zero"
+        );
+      }
+
       const res = await updateProfile({
-        stats: { monthlyIncome: newIncome, savingGoals: "blank" },
+        stats: { monthlyIncome: newIncome, savingGoals: newGoals },
       }).unwrap();
       dispatch(setCredentials(res));
       setIncome("");
+      setGoals("");
       setActiveSettings("");
       console.log(res);
     } catch (error) {
+      console.log(newIncome);
+      console.log(newGoals);
       console.error(error);
     }
   };
@@ -202,7 +216,7 @@ const UserSettings = () => {
                       />
                     </div>
                     <div className="justify-self-end flex justify-end gap-2 *:border-2 *:h-9 *:w-18 *:rounded">
-                      <button onClick={(e) => saveIncome(e)}>Update</button>
+                      <button onClick={(e) => saveStats(e)}>Update</button>
                       <button
                         type="button"
                         onClick={() => setActiveSettings("")}
@@ -237,7 +251,7 @@ const UserSettings = () => {
                       />
                     </div>
                     <div className="justify-self-end flex justify-end gap-2 *:border-2 *:h-9 *:w-18 *:rounded">
-                      <button onClick={handleSubmit}>Update</button>
+                      <button onClick={(e) => saveStats(e)}>Update</button>
                       <button
                         type="button"
                         onClick={() => setActiveSettings("")}
