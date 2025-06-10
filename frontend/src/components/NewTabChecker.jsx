@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { act, useEffect, useRef, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setActiveLogTab } from "../slices/logSlice";
@@ -10,6 +10,7 @@ const NewTabChecker = () => {
   const navigate = useNavigate();
   const { activeLogTab } = useSelector((state) => state.logs);
   const [isNotActive, setIsNotActive] = useState(false);
+  const intervalRef = useRef();
   const [tabId] = useState(() => {
     const existing = sessionStorage.getItem("tabId");
     if (existing) return existing;
@@ -38,7 +39,6 @@ const NewTabChecker = () => {
         case "approved":
           if (senderId !== tabId) {
             setActiveTab(senderId);
-            setIsNotActive(true);
           }
           break;
         case "denied":
@@ -49,14 +49,34 @@ const NewTabChecker = () => {
 
     channel.onmessage = handleMessage;
 
+    const lock = JSON.parse(localStorage.getItem("note-app-lock"));
+    const now = Date.now();
+
     if (!activeLogTab) {
       setActiveTab(tabId);
     } else if (activeLogTab !== tabId) {
       setIsNotActive(true);
+    } else {
+      intervalRef.current = setInterval(() => {
+        localStorage.setItem(
+          "note-app-lock",
+          JSON.stringify({ id: tabId, timestamp: Date.now() })
+        );
+      }, 5000);
+    }
+
+    if (!lock || now - lock.timestamp > 10000) {
+      localStorage.setItem(
+        "note-app-lock",
+        JSON.stringify({ id: tabId, timestamp: now })
+      );
+      setActiveTab(tabId);
+      setIsNotActive(false);
     }
 
     return () => {
       channel.close();
+      clearInterval(intervalRef.current);
     };
   }, [activeLogTab, tabId]);
 
