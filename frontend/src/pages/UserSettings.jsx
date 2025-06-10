@@ -1,13 +1,33 @@
 import { useState } from "react";
 import { TbArrowBackUp } from "react-icons/tb";
 import { Link } from "react-router-dom";
+import { useUpdateMutation } from "../slices/userApiSlice";
 const UserSettings = () => {
+  const [updateProfile, { isLoading }] = useUpdateMutation();
   const [email, setEmail] = useState("");
   const [password, setPasword] = useState("");
   const [confirmPassword, setConfirmPasword] = useState("");
   const [income, setIncome] = useState("");
   const [goals, setGoals] = useState("");
   const [activeSettings, setActiveSettings] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      if (password !== confirmPassword) {
+        throw new Error("Passwords do not match");
+      }
+      if (goals < 0 || income < 0) {
+        throw new Error("Numerical values should not be less than 0");
+      }
+
+      const res = await updateProfile({}).unwrap();
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <>
       <title>Budgetarians' Log - User Settings</title>
@@ -49,7 +69,7 @@ const UserSettings = () => {
                       />
                     </div>
                     <div className="justify-self-end flex justify-end gap-2 *:border-2 *:h-9 *:w-18 *:rounded">
-                      <button>Update</button>
+                      <button onClick={handleSubmit}>Update</button>
                       <button
                         type="button"
                         onClick={() => setActiveSettings("")}
@@ -101,7 +121,7 @@ const UserSettings = () => {
                     </div>
 
                     <div className="justify-self-end grow flex justify-end gap-2 *:border-2 *:h-9 *:w-18 *:rounded">
-                      <button>Update</button>
+                      <button onClick={handleSubmit}>Update</button>
                       <button
                         type="button"
                         onClick={() => setActiveSettings("")}
@@ -144,7 +164,7 @@ const UserSettings = () => {
                       />
                     </div>
                     <div className="justify-self-end flex justify-end gap-2 *:border-2 *:h-9 *:w-18 *:rounded">
-                      <button>Update</button>
+                      <button onClick={handleSubmit}>Update</button>
                       <button
                         type="button"
                         onClick={() => setActiveSettings("")}
@@ -179,7 +199,7 @@ const UserSettings = () => {
                       />
                     </div>
                     <div className="justify-self-end flex justify-end gap-2 *:border-2 *:h-9 *:w-18 *:rounded">
-                      <button>Update</button>
+                      <button onClick={handleSubmit}>Update</button>
                       <button
                         type="button"
                         onClick={() => setActiveSettings("")}
