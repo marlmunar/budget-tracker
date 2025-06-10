@@ -2,11 +2,12 @@ import { useState } from "react";
 import { TbArrowBackUp } from "react-icons/tb";
 import { Link } from "react-router-dom";
 import { useUpdateMutation } from "../slices/userApiSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setCredentials } from "../slices/authSlice";
 const UserSettings = () => {
   const dispatch = useDispatch();
   const [updateProfile, { isLoading }] = useUpdateMutation();
+  const { userInfo } = useSelector((state) => state.auth);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPasword] = useState("");
@@ -39,6 +40,26 @@ const UserSettings = () => {
       const res = await updateProfile({ email }).unwrap();
       dispatch(setCredentials(res));
       setEmail("");
+      setActiveSettings("");
+      console.log(res);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const saveIncome = async (e) => {
+    e.preventDefault();
+    const newIncome = income || userInfo.stats.monthlySavings;
+
+    try {
+      if (income <= 0) {
+        throw new Error("Monhtly income should be greater than zero");
+      }
+      const res = await updateProfile({
+        stats: { monthlyIncome: newIncome, savingGoals: "blank" },
+      }).unwrap();
+      dispatch(setCredentials(res));
+      setIncome("");
       setActiveSettings("");
       console.log(res);
     } catch (error) {
@@ -181,7 +202,7 @@ const UserSettings = () => {
                       />
                     </div>
                     <div className="justify-self-end flex justify-end gap-2 *:border-2 *:h-9 *:w-18 *:rounded">
-                      <button onClick={handleSubmit}>Update</button>
+                      <button onClick={(e) => saveIncome(e)}>Update</button>
                       <button
                         type="button"
                         onClick={() => setActiveSettings("")}
