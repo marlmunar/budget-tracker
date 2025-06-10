@@ -30,9 +30,9 @@ const initialState = {
   defaultCategories,
   tempEntries: [],
   isNotSaved: false,
-  activeLogTab: localStorage.getItem("activeTabId")
-    ? localStorage.getItem("activeTabId")
-    : null,
+  activeLogTabs: localStorage.getItem("activeTabIds")
+    ? JSON.parse(localStorage.getItem("activeTabIds"))
+    : [],
 };
 
 const logSlice = createSlice({
@@ -51,8 +51,8 @@ const logSlice = createSlice({
     setIsNotSaved(state, action) {
       state.isNotSaved = action.payload;
     },
-    setActiveLogTab(state, action) {
-      state.activeLogTab = action.payload;
+    setActiveLogTabs(state, action) {
+      state.activeLogTabs = action.payload;
     },
   },
 });
@@ -63,5 +63,5 @@ export const {
   setTempEntries,
   addTempEntry,
   setIsNotSaved,
-  setActiveLogTab,
+  setActiveLogTabs,
 } = logSlice.actions;

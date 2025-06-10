@@ -1,14 +1,15 @@
-import { act, useEffect, useRef, useState } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { Outlet, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setActiveLogTab } from "../slices/logSlice";
+import { setActiveLogTabs } from "../slices/logSlice";
 import Modal from "./Modal";
 
 const NewTabChecker = () => {
   const channel = new BroadcastChannel("budgetarian");
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { activeLogTab } = useSelector((state) => state.logs);
+  const { logId } = useParams();
+  const { activeLogTabs } = useSelector((state) => state.logs);
   const [isNotActive, setIsNotActive] = useState(false);
   const intervalRef = useRef();
   const [tabId] = useState(() => {
@@ -20,19 +21,39 @@ const NewTabChecker = () => {
   });
 
   const setActiveTab = (id) => {
-    dispatch(setActiveLogTab(id));
-    localStorage.setItem("activeTabId", id);
+    let updatedActiveTabs = [];
+    if (activeLogTabs.map((log) => log.logId).includes(logId)) {
+      updatedActiveTabs = activeLogTabs.map((log) =>
+        log.logId === logId ? { ...log, tabId: id } : log
+      );
+    } else {
+      updatedActiveTabs = [...activeLogTabs, { tabId: id, logId: logId }];
+    }
+    console.log(updatedActiveTabs);
+
+    dispatch(setActiveLogTabs(updatedActiveTabs));
+    localStorage.setItem("activeTabIds", JSON.stringify(updatedActiveTabs));
   };
 
   useEffect(() => {
-    const handleMessage = (event) => {
-      const { type, tabId: senderId } = event.data;
+    console.log(tabId);
+    console.log(logId);
+    console.log(activeLogTabs);
+    const newActiveIDs = [...activeLogTabs];
 
+    const newActiveLogs = newActiveIDs.map((id) => id.logId);
+    const newActiveTab = newActiveIDs.find((id) => id.logId === logId)?.tabId;
+    console.log(newActiveTab);
+
+    const handleMessage = (event) => {
+      const { type, tabId: senderId, logId: logData } = event.data;
+
+      if (logId !== logData) return;
       if (senderId === tabId) return;
 
       switch (type) {
         case "request":
-          if (activeLogTab === tabId) {
+          if (activeLogTabs.includes(tabId)) {
             channel.postMessage({ type: "denied", tabId });
           }
           break;
@@ -52,17 +73,19 @@ const NewTabChecker = () => {
     const lock = JSON.parse(localStorage.getItem("note-app-lock"));
     const now = Date.now();
 
-    if (!activeLogTab) {
+    if (!newActiveLogs.includes(logId)) {
       setActiveTab(tabId);
-    } else if (activeLogTab !== tabId) {
-      setIsNotActive(true);
     } else {
-      intervalRef.current = setInterval(() => {
-        localStorage.setItem(
-          "note-app-lock",
-          JSON.stringify({ id: tabId, timestamp: Date.now() })
-        );
-      }, 5000);
+      if (newActiveTab !== tabId) {
+        setIsNotActive(true);
+      } else {
+        intervalRef.current = setInterval(() => {
+          localStorage.setItem(
+            "note-app-lock",
+            JSON.stringify({ id: tabId, timestamp: Date.now() })
+          );
+        }, 5000);
+      }
     }
 
     if (!lock || now - lock.timestamp > 10000) {
@@ -78,14 +101,14 @@ const NewTabChecker = () => {
       channel.close();
       clearInterval(intervalRef.current);
     };
-  }, [activeLogTab, tabId]);
+  }, [activeLogTabs, tabId]);
 
   const requestControl = () => {
-    channel.postMessage({ type: "request", tabId });
+    channel.postMessage({ type: "request", tabId, logId });
     setTimeout(() => {
-      if (activeLogTab !== tabId) {
+      if (![...activeLogTabs].map((tab) => tab.tabId).includes(tabId)) {
         setActiveTab(tabId);
-        channel.postMessage({ type: "approved", tabId });
+        channel.postMessage({ type: "approved", tabId, logId });
         setIsNotActive(false);
       }
     }, 500);

@@ -178,7 +178,6 @@ const Visualize = () => {
             if (cell.type === "filler") {
               styles = "text-gray-200 opacity-95";
             }
-            console.log(daysWithEntries);
 
             return (
               <div
