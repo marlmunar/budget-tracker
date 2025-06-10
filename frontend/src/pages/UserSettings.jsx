@@ -11,21 +11,33 @@ const UserSettings = () => {
   const [goals, setGoals] = useState("");
   const [activeSettings, setActiveSettings] = useState("");
 
-  const handleSubmit = async (e) => {
+  const savePassword = async (e) => {
     e.preventDefault();
 
     try {
       if (password !== confirmPassword) {
         throw new Error("Passwords do not match");
       }
-      if (goals < 0 || income < 0) {
-        throw new Error("Numerical values should not be less than 0");
-      }
 
-      const res = await updateProfile({}).unwrap();
+      const res = await updateProfile({ password }).unwrap();
       console.log(res);
     } catch (error) {
-      console.log(error);
+      console.error(error);
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      if (goals <= 0 || income <= 0) {
+        throw new Error("Invalid values for income or saving goals.");
+      }
+
+      const res = await updateProfile({ password }).unwrap();
+      console.log(res);
+    } catch (error) {
+      console.error(error);
     }
   };
   return (
@@ -54,7 +66,7 @@ const UserSettings = () => {
                 </button>
               </li>
               {activeSettings === "email" && (
-                <form>
+                <form method="POST">
                   <div className="flex p-4 flex-col gap-2 justify-center shadow rounded">
                     <div className="flex flex-col justify-center w-[50%]">
                       <label htmlFor="email">Enter new email:</label>
@@ -69,7 +81,7 @@ const UserSettings = () => {
                       />
                     </div>
                     <div className="justify-self-end flex justify-end gap-2 *:border-2 *:h-9 *:w-18 *:rounded">
-                      <button onClick={handleSubmit}>Update</button>
+                      <button onClick={(e) => handleSubmit(e)}>Update</button>
                       <button
                         type="button"
                         onClick={() => setActiveSettings("")}
@@ -89,7 +101,7 @@ const UserSettings = () => {
                 </button>
               </li>
               {activeSettings === "password" && (
-                <form>
+                <form method="POST">
                   <div className="flex p-4 flex-col gap-2 justify-center shadow rounded">
                     <div className="flex flex-col gap-2">
                       <div className="flex flex-col justify-center w-[50%]">
@@ -121,7 +133,7 @@ const UserSettings = () => {
                     </div>
 
                     <div className="justify-self-end grow flex justify-end gap-2 *:border-2 *:h-9 *:w-18 *:rounded">
-                      <button onClick={handleSubmit}>Update</button>
+                      <button onClick={(e) => savePassword(e)}>Update</button>
                       <button
                         type="button"
                         onClick={() => setActiveSettings("")}
@@ -149,7 +161,7 @@ const UserSettings = () => {
                 </button>
               </li>
               {activeSettings === "income" && (
-                <form>
+                <form method="POST">
                   <div className="flex p-4 flex-col gap-2 justify-center shadow rounded">
                     <div className="flex flex-col justify-center w-[50%]">
                       <label htmlFor="income">Enter monthly income:</label>
@@ -184,7 +196,7 @@ const UserSettings = () => {
                 </button>
               </li>
               {activeSettings === "goals" && (
-                <form>
+                <form method="POST">
                   <div className="flex p-4 flex-col gap-2 justify-center shadow rounded">
                     <div className="flex flex-col justify-center w-[50%]">
                       <label htmlFor="savingGoals">Enter new goal:</label>
