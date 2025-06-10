@@ -2,10 +2,13 @@ import { useState } from "react";
 import { TbArrowBackUp } from "react-icons/tb";
 import { Link } from "react-router-dom";
 import { useUpdateMutation } from "../slices/userApiSlice";
+import { useDispatch } from "react-redux";
+import { setCredentials } from "../slices/authSlice";
 const UserSettings = () => {
+  const dispatch = useDispatch();
   const [updateProfile, { isLoading }] = useUpdateMutation();
   const [email, setEmail] = useState("");
-  const [password, setPasword] = useState("");
+  const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPasword] = useState("");
   const [income, setIncome] = useState("");
   const [goals, setGoals] = useState("");
@@ -20,21 +23,23 @@ const UserSettings = () => {
       }
 
       const res = await updateProfile({ password }).unwrap();
+      setPassword("");
+      setConfirmPasword("");
+      setActiveSettings("");
       console.log(res);
     } catch (error) {
       console.error(error);
     }
   };
 
-  const handleSubmit = async (e) => {
+  const saveEmail = async (e) => {
     e.preventDefault();
 
     try {
-      if (goals <= 0 || income <= 0) {
-        throw new Error("Invalid values for income or saving goals.");
-      }
-
-      const res = await updateProfile({ password }).unwrap();
+      const res = await updateProfile({ email }).unwrap();
+      dispatch(setCredentials(res));
+      setEmail("");
+      setActiveSettings("");
       console.log(res);
     } catch (error) {
       console.error(error);
@@ -81,7 +86,7 @@ const UserSettings = () => {
                       />
                     </div>
                     <div className="justify-self-end flex justify-end gap-2 *:border-2 *:h-9 *:w-18 *:rounded">
-                      <button onClick={(e) => handleSubmit(e)}>Update</button>
+                      <button onClick={(e) => saveEmail(e)}>Update</button>
                       <button
                         type="button"
                         onClick={() => setActiveSettings("")}
@@ -110,7 +115,7 @@ const UserSettings = () => {
                           name="password"
                           type="password"
                           value={password}
-                          onChange={(e) => setPasword(e.target.value)}
+                          onChange={(e) => setPassword(e.target.value)}
                           className="rounded px-2 p-1 border-2"
                           autoComplete="off"
                           required
