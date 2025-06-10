@@ -77,7 +77,7 @@ const Login = () => {
           <div className="mt-10">
             <p>New user?</p>
             <Link to="/register" className="underline">
-              Sigin Up Instead
+              Sign Up Instead
             </Link>
           </div>
         </form>
