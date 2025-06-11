@@ -59,9 +59,21 @@ const UserProfile = ({ userLogs }) => {
         <span className="font-semibold">Logs:</span>
         <span> {userLogs}</span>
         <span className="font-semibold">Monthly Income:</span>
-        <span>{userInfo.stats ? userInfo.stats.monthlyIncome : "---"}</span>
+        <span>
+          {userInfo.stats
+            ? userInfo.stats.monthlyIncome === "blank"
+              ? "---"
+              : userInfo.stats.monthlyIncome
+            : "---"}
+        </span>
         <span className="font-semibold">Saving Goals:</span>
-        <span>{userInfo.stats ? userInfo.stats.savingGoals : "---"}</span>
+        <span>
+          {userInfo.stats
+            ? userInfo.stats.savingGoals === "blank"
+              ? "---"
+              : userInfo.stats.savingGoals
+            : "---"}
+        </span>
         <span className="font-semibold">Budgetarian Grade:</span>
         <span>---</span>
       </div>

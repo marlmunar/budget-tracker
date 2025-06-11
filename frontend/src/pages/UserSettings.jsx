@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TbArrowBackUp } from "react-icons/tb";
 import { Link } from "react-router-dom";
 import { useUpdateMutation } from "../slices/userApiSlice";
@@ -14,6 +14,11 @@ const UserSettings = () => {
   const [income, setIncome] = useState("");
   const [goals, setGoals] = useState("");
   const [activeSettings, setActiveSettings] = useState("");
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    setError("");
+  }, [activeSettings]);
 
   const savePassword = async (e) => {
     e.preventDefault();
@@ -37,13 +42,19 @@ const UserSettings = () => {
     e.preventDefault();
 
     try {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        throw new Error("Invalid email");
+      }
+
       const res = await updateProfile({ email }).unwrap();
       dispatch(setCredentials(res));
       setEmail("");
       setActiveSettings("");
       console.log(res);
     } catch (error) {
-      console.error(error);
+      const errorMsg = error?.data?.message || error.message;
+      setError(errorMsg);
     }
   };
 
@@ -120,8 +131,11 @@ const UserSettings = () => {
                         required
                       />
                     </div>
+                    <div className="pl-1 text-red-500 text-sm">{error}</div>
                     <div className="justify-self-end flex justify-end gap-2 *:border-2 *:h-9 *:w-18 *:rounded">
-                      <button onClick={(e) => saveEmail(e)}>Update</button>
+                      <button formNoValidate onClick={(e) => saveEmail(e)}>
+                        Update
+                      </button>
                       <button
                         type="button"
                         onClick={() => setActiveSettings("")}
@@ -171,9 +185,11 @@ const UserSettings = () => {
                         />
                       </div>
                     </div>
-
+                    <div className="pl-1 text-red-500 text-sm">{error}</div>
                     <div className="justify-self-end grow flex justify-end gap-2 *:border-2 *:h-9 *:w-18 *:rounded">
-                      <button onClick={(e) => savePassword(e)}>Update</button>
+                      <button formNoValidate onClick={(e) => savePassword(e)}>
+                        Update
+                      </button>
                       <button
                         type="button"
                         onClick={() => setActiveSettings("")}
@@ -215,6 +231,7 @@ const UserSettings = () => {
                         required
                       />
                     </div>
+                    <div className="pl-1 text-red-500 text-sm">{error}</div>
                     <div className="justify-self-end flex justify-end gap-2 *:border-2 *:h-9 *:w-18 *:rounded">
                       <button onClick={(e) => saveStats(e)}>Update</button>
                       <button
@@ -250,6 +267,7 @@ const UserSettings = () => {
                         required
                       />
                     </div>
+                    <div className="pl-1 text-red-500 text-sm">{error}</div>
                     <div className="justify-self-end flex justify-end gap-2 *:border-2 *:h-9 *:w-18 *:rounded">
                       <button onClick={(e) => saveStats(e)}>Update</button>
                       <button
