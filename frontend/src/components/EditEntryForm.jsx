@@ -21,7 +21,6 @@ const EditEntryForm = ({ categories, setIsEditing, entry }) => {
 
   const handleSave = (e) => {
     e.preventDefault();
-    e.preventDefault();
     if (!expense || !amount || !selectedCategory) {
       setError("Please fill out all fields");
       return;
@@ -61,6 +60,7 @@ const EditEntryForm = ({ categories, setIsEditing, entry }) => {
                 className="log-tool-button"
                 type="submit"
                 form="editForm"
+                formNoValidate
                 onClick={handleSave}
               >
                 <TbCheck />

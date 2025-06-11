@@ -21,12 +21,18 @@ const EditCategoryForm = ({
   const [selectedCategory, setSelectedCategory] = useState("");
   const [name, setName] = useState("");
   const [color, setColor] = useState("#000000");
+  const [error, setError] = useState("");
 
   const [updateLog, { isLoading }] = useUpdateLogMutation();
   const { tempEntries } = useSelector((state) => state.logs);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!name || !selectedCategory) {
+      setError("Please fill out all fields");
+      return;
+    }
+
     const updatedCategory = { name, color };
     const newCategories = categories.map((cat) =>
       cat.name === selectedCategory ? updatedCategory : cat
@@ -156,8 +162,11 @@ const EditCategoryForm = ({
             </div>
           </div>
         </div>
+        <div className="text-right my-2 mr-5 text-red-500 text-sm">{error}</div>
         <div className="button-row">
-          <button type="submit">Save Category</button>
+          <button formNoValidate type="submit">
+            Save Category
+          </button>
           <button
             type="reset"
             onClick={() => {

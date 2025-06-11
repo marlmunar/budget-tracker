@@ -12,11 +12,16 @@ const AddCategoryForm = ({
 }) => {
   const [name, setName] = useState("");
   const [color, setColor] = useState("#000000");
+  const [error, setError] = useState("");
 
   const [updateLog, { isLoading }] = useUpdateLogMutation();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!name) {
+      setError("Please fill out all fields");
+      return;
+    }
     const newCategory = { name, color };
     const newCategories = [...categories, newCategory];
     try {
@@ -96,8 +101,11 @@ const AddCategoryForm = ({
             </div>
           </div>
         </div>
+        <div className="text-right my-2 mr-5 text-red-500 text-sm">{error}</div>
         <div className="button-row">
-          <button type="submit">Save Category</button>
+          <button formNoValidate type="submit">
+            Save Category
+          </button>
           <button
             type="reset"
             onClick={() => {
