@@ -60,6 +60,14 @@ const ExpenseListFilter = ({
             </li>
           ))}
           <li>
+            <button
+              className="entry-button my-1"
+              onClick={() => {
+                setSelected(categoryNames);
+              }}
+            >
+              Select All
+            </button>
             <button className="entry-button" onClick={() => setSelected([])}>
               Reset
             </button>
