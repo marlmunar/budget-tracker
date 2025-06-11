@@ -18,6 +18,11 @@ const UserSettings = () => {
 
   useEffect(() => {
     setError("");
+    setEmail("");
+    setPassword("");
+    setConfirmPasword("");
+    setIncome("");
+    setGoals("");
   }, [activeSettings]);
 
   const savePassword = async (e) => {
@@ -34,7 +39,7 @@ const UserSettings = () => {
       setActiveSettings("");
       console.log(res);
     } catch (error) {
-      console.error(error);
+      setError(error.message);
     }
   };
 
@@ -86,8 +91,6 @@ const UserSettings = () => {
       setActiveSettings("");
       console.log(res);
     } catch (error) {
-      console.log(newIncome);
-      console.log(newGoals);
       console.error(error);
     }
   };
