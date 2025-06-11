@@ -97,12 +97,13 @@ const updateProfile = asyncHandler(async (req, res) => {
     user.password = req.body.password;
   }
 
-  const email = user.email;
-
-  const userExist = await User.findOne({ email });
-  if (userExist) {
-    res.status(400);
-    throw new Error("Email is not available");
+  if (req.body.email) {
+    const email = user.email;
+    const userExist = await User.findOne({ email });
+    if (userExist) {
+      res.status(400);
+      throw new Error("Email is not available");
+    }
   }
 
   const updatedUser = await user.save();

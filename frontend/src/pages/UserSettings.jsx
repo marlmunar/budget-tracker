@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useUpdateMutation } from "../slices/userApiSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { setCredentials } from "../slices/authSlice";
+import { set } from "mongoose";
 const UserSettings = () => {
   const dispatch = useDispatch();
   const [updateProfile, { isLoading }] = useUpdateMutation();
@@ -37,7 +38,6 @@ const UserSettings = () => {
       setPassword("");
       setConfirmPasword("");
       setActiveSettings("");
-      console.log(res);
     } catch (error) {
       setError(error.message);
     }
@@ -56,7 +56,6 @@ const UserSettings = () => {
       dispatch(setCredentials(res));
       setEmail("");
       setActiveSettings("");
-      console.log(res);
     } catch (error) {
       const errorMsg = error?.data?.message || error.message;
       setError(errorMsg);
@@ -65,11 +64,11 @@ const UserSettings = () => {
 
   const saveStats = async (e) => {
     e.preventDefault();
+    if (!income) return setError("This field cannot be empty");
     let newIncome = income || (userInfo?.stats?.monthlyIncome ?? "blank");
     let newGoals = goals || (userInfo?.stats?.savingGoals ?? "blank");
 
     try {
-      console.log(newIncome);
       if (newGoals === "blank" || newIncome === "blank") {
         if (newIncome > 0) newGoals = +newIncome * 0.8;
         else {
@@ -89,9 +88,9 @@ const UserSettings = () => {
       setIncome("");
       setGoals("");
       setActiveSettings("");
-      console.log(res);
     } catch (error) {
-      console.error(error);
+      console.log(error);
+      setError(error.message);
     }
   };
   return (
