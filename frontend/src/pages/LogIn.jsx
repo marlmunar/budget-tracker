@@ -9,6 +9,7 @@ import { setCredentials } from "../slices/authSlice";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const [login, { isLoading }] = useLoginMutation();
 
@@ -29,12 +30,18 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!email || !password) {
+      setError("Please fill out all fields");
+      return;
+    }
+
     try {
       const res = await login({ email, password }).unwrap();
       dispatch(setCredentials({ ...res }));
       navigate("/");
     } catch (error) {
-      console.log(error?.data?.message || error.message);
+      const errorMsg = error?.data?.message || error.message;
+      setError(errorMsg);
     }
   };
 
@@ -70,7 +77,9 @@ const Login = () => {
             />
           </div>
 
-          <button type="submit" className="form-button">
+          <div className="pl-1 text-red-500 text-sm">{error}</div>
+
+          <button type="submit" formNoValidate className="form-button">
             Log In
           </button>
 
