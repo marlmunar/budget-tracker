@@ -64,21 +64,24 @@ const UserSettings = () => {
 
   const saveStats = async (e) => {
     e.preventDefault();
-    if (!income) return setError("This field cannot be empty");
+    if (!income && activeSettings === "income") {
+      return setError("This field cannot be empty");
+    }
+    if (!goals && activeSettings === "goals") {
+      return setError("This field cannot be empty");
+    }
     let newIncome = income || (userInfo?.stats?.monthlyIncome ?? "blank");
     let newGoals = goals || (userInfo?.stats?.savingGoals ?? "blank");
 
     try {
       if (newGoals === "blank" || newIncome === "blank") {
-        if (newIncome > 0) newGoals = +newIncome * 0.8;
+        if (newIncome > 0) newGoals = Math.round(+newIncome * 0.8);
         else {
           throw new Error("Save a monthly income value first");
         }
       }
       if (newIncome <= 0 || newGoals <= 0) {
-        throw new Error(
-          "Monhtly income and saving goals should be greater than zero"
-        );
+        throw new Error("Value should be greater than zero");
       }
 
       const res = await updateProfile({
