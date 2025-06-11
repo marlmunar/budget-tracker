@@ -20,11 +20,16 @@ const AddEntryForm = ({
   const [amount, setAmount] = useState("");
   const [category, setCategory] = useState({});
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [error, setError] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!selectedCategory) {
-      console.error("Category field cannot be blank");
+    if (!expense || !amount || !selectedCategory) {
+      setError("Please fill out all fields");
+      return;
+    }
+    if (amount <= 0) {
+      setError("Value for amount should be greater than zero");
       return;
     }
     const newLog = {
@@ -131,8 +136,11 @@ const AddEntryForm = ({
             </div>
           </div>
         </div>
+        <div className="text-right my-2 mr-5 text-red-500 text-sm">{error}</div>
         <div className="button-row">
-          <button type="submit">Save Entry</button>
+          <button formNoValidate type="submit">
+            Save Entry
+          </button>
           <button
             type="reset"
             onClick={() => {

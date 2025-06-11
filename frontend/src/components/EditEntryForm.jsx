@@ -17,11 +17,17 @@ const EditEntryForm = ({ categories, setIsEditing, entry }) => {
   const [amount, setAmount] = useState(entry.amount);
   const [category, setCategory] = useState(entry.category);
   const [selectedCategory, setSelectedCategory] = useState(entry.category.name);
-  const [color, setColor] = useState("");
+  const [error, setError] = useState("");
 
   const handleSave = (e) => {
     e.preventDefault();
-    if (!expense || !amount || !category) {
+    e.preventDefault();
+    if (!expense || !amount || !selectedCategory) {
+      setError("Please fill out all fields");
+      return;
+    }
+    if (amount <= 0) {
+      setError("Value for amount should be greater than zero");
       return;
     }
     const newEntry = {
@@ -131,6 +137,9 @@ const EditEntryForm = ({ categories, setIsEditing, entry }) => {
                   </OutsideClick>
                 )}
               </div>
+            </div>
+            <div className="text-right my-2 mr-5 text-red-500 text-sm">
+              {error}
             </div>
           </form>
         </div>

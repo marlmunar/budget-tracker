@@ -89,7 +89,6 @@ const Visualize = () => {
         setLogData(res.data);
         setEntries(res.data.entries);
         checkDaysWithEntries(res.data.entries);
-        console.log(res.data);
       } catch (error) {
         console.error("Error fetching data:", error);
         if (error.status == 400) {
