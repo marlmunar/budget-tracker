@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { TbSearch, TbPlus, TbX } from "react-icons/tb";
+import { TbSearch, TbPlus, TbX, TbXboxAFilled } from "react-icons/tb";
 import Modal from "./Modal";
 import { useSelector } from "react-redux";
 import { useCreateLogMutation } from "../slices/logsApiSlice";
@@ -11,9 +11,11 @@ const LogTools = ({ searchState, setSearchState }) => {
   const [createLog, { isLoading }] = useCreateLogMutation();
   const [isAdding, setIsAdding] = useState(false);
   const [logName, setLogName] = useState("");
+  const [showSearch, setShowSearch] = useState(false);
   const { isSearching, searchText } = searchState;
 
   const handleAdd = async () => {
+    if (!logName) return;
     try {
       const res = await createLog({
         name: logName,
@@ -25,10 +27,6 @@ const LogTools = ({ searchState, setSearchState }) => {
     }
 
     setLogName("");
-  };
-
-  const handleSearch = async (e) => {
-    e.preventDefault();
   };
 
   const handleSearchText = async (e) => {
@@ -52,41 +50,51 @@ const LogTools = ({ searchState, setSearchState }) => {
             <TbPlus className="text-xl lg:hidden" />
           </button>
         </div>
-        <form className="flex gap-2" method="POST">
-          <div className="bg-white border text-black rounded-xl px-4 min-h-8 lg:w-[16.5rem] lg:max-w-none flex items-center justify-between">
-            <input
-              className="focus:outline-none focus:ring-0"
-              type="text"
-              id="search-log"
-              placeholder="Search by name..."
-              onChange={(e) => handleSearchText(e)}
-              value={searchText}
-              autoComplete="off"
-            />
-            {isSearching && (
-              <button
-                type="button"
-                onClick={() => {
-                  setSearchState((prev) => ({
-                    isSearching: false,
-                    searchText: "",
-                  }));
-                }}
-                className="rounded-xl h-[min-content] w-[min-content] text-lg border-2 hover:shadow hover:shadow-slate-700 hover:border-transparent"
-              >
-                <TbX />
-              </button>
-            )}
-          </div>
-
+        <div className="flex gap-2">
+          {showSearch && (
+            <form
+              method="POST"
+              className="bg-white border text-black rounded-xl px-4 min-h-8 lg:w-[16.5rem] lg:max-w-none flex items-center justify-between"
+            >
+              <input
+                className="focus:outline-none focus:ring-0"
+                type="text"
+                id="search-log"
+                placeholder="Search by name..."
+                onChange={(e) => handleSearchText(e)}
+                value={searchText}
+                autoComplete="off"
+              />
+              {isSearching && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSearchState((prev) => ({
+                      isSearching: false,
+                      searchText: "",
+                    }));
+                  }}
+                  className="rounded-xl h-[min-content] w-[min-content] text-lg border-2 hover:shadow hover:shadow-slate-700 hover:border-transparent"
+                >
+                  <TbX />
+                </button>
+              )}
+            </form>
+          )}
           <button
-            onClick={(e) => handleSearch(e)}
+            onClick={() => setShowSearch((prev) => !prev)}
             className="bg-blue-800 text-white border-2 min-h-8 px-2 py-1 rounded lg:min-w-[5rem] hover:border-transparent hover:shadow shadow-slate-800"
           >
-            <span className="hidden lg:block">Search</span>
-            <TbSearch className="text-xl lg:hidden" />
+            <span className="hidden lg:block">
+              {showSearch ? "Cancel" : "Search"}
+            </span>
+            {showSearch ? (
+              <TbX className="text-xl lg:hidden" />
+            ) : (
+              <TbSearch className="text-xl lg:hidden" />
+            )}
           </button>
-        </form>
+        </div>
       </div>
       {isAdding && (
         <Modal

@@ -28,7 +28,6 @@ const Logs = ({ setUserLogs }) => {
     );
 
     setResults(filteredlogs);
-    console.log(filteredlogs);
   }, [searchState.searchText, logs]);
 
   useEffect(() => {
