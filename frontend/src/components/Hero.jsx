@@ -68,7 +68,7 @@ const Hero = () => {
               <p className="text-2xl font-semibold mt-2">Welcome Back!</p>
               <p className="">What do you want to visit?</p>
               <div className="flex gap-2">
-                <Link className="hero-button" to={`/log/${lastLog._id}`}>
+                <Link className="hero-button" to={`/log/${lastLog?._id}`}>
                   Last log
                 </Link>
                 <Link className="hero-button" to="/profile">
