@@ -110,7 +110,7 @@ const UserSettings = () => {
             <h3 className="shadow bg-slate-300 rounded text-xl font-semibold p-2">
               Profile Settings
             </h3>
-            <ul className="p-2  flex flex-col gap-2 *:p-1">
+            <ul className="p-2 flex flex-col gap-2 *:p-1">
               <li>
                 <button
                   type="button"
@@ -135,7 +135,7 @@ const UserSettings = () => {
                       />
                     </div>
                     <div className="pl-1 text-red-500 text-sm">{error}</div>
-                    <div className="justify-self-end flex justify-end gap-2 *:border-2 *:h-9 *:w-18 *:rounded">
+                    <div className="button-row justify-self-end">
                       <button formNoValidate onClick={(e) => saveEmail(e)}>
                         Update
                       </button>
@@ -189,7 +189,7 @@ const UserSettings = () => {
                       </div>
                     </div>
                     <div className="pl-1 text-red-500 text-sm">{error}</div>
-                    <div className="justify-self-end grow flex justify-end gap-2 *:border-2 *:h-9 *:w-18 *:rounded">
+                    <div className="button-row justify-self-end">
                       <button formNoValidate onClick={(e) => savePassword(e)}>
                         Update
                       </button>
@@ -235,7 +235,7 @@ const UserSettings = () => {
                       />
                     </div>
                     <div className="pl-1 text-red-500 text-sm">{error}</div>
-                    <div className="justify-self-end flex justify-end gap-2 *:border-2 *:h-9 *:w-18 *:rounded">
+                    <div className="button-row justify-self-end">
                       <button onClick={(e) => saveStats(e)}>Update</button>
                       <button
                         type="button"
@@ -271,7 +271,7 @@ const UserSettings = () => {
                       />
                     </div>
                     <div className="pl-1 text-red-500 text-sm">{error}</div>
-                    <div className="justify-self-end flex justify-end gap-2 *:border-2 *:h-9 *:w-18 *:rounded">
+                    <div className="button-row justify-self-end">
                       <button onClick={(e) => saveStats(e)}>Update</button>
                       <button
                         type="button"
