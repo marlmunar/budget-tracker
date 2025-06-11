@@ -11,6 +11,7 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
 
   const [register, { isLoading }] = useRegisterMutation();
 
@@ -29,10 +30,22 @@ const Register = () => {
     };
   }, [dispatch]);
 
+  const validateEmail = (testEmail) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(testEmail);
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
+      if (!name || !email || !password || !confirmPassword) {
+        throw new Error("Please fill out all fields");
+      }
+
+      if (!validateEmail(email)) {
+        throw new Error("Invalid email");
+      }
+
       if (password !== confirmPassword) {
         throw new Error("Passwords do not match");
       }
@@ -40,7 +53,8 @@ const Register = () => {
       dispatch(setCredentials({ ...res }));
       navigate("/");
     } catch (error) {
-      console.log(error?.data?.message || error.message);
+      const errorMsg = error?.data?.message || error.message;
+      setError(errorMsg);
     }
   };
 
@@ -49,7 +63,10 @@ const Register = () => {
       <title>Budgetarians' Log - Register</title>
 
       <FormContainer>
-        <form onSubmit={handleSubmit} className="form-body">
+        <form
+          onSubmit={handleSubmit}
+          className="form-body min-h-[min-content] border"
+        >
           <h3 className="text-2xl font-semibold underline">Sign Up</h3>
 
           <div className="form-input-container">
@@ -101,7 +118,9 @@ const Register = () => {
             />
           </div>
 
-          <button type="submit" className="form-button">
+          <div className="pl-1 text-red-500 text-sm">{error}</div>
+
+          <button type="submit" formNoValidate className="form-button">
             Sign Up
           </button>
 

@@ -101,7 +101,7 @@ button > * {
 }
 
 .form-container {
-  @apply mx-auto shadow-lg rounded md:max-w-[50vw] border-y-2 border-slate-700 md:h-[33rem];
+  @apply mx-auto shadow-lg rounded md:max-w-[50vw] border-y-2 border-slate-700 md:h-[min-content];
 }
 
 .form-body {
