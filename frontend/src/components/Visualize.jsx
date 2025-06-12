@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useLazyGetLogQuery } from "../slices/logsApiSlice";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -36,10 +36,14 @@ const Visualize = () => {
   const { logId } = useParams();
   const [logData, setLogData] = useState({});
   const [entries, setEntries] = useState([]);
+  const [summary, setSummary] = useState([]);
+  const [total, setTotal] = useState("");
   const [daysWithEntries, setDaysWithEntries] = useState([]);
 
   const [month, setMonth] = useState(new Date().getMonth());
   const [year, setYear] = useState(new Date().getFullYear());
+  const [width, setWidth] = useState(0);
+  const parentRef = useRef(null);
   const present = new Date();
   const presentMonth = present.getMonth();
   const presentDate = present.getDate();
@@ -68,11 +72,30 @@ const Visualize = () => {
       }
     });
 
+  const generateSummary = (list) => {
+    const categories = [...new Set(list.map((entry) => entry.category.name))];
+    const sumPerCategory = categories.map((cat) => ({
+      category: list
+        .map((cat) => cat.category)
+        .find((entry) => entry.name === cat),
+      total: list.reduce(
+        (sum, entry) =>
+          entry.category.name === cat ? +entry.amount + sum : sum,
+        0
+      ),
+    }));
+    const sumTotal = list.reduce((sum, entry) => entry.amount + sum, 0);
+
+    setTotal(sumTotal);
+    setSummary(sumPerCategory);
+  };
+
   const checkDaysWithEntries = (data) => {
     const entriesThisMonth = data.filter((entry) => {
       const entryDate = new Date(entry.date);
       return entryDate.getMonth() === month && entryDate.getFullYear() === year;
     });
+    generateSummary(entriesThisMonth);
     const datesOfEntries = entriesThisMonth.map((entry) =>
       new Date(entry.date).getDate()
     );
@@ -109,6 +132,23 @@ const Visualize = () => {
     checkDaysWithEntries(entries);
   }, [month]);
 
+  useEffect(() => {
+    const element = parentRef.current;
+    if (!element) return;
+
+    const resizeObserver = new ResizeObserver((entries) => {
+      for (let entry of entries) {
+        setWidth(entry.contentRect.width);
+      }
+    });
+
+    resizeObserver.observe(element);
+
+    return () => {
+      resizeObserver.disconnect();
+    };
+  }, [month, summary]);
+
   const changeMonth = (direction) => {
     if (direction === "prev") {
       if (month === 0) {
@@ -141,8 +181,52 @@ const Visualize = () => {
           <h2 className="text-2xl font-semibold underline">{logData.name}</h2>
         </div>
 
-        <div className="ml-auto shadow h-30 lg:max-w-200 grow alignself-end p-4 rounded">
+        <div className="ml-auto shadow min-h-30 lg:max-w-[65%] grow p-4 rounded mb-2">
           <h2 className="text-xl font-semibold">Summary</h2>
+          {!!total ? (
+            <div className="flex flex-col lg:flex-row">
+              <div className="text-sm">
+                <h2 className="text-base font-semibold">Ranking</h2>
+                {[...summary]
+                  .sort((a, b) => b.total - a.total)
+                  .map((entry, index) => (
+                    <div
+                      key={index}
+                      className="flex justify-between items-center gap-2 mb-1 w-36"
+                    >
+                      <div className="flex justify-between items-center gap-2">
+                        <div
+                          className="h-3 w-3 rounded-xl shadow"
+                          style={{ backgroundColor: entry.category.color }}
+                        ></div>
+                        <div>{entry.category.name}</div>
+                      </div>
+
+                      <div>{index + 1}</div>
+                    </div>
+                  ))}
+              </div>
+              <div className="ml-auto min-w-[75%] flex flex-col justify-end items-end mb-2">
+                <h2 className="text-2xl font-semibold mb-2">{`Total: ${total}`}</h2>
+                <div
+                  ref={parentRef}
+                  className="ml-auto h-5 rounded-xl overflow-hidden grid grid-rows-1 grid-cols-[repeat(auto-fill,min-content)] grid-flow-col auto-cols-auto w-full max-w-150"
+                >
+                  {summary.map((entry, index) => (
+                    <div
+                      key={index}
+                      style={{
+                        backgroundColor: entry.category.color,
+                        width: (entry.total / total) * width,
+                      }}
+                    ></div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="text-base">No data for this month</div>
+          )}
         </div>
       </div>
 
