@@ -114,7 +114,7 @@ const Visualize = () => {
         checkDaysWithEntries(res.data.entries);
       } catch (error) {
         console.error("Error fetching data:", error);
-        if (error.status == 400) {
+        if (error.status === 400 || error.status === 404) {
           navigate("/not-found");
         }
       } finally {
