@@ -132,12 +132,18 @@ const Visualize = () => {
       <title>{`Budgetarians' Log ${
         logData.name ? `- ${logData.name}` : ""
       }`}</title>
-      <div className="flex mb-2 gap-2 text-3xl items-center">
-        <Link className="log-button" to={`/log/${logId}`}>
-          <TbArrowBackUp />
-        </Link>
+      <div className="lg:flex mb-2 gap-2 text-3xl justify-start w-full">
+        <div className="flex items-center max-h-[min-content]">
+          <Link className="log-button" to={`/log/${logId}`}>
+            <TbArrowBackUp />
+          </Link>
 
-        <h2 className="text-2xl font-semibold underline">{logData.name}</h2>
+          <h2 className="text-2xl font-semibold underline">{logData.name}</h2>
+        </div>
+
+        <div className="ml-auto shadow h-30 lg:max-w-200 grow alignself-end p-4 rounded">
+          <h2 className="text-xl font-semibold">Summary</h2>
+        </div>
       </div>
 
       <div className="border-2 min-h-[100%] flex flex-col gap-1 rounded shadow-lg p-2 ">
