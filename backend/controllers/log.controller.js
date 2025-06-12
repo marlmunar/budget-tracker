@@ -39,10 +39,17 @@ const createLog = asyncHandler(async (req, res) => {
 // @access PRIVATE
 const getLog = asyncHandler(async (req, res) => {
   const id = req.params.id;
-  const log = await Log.findById(id, "_id name categories entries");
+  const userId = req.user._id;
+  const log = await Log.findById(id);
+
+  if (!log.userId.equals(userId)) {
+    res.status(400);
+    throw new Error("Log is not available");
+  }
+  const resultLog = await Log.findById(id, "_id name categories entries");
   res.status(200).json({
     message: "Successfully fetched",
-    data: log,
+    data: resultLog,
   });
 });
 
