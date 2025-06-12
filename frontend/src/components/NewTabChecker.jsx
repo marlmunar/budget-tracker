@@ -54,22 +54,18 @@ const NewTabChecker = () => {
   useEffect(() => {
     const handleMessage = (event) => {
       const { type, tabId: senderId, logId: senderLogId } = event.data;
-      console.log(type);
+
       if (senderLogId !== logId) return;
       if (senderId === tabId) return;
 
       switch (type) {
         case "request":
-          console.log(senderId);
-          console.log("requested in me");
           {
-            console.log();
             const existingTab = activeLogTabs.find(
               (tab) => tab.logId === logId
             );
 
             if (existingTab?.tabId === tabId) {
-              console.log("I approved");
               channel.postMessage({
                 type: "approved",
                 tabId,
@@ -82,7 +78,6 @@ const NewTabChecker = () => {
 
         case "approved":
           if (event.data?.target === tabId) {
-            console.log(event.data.target);
             setActiveTab(logId, tabId);
             setIsNotActive(false);
             channel.postMessage({ type: "lock", tabId, logId });
@@ -91,6 +86,7 @@ const NewTabChecker = () => {
           break;
 
         case "lock":
+          clearInterval(intervalRef.current);
           setIsNotActive(true);
           break;
 
@@ -104,11 +100,7 @@ const NewTabChecker = () => {
     const now = Date.now();
     const lockNotes = JSON.parse(localStorage.getItem("note-app-lock")) || [];
     const noteLock = lockNotes.find((note) => note.id === logId);
-    console.log(noteLock);
-    console.log(now - noteLock?.timestamp > 10000);
     const currentActive = [...activeLogTabs].find((tab) => tab.logId === logId);
-    console.log(tabId);
-    console.log(currentActive);
 
     if (!currentActive) {
       setActiveTab(logId, tabId);
@@ -123,9 +115,8 @@ const NewTabChecker = () => {
         ).map((note) =>
           note.id === logId ? { ...note, timestamp: Date.now() } : note
         );
-
+        channel.postMessage({ type: "lock", tabId, logId });
         localStorage.setItem("note-app-lock", JSON.stringify(updatedNotes));
-        console.log("active");
       }, 2000);
     } else if (now - noteLock?.timestamp > 10000) {
       setActiveTab(logId, tabId);
