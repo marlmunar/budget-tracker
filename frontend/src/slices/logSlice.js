@@ -35,6 +35,11 @@ const initialState = {
     : [],
 };
 
+const logTabs = localStorage.getItem("activeTabIds")
+  ? JSON.parse(localStorage.getItem("activeTabIds"))
+  : [];
+
+console.log(logTabs);
 const logSlice = createSlice({
   name: "logs",
   initialState,
