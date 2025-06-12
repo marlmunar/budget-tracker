@@ -3,11 +3,13 @@ import LogCard from "./LogCard";
 import LogTools from "./LogTools";
 import NoRecords from "./NoRecords";
 import { useLazyGetLogsQuery } from "../slices/logsApiSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { startLoading, stopLoading } from "../slices/appSlice";
+import { setGrade } from "../slices/userSlice";
 
 const Logs = ({ setUserLogs }) => {
   const dispatch = useDispatch();
+  const { userInfo } = useSelector((state) => state.auth);
   const [logs, setLogs] = useState([]);
   const [results, setResults] = useState([]);
   const [lastAction, setLastAction] = useState("");
@@ -40,6 +42,24 @@ const Logs = ({ setUserLogs }) => {
         );
         setLogs(sorted);
         setUserLogs(sorted.length);
+        const entries = sorted.flatMap((data) => data.entries);
+        const savings = entries.reduce(
+          (sum, entry) =>
+            entry.category.name === "Savings" ? entry.amount + sum : sum,
+          0
+        );
+
+        if (userInfo.stats.savingGoals > 0) {
+          const target = userInfo.stats.savingGoals;
+
+          if (savings / target > 0.95) {
+            dispatch(setGrade("Expert"));
+          } else if (savings / target > 0.65) {
+            dispatch(setGrade("Experienced"));
+          } else {
+            dispatch(setGrade("Beginner"));
+          }
+        }
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {

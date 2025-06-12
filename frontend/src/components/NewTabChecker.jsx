@@ -28,7 +28,6 @@ const NewTabChecker = () => {
         log.logId === logId ? { ...log, tabId: id } : log
       );
     } else {
-      console.log("else");
       updatedActiveTabs = [...activeLogTabs, { tabId: id, logId: logId }];
     }
     dispatch(setActiveLogTabs(updatedActiveTabs));

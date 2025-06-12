@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 const UserProfile = ({ userLogs }) => {
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.auth);
+  const { grade } = useSelector((state) => state.user);
   const [updateProfile, { isLoading }] = useUpdateMutation();
   const [isRenaming, setIsRenaming] = useState(false);
   const [userName, setUserName] = useState(userInfo.name);
@@ -75,7 +76,7 @@ const UserProfile = ({ userLogs }) => {
             : "---"}
         </span>
         <span className="font-semibold">Budgetarian Grade:</span>
-        <span>---</span>
+        <span>{grade}</span>
       </div>
     </section>
   );
