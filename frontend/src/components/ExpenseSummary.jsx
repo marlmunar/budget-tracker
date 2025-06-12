@@ -18,13 +18,26 @@ const ExpenseSummary = ({ entries }) => {
       <h2 className="log-section-header">Expense Summary</h2>
 
       {entries.length > 0 ? (
-        sumPerCategory.map((item, index) => (
-          <ExpenseSummaryItem
-            key={index}
-            category={item.category}
-            amount={item.amount}
-          />
-        ))
+        <>
+          <div className="flex justify-between px-2 pt-2 font-semibold text-xl">
+            <h3>{`Entries: ${entries.length}`}</h3>
+            <h3>{`Total: ${entries.reduce(
+              (sum, entry) => +entry.amount + sum,
+              0
+            )}`}</h3>
+          </div>
+          <div className="flex text-gray-600 justify-between px-2 pb-1 font-semibold text-lg">
+            <h3>Category</h3>
+            <h3>Subtotal</h3>
+          </div>
+          {sumPerCategory.map((item, index) => (
+            <ExpenseSummaryItem
+              key={index}
+              category={item.category}
+              amount={item.amount}
+            />
+          ))}
+        </>
       ) : (
         <NoRecords />
       )}
