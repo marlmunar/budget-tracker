@@ -1,7 +1,7 @@
 import { RxDotsHorizontal } from "react-icons/rx";
 import { BsPersonSquare } from "react-icons/bs";
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import favicon from "../assets/favicon.png";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,6 +12,7 @@ import OutsideClick from "./OutsideClick";
 import { startLoading, stopLoading } from "../slices/appSlice";
 
 const Header = () => {
+  const logoutChannel = new BroadcastChannel("logout_channel");
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   const { userInfo } = useSelector((state) => state.auth);
   const { isLoggingIn } = useSelector((state) => state.user);
@@ -26,6 +27,7 @@ const Header = () => {
     try {
       dispatch(startLoading());
       const res = await logout().unwrap();
+      logoutChannel.postMessage("logout");
       dispatch(clearCredentials());
       navigate("/");
     } catch (error) {
@@ -34,6 +36,18 @@ const Header = () => {
       dispatch(stopLoading());
     }
   };
+
+  useEffect(() => {
+    logoutChannel.onmessage = (event) => {
+      if (event.data === "logout") {
+        window.location.href = "/login";
+      }
+    };
+
+    return () => {
+      logoutChannel.close();
+    };
+  }, [userInfo]);
 
   return (
     <header className="header">
