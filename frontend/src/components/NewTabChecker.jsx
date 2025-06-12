@@ -3,6 +3,7 @@ import { Outlet, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setActiveLogTabs } from "../slices/logSlice";
 import Modal from "./Modal";
+
 const channel = new BroadcastChannel("budgetarian");
 
 const NewTabChecker = () => {
@@ -12,6 +13,7 @@ const NewTabChecker = () => {
   const { activeLogTabs } = useSelector((state) => state.logs);
   const [isNotActive, setIsNotActive] = useState(false);
   const intervalRef = useRef();
+
   const [tabId] = useState(() => {
     const existing = sessionStorage.getItem("tabId");
     if (existing) return existing;
@@ -20,118 +22,126 @@ const NewTabChecker = () => {
     return newId;
   });
 
-  const setActiveTab = (logs, id) => {
-    let updatedActiveTabs = [];
-
-    if (logs.includes(logId)) {
-      updatedActiveTabs = activeLogTabs.map((log) =>
-        log.logId === logId ? { ...log, tabId: id } : log
-      );
-    } else {
-      updatedActiveTabs = [...activeLogTabs, { tabId: id, logId: logId }];
-    }
+  const setActiveTab = (logId, tabId) => {
+    const updatedActiveTabs = [
+      ...activeLogTabs.filter((entry) => entry.logId !== logId),
+      { logId, tabId },
+    ];
     dispatch(setActiveLogTabs(updatedActiveTabs));
     localStorage.setItem("activeTabIds", JSON.stringify(updatedActiveTabs));
   };
 
+  const requestControl = () => {
+    channel.postMessage({ type: "request", tabId, logId });
+
+    const timeout = setTimeout(() => {
+      const currentOwner = activeLogTabs.find((entry) => entry.logId === logId);
+      const now = Date.now();
+      const lockNotes = JSON.parse(localStorage.getItem("note-app-lock")) || [];
+      const noteLock = lockNotes.find((note) => note.id === logId);
+
+      if (
+        !currentOwner ||
+        currentOwner.tabId === tabId ||
+        now - noteLock?.timestamp > 10000
+      ) {
+        setActiveTab(logId, tabId);
+        setIsNotActive(false);
+      }
+    }, 1000);
+  };
+
   useEffect(() => {
-    const newActiveIDs = [...activeLogTabs];
-
-    const newActiveLogs = newActiveIDs.map((id) => id.logId);
-    const newActiveTab = newActiveIDs.find((id) => id.logId === logId)?.tabId;
-
     const handleMessage = (event) => {
-      const { type, tabId: senderId, logId: logData } = event.data;
-
-      if (logId !== logData) return;
+      const { type, tabId: senderId, logId: senderLogId } = event.data;
+      console.log(type);
+      if (senderLogId !== logId) return;
       if (senderId === tabId) return;
 
       switch (type) {
         case "request":
-          if (activeLogTabs.includes(tabId)) {
-            channel.postMessage({ type: "denied", tabId });
+          console.log(senderId);
+          console.log("requested in me");
+          {
+            console.log();
+            const existingTab = activeLogTabs.find(
+              (tab) => tab.logId === logId
+            );
+
+            if (existingTab?.tabId === tabId) {
+              console.log("I approved");
+              channel.postMessage({
+                type: "approved",
+                tabId,
+                logId,
+                target: senderId,
+              });
+            }
           }
           break;
+
         case "approved":
-          if (senderId !== tabId) {
-            setActiveTab(newActiveLogs, tabId);
+          if (event.data?.target === tabId) {
+            console.log(event.data.target);
+            setActiveTab(logId, tabId);
+            setIsNotActive(false);
+            channel.postMessage({ type: "lock", tabId, logId });
           }
+
           break;
-        case "denied":
+
+        case "lock":
           setIsNotActive(true);
+          break;
+
+        default:
           break;
       }
     };
 
-    channel.onmessage = handleMessage;
-
-    const lockNotes = JSON.parse(localStorage.getItem("note-app-lock"));
-    const lock = lockNotes
-      ? lockNotes.filter((note) => note.id === logId)[0]
-      : {};
+    channel.addEventListener("message", handleMessage);
 
     const now = Date.now();
+    const lockNotes = JSON.parse(localStorage.getItem("note-app-lock")) || [];
+    const noteLock = lockNotes.find((note) => note.id === logId);
+    console.log(noteLock);
+    console.log(now - noteLock?.timestamp > 10000);
+    const currentActive = [...activeLogTabs].find((tab) => tab.logId === logId);
+    console.log(tabId);
+    console.log(currentActive);
 
-    if (!newActiveLogs.includes(logId)) {
-      setActiveTab(newActiveLogs, tabId);
+    if (!currentActive) {
+      setActiveTab(logId, tabId);
+    } else if (!noteLock) {
+      const updatedLockNotes = lockNotes.filter((note) => note.id !== logId);
+      updatedLockNotes.push({ id: logId, timestamp: now });
+      localStorage.setItem("note-app-lock", JSON.stringify(updatedLockNotes));
+    } else if (currentActive.tabId === tabId) {
+      intervalRef.current = setInterval(() => {
+        const updatedNotes = (
+          JSON.parse(localStorage.getItem("note-app-lock")) || []
+        ).map((note) =>
+          note.id === logId ? { ...note, timestamp: Date.now() } : note
+        );
+
+        localStorage.setItem("note-app-lock", JSON.stringify(updatedNotes));
+        console.log("active");
+      }, 2000);
+    } else if (now - noteLock?.timestamp > 10000) {
+      setActiveTab(logId, tabId);
+      const updatedLockNotes = (
+        JSON.parse(localStorage.getItem("note-app-lock")) || []
+      ).filter((note) => note.id !== logId);
+      localStorage.setItem("note-app-lock", JSON.stringify(updatedLockNotes));
     } else {
-      if (newActiveTab !== tabId) {
-        setIsNotActive(true);
-      } else {
-        intervalRef.current = setInterval(() => {
-          const newLockNotes = lockNotes.map((note) =>
-            note.id === logId ? { ...note, timestamp: Date.now() } : note
-          );
-          localStorage.setItem("note-app-lock", JSON.stringify(newLockNotes));
-        }, 2000);
-      }
-    }
-
-    if (!lockNotes) {
-      const newNote = [{ id: logId, timestamp: now }];
-      localStorage.setItem("note-app-lock", JSON.stringify(newNote));
-
-      setActiveTab(newActiveLogs, tabId);
-      setIsNotActive(false);
-    } else if (!lock) {
-      const newNote = { id: logId, timestamp: now };
-      localStorage.setItem(
-        "note-app-lock",
-        JSON.stringify([...lockNotes, newNote])
-      );
-
-      setActiveTab(newActiveLogs, tabId);
-      setIsNotActive(false);
-    } else if (now - lock.timestamp > 10000) {
-      const newLockNotes = lockNotes.map((note) =>
-        note.id === logId ? { ...note, timestamp: now } : note
-      );
-      localStorage.setItem("note-app-lock", JSON.stringify(newLockNotes));
-
-      setActiveTab(newActiveLogs, tabId);
-      setIsNotActive(false);
+      setIsNotActive(true);
     }
 
     return () => {
-      channel.onmessage = null;
+      channel.removeEventListener("message", handleMessage);
       clearInterval(intervalRef.current);
-      if (newActiveTab === tabId && lock?.id === logId) {
-        const newLockNotes = lockNotes.filter((note) => note.id !== logId);
-        localStorage.setItem("note-app-lock", JSON.stringify(newLockNotes));
-      }
     };
-  }, [activeLogTabs, tabId]);
-
-  const requestControl = () => {
-    channel.postMessage({ type: "request", tabId, logId });
-    setTimeout(() => {
-      if (![...activeLogTabs].map((tab) => tab.tabId).includes(tabId)) {
-        setActiveTab(newActiveLogs, tabId);
-        channel.postMessage({ type: "approved", tabId, logId });
-        setIsNotActive(false);
-      }
-    }, 500);
-  };
+  }, [activeLogTabs, logId, tabId]);
 
   return (
     <>
