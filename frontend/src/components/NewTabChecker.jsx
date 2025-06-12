@@ -3,9 +3,9 @@ import { Outlet, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setActiveLogTabs } from "../slices/logSlice";
 import Modal from "./Modal";
+const channel = new BroadcastChannel("budgetarian");
 
 const NewTabChecker = () => {
-  const channel = new BroadcastChannel("budgetarian");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { logId } = useParams();
@@ -113,7 +113,7 @@ const NewTabChecker = () => {
     }
 
     return () => {
-      channel.close();
+      channel.onmessage = null;
       clearInterval(intervalRef.current);
       if (newActiveTab === tabId && lock?.id === logId) {
         const newLockNotes = lockNotes.filter((note) => note.id !== logId);

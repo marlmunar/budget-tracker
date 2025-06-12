@@ -10,9 +10,10 @@ import { clearCredentials } from "../slices/authSlice";
 import ConfirmModal from "./ConfirmModal";
 import OutsideClick from "./OutsideClick";
 import { startLoading, stopLoading } from "../slices/appSlice";
+const logoutChannel = new BroadcastChannel("logout_channel");
+const loginChannel = new BroadcastChannel("login_channel");
 
 const Header = () => {
-  const logoutChannel = new BroadcastChannel("logout_channel");
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   const { userInfo } = useSelector((state) => state.auth);
   const { isLoggingIn } = useSelector((state) => state.user);
@@ -40,14 +41,26 @@ const Header = () => {
   useEffect(() => {
     logoutChannel.onmessage = (event) => {
       if (event.data === "logout") {
-        window.location.href = "/login";
+        window.location.reload();
       }
     };
 
     return () => {
-      logoutChannel.close();
+      logoutChannel.onmessage = null;
     };
   }, [userInfo]);
+
+  useEffect(() => {
+    loginChannel.onmessage = (event) => {
+      if (event.data === "login") {
+        window.location.reload();
+      }
+
+      return () => {
+        loginChannel.onmessage = null;
+      };
+    };
+  }, []);
 
   return (
     <header className="header">

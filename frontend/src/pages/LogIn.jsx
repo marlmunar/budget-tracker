@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setIsLoggingIn } from "../slices/userSlice";
 import { useLoginMutation } from "../slices/userApiSlice";
 import { setCredentials } from "../slices/authSlice";
+const loginChannel = new BroadcastChannel("login_channel");
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -18,7 +19,7 @@ const Login = () => {
   const { userInfo } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    if (!!userInfo) navigate("/");
+    if (userInfo) navigate("/");
   }, [navigate, userInfo]);
 
   useEffect(() => {
@@ -37,7 +38,9 @@ const Login = () => {
 
     try {
       const res = await login({ email, password }).unwrap();
+
       dispatch(setCredentials({ ...res }));
+      loginChannel.postMessage("login");
       navigate("/");
     } catch (error) {
       const errorMsg = error?.data?.message || error.message;

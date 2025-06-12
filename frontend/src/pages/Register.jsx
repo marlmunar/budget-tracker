@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setIsLoggingIn } from "../slices/userSlice";
 import { useRegisterMutation } from "../slices/userApiSlice";
 import { setCredentials } from "../slices/authSlice";
+const loginChannel = new BroadcastChannel("login_channel");
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -50,7 +51,9 @@ const Register = () => {
         throw new Error("Passwords do not match");
       }
       const res = await register({ name, email, password }).unwrap();
+
       dispatch(setCredentials({ ...res }));
+      loginChannel.postMessage("login");
       navigate("/");
     } catch (error) {
       const errorMsg = error?.data?.message || error.message;
