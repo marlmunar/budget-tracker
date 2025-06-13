@@ -92,12 +92,10 @@ const downloadLog = asyncHandler(async (req, res) => {
   const userId = req.user._id;
   const log = await Log.findById(id);
 
-  if (!log.userId.equals(userId)) {
+  if (!log.userId.equals(userId) || log.entries.length < 1) {
     res.status(400);
     throw new Error("Log is not available");
   }
-
-  console.log(log);
 
   const workbook = new ExcelJS.Workbook();
   const entriesSheet = workbook.addWorksheet("Entries");
@@ -159,6 +157,74 @@ const downloadLog = asyncHandler(async (req, res) => {
   });
 
   const summarySheet = workbook.addWorksheet("Summary");
+  summarySheet.columns = [
+    {
+      header: "Category",
+      key: "category",
+      width: 30,
+    },
+    { header: "Total", key: "total", width: 30 },
+  ];
+  summarySheet.getRow(1).eachCell((cell, rowNumber) => {
+    if (cell.value) {
+      cell.font = {
+        size: 14,
+        bold: true,
+      };
+      cell.alignment = {
+        vertical: "middle",
+        horizontal: "center",
+      };
+      cell.border = {
+        top: { style: "medium" },
+        left: { style: "medium" },
+        bottom: { style: "medium" },
+        right: { style: "medium" },
+      };
+    }
+  });
+
+  const categories = log.categories.map((cat) => cat.name);
+  const summary = categories
+    .map((cat) => {
+      const sum = log.entries.reduce(
+        (sum, entry) =>
+          entry.category.name === cat ? sum + +entry.amount : sum,
+        0
+      );
+      return {
+        category: cat,
+        total: sum,
+      };
+    })
+    .sort((a, b) => b.total - a.total);
+  summary.map((entry) => {
+    const row = summarySheet.addRow({
+      category: entry.category,
+      total: entry.total,
+    });
+
+    const bgColor = log.categories.find(
+      (cat) => cat.name === entry.category
+    ).color;
+    const bg = "FF" + bgColor.replace("#", "");
+
+    row.getCell("category").fill = {
+      type: "pattern",
+      pattern: "solid",
+      fgColor: { argb: bg },
+    };
+
+    row.getCell("category").border = {
+      top: { style: "thin", color: { argb: "FFFFFFFF" } },
+      left: { style: "thin", color: { argb: "FFFFFFFF" } },
+      bottom: { style: "thin", color: { argb: "FFFFFFFF" } },
+      right: { style: "thin", color: { argb: "FFFFFFFF" } },
+    };
+
+    row.getCell("total").numFmt = '"₱"#,##0.00;[Red]-"₱"#,##0.00';
+    row.getCell("total").font = { bold: true };
+  });
 
   res.setHeader(
     "Content-Type",
