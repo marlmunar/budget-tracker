@@ -14,6 +14,7 @@ import {
 } from "react-icons/tb";
 import {
   useDeleteLogMutation,
+  useDownloadLogMutation,
   useLazyGetLogQuery,
   useUpdateLogMutation,
 } from "../slices/logsApiSlice";
@@ -42,7 +43,6 @@ const LogScreen = () => {
   const [isDeleting, setIsDeleting] = useState(false);
 
   const [displayName, setDisplayName] = useState("");
-  const [fileName, setFileName] = useState("");
   const [isAddingEntry, setIsAddingEntry] = useState(false);
   const [isAddingCategory, setIsAddingCategory] = useState(false);
   const [isEditingCategories, setIsEditingCategories] = useState(false);
@@ -51,8 +51,9 @@ const LogScreen = () => {
   const [error, setError] = useState("");
 
   const [getLog, { data }] = useLazyGetLogQuery();
-  const [updateLog] = useUpdateLogMutation();
+  const [downloadLog] = useDownloadLogMutation();
   const [deleteLog] = useDeleteLogMutation();
+  const [updateLog] = useUpdateLogMutation();
   const { tempEntries } = useSelector((state) => state.logs);
   const { isNotSaved } = useSelector((state) => state.logs);
   const { logId } = useParams();
@@ -114,10 +115,17 @@ const LogScreen = () => {
   };
 
   const handleDownload = async () => {
-    setError("yes");
-
-    setTimeout(() => setError(""), 2000);
+    try {
+      dispatch(startLoading());
+      await downloadLog({ logId, filename: logData.name }).unwrap();
+    } catch (error) {
+      setError(error?.data?.message || error.message);
+    } finally {
+      dispatch(stopLoading());
+      setTimeout(() => setError(""), 2000);
+    }
   };
+
   const handleDelete = async () => {
     try {
       const res = await deleteLog({

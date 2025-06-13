@@ -1,6 +1,6 @@
 import { apiSlice } from "./apiSlice";
 const LOGS_URL = "/logs";
-
+console.log("here at slice");
 export const logsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getLogs: builder.query({
@@ -29,8 +29,35 @@ export const logsApiSlice = apiSlice.injectEndpoints({
         method: "DELETE",
       }),
     }),
-    downloadLog: builder.query({
-      query: (id) => `${LOGS_URL}/download/${id}`,
+    downloadLog: builder.mutation({
+      queryFn: async (
+        { logId, filename },
+        _queryApi,
+        _extraOptions,
+        fetchWithBQ
+      ) => {
+        const result = await fetchWithBQ({
+          url: `${LOGS_URL}/download/${logId}`,
+          method: "GET",
+          responseHandler: (res) => res.blob(),
+        });
+
+        if (result.error) return { error: result.error };
+
+        const blob = result.data;
+        const blobUrl = URL.createObjectURL(blob);
+
+        const a = document.createElement("a");
+        a.href = blobUrl;
+        a.download = `${filename}.xlsx`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+
+        URL.revokeObjectURL(blobUrl);
+
+        return { data: null };
+      },
     }),
   }),
 });
@@ -41,4 +68,5 @@ export const {
   useCreateLogMutation,
   useUpdateLogMutation,
   useDeleteLogMutation,
+  useDownloadLogMutation,
 } = logsApiSlice;
