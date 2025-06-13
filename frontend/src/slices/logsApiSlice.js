@@ -29,6 +29,9 @@ export const logsApiSlice = apiSlice.injectEndpoints({
         method: "DELETE",
       }),
     }),
+    downloadLog: builder.query({
+      query: (id) => `${LOGS_URL}/download/${id}`,
+    }),
   }),
 });
 

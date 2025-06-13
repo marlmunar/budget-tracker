@@ -42,11 +42,13 @@ const LogScreen = () => {
   const [isDeleting, setIsDeleting] = useState(false);
 
   const [displayName, setDisplayName] = useState("");
+  const [fileName, setFileName] = useState("");
   const [isAddingEntry, setIsAddingEntry] = useState(false);
   const [isAddingCategory, setIsAddingCategory] = useState(false);
   const [isEditingCategories, setIsEditingCategories] = useState(false);
   const [isDeletingCategory, setIsDeletingCategory] = useState(false);
   const [lastAction, setLastAction] = useState("");
+  const [error, setError] = useState("");
 
   const [getLog, { data }] = useLazyGetLogQuery();
   const [updateLog] = useUpdateLogMutation();
@@ -111,6 +113,11 @@ const LogScreen = () => {
     }
   };
 
+  const handleDownload = async () => {
+    setError("yes");
+
+    setTimeout(() => setError(""), 2000);
+  };
   const handleDelete = async () => {
     try {
       const res = await deleteLog({
@@ -128,7 +135,7 @@ const LogScreen = () => {
       <title>{`Budgetarians' Log ${
         logData.name ? `- ${logData.name}` : ""
       }`}</title>
-      <div className="flex justify-between items-center">
+      <div className="relative flex justify-between items-center">
         <div className="flex gap-2 text-3xl items-center">
           <Link className="log-button" to="/profile">
             <TbArrowBackUp />
@@ -136,6 +143,12 @@ const LogScreen = () => {
 
           <h2 className="text-2xl font-semibold underline">{displayName}</h2>
         </div>
+
+        {error && (
+          <div className="absolute top-12 right-0 bg-slate-50 shadow-lg p-2 rounded text-red-500 text-sm italic ml-auto self-center">
+            {error}
+          </div>
+        )}
 
         <div className="relative flex text-3xl">
           <div className="flex items-center gap-2">
@@ -179,7 +192,13 @@ const LogScreen = () => {
                   </button>
                 </li>
                 <li>
-                  <button className="log-options">
+                  <button
+                    className="log-options"
+                    onClick={() => {
+                      handleDownload();
+                      setIsSelecting(false);
+                    }}
+                  >
                     <TbFileDownload />
                     <span>Download</span>
                   </button>
