@@ -96,7 +96,7 @@ const downloadLog = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("Log is not available");
   }
-
+  const fileName = log.name;
   const workbook = new ExcelJS.Workbook();
   const entriesSheet = workbook.addWorksheet("Entries");
   entriesSheet.columns = [
@@ -230,7 +230,7 @@ const downloadLog = asyncHandler(async (req, res) => {
     "Content-Type",
     "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
   );
-  res.setHeader("Content-Disposition", 'attachment; filename="report.xlsx"');
+  res.setHeader("Content-Disposition", `attachment; filename="${fileName}"`);
   await workbook.xlsx.write(res);
   res.end();
 });
