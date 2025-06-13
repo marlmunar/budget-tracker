@@ -253,30 +253,45 @@ const importLog = asyncHandler(async (req, res) => {
   const worksheet = workbook.worksheets[0];
   const entries = [];
   const headerRow = worksheet.getRow(1);
-  const headers = headerRow.values.slice(1);
-  const keys = ["Expense Name", "Amount", "Category", "Date Logged"];
-  headers.map((header) => {
-    if (!keys.includes(header)) res.status(400).json({ error: "Invalid data" });
-  });
+  const expectedHeaders = ["Expense Name", "Amount", "Category", "Date Logged"];
+  const actualHeaders = headerRow.values.slice(1);
+
+  if (
+    actualHeaders.length !== expectedHeaders.length ||
+    !expectedHeaders.every((val, i) => actualHeaders[i] === val)
+  ) {
+    return res.status(400).json({ error: "Invalid or misaligned headers" });
+  }
+
   const entryKeys = ["expense", "amount", "category", "date"];
 
   worksheet.eachRow((row, rowNumber) => {
     if (rowNumber === 1) return;
+    const entry = {};
 
-    const rowData = {};
-    row.values.slice(1).forEach((cell, index) => {
-      rowData[entryKeys[index]] = cell;
+    row.eachCell((cell, colNumber) => {
+      if (colNumber === 3) {
+        return (entry[entryKeys[colNumber - 1]] = {
+          name: cell.value,
+          color: "#" + cell.fill.fgColor.argb.slice(2),
+        });
+      }
+
+      entry[entryKeys[colNumber - 1]] = cell.value;
     });
-
-    entries.push(rowData);
+    entries.push(entry);
   });
 
   const summarySheet = workbook.worksheets[1];
   const categories = [];
 
+  if (!summarySheet || summarySheet.name !== "Summary") {
+    return res.status(400).json({ error: "Missing summary sheet" });
+  }
+
   const categoryColumn = summarySheet.getColumn(1);
-  categoryColumn.eachCell((cell, rowNumber) => {
-    if (rowNumber === 1) return;
+  categoryColumn.eachCell((cell, cellNumber) => {
+    if (cellNumber === 1) return;
 
     const category = {
       name: cell.value,
