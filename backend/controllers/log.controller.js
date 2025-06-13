@@ -83,6 +83,9 @@ const deleteLog = asyncHandler(async (req, res) => {
   });
 });
 
+// @desc Download Log
+// @route GET /api/logs/download/:id
+// @access PRIVATE
 const downloadLog = asyncHandler(async (req, res) => {
   const id = req.params.id;
   res.status(200).json({
@@ -90,4 +93,4 @@ const downloadLog = asyncHandler(async (req, res) => {
   });
 });
 
-export { getLogs, createLog, getLog, updateLog, deleteLog };
+export { getLogs, createLog, getLog, updateLog, deleteLog, downloadLog };
