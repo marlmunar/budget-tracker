@@ -5,6 +5,7 @@ import {
   getLog,
   updateLog,
   deleteLog,
+  downloadLog,
 } from "../controllers/log.controller.js";
 import validateId from "../middlewares/validateId.middleware.js";
 
@@ -15,6 +16,7 @@ router
   .route("/:id")
   .get(validateId, getLog)
   .put(validateId, updateLog)
-  .delete(validateId, deleteLog);
+  .delete(validateId, deleteLog)
+  .download(validateId, downloadLog);
 
 export default router;

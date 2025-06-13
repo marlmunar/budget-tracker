@@ -83,4 +83,11 @@ const deleteLog = asyncHandler(async (req, res) => {
   });
 });
 
+const downloadLog = asyncHandler(async (req, res) => {
+  const id = req.params.id;
+  res.status(200).json({
+    message: "Download Log Here",
+  });
+});
+
 export { getLogs, createLog, getLog, updateLog, deleteLog };
