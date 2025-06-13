@@ -1,6 +1,7 @@
 import asyncHandler from "express-async-handler";
-import mongoose from "mongoose";
 import Log from "../models/log.model.js";
+
+import ExcelJS from "exceljs";
 
 // @desc Get Logs based on UserId
 // @route GET /api/logs
@@ -88,9 +89,84 @@ const deleteLog = asyncHandler(async (req, res) => {
 // @access PRIVATE
 const downloadLog = asyncHandler(async (req, res) => {
   const id = req.params.id;
-  res.status(200).json({
-    message: "Download Log Here",
+  const userId = req.user._id;
+  const log = await Log.findById(id);
+
+  if (!log.userId.equals(userId)) {
+    res.status(400);
+    throw new Error("Log is not available");
+  }
+
+  console.log(log);
+
+  const workbook = new ExcelJS.Workbook();
+  const entriesSheet = workbook.addWorksheet("Entries");
+  entriesSheet.columns = [
+    {
+      header: "Expense Name",
+      key: "name",
+      width: 30,
+    },
+    { header: "Amount", key: "amount", width: 30 },
+    { header: "Category", key: "category", width: 30 },
+    { header: "Date Logged", key: "date", width: 30 },
+  ];
+  entriesSheet.getRow(1).eachCell((cell, rowNumber) => {
+    if (cell.value) {
+      cell.font = {
+        size: 14,
+        bold: true,
+      };
+      cell.alignment = {
+        vertical: "middle",
+        horizontal: "center",
+      };
+      cell.border = {
+        top: { style: "medium" },
+        left: { style: "medium" },
+        bottom: { style: "medium" },
+        right: { style: "medium" },
+      };
+    }
   });
+  log.entries.map((entry) => {
+    const row = entriesSheet.addRow({
+      name: entry.expense,
+      amount: entry.amount,
+      category: entry.category.name,
+      date: entry.date,
+    });
+
+    row.getCell("amount").numFmt = '"₱"#,##0.00;[Red]-"₱"#,##0.00';
+    row.getCell("amount").font = { bold: true };
+
+    const bg = "FF" + entry.category.color.replace("#", "");
+
+    row.getCell("category").fill = {
+      type: "pattern",
+      pattern: "solid",
+      fgColor: { argb: bg },
+    };
+    row.getCell("category").border = {
+      top: { style: "thin", color: { argb: "FFFFFFFF" } },
+      left: { style: "thin", color: { argb: "FFFFFFFF" } },
+      bottom: { style: "thin", color: { argb: "FFFFFFFF" } },
+      right: { style: "thin", color: { argb: "FFFFFFFF" } },
+    };
+
+    row.getCell("date").numFmt = "mm/dd/yyyy";
+    row.getCell("date").alignment = { horizontal: "right" };
+  });
+
+  const summarySheet = workbook.addWorksheet("Summary");
+
+  res.setHeader(
+    "Content-Type",
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+  );
+  res.setHeader("Content-Disposition", 'attachment; filename="report.xlsx"');
+  await workbook.xlsx.write(res);
+  res.end();
 });
 
 export { getLogs, createLog, getLog, updateLog, deleteLog, downloadLog };
