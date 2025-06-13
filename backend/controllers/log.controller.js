@@ -2,6 +2,7 @@ import asyncHandler from "express-async-handler";
 import Log from "../models/log.model.js";
 
 import ExcelJS from "exceljs";
+import { json } from "express";
 
 // @desc Get Logs based on UserId
 // @route GET /api/logs
@@ -230,9 +231,73 @@ const downloadLog = asyncHandler(async (req, res) => {
     "Content-Type",
     "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
   );
-  res.setHeader("Content-Disposition", `attachment; filename="${fileName}"`);
+  res.setHeader(
+    "Content-Disposition",
+    `attachment; filename="${fileName}.xlsx"`
+  );
   await workbook.xlsx.write(res);
   res.end();
 });
 
-export { getLogs, createLog, getLog, updateLog, deleteLog, downloadLog };
+// @desc Import Log
+// @route PORT /api/logs/import
+// @access PRIVATE
+const importLog = asyncHandler(async (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ error: "No file uploaded" });
+  }
+
+  const workbook = new ExcelJS.Workbook();
+  await workbook.xlsx.load(req.file.buffer);
+
+  const worksheet = workbook.worksheets[0];
+  const entries = [];
+  const headerRow = worksheet.getRow(1);
+  const headers = headerRow.values.slice(1);
+  const keys = ["Expense Name", "Amount", "Category", "Date Logged"];
+  headers.map((header) => {
+    if (!keys.includes(header)) res.status(400).json({ error: "Invalid data" });
+  });
+  const entryKeys = ["expense", "amount", "category", "date"];
+
+  worksheet.eachRow((row, rowNumber) => {
+    if (rowNumber === 1) return;
+
+    const rowData = {};
+    row.values.slice(1).forEach((cell, index) => {
+      rowData[entryKeys[index]] = cell;
+    });
+
+    entries.push(rowData);
+  });
+
+  const summarySheet = workbook.worksheets[1];
+  const categories = [];
+
+  const categoryColumn = summarySheet.getColumn(1);
+  categoryColumn.eachCell((cell, rowNumber) => {
+    if (rowNumber === 1) return;
+
+    const category = {
+      name: cell.value,
+      color: "#" + cell.fill.fgColor.argb.slice(2),
+    };
+    categories.push(category);
+  });
+
+  res.status(200).json({
+    message: "Successfully imported",
+    entries,
+    categories,
+  });
+});
+
+export {
+  getLogs,
+  createLog,
+  getLog,
+  updateLog,
+  deleteLog,
+  downloadLog,
+  importLog,
+};
