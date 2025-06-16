@@ -62,7 +62,7 @@ const Hero = () => {
       </div>
 
       <div className="p-4  bg-amber-200  row-span-2 rounded shadow-lg">
-        <div className="relative p-6 bg-slate-50 flex flex-col justify-center gap-2 h-full rounded shadow">
+        <div className="relative p-10 bg-slate-50 flex flex-col justify-end gap-2 h-full rounded shadow">
           <div className="absolute z-0 w-full h-full top-0 right-0">
             <img
               className="object-cover w-full h-full"
@@ -70,12 +70,12 @@ const Hero = () => {
               alt="Image about budgeting"
             />
           </div>
-          <div className="z-5 bg-amber-50 p-2 opacity-80 max-w-[min-content] rounded shadow-lg flex flex-col gap-2">
+          <div className="z-5 bg-amber-50/70 p-4 max-w-[min-content] rounded shadow-lg flex flex-col">
             {!!userInfo ? (
               <>
-                <p className="text-2xl font-semibold mt-2">Welcome Back!</p>
+                <p className="text-2xl font-semibold">Welcome Back!</p>
                 <p className="">What do you want to visit?</p>
-                <div className="flex gap-2">
+                <div className="flex gap-2 mt-4">
                   <Link className="hero-button" to={`/log/${lastLog?._id}`}>
                     Last log
                   </Link>
@@ -86,10 +86,8 @@ const Hero = () => {
               </>
             ) : (
               <>
-                <p className="text-2xl font-semibold mt-2">
-                  Become a Budgetarian
-                </p>
-                <div className="flex gap-2">
+                <p className="text-2xl font-semibold ">Become a Budgetarian</p>
+                <div className="flex gap-2 mt-4">
                   <Link className="hero-button" to="/login">
                     Log In
                   </Link>

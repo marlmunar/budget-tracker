@@ -85,7 +85,7 @@ button > * {
 }
 
 .hero-button {
-  @apply border py-1 text-center min-w-[8rem];
+  @apply border-2 h-10 text-lg flex justify-center items-center rounded py-1 text-center min-w-[8rem] hover:bg-amber-300 hover:shadow hover:border-transparent transition-all duration-300;
 }
 
 .homecard-title {
