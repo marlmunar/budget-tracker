@@ -44,7 +44,9 @@ const Hero = () => {
       }
     };
 
-    fetchData();
+    if (userInfo) {
+      fetchData();
+    }
   }, [getLogs]);
 
   return (
