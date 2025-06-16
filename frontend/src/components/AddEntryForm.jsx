@@ -44,16 +44,13 @@ const AddEntryForm = ({
 
   const handleImport = async (e) => {
     e.preventDefault();
-    if (!file) {
-      return setError("Please select a file");
-    }
+    if (!file) return setError("Please select a file");
+
+    const formData = new FormData();
+    formData.append("file", file);
 
     try {
-      const formData = new FormData();
-      formData.append("file", file);
-      const res = await importLog({
-        formData,
-      }).unwrap();
+      const res = await importLog(formData).unwrap();
       console.log(res);
     } catch (error) {
       console.log(error?.data?.message || error.message);

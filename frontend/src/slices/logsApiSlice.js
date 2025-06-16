@@ -60,10 +60,10 @@ export const logsApiSlice = apiSlice.injectEndpoints({
       },
     }),
     importLog: builder.mutation({
-      query: (data) => ({
+      query: (formData) => ({
         url: `${LOGS_URL}/import`,
         method: "POST",
-        body: data,
+        body: formData,
       }),
     }),
   }),

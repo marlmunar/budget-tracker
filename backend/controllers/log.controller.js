@@ -244,8 +244,15 @@ const downloadLog = asyncHandler(async (req, res) => {
 // @access PRIVATE
 const importLog = asyncHandler(async (req, res) => {
   if (!req.file) {
-    return res.status(400).json({ error: "No file uploaded" });
+    res.status(400);
+    throw new Error("No file uploaded");
   }
+
+  setTimeout(() => {
+    if (!res.headersSent) {
+      return res.status(400).json({ message: "Failed to import data" });
+    }
+  }, 5000);
 
   const workbook = new ExcelJS.Workbook();
   await workbook.xlsx.load(req.file.buffer);
@@ -260,7 +267,8 @@ const importLog = asyncHandler(async (req, res) => {
     actualHeaders.length !== expectedHeaders.length ||
     !expectedHeaders.every((val, i) => actualHeaders[i] === val)
   ) {
-    return res.status(400).json({ error: "Invalid or misaligned headers" });
+    res.status(400);
+    throw new Error("Invalid file content");
   }
 
   const entryKeys = ["expense", "amount", "category", "date"];
@@ -286,7 +294,8 @@ const importLog = asyncHandler(async (req, res) => {
   const categories = [];
 
   if (!summarySheet || summarySheet.name !== "Summary") {
-    return res.status(400).json({ error: "Missing summary sheet" });
+    res.status(400);
+    throw new Error("Invalid file content");
   }
 
   const categoryColumn = summarySheet.getColumn(1);
