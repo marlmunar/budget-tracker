@@ -1,6 +1,6 @@
 import { apiSlice } from "./apiSlice";
 const LOGS_URL = "/logs";
-console.log("here at slice");
+
 export const logsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getLogs: builder.query({
@@ -59,6 +59,13 @@ export const logsApiSlice = apiSlice.injectEndpoints({
         return { data: null };
       },
     }),
+    importLog: builder.mutation({
+      query: (data) => ({
+        url: `${LOGS_URL}/import`,
+        method: "POST",
+        body: data,
+      }),
+    }),
   }),
 });
 
@@ -69,4 +76,5 @@ export const {
   useUpdateLogMutation,
   useDeleteLogMutation,
   useDownloadLogMutation,
+  useImportLogMutation,
 } = logsApiSlice;

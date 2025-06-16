@@ -10,6 +10,7 @@ import OutsideClick from "./OutsideClick";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addTempEntry, setIsNotSaved } from "../slices/logSlice";
+import { useImportLogMutation } from "../slices/logsApiSlice";
 
 const AddEntryForm = ({
   categories,
@@ -17,6 +18,7 @@ const AddEntryForm = ({
   setIsAddingCategory,
 }) => {
   const dispatch = useDispatch();
+  const [importLog, { isLoading }] = useImportLogMutation();
   const [isSelecting, setIsSelecting] = useState(false);
   const [isImporting, setIsImporting] = useState(false);
   const [expense, setExpense] = useState("");
@@ -40,11 +42,23 @@ const AddEntryForm = ({
     setFile(e.target.files[0]);
   };
 
-  const handleImport = (e) => {
+  const handleImport = async (e) => {
     e.preventDefault();
     if (!file) {
       return setError("Please select a file");
     }
+
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      const res = await importLog({
+        formData,
+      }).unwrap();
+      console.log(res);
+    } catch (error) {
+      console.log(error?.data?.message || error.message);
+    }
+
     setError("");
     setFile(null);
   };
