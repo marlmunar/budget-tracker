@@ -1,14 +1,32 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { TbCopy } from "react-icons/tb";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { startLoading, stopLoading } from "../slices/appSlice";
 import { useLazyGetLogsQuery } from "../slices/logsApiSlice";
 
 const Hero = () => {
+  const textRef = useRef(null);
   const { userInfo } = useSelector((state) => state.auth);
   const [getLogs, { data, isLoading }] = useLazyGetLogsQuery();
   const [lastLog, setLastLog] = useState({});
+  const [isCopied, setIsCopied] = useState(false);
   const dispatch = useDispatch();
+
+  const copyToClipboard = async () => {
+    const title = "Budgetarian";
+    const text = textRef.current.innerText;
+    const fullText = `${title}\n${text}`;
+    try {
+      await navigator.clipboard.writeText(fullText);
+      setIsCopied(true);
+      setTimeout(() => {
+        setIsCopied(false);
+      }, 1500);
+    } catch (error) {
+      console.error("Failed to copy text: ", err);
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -31,10 +49,25 @@ const Hero = () => {
 
   return (
     <section className="hero">
-      <div className="border-2 border-dotted m-2 p-5 flex flex-col gap-2  justify-center order-1 md:order-none shadow-lg">
+      <div className=" relative border-2 border-dotted m-2 p-5 flex flex-col gap-2  justify-center order-1 md:order-none shadow-lg">
+        <div className="absolute m-4 top-0 right-0 flex flex-col items-end gap-2">
+          <button
+            className="rounded text-2xl p-2 hover:shadow hover:shadow-slate-500 transition-all duration-300"
+            title="Copy Text"
+            onClick={copyToClipboard}
+          >
+            <TbCopy />
+          </button>
+          {isCopied && (
+            <p className="shadow shadow-slate-300 p-2 rounded text-sm">
+              Text copied to clipboard
+            </p>
+          )}
+        </div>
+
         <h2 className="text-2xl font-semibold">Budgetarian</h2>
         <p className="pl-1 font-semibold">noun</p>
-        <p className="pl-1 max-w-[65ch]">
+        <p ref={textRef} className="pl-1 max-w-[50ch]">
           A term used by Filipinos to describe someone who is smart about
           managing expenses. Budgetarians are careful with their spending and
           usually only spend on important things.
