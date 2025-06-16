@@ -7,7 +7,7 @@ import {
   TbX,
 } from "react-icons/tb";
 import OutsideClick from "./OutsideClick";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { addTempEntry, setIsNotSaved } from "../slices/logSlice";
 import { useImportLogMutation } from "../slices/logsApiSlice";
@@ -27,9 +27,10 @@ const AddEntryForm = ({
   const [selectedCategory, setSelectedCategory] = useState("");
   const [error, setError] = useState("");
   const [file, setFile] = useState(null);
+  const fileInputRef = useRef(null);
 
   const handleChange = (e) => {
-    if (e.target.files.length < 1) return;
+    if (!e.target.files[0].name) return;
     if (
       e.target.files[0].type !==
       "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
@@ -51,13 +52,15 @@ const AddEntryForm = ({
 
     try {
       const res = await importLog(formData).unwrap();
-      console.log(res);
+      const newTempLogs = res.entries;
+      newTempLogs.map((log) => dispatch(addTempEntry(log)));
     } catch (error) {
       console.log(error?.data?.message || error.message);
     }
 
     setError("");
     setFile(null);
+    fileInputRef.current.value = null;
   };
 
   const handleSubmit = (e) => {
@@ -120,6 +123,7 @@ const AddEntryForm = ({
                 id="file-upload"
                 accept=".xlsx"
                 onChange={handleChange}
+                ref={fileInputRef}
               />
             </div>
             <div className="text-right my-2 mr-5 text-red-500 text-sm">
