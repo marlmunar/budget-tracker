@@ -24,6 +24,30 @@ const AddEntryForm = ({
   const [category, setCategory] = useState({});
   const [selectedCategory, setSelectedCategory] = useState("");
   const [error, setError] = useState("");
+  const [file, setFile] = useState(null);
+
+  const handleChange = (e) => {
+    if (e.target.files.length < 1) return;
+    if (
+      e.target.files[0].type !==
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    ) {
+      setError("Invalid file type");
+      setFile(null);
+      return;
+    }
+    setError("");
+    setFile(e.target.files[0]);
+  };
+
+  const handleImport = (e) => {
+    e.preventDefault();
+    if (!file) {
+      return setError("Please select a file");
+    }
+    setError("");
+    setFile(null);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -68,24 +92,36 @@ const AddEntryForm = ({
 
       <form
         method="POST"
-        onSubmit={handleSubmit}
         className="bg-slate-100 rounded mt-2 p-2 border lg:min-w-[22rem]"
       >
         {isImporting ? (
           <>
             <div className="relative  border-slate-400 border-2 h-40 flex flex-col items-center justify-center p-2 bg-white m-4 rounded">
               <label
-                for="file-upload"
+                htmlFor="file-upload"
                 className="cursor-pointer text-xl z-50 flex justify-center items-center"
               >
-                Upload File
+                {file ? file.name : "Select a file"}
               </label>
               <input
                 type="file"
                 className="absolute hidden"
                 id="file-upload"
                 accept=".xlsx"
+                onChange={handleChange}
               />
+            </div>
+            <div className="text-right my-2 mr-5 text-red-500 text-sm">
+              {error}
+            </div>
+            <div className="button-row">
+              <button
+                formNoValidate
+                type="submit"
+                onClick={(e) => handleImport(e)}
+              >
+                Import
+              </button>
             </div>
           </>
         ) : (
@@ -176,7 +212,11 @@ const AddEntryForm = ({
               {error}
             </div>
             <div className="button-row">
-              <button formNoValidate type="submit">
+              <button
+                formNoValidate
+                type="submit"
+                onClick={(e) => handleSubmit(e)}
+              >
                 Save Entry
               </button>
               <button
