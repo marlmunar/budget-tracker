@@ -8,7 +8,7 @@ import {
 } from "react-icons/tb";
 import OutsideClick from "./OutsideClick";
 import { useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addTempEntry, setIsNotSaved } from "../slices/logSlice";
 import { useImportLogMutation } from "../slices/logsApiSlice";
 
@@ -19,6 +19,7 @@ const AddEntryForm = ({
 }) => {
   const dispatch = useDispatch();
   const [importLog, { isLoading }] = useImportLogMutation();
+  const { tempEntries } = useSelector((state) => state.logs);
   const [isSelecting, setIsSelecting] = useState(false);
   const [isImporting, setIsImporting] = useState(false);
   const [expense, setExpense] = useState("");
@@ -28,6 +29,14 @@ const AddEntryForm = ({
   const [error, setError] = useState("");
   const [file, setFile] = useState(null);
   const fileInputRef = useRef(null);
+
+  const referenceEntries = tempEntries.map((entry) => {
+    const keys = ["expense", "amount", "category", "date"];
+
+    return JSON.stringify(
+      Object.fromEntries(keys.map((key) => [key, entry[key]]))
+    );
+  });
 
   const handleChange = (e) => {
     if (!e.target.files[0].name) return;
@@ -52,8 +61,12 @@ const AddEntryForm = ({
 
     try {
       const res = await importLog(formData).unwrap();
-      const newTempLogs = res.entries;
-      newTempLogs.map((log) => dispatch(addTempEntry(log)));
+      const newTempEntries = res.entries.filter(
+        (entry) => !referenceEntries.includes(JSON.stringify(entry))
+      );
+      if (newTempEntries.length > 0) {
+        newTempEntries.map((entry) => dispatch(addTempEntry(entry)));
+      }
     } catch (error) {
       console.log(error?.data?.message || error.message);
     }
