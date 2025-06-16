@@ -105,11 +105,11 @@ const Hero = () => {
               alt="Image about budgeting"
             />
           </div>
-          <div className="z-5 bg-amber-50/70 p-4 max-w-[min-content] rounded shadow-lg flex flex-col">
+          <div className="z-5 bg-amber-50/70 p-4 lg:max-w-[min-content] rounded shadow-lg flex flex-col">
             {!!userInfo ? (
               <>
                 <p className="text-2xl font-semibold">Welcome Back!</p>
-                <p className="">What do you want to visit?</p>
+                <p>What do you want to visit?</p>
                 <div className="flex gap-2 mt-4">
                   <Link className="hero-button" to={`/log/${lastLog?._id}`}>
                     Last log
@@ -122,6 +122,7 @@ const Hero = () => {
             ) : (
               <>
                 <p className="text-2xl font-semibold ">Become a Budgetarian</p>
+                <p>Start your journey!</p>
                 <div className="flex gap-2 mt-4">
                   <Link className="hero-button" to="/login">
                     Log In
