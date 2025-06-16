@@ -82,6 +82,7 @@ const AddEntryForm = ({
       setError(errorMsg);
     }
 
+    if (!res) return;
     const updatedCategories = [...res.categories];
     const newCategoryNames = res.categories.map((cat) => cat.name);
     console.log(newCategoryNames);
