@@ -54,7 +54,7 @@ const Hero = () => {
       <div className=" relative border-2 border-dotted m-2 p-5 flex flex-col gap-2  justify-center order-1 md:order-none shadow-lg">
         <div className="absolute m-4 top-0 right-0 flex flex-col items-end gap-2">
           <button
-            className="rounded text-2xl p-2 hover:shadow hover:shadow-slate-500 transition-all duration-300"
+            className="rounded text-2xl p-2 hover:shadow hover:shadow-slate-400 transition-all duration-300"
             title="Copy Text"
             onClick={copyToClipboard}
           >
