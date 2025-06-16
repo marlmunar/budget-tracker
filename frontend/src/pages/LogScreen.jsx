@@ -250,6 +250,7 @@ const LogScreen = () => {
             categories={categories}
             setIsAddingEntry={setIsAddingEntry}
             setIsAddingCategory={setIsAddingCategory}
+            setLastAction={setLastAction}
           />
         )}
         {isAddingCategory && (

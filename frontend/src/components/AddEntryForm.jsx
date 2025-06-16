@@ -10,15 +10,22 @@ import OutsideClick from "./OutsideClick";
 import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addTempEntry, setIsNotSaved } from "../slices/logSlice";
-import { useImportLogMutation } from "../slices/logsApiSlice";
+import {
+  useImportLogMutation,
+  useUpdateLogMutation,
+} from "../slices/logsApiSlice";
+import { useParams } from "react-router-dom";
 
 const AddEntryForm = ({
   categories,
   setIsAddingEntry,
   setIsAddingCategory,
+  setLastAction,
 }) => {
   const dispatch = useDispatch();
-  const [importLog, { isLoading }] = useImportLogMutation();
+  const { logId } = useParams();
+  const [importLog] = useImportLogMutation();
+  const [updateLog] = useUpdateLogMutation();
   const { tempEntries } = useSelector((state) => state.logs);
   const [isSelecting, setIsSelecting] = useState(false);
   const [isImporting, setIsImporting] = useState(false);
@@ -37,6 +44,8 @@ const AddEntryForm = ({
       Object.fromEntries(keys.map((key) => [key, entry[key]]))
     );
   });
+
+  const categoryNames = categories.map((cat) => cat.name);
 
   const handleChange = (e) => {
     if (!e.target.files[0].name) return;
@@ -58,9 +67,10 @@ const AddEntryForm = ({
 
     const formData = new FormData();
     formData.append("file", file);
+    let res;
 
     try {
-      const res = await importLog(formData).unwrap();
+      res = await importLog(formData).unwrap();
       const newTempEntries = res.entries.filter(
         (entry) => !referenceEntries.includes(JSON.stringify(entry))
       );
@@ -68,11 +78,33 @@ const AddEntryForm = ({
         newTempEntries.map((entry) => dispatch(addTempEntry(entry)));
       }
     } catch (error) {
-      console.log(error?.data?.message || error.message);
+      const errorMsg = error?.data?.message || error.message;
+      setError(errorMsg);
+    }
+
+    const updatedCategories = [...res.categories];
+    const newCategoryNames = res.categories.map((cat) => cat.name);
+    console.log(newCategoryNames);
+    categories.map(
+      (cat) =>
+        !newCategoryNames.includes(cat.name) && updatedCategories.push(cat)
+    );
+    try {
+      const result = await updateLog({
+        id: logId,
+        data: { categories: updatedCategories, entries: tempEntries },
+      }).unwrap();
+
+      setLastAction(Date.now());
+    } catch (error) {
+      const errorMsg = error?.data?.message || error.message;
+      setError(errorMsg);
     }
 
     setError("");
     setFile(null);
+    setIsAddingEntry(false);
+    setIsImporting(false);
     fileInputRef.current.value = null;
   };
 
