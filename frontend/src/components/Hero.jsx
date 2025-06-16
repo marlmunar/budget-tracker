@@ -62,35 +62,44 @@ const Hero = () => {
       </div>
 
       <div className="p-4  bg-amber-200  row-span-2 rounded shadow-lg">
-        <div className="p-6 bg-slate-50 flex flex-col justify-center gap-2 h-full rounded shadow">
-          {!!userInfo ? (
-            <>
-              <p className="text-2xl font-semibold mt-2">Welcome Back!</p>
-              <p className="">What do you want to visit?</p>
-              <div className="flex gap-2">
-                <Link className="hero-button" to={`/log/${lastLog?._id}`}>
-                  Last log
-                </Link>
-                <Link className="hero-button" to="/profile">
-                  All logs
-                </Link>
-              </div>
-            </>
-          ) : (
-            <>
-              <p className="text-2xl font-semibold mt-2">
-                Become a Budgetarian
-              </p>
-              <div className="flex gap-2">
-                <Link className="hero-button" to="/login">
-                  Log In
-                </Link>
-                <Link className="hero-button" to="/register">
-                  Sign Up
-                </Link>
-              </div>
-            </>
-          )}
+        <div className="relative p-6 bg-slate-50 flex flex-col justify-center gap-2 h-full rounded shadow">
+          <div className="absolute z-0 w-full h-full top-0 right-0">
+            <img
+              className="object-cover w-full h-full"
+              src="https://images.unsplash.com/photo-1544377193-33dcf4d68fb5?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              alt="Image about budgeting"
+            />
+          </div>
+          <div className="z-5 bg-amber-50 p-2 opacity-80 max-w-[min-content] rounded shadow-lg flex flex-col gap-2">
+            {!!userInfo ? (
+              <>
+                <p className="text-2xl font-semibold mt-2">Welcome Back!</p>
+                <p className="">What do you want to visit?</p>
+                <div className="flex gap-2">
+                  <Link className="hero-button" to={`/log/${lastLog?._id}`}>
+                    Last log
+                  </Link>
+                  <Link className="hero-button" to="/profile">
+                    All logs
+                  </Link>
+                </div>
+              </>
+            ) : (
+              <>
+                <p className="text-2xl font-semibold mt-2">
+                  Become a Budgetarian
+                </p>
+                <div className="flex gap-2">
+                  <Link className="hero-button" to="/login">
+                    Log In
+                  </Link>
+                  <Link className="hero-button" to="/register">
+                    Sign Up
+                  </Link>
+                </div>
+              </>
+            )}
+          </div>
         </div>
       </div>
     </section>
