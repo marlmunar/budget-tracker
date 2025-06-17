@@ -24,7 +24,7 @@ const ExpenseListItem = ({
           {category}
         </p>
       </div>
-      <div className="py-2 flex gap-2 justify-end row-start-1 col-start-2 self-start">
+      <div className="z-0 py-2 flex gap-2 justify-end row-start-1 col-start-2 self-start">
         <button
           className="log-tool-button"
           onClick={() => {

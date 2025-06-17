@@ -7,12 +7,14 @@ import EditEntryForm from "./EditEntryForm";
 import DeleteEntryConfirm from "./DeleteEntryConfirm";
 import ExpenseListFilter from "./ExpenseListFilter";
 import OutsideClick from "./OutsideClick";
+import { motion } from "framer-motion";
 
 const ExpenseList = ({ categories }) => {
   const { tempEntries } = useSelector((state) => state.logs);
   const [isEditing, setIsEditing] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [isFiltering, setIsFiltering] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
 
   const [selectedCategories, setSelectedCategories] = useState([]);
 
@@ -22,6 +24,13 @@ const ExpenseList = ({ categories }) => {
       setSelectedCategories(categoryNames);
     }
   }, [categories]);
+
+  useEffect(() => {
+    setIsVisible(false);
+    setTimeout(() => {
+      setIsVisible(true);
+    }, 50);
+  }, [tempEntries]);
 
   const [entry, setEntry] = useState({
     expense: "",
@@ -75,21 +84,29 @@ const ExpenseList = ({ categories }) => {
               <DeleteEntryConfirm setIsDeleting={setIsDeleting} entry={entry} />
             </OutsideClick>
           )}
-          {filteredList
-            .sort((a, b) => new Date(b.date) - new Date(a.date))
-            .map((entry, index) => (
-              <ExpenseListItem
-                key={index}
-                expense={entry.expense}
-                amount={entry.amount}
-                category={entry.category.name}
-                timeStamps={entry.date.split("T")[0]}
-                bgColor={entry.category.color}
-                setIsEditing={setIsEditing}
-                setIsDeleting={setIsDeleting}
-                setEntry={setEntry}
-              />
-            ))}
+          {isVisible &&
+            filteredList
+              .sort((a, b) => new Date(b.date) - new Date(a.date))
+              .map((entry, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 30, scaleY: 0.85 }}
+                  animate={{ opacity: 1, y: 0, scaleY: 1 }}
+                  transition={{ duration: 0.4 }}
+                  className="overflow-hidden"
+                >
+                  <ExpenseListItem
+                    expense={entry.expense}
+                    amount={entry.amount}
+                    category={entry.category.name}
+                    timeStamps={entry.date.split("T")[0]}
+                    bgColor={entry.category.color}
+                    setIsEditing={setIsEditing}
+                    setIsDeleting={setIsDeleting}
+                    setEntry={setEntry}
+                  />
+                </motion.div>
+              ))}
         </div>
       )}
     </section>

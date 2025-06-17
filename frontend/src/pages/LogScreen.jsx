@@ -31,7 +31,7 @@ import ConfirmModal from "../components/ConfirmModal";
 import LogScreenStatus from "../components/LogScreenStatus";
 import usePrompt from "../hooks/usePrompt";
 import Modal from "../components/Modal";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 const LogScreen = () => {
   const dispatch = useDispatch();
@@ -66,6 +66,7 @@ const LogScreen = () => {
         setLogData(res.data);
         setCategories(res.data.categories);
         setDisplayName(res.data.name);
+
         if (!isNotSaved) dispatch(setTempEntries([...res.data.entries]));
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -138,6 +139,7 @@ const LogScreen = () => {
 
   return (
     <motion.div
+      key={lastAction}
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
@@ -237,7 +239,6 @@ const LogScreen = () => {
             )}
           </div>
         </div>
-
         <div className="py-4 grid grid-cols-1 lg:grid-cols-[min-content_auto] grid-rows-[min-content_min-content] my-2 gap-4">
           {!activeAction && <EntryOptions setActiveAction={setActiveAction} />}
 
