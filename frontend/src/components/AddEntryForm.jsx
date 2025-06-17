@@ -25,7 +25,7 @@ const AddEntryForm = ({ categories, setActiveAction, setLastAction }) => {
   const [isSelecting, setIsSelecting] = useState(false);
   const [isImporting, setIsImporting] = useState(false);
   const [expense, setExpense] = useState("");
-  const [amount, setAmount] = useState("");
+  const [amount, setAmount] = useState(0);
   const [category, setCategory] = useState({});
   const [selectedCategory, setSelectedCategory] = useState("");
   const [error, setError] = useState("");
@@ -61,6 +61,7 @@ const AddEntryForm = ({ categories, setActiveAction, setLastAction }) => {
     const formData = new FormData();
     formData.append("file", file);
     let res;
+    let updatedEntries = [];
 
     try {
       res = await importLog(formData).unwrap();
@@ -70,42 +71,42 @@ const AddEntryForm = ({ categories, setActiveAction, setLastAction }) => {
       if (newTempEntries.length > 0) {
         newTempEntries.map((entry) => dispatch(addTempEntry(entry)));
       }
+      updatedEntries = [...tempEntries, ...newTempEntries];
     } catch (error) {
       const errorMsg = error?.data?.message || error.message;
       setError(errorMsg);
-    }
-
-    if (!res) return;
-    const updatedCategories = [...res.categories];
-    const newCategoryNames = res.categories.map((cat) => cat.name);
-    console.log(newCategoryNames);
-    categories.map(
-      (cat) =>
-        !newCategoryNames.includes(cat.name) && updatedCategories.push(cat)
-    );
-    try {
-      const result = await updateLog({
-        id: logId,
-        data: { categories: updatedCategories, entries: tempEntries },
-      }).unwrap();
-
-      setLastAction(Date.now());
-    } catch (error) {
-      const errorMsg = error?.data?.message || error.message;
-      setError(errorMsg);
+    } finally {
+      if (!res) return;
+      const updatedCategories = [...res.categories];
+      const newCategoryNames = res.categories.map((cat) => cat.name);
+      console.log(newCategoryNames);
+      categories.map(
+        (cat) =>
+          !newCategoryNames.includes(cat.name) && updatedCategories.push(cat)
+      );
+      try {
+        console.log(updatedEntries);
+        const result = await updateLog({
+          id: logId,
+          data: { categories: updatedCategories, entries: updatedEntries },
+        }).unwrap();
+        setLastAction(Date.now());
+      } catch (error) {
+        const errorMsg = error?.data?.message || error.message;
+        setError(errorMsg);
+      }
     }
 
     setError("");
     setFile(null);
-    setAc(false);
-    setIsImporting(false);
+    setActiveAction("");
     fileInputRef.current.value = null;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!expense || !amount || !selectedCategory) {
-      setError("Please fill out all fields");
+      setError("Please fill out fields with valid input");
       return;
     }
     if (amount <= 0) {
@@ -114,7 +115,7 @@ const AddEntryForm = ({ categories, setActiveAction, setLastAction }) => {
     }
     const newLog = {
       expense,
-      amount,
+      amount: +amount,
       category,
       date: new Date().toISOString(),
     };

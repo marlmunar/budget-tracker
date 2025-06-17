@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { TbFilter } from "react-icons/tb";
 import ExpenseListItem from "./ExpenseListItem";
 import NoRecords from "./NoRecords";
@@ -25,22 +25,22 @@ const ExpenseList = ({ categories }) => {
     }
   }, [categories]);
 
+  const filteredList = tempEntries.filter((entry) =>
+    selectedCategories.includes(entry.category.name)
+  );
+
   useEffect(() => {
     setIsVisible(false);
     setTimeout(() => {
       setIsVisible(true);
     }, 50);
-  }, [tempEntries]);
+  }, [selectedCategories, tempEntries]);
 
   const [entry, setEntry] = useState({
     expense: "",
     amount: "",
     category: { name: "", color: "" },
   });
-
-  const filteredList = tempEntries.filter((entry) =>
-    selectedCategories.includes(entry.category.name)
-  );
 
   return (
     <section className="log-section-container">

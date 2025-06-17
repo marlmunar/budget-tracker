@@ -90,7 +90,7 @@ const Logs = ({ setUserLogs, setLastUpdate }) => {
             {isVisible &&
               results.map((log) => (
                 <motion.div
-                  key={log.id}
+                  key={log._id}
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4 }}
