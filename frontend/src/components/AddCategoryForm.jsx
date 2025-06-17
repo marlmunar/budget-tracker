@@ -6,8 +6,7 @@ import { useUpdateLogMutation } from "../slices/logsApiSlice";
 const AddCategoryForm = ({
   logId,
   categories,
-  setIsAddingEntry,
-  setIsAddingCategory,
+  setActiveAction,
   setLastAction,
 }) => {
   const [name, setName] = useState("");
@@ -34,8 +33,7 @@ const AddCategoryForm = ({
 
       setName("");
       setColor("#000000");
-      setIsAddingCategory(false);
-      setIsAddingEntry(true);
+      setActiveAction("Adding Entry");
       setLastAction(Date.now());
     } catch (error) {
       console.log(error?.data?.message || error.message);
@@ -53,8 +51,7 @@ const AddCategoryForm = ({
         <button
           className="log-tool-button my-1 mr-2.5"
           onClick={() => {
-            setIsAddingCategory(false);
-            setIsAddingEntry(true);
+            setActiveAction("Adding Entry");
           }}
         >
           <TbArrowLeft />

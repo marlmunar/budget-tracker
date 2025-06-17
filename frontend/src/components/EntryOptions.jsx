@@ -1,11 +1,7 @@
 import { useState } from "react";
 import { TbPlus, TbDots, TbArrowLeft } from "react-icons/tb";
 
-const EntryOptions = ({
-  setIsAddingEntry,
-  setIsEditingCategories,
-  setIsDeletingCategory,
-}) => {
+const EntryOptions = ({ setActiveAction }) => {
   const [isSelecting, setIsSelecting] = useState(false);
 
   return (
@@ -25,13 +21,13 @@ const EntryOptions = ({
             <div className="flex flex-col gap-1 p-2">
               <button
                 className="entry-button"
-                onClick={() => setIsEditingCategories(true)}
+                onClick={() => setActiveAction("Editing Category")}
               >
                 Edit Categories
               </button>
               <button
                 className="entry-button"
-                onClick={() => setIsDeletingCategory(true)}
+                onClick={() => setActiveAction("Deleting Category")}
               >
                 Delete Categories
               </button>
@@ -43,7 +39,7 @@ const EntryOptions = ({
           <div className="bg-slate-100 rounded p-1 h-[min-content] w-[min-content]">
             <button
               className="log-tool-button"
-              onClick={() => setIsAddingEntry(true)}
+              onClick={() => setActiveAction("Adding Entry")}
             >
               <TbPlus />
             </button>

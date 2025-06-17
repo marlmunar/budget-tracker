@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 const DeleteCategoryForm = ({
   logId,
   categories,
-  setIsDeletingCategory,
+  setActiveAction,
   setLastAction,
 }) => {
   const [tempCategories, setTempCategories] = useState(categories);
@@ -54,7 +54,7 @@ const DeleteCategoryForm = ({
       <div className="log-section-header">
         <button
           className="log-tool-button my-1 mr-2.5"
-          onClick={() => setIsDeletingCategory(false)}
+          onClick={() => setActiveAction("")}
         >
           <TbArrowLeft />
         </button>

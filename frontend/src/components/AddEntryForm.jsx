@@ -16,12 +16,7 @@ import {
 } from "../slices/logsApiSlice";
 import { useParams } from "react-router-dom";
 
-const AddEntryForm = ({
-  categories,
-  setIsAddingEntry,
-  setIsAddingCategory,
-  setLastAction,
-}) => {
+const AddEntryForm = ({ categories, setActiveAction, setLastAction }) => {
   const dispatch = useDispatch();
   const { logId } = useParams();
   const [importLog] = useImportLogMutation();
@@ -44,8 +39,6 @@ const AddEntryForm = ({
       Object.fromEntries(keys.map((key) => [key, entry[key]]))
     );
   });
-
-  const categoryNames = categories.map((cat) => cat.name);
 
   const handleChange = (e) => {
     if (!e.target.files[0].name) return;
@@ -104,7 +97,7 @@ const AddEntryForm = ({
 
     setError("");
     setFile(null);
-    setIsAddingEntry(false);
+    setAc(false);
     setIsImporting(false);
     fileInputRef.current.value = null;
   };
@@ -126,7 +119,7 @@ const AddEntryForm = ({
       date: new Date().toISOString(),
     };
     dispatch(addTempEntry(newLog));
-    setIsAddingEntry(false);
+    setActiveAction("");
     dispatch(setIsNotSaved(true));
   };
 
@@ -135,7 +128,7 @@ const AddEntryForm = ({
       <div className="log-section-header">
         <button
           className="log-tool-button my-1 mr-2.5"
-          onClick={() => setIsAddingEntry(false)}
+          onClick={() => setActiveAction("")}
         >
           <TbArrowLeft />
         </button>
@@ -257,8 +250,7 @@ const AddEntryForm = ({
                         <li
                           className="log-options"
                           onClick={() => {
-                            setIsAddingEntry(false);
-                            setIsAddingCategory(true);
+                            setActiveAction("Adding Category");
                           }}
                         >
                           <TbCirclePlus /> Add New

@@ -13,7 +13,7 @@ import { setIsNotSaved, setTempEntries } from "../slices/logSlice";
 const EditCategoryForm = ({
   logId,
   categories,
-  setIsEditingCategories,
+  setActiveAction,
   setLastAction,
 }) => {
   const dispatch = useDispatch();
@@ -57,7 +57,7 @@ const EditCategoryForm = ({
       setLastAction(Date.now());
       dispatch(setTempEntries(newTempEntries));
       dispatch(setIsNotSaved(true));
-      setIsEditingCategories(false);
+      setActiveAction("");
     } catch (error) {
       console.log(error?.data?.message || error.message);
     }
@@ -73,7 +73,7 @@ const EditCategoryForm = ({
       <div className="log-section-header">
         <button
           className="log-tool-button my-1 mr-2.5"
-          onClick={() => setIsEditingCategories(false)}
+          onClick={() => setActiveAction("")}
         >
           <TbArrowLeft />
         </button>
