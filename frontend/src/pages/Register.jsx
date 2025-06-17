@@ -64,7 +64,7 @@ const Register = () => {
   };
 
   return (
-    <main>
+    <main className="overflow-hidden">
       <title>Budgetarians' Log - Register</title>
       <AnimatePresence mode="wait">
         {isVisible && (
@@ -74,6 +74,7 @@ const Register = () => {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 100 }}
             transition={{ duration: 0.5 }}
+            className="overflow-hidden"
           >
             <FormContainer>
               <form

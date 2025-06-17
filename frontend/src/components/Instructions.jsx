@@ -4,11 +4,6 @@ import { motion } from "framer-motion";
 const Instructions = () => {
   return (
     <HomeCard title={"How to use this log?"}>
-      <motion.div
-        initial={{ opacity: 0, x: -50 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.5 }}
-      ></motion.div>
       <div className="px-4 max-w-[65ch] text-lg">
         <motion.div
           initial={{ opacity: 0, x: -50 }}
