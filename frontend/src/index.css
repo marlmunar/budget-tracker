@@ -12,7 +12,7 @@ input::-webkit-inner-spin-button {
 }
 
 button {
-  @apply cursor-pointer;
+  @apply cursor-pointer active:scale-95;
 }
 
 button > * {
