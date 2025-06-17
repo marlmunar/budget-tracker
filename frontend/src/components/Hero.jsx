@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { startLoading, stopLoading } from "../slices/appSlice";
 import { useLazyGetLogsQuery } from "../slices/logsApiSlice";
+import { AnimatePresence, motion } from "framer-motion";
 
 const Hero = () => {
   const textRef = useRef(null);
@@ -105,35 +106,45 @@ const Hero = () => {
               alt="Image about budgeting"
             />
           </div>
-          <div className="z-5 bg-amber-50/70 p-4 lg:max-w-[min-content] rounded shadow-lg flex flex-col">
-            {!!userInfo ? (
-              <>
-                <p className="text-2xl font-semibold">Welcome Back!</p>
-                <p>What do you want to visit?</p>
-                <div className="flex gap-2 mt-4">
-                  <Link className="hero-button" to={`/log/${lastLog?._id}`}>
-                    Last log
-                  </Link>
-                  <Link className="hero-button" to="/profile">
-                    All logs
-                  </Link>
-                </div>
-              </>
-            ) : (
-              <>
-                <p className="text-2xl font-semibold ">Become a Budgetarian</p>
-                <p>Start your journey!</p>
-                <div className="flex gap-2 mt-4">
-                  <Link className="hero-button" to="/login">
-                    Log In
-                  </Link>
-                  <Link className="hero-button" to="/register">
-                    Sign Up
-                  </Link>
-                </div>
-              </>
-            )}
-          </div>
+
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            className="z-10"
+          >
+            <div className=" bg-amber-50/70 p-4 lg:max-w-[min-content] rounded shadow-lg flex flex-col">
+              {!!userInfo ? (
+                <>
+                  <p className="text-2xl font-semibold">Welcome Back!</p>
+                  <p>What do you want to visit?</p>
+                  <div className="flex gap-2 mt-4">
+                    <Link className="hero-button" to={`/log/${lastLog?._id}`}>
+                      Last log
+                    </Link>
+                    <Link className="hero-button" to="/profile">
+                      All logs
+                    </Link>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <p className="text-2xl font-semibold ">
+                    Become a Budgetarian
+                  </p>
+                  <p>Start your journey!</p>
+                  <div className="flex gap-2 mt-4">
+                    <Link className="hero-button" to="/login">
+                      Log In
+                    </Link>
+                    <Link className="hero-button" to="/register">
+                      Sign Up
+                    </Link>
+                  </div>
+                </>
+              )}
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>
