@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { TbPencil, TbArrowsDiagonal2, TbTrash } from "react-icons/tb";
 import { useState } from "react";
-
+import { motion } from "framer-motion";
 import ConfirmModal from "./ConfirmModal";
 import RenameModal from "./RenameModal";
 import {
