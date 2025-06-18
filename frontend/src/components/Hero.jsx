@@ -52,7 +52,7 @@ const Hero = () => {
 
   return (
     <section className="hero">
-      <div className=" relative border-2 border-dotted m-2 p-5 flex flex-col gap-2  justify-center order-1 md:order-none shadow-lg">
+      <div className="relative border-2 border-dotted m-2 p-5 flex flex-col gap-2 justify-center order-1 md:order-none shadow-lg">
         <div className="absolute m-4 top-0 right-0 flex flex-col items-end gap-2">
           <button
             className="rounded text-2xl p-2 hover:shadow hover:shadow-slate-400 transition-all duration-300"
@@ -97,8 +97,8 @@ const Hero = () => {
         </div>
       </div>
 
-      <div className="p-4  bg-amber-200  row-span-2 rounded shadow-lg">
-        <div className="relative p-10 bg-slate-50 flex flex-col justify-end gap-2 h-full rounded shadow">
+      <div className="p-2 min-h-[55vh] grid md:p-4 bg-amber-200  row-span-2 rounded shadow-lg">
+        <div className="relative p-2 md:p-10 bg-slate-50 flex flex-col justify-end gap-2 h-[100%] rounded shadow">
           <div className="absolute z-0 w-full h-full top-0 right-0">
             <img
               className="object-cover w-full h-full"
