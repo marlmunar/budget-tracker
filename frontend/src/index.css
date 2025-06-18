@@ -101,7 +101,7 @@ button > * {
 }
 
 .form-container {
-  @apply mx-auto shadow-lg rounded max-w-[80vw] lg:max-w-[45vw] border-y-2 border-slate-700 md:h-[min-content];
+  @apply mx-auto shadow-lg text-sm md:text-base rounded lg:max-w-[45vw] border-y-2 border-slate-700 md:h-[min-content];
 }
 
 .form-body {
@@ -118,7 +118,7 @@ button > * {
 }
 
 .form-input {
-  @apply rounded min-h-8 px-2 w-[90%] border-2;
+  @apply bg-white rounded min-h-8 px-2 w-[90%] border-2;
 }
 
 .tool-button {
