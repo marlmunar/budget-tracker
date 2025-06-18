@@ -1,6 +1,6 @@
 const FormContainer = ({ children }) => {
   return (
-    <div className="form-container overflow-hidden bg-gray-50">
+    <div className="form-container my-5 overflow-hidden bg-gray-50">
       <div className="relative justify-between h-full">
         <div className="relative z-10">{children}</div>
         <div className="absolute bottom-0 right-0">
