@@ -67,8 +67,16 @@ const Header = () => {
       <div className="header-container">
         <Link to="/">
           <div className="flex items-center gap-2">
-            <img src={favicon} alt="Website logo" width="40" height="40" />
-            <h1 className="header-h1">Budgetarians' Log</h1>
+            <img
+              className="h-15 w-15 md:h-10 md:w-10"
+              src={favicon}
+              alt="Website logo"
+              // width="40"
+              // height="40"
+            />
+            <h1 className="header-h1 hidden md:block text-white">
+              Budgetarians' Log
+            </h1>
           </div>
         </Link>
 

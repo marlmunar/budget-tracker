@@ -21,12 +21,13 @@ button > * {
 
 .header {
   @apply py-3 text-lg
-   bg-[#ffd700] text-[#040F0F];
+  bg-[#ffd700] text-[#040F0F]
+  rounded-b-lg;
 }
 
 .header-container {
   @apply container mx-auto px-4
-  min-h-20
+  min-h-10
   flex items-center justify-between md:px-10;
 }
 
