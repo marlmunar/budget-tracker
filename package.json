@@ -5,7 +5,10 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "devServer": "nodemon backend/server.js"
+    "devServer": "nodemon backend/server.js",
+    "buil": "npm install && npm install --prefix frontend && npm run build --prefix frontend",
+    "devStart": "node backend/server.js",
+    "start": "NODE_ENV=production node backend/server.js"
   },
   "repository": {
     "type": "git",
