@@ -27,7 +27,7 @@ button > * {
 
 .header-container {
   @apply container mx-auto px-4
-  min-h-10
+  min-h-10 md:min-h-14
   flex items-center justify-between md:px-10;
 }
 
