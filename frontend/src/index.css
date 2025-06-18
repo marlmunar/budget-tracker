@@ -20,19 +20,19 @@ button > * {
 }
 
 .header {
-  @apply py-3 text-lg
+  @apply py-3 
   bg-[#ffd700] text-[#040F0F]
   rounded-b-lg;
 }
 
 .header-container {
-  @apply container mx-auto px-4
+  @apply mx-auto px-4
   min-h-10 md:min-h-14
   flex items-center justify-between md:px-10;
 }
 
 .header-h1 {
-  @apply text-2xl font-semibold;
+  @apply text-xl md:text-2xl font-semibold;
 }
 
 .hamburger {
