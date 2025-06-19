@@ -144,7 +144,7 @@ const UserSettings = () => {
                         />
                       </div>
                       <div className="pl-1 text-red-500 text-sm">{error}</div>
-                      <div className="button-row border justify-self-end">
+                      <div className="button-row justify-self-end">
                         <button formNoValidate onClick={(e) => saveEmail(e)}>
                           Update
                         </button>
