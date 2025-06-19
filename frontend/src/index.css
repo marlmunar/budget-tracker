@@ -161,7 +161,7 @@ button > * {
 }
 
 .button-row button {
-  @apply bg-blue-700 shadow border-2 border-white text-white  p-1 rounded transition-all duration-300 min-w-[8.25rem]
+  @apply bg-blue-700 shadow border-2 border-white text-white  p-1 rounded transition-all duration-300 min-w-[6rem] md:min-w-[8.25rem]
    hover:shadow-slate-800 hover:border-transparent hover:shadow;
 }
 

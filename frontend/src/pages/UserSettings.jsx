@@ -106,7 +106,7 @@ const UserSettings = () => {
         transition={{ duration: 0.5 }}
         className="overflow-hidden"
       >
-        <main className="lg:w-[50%] mx-auto mt-2 rounded p-2 shadow-lg">
+        <main className="my-5 lg:w-[50%] mx-auto mt-2 rounded p-1 md:p-2 shadow-lg">
           <div className="flex gap-2 text-2xl items-center p-2">
             <Link className="log-button" to="/profile">
               <TbArrowBackUp />
@@ -131,7 +131,7 @@ const UserSettings = () => {
                 {activeSettings === "email" && (
                   <form method="POST">
                     <div className="flex p-4 flex-col gap-2 justify-center shadow rounded">
-                      <div className="flex flex-col justify-center w-[50%]">
+                      <div className="flex flex-col justify-center md:w-[50%]">
                         <label htmlFor="email">Enter new email:</label>
                         <input
                           name="email"
@@ -144,7 +144,7 @@ const UserSettings = () => {
                         />
                       </div>
                       <div className="pl-1 text-red-500 text-sm">{error}</div>
-                      <div className="button-row justify-self-end">
+                      <div className="button-row border justify-self-end">
                         <button formNoValidate onClick={(e) => saveEmail(e)}>
                           Update
                         </button>
@@ -170,7 +170,7 @@ const UserSettings = () => {
                   <form method="POST">
                     <div className="flex p-4 flex-col gap-2 justify-center shadow rounded">
                       <div className="flex flex-col gap-2">
-                        <div className="flex flex-col justify-center w-[50%]">
+                        <div className="flex flex-col justify-center md:w-[50%]">
                           <label htmlFor="password">Enter new password:</label>
                           <input
                             name="password"
@@ -182,7 +182,7 @@ const UserSettings = () => {
                             required
                           />
                         </div>
-                        <div className="flex flex-col justify-center w-[50%]">
+                        <div className="flex flex-col justify-center md:w-[50%]">
                           <label htmlFor="newPassword">
                             Confirm new password:
                           </label>
@@ -231,7 +231,7 @@ const UserSettings = () => {
                 {activeSettings === "income" && (
                   <form method="POST">
                     <div className="flex p-4 flex-col gap-2 justify-center shadow rounded">
-                      <div className="flex flex-col justify-center w-[50%]">
+                      <div className="flex flex-col justify-center md:w-[50%]">
                         <label htmlFor="income">Enter monthly income:</label>
                         <input
                           name="income"
@@ -267,7 +267,7 @@ const UserSettings = () => {
                 {activeSettings === "goals" && (
                   <form method="POST">
                     <div className="flex p-4 flex-col gap-2 justify-center shadow rounded">
-                      <div className="flex flex-col justify-center w-[50%]">
+                      <div className="flex flex-col justify-center md:w-[50%]">
                         <label htmlFor="savingGoals">Enter new goal:</label>
                         <input
                           name="savingGoals"
