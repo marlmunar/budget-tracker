@@ -136,7 +136,7 @@ button > * {
 }
 
 .log-section-header {
-  @apply bg-slate-400 p-2 px-3 rounded shadow text-xl font-semibold h-14 flex items-center;
+  @apply bg-slate-400 p-2 px-3 rounded shadow text-lg lg:text-xl font-semibold h-14 flex items-center;
 }
 
 .input-row {
@@ -166,7 +166,7 @@ button > * {
 }
 
 .log-button {
-  @apply p-1 flex items-center justify-center rounded cursor-pointer w-12 h-12 text-5xl
+  @apply p-1 flex items-center justify-center rounded cursor-pointer w-12 h-12 text-3xl lg:text-5xl
   hover:bg-slate-300/50 hover:shadow-md hover:border-transparent
     transition-all duration-300;
 }
@@ -180,7 +180,7 @@ menu li {
 }
 
 .log-tool-button {
-  @apply flex justify-center items-center text-2xl border-2 p-1 h-8 w-8 rounded transition-all duration-300 
+  @apply flex justify-center items-center text-lg lg:text-2xl border-2 p-1 h-8 w-8 rounded transition-all duration-300 
    hover:bg-slate-600/50 hover:shadow-slate-800 hover:border-transparent;
 }
 

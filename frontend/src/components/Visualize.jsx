@@ -192,7 +192,9 @@ const Visualize = () => {
               <TbArrowBackUp />
             </Link>
 
-            <h2 className="text-2xl font-semibold underline">{logData.name}</h2>
+            <h2 className="text-xl md:text-2xl font-semibold underline">
+              {logData.name}
+            </h2>
           </div>
 
           <div className="ml-auto shadow min-h-30 lg:max-w-[65%] grow p-4 rounded mb-2">
@@ -221,7 +223,7 @@ const Visualize = () => {
                     ))}
                 </div>
                 <div className="ml-auto min-w-[75%] flex flex-col justify-end items-end mb-2">
-                  <h2 className="text-2xl font-semibold mb-2">{`Total: ${total}`}</h2>
+                  <h2 className="text-lg md:text-2xl font-semibold mb-2">{`Total: ${total}`}</h2>
                   <div
                     ref={parentRef}
                     className="ml-auto h-5 rounded-xl overflow-hidden grid grid-rows-1 grid-cols-[repeat(auto-fill,min-content)] grid-flow-col auto-cols-auto w-full max-w-150"

@@ -145,7 +145,7 @@ const LogScreen = () => {
     //   transition={{ duration: 0.5 }}
     //   className="overflow-hidden"
     // >
-    <main className="mx-auto my-2 md:max-w-[90%] lg:max-w-[80%]">
+    <main className="mx-auto my-5 md:max-w-[90%] lg:max-w-[80%]">
       <title>{`Budgetarians' Log ${
         logData.name ? `- ${logData.name}` : ""
       }`}</title>
@@ -155,7 +155,9 @@ const LogScreen = () => {
             <TbArrowBackUp />
           </Link>
 
-          <h2 className="text-2xl font-semibold underline">{displayName}</h2>
+          <h2 className="text-xl md:text-2xl font-semibold underline">
+            {displayName}
+          </h2>
         </div>
 
         {error && (
@@ -165,8 +167,8 @@ const LogScreen = () => {
         )}
 
         <div className="relative flex text-3xl">
-          <div className="flex items-center gap-2">
-            <span className="text-sm italic">
+          <div className="flex items-center">
+            <span className="text-[0.65rem] md:text-sm italic">
               <LogScreenStatus
                 isNotSaved={isNotSaved}
                 lastAction={lastAction}
