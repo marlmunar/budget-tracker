@@ -182,7 +182,7 @@ const Visualize = () => {
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.4 }}
       >
-        <div className="lg:flex mb-2 gap-2 text-3xl justify-start w-full">
+        <div className="my-5 lg:flex mb-2 gap-2 text-3xl justify-start w-full">
           <div className="flex items-center max-h-[min-content]">
             <Link className="log-button" to={`/log/${logId}`}>
               <TbArrowBackUp />
