@@ -60,7 +60,11 @@ const Visualize = () => {
     .map((_, i) => {
       if (i >= firstDay && i < firstDay + daysInMonth) {
         let value = i - firstDay + 1;
-        if (presentMonth === month && presentDate === value) {
+        if (
+          presentMonth === month &&
+          presentDate === value &&
+          new Date().getFullYear() === year
+        ) {
           return { type: "today", value };
         }
         return { type: "day", value };
@@ -258,11 +262,12 @@ const Visualize = () => {
               {"NEXT >"}
             </button>
           </div>
-          <div className="p-1 grow min-h-[100%] grid grid-cols-7 grid-rows-[3rem_repeat(6,minmax(10rem,1fr))] border-2 rounded gap-1">
+          {/* <div className="overflow-scroll p-1 grow min-h-[100%] grid grid-cols-[repeat(7, minmax(min-content,1fr))] grid-rows-[3rem_repeat(6,minmax(10rem,1fr))] border-2 rounded gap-1"> */}
+          <div className="overflow-x-scroll border-2 rounded gap-1 p-1 lg:overflow-auto grid grid-cols-[repeat(7,minmax(min-content,1fr))] w-full  grid-rows-[3rem_repeat(6,minmax(10rem,1fr))] align-middle">
             {days.map((day) => (
               <div
                 key={day}
-                className="truncate p-2 border flex justify-center items-center font-semibold"
+                className="p-2 min-w-[10rem] max-w-[10rem] lg:max-w-none flex justify-center items-center font-semibold"
               >
                 {day}
               </div>
@@ -281,34 +286,35 @@ const Visualize = () => {
               return (
                 <div
                   key={i}
-                  className={`${styles} rounded p-2 flex flex-col lg:grid grid-cols-[11%_88%] items-start`}
+                  className={`${styles} rounded p-2 flex flex-col lg:grid grid-cols-[11%_88%] items-start min-w-[10rem] max-w-[10rem] lg:max-w-none`}
                 >
                   <span>{cell.value}</span>
 
-                  {daysWithEntries.includes(cell.value) && (
-                    <div className="bg-white rounded w-full h-full text-xs flex flex-col p-1 gap-1">
-                      {entries.map((entry, index) =>
-                        new Date(entry.date.split("T")[0]).getDate() ===
-                          cell.value && cell.type !== "filler" ? (
-                          <span
-                            key={index}
-                            className="px-2 rounded w-full truncate"
-                            style={{ backgroundColor: entry.category.color }}
-                          >
-                            <span className="font-semibold">
-                              {entry.amount}
+                  {daysWithEntries.includes(cell.value) &&
+                    cell.type !== "filler" && (
+                      <div className="bg-white rounded w-full h-full text-xs flex flex-col p-1 gap-1 border-2 border-indigo-700/55">
+                        {entries.map((entry, index) =>
+                          new Date(entry.date.split("T")[0]).getDate() ===
+                            cell.value && cell.type !== "filler" ? (
+                            <span
+                              key={index}
+                              className="px-2 rounded w-full truncate"
+                              style={{ backgroundColor: entry.category.color }}
+                            >
+                              <span className="font-semibold">
+                                {entry.amount}
+                              </span>
+                              <span>
+                                {" - "}
+                                {entry.category.name}
+                              </span>
                             </span>
-                            <span>
-                              {" - "}
-                              {entry.category.name}
-                            </span>
-                          </span>
-                        ) : (
-                          ""
-                        )
-                      )}
-                    </div>
-                  )}
+                          ) : (
+                            ""
+                          )
+                        )}
+                      </div>
+                    )}
                 </div>
               );
             })}
