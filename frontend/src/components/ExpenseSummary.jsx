@@ -19,14 +19,14 @@ const ExpenseSummary = ({ entries }) => {
 
       {entries.length > 0 ? (
         <>
-          <div className="flex justify-between px-2 pt-2 font-semibold text-xl">
+          <div className="flex justify-between px-2 pt-2 font-semibold text-lg md:text-xl">
             <h3>{`Entries: ${entries.length}`}</h3>
             <h3>{`Total: ${entries.reduce(
               (sum, entry) => +entry.amount + sum,
               0
             )}`}</h3>
           </div>
-          <div className="flex text-gray-600 justify-between px-2 pb-1 font-semibold text-lg">
+          <div className="flex text-gray-600 justify-between px-2 pb-1 font-semibold text-base md:text-lg">
             <h3>Category</h3>
             <h3>Subtotal</h3>
           </div>
