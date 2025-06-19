@@ -24,7 +24,7 @@ const Profile = () => {
         transition={{ duration: 0.5 }}
         className="overflow-hidden"
       >
-        <main className="flex flex-col justify-between gap-10 lg:grid lg:grid-cols-[34%_64%] xl:grid-cols-[29%_69%]">
+        <main className="my-5 flex flex-col justify-between gap-10 lg:grid lg:grid-cols-[34%_64%] xl:grid-cols-[29%_69%]">
           <title>
             {`Budgetarians' Log - ${userInfo ? userInfo.name : "User Name"}`}
           </title>

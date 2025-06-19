@@ -145,7 +145,7 @@ const LogScreen = () => {
     //   transition={{ duration: 0.5 }}
     //   className="overflow-hidden"
     // >
-    <main className="mx-auto md:max-w-[90%] lg:max-w-[80%]">
+    <main className="mx-auto my-2 md:max-w-[90%] lg:max-w-[80%]">
       <title>{`Budgetarians' Log ${
         logData.name ? `- ${logData.name}` : ""
       }`}</title>
