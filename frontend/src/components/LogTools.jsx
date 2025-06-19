@@ -50,14 +50,14 @@ const LogTools = ({ searchState, setSearchState }) => {
             <TbPlus className="text-xl lg:hidden" />
           </button>
         </div>
-        <div className="flex gap-2">
+        <div className="flex justify-end grow gap-2 border">
           {showSearch && (
             <form
               method="POST"
-              className="bg-white border text-black rounded-xl px-4 min-h-8 lg:w-[16.5rem] lg:max-w-none flex items-center justify-between"
+              className="bg-white border text-black rounded-xl px-4 min-h-8  lg:w-[16.5rem] lg:max-w-none flex items-center justify-between"
             >
               <input
-                className="focus:outline-none focus:ring-0"
+                className="focus:outline-none focus:ring-0 max-w-[10rem]"
                 type="text"
                 id="search-log"
                 placeholder="Search by name..."
