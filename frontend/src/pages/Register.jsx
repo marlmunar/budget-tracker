@@ -140,15 +140,17 @@ const Register = () => {
 
                 <div className="mt-10">
                   <p>Already a user?</p>
-                  <span
-                    className="underline cursor-pointer"
-                    onClick={() => {
+                  <a
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault();
                       setIsVisible(false);
                       setTimeout(() => navigate("/login"), 450);
                     }}
+                    className="underline cursor-pointer"
                   >
-                    Log In Instead
-                  </span>
+                    Sign Up Instead
+                  </a>
                 </div>
               </form>
             </FormContainer>

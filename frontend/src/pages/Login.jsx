@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import FormContainer from "../components/FormContainer";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -100,15 +100,18 @@ const Login = () => {
 
                 <div className="mt-10">
                   <p>New user?</p>
-                  <span
-                    className="underline cursor-pointer"
-                    onClick={() => {
+
+                  <a
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault();
                       setIsVisible(false);
                       setTimeout(() => navigate("/register"), 450);
                     }}
+                    className="underline cursor-pointer"
                   >
                     Sign Up Instead
-                  </span>
+                  </a>
                 </div>
               </form>
             </FormContainer>

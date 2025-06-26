@@ -50,7 +50,7 @@ const LogTools = ({ searchState, setSearchState }) => {
             <TbPlus className="text-xl lg:hidden" />
           </button>
         </div>
-        <div className="flex justify-end grow gap-2 border">
+        <div className="flex justify-end grow gap-2">
           {showSearch && (
             <form
               method="POST"
