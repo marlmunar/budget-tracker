@@ -51,7 +51,7 @@ const Register = () => {
     return emailRegex.test(testEmail);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!name) {
@@ -87,9 +87,9 @@ const Register = () => {
         throw new Error("Passwords do not match");
       }
 
-      // const res = await register({ name, email, password }).unwrap();
+      const res = await register({ name, email, password }).unwrap();
 
-      // dispatch(setCredentials({ ...res }));
+      dispatch(setCredentials({ ...res }));
       loginChannel.postMessage("login");
       navigate("/");
     } catch (error) {

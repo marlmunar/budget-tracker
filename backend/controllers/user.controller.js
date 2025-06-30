@@ -2,18 +2,32 @@ import asyncHandler from "express-async-handler";
 import User from "../models/user.model.js";
 import generateToken from "../utils/generateToken.js";
 
+// @desc Verify Email
+// @route POST /api/users/verify
+// @access PUBLIC
+const verifyEmail = asyncHandler(async (req, res) => {
+  const { email } = req.body;
+
+  if (!email) {
+    res.status(400);
+    throw new Error("Email is required");
+  }
+
+  const userExist = await User.findOne({ email });
+
+  if (userExist) {
+    return res.status(200).json({ available: false });
+  }
+
+  return res.status(200).json({ available: true });
+});
+
 // @desc Register User
 // @route POST /api/users
 // @access PUBLIC
 const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body;
   const stats = { monthlyIncome: "blank", savingGoals: "blank" };
-
-  const userExist = await User.findOne({ email });
-  if (userExist) {
-    res.status(400);
-    throw new Error("User already exists");
-  }
 
   const user = await User.create({ name, email, password, stats });
 
@@ -116,4 +130,11 @@ const updateProfile = asyncHandler(async (req, res) => {
   });
 });
 
-export { registerUser, loginUser, logoutUser, getProfile, updateProfile };
+export {
+  verifyEmail,
+  registerUser,
+  loginUser,
+  logoutUser,
+  getProfile,
+  updateProfile,
+};
