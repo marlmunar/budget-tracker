@@ -137,12 +137,12 @@ const Register = () => {
             Set Password
           </h1>
 
-          <form onSubmit={handleSubmit} className="h-full md:w-[65%]">
+          <form onSubmit={finishSignUp} className="h-full md:w-[65%]">
             <div className="form-input-container">
               <label htmlFor="password">Password</label>
               <input
                 className="form-input"
-                type="text"
+                type="password"
                 name="password"
                 autoComplete="off"
                 value={password}
@@ -154,11 +154,11 @@ const Register = () => {
               <label htmlFor="confirmPassword">Confirm Password</label>
               <input
                 className="form-input"
-                type="email"
+                type="password"
                 name="confirmPassword"
                 autoComplete="off"
                 value={confirmPassword}
-                nChange={(e) => setConfirmPassword(e.target.value)}
+                onChange={(e) => setConfirmPassword(e.target.value)}
                 required
               />
             </div>
