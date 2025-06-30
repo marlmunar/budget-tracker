@@ -52,8 +52,10 @@ const Login = () => {
     <main className="my-[-5px] z-0 rounded overflow-hidden flex flex-col gap-5 w-full h-[calc(100%+5px)]">
       <title>Budgetarians' Log - Login</title>
 
-      <FormContainer title={"Login"}>
-        <form onSubmit={handleSubmit} className="h-full">
+      <FormContainer>
+        <h1 className="text-2xl font-semibold h-[min-content]">Login</h1>
+
+        <form onSubmit={handleSubmit} className="h-[min-content] md:w-[65%]">
           <div className="form-input-container">
             <label htmlFor="email">Email</label>
             <input
@@ -86,7 +88,7 @@ const Login = () => {
           </button>
         </form>
 
-        <div className="p-1">
+        <div className="p-1 rounded h-full row-span-2 md:flex flex-col justify-end md:bg-amber-300/75 md:absolute right-0 top-0 md:w-[30%] lg:py-6 md:p-4 md:shadow-[2px_0_6px_rgba(0,0,0,0.1)]">
           <p>New user?</p>
 
           <a
@@ -96,6 +98,7 @@ const Login = () => {
               // setIsVisible(false);
               setTimeout(() => navigate("/register"), 450);
             }}
+            s
             className="underline cursor-pointer"
           >
             Sign Up Instead

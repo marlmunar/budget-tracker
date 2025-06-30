@@ -3,7 +3,7 @@ import FormContainer from "../components/FormContainer";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsLoggingIn } from "../slices/userSlice";
-import { useRegisterMutation } from "../slices/userApiSlice";
+import { useRegisterMutation, useVerifyMutation } from "../slices/userApiSlice";
 import { setCredentials } from "../slices/authSlice";
 const loginChannel = new BroadcastChannel("login_channel");
 
@@ -15,7 +15,8 @@ const Register = () => {
   const [error, setError] = useState("");
   const [isSettingPassword, setIsSettingPassword] = useState(false);
 
-  const [register, { isLoading }] = useRegisterMutation();
+  const [register] = useRegisterMutation();
+  const [verify] = useVerifyMutation();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -66,9 +67,20 @@ const Register = () => {
       return setError("Invalid email");
     }
 
-    setIsSettingPassword(true);
-    navigate("/register/set-password");
-    setError("");
+    try {
+      const res = await verify({ email }).unwrap();
+
+      if (!res.available) {
+        throw new Error("User already exist");
+      }
+
+      setIsSettingPassword(true);
+      navigate("/register/set-password");
+      setError("");
+    } catch (error) {
+      const errorMsg = error?.data?.message || error.message;
+      setError(errorMsg);
+    }
   };
 
   const finishSignUp = async (e) => {
@@ -102,8 +114,12 @@ const Register = () => {
     <main className="my-[-5px] z-0 rounded overflow-hidden flex flex-col gap-5 w-full h-[calc(100%+5px)]">
       <title>Budgetarians' Log - Register</title>
       {isSettingPassword ? (
-        <FormContainer title={"Set Password"}>
-          <form onSubmit={finishSignUp}>
+        <FormContainer>
+          <h1 className="text-2xl font-semibold h-[min-content]">
+            Set Password
+          </h1>
+
+          <form onSubmit={finishSignUp} className="md:w-[65%]">
             <div className="form-input-container">
               <label htmlFor="password">Password</label>
               <input
@@ -153,8 +169,15 @@ const Register = () => {
           </form>
         </FormContainer>
       ) : (
-        <FormContainer title={"Sign Up"}>
-          <form onSubmit={handleSubmit} className="h-full">
+        <FormContainer>
+          <h1 className="text-2xl font-semibold h-[min-content] relative md:left-[32%] ">
+            Sign Up
+          </h1>
+
+          <form
+            onSubmit={handleSubmit}
+            className="h-full md:w-[65%] relative md:left-[32%] "
+          >
             <div className="form-input-container">
               <label htmlFor="name">Name</label>
               <input
@@ -187,7 +210,7 @@ const Register = () => {
             </button>
           </form>
 
-          <div className="p-1 mt-5">
+          <div className="p-1 rounded h-full row-span-2 md:flex flex-col justify-end md:bg-amber-300/75 md:absolute left-0 top-0 md:w-[30%] lg:py-6 md:p-4 md:shadow-[2px_0_6px_rgba(0,0,0,0.1)]">
             <p>Already a user?</p>
             <a
               href="#"
