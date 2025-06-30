@@ -1,4 +1,5 @@
 import { RxDotsHorizontal } from "react-icons/rx";
+import { TbLogin2 } from "react-icons/tb";
 import { BsPersonSquare } from "react-icons/bs";
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 import { useEffect, useState } from "react";
@@ -113,7 +114,8 @@ const Header = () => {
             !isLoggingIn && (
               <div className="login">
                 <Link className="login-button" to="/login">
-                  Log In
+                  <span>Log In</span>
+                  <TbLogin2 />
                 </Link>
 
                 <Link
