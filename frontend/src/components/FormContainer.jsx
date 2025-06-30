@@ -1,11 +1,11 @@
 import { motion, useAnimate } from "framer-motion";
 import { forwardRef, useImperativeHandle } from "react";
 const FormContainer = forwardRef(
-  ({ children, initialState, animateTo, exitTo }, ref) => {
+  ({ children, page, initialState, animateTo, exitTo, duration }, ref) => {
     const [scope, animate] = useAnimate();
 
     const handleExit = async () => {
-      await animate(scope.current, exitTo, { delay: 0.25, duration: 0.85 });
+      await animate(scope.current, exitTo, { delay: 0.25, duration });
       console.log("Triggered");
     };
 
@@ -17,6 +17,7 @@ const FormContainer = forwardRef(
       <div className="h-full w-full bg-yellow-100">
         <div className="p-4 relative h-full flex flex-col justify-start items-center">
           <motion.div
+            key={page}
             ref={scope}
             initial={initialState}
             animate={animateTo}

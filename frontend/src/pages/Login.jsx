@@ -67,6 +67,7 @@ const Login = () => {
           x: -50,
         }}
         ref={loginRef}
+        duration={0.85}
       >
         <h1 className="text-2xl font-semibold h-[min-content]">Login</h1>
 

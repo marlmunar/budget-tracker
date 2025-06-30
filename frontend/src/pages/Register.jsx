@@ -9,6 +9,7 @@ const loginChannel = new BroadcastChannel("login_channel");
 
 const Register = () => {
   const registerRef = useRef();
+  const passwordRef = useRef();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -116,30 +117,32 @@ const Register = () => {
       <title>Budgetarians' Log - Register</title>
       {isSettingPassword ? (
         <FormContainer
+          page={"set-password"}
           initialState={{ opacity: 0, y: 50 }}
           animateTo={{
             opacity: 1,
-            x: 0,
+            y: 0,
             transition: {
-              duration: 0.85,
+              duration: 0.35,
             },
           }}
           exitTo={{
             opacity: 0,
             y: 50,
           }}
-          ref={registerRef}
+          ref={passwordRef}
+          duration={0.35}
         >
-          <h1 className="text-2xl font-semibold h-[min-content]">
+          <h1 className="text-2xl font-semibold h-[min-content] ">
             Set Password
           </h1>
 
-          <form onSubmit={finishSignUp} className="md:w-[65%]">
+          <form onSubmit={handleSubmit} className="h-full md:w-[65%]">
             <div className="form-input-container">
               <label htmlFor="password">Password</label>
               <input
                 className="form-input"
-                type="password"
+                type="text"
                 name="password"
                 autoComplete="off"
                 value={password}
@@ -151,11 +154,11 @@ const Register = () => {
               <label htmlFor="confirmPassword">Confirm Password</label>
               <input
                 className="form-input"
-                type="password"
+                type="email"
                 name="confirmPassword"
                 autoComplete="off"
                 value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
+                nChange={(e) => setConfirmPassword(e.target.value)}
                 required
               />
             </div>
@@ -163,28 +166,31 @@ const Register = () => {
             <div className="pl-1 text-red-500 text-sm">{error}</div>
 
             <button type="submit" formNoValidate className="form-button">
-              Save Password
+              Sign Up
             </button>
-
-            <div className="p-1 mt-5">
-              <p>Need to change name or email?</p>
-              <a
-                href="#"
-                onClick={() => {
-                  setTimeout(() => navigate("/register"), 450);
-                  setIsSettingPassword(false);
-                  setPassword("");
-                  setConfirmPassword("");
-                }}
-                className="underline cursor-pointer"
-              >
-                Go back
-              </a>
-            </div>
           </form>
+
+          <div className="p-1 rounded h-full row-span-2 md:flex flex-col justify-end md:bg-amber-300/75 md:absolute right-0 top-0 md:w-[30%] lg:py-6 md:p-4 md:shadow-[2px_0_6px_rgba(0,0,0,0.1)]">
+            <p>Need to change name or email?</p>
+            <a
+              href="#"
+              onClick={async (e) => {
+                e.preventDefault();
+
+                if (passwordRef.current?.triggerExit) {
+                  await passwordRef.current.triggerExit();
+                  navigate("/register");
+                }
+              }}
+              className="underline cursor-pointer"
+            >
+              Go back
+            </a>
+          </div>
         </FormContainer>
       ) : (
         <FormContainer
+          page={"register"}
           initialState={{ opacity: 0, x: 50 }}
           animateTo={{
             opacity: 1,
@@ -198,6 +204,7 @@ const Register = () => {
             x: 50,
           }}
           ref={registerRef}
+          duration={0.85}
         >
           <h1 className="text-2xl font-semibold h-[min-content] relative md:left-[32%] ">
             Sign Up
