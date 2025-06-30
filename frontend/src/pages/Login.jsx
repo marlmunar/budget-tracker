@@ -1,6 +1,6 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import FormContainer from "../components/FormContainer";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsLoggingIn } from "../slices/userSlice";
 import { useLoginMutation } from "../slices/userApiSlice";
@@ -8,11 +8,12 @@ import { setCredentials } from "../slices/authSlice";
 const loginChannel = new BroadcastChannel("login_channel");
 
 const Login = () => {
+  const loginRef = useRef();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const [login, { isLoading }] = useLoginMutation();
+  const [login] = useLoginMutation();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -52,7 +53,21 @@ const Login = () => {
     <main className="my-[-5px] z-0 rounded overflow-hidden flex flex-col gap-5 w-full h-[calc(100%+5px)]">
       <title>Budgetarians' Log - Login</title>
 
-      <FormContainer>
+      <FormContainer
+        initialState={{ opacity: 0, x: -50 }}
+        animateTo={{
+          opacity: 1,
+          x: 0,
+          transition: {
+            duration: 1.25,
+          },
+        }}
+        exitTo={{
+          opacity: 0,
+          x: -50,
+        }}
+        ref={loginRef}
+      >
         <h1 className="text-2xl font-semibold h-[min-content]">Login</h1>
 
         <form onSubmit={handleSubmit} className="h-[min-content] md:w-[65%]">
@@ -93,12 +108,14 @@ const Login = () => {
 
           <a
             href="#"
-            onClick={(e) => {
+            onClick={async (e) => {
               e.preventDefault();
-              // setIsVisible(false);
-              setTimeout(() => navigate("/register"), 450);
+
+              if (loginRef.current?.triggerExit) {
+                await loginRef.current.triggerExit();
+                navigate("/register");
+              }
             }}
-            s
             className="underline cursor-pointer"
           >
             Sign Up Instead

@@ -1,6 +1,6 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import FormContainer from "../components/FormContainer";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsLoggingIn } from "../slices/userSlice";
 import { useRegisterMutation, useVerifyMutation } from "../slices/userApiSlice";
@@ -8,6 +8,7 @@ import { setCredentials } from "../slices/authSlice";
 const loginChannel = new BroadcastChannel("login_channel");
 
 const Register = () => {
+  const registerRef = useRef();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -114,7 +115,21 @@ const Register = () => {
     <main className="my-[-5px] z-0 rounded overflow-hidden flex flex-col gap-5 w-full h-[calc(100%+5px)]">
       <title>Budgetarians' Log - Register</title>
       {isSettingPassword ? (
-        <FormContainer>
+        <FormContainer
+          initialState={{ opacity: 0, y: 50 }}
+          animateTo={{
+            opacity: 1,
+            x: 0,
+            transition: {
+              duration: 0.85,
+            },
+          }}
+          exitTo={{
+            opacity: 0,
+            y: 50,
+          }}
+          ref={registerRef}
+        >
           <h1 className="text-2xl font-semibold h-[min-content]">
             Set Password
           </h1>
@@ -169,7 +184,21 @@ const Register = () => {
           </form>
         </FormContainer>
       ) : (
-        <FormContainer>
+        <FormContainer
+          initialState={{ opacity: 0, x: 50 }}
+          animateTo={{
+            opacity: 1,
+            x: 0,
+            transition: {
+              duration: 1.25,
+            },
+          }}
+          exitTo={{
+            opacity: 0,
+            x: 50,
+          }}
+          ref={registerRef}
+        >
           <h1 className="text-2xl font-semibold h-[min-content] relative md:left-[32%] ">
             Sign Up
           </h1>
@@ -214,8 +243,13 @@ const Register = () => {
             <p>Already a user?</p>
             <a
               href="#"
-              onClick={() => {
-                setTimeout(() => navigate("/login"), 450);
+              onClick={async (e) => {
+                e.preventDefault();
+
+                if (registerRef.current?.triggerExit) {
+                  await registerRef.current.triggerExit();
+                  navigate("/login");
+                }
               }}
               className="underline cursor-pointer"
             >
