@@ -1,11 +1,10 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import FormContainer from "../components/FormContainer";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsLoggingIn } from "../slices/userSlice";
 import { useRegisterMutation } from "../slices/userApiSlice";
 import { setCredentials } from "../slices/authSlice";
-import { AnimatePresence, motion } from "framer-motion";
 const loginChannel = new BroadcastChannel("login_channel");
 
 const Register = () => {
@@ -14,18 +13,31 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
-  const [isVisible, setIsVisible] = useState(true);
-  const [isSettingPassword, setIsSettingPassword] = useState(true);
+  const [isSettingPassword, setIsSettingPassword] = useState(false);
 
   const [register, { isLoading }] = useRegisterMutation();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
   const { userInfo } = useSelector((state) => state.auth);
 
   useEffect(() => {
     if (!!userInfo) navigate("/");
   }, [navigate, userInfo]);
+
+  useEffect(() => {
+    if (location.pathname === "/register") {
+      setIsSettingPassword(false);
+      setError("");
+    }
+    if (location.pathname === "/register/set-password") {
+      if (!name || !email || !validateEmail(email)) {
+        navigate("/register");
+      }
+      setIsSettingPassword(true);
+    }
+  }, [location]);
 
   useEffect(() => {
     dispatch(setIsLoggingIn(true));
@@ -38,24 +50,46 @@ const Register = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(testEmail);
   };
-  const handleSubmit = async (e) => {
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (!name) {
+      return setError("Please fill out the name field");
+    }
+
+    if (!email) {
+      return setError("Please fill out the email field");
+    }
+
+    if (!validateEmail(email)) {
+      return setError("Invalid email");
+    }
+
+    setIsSettingPassword(true);
+    navigate("/register/set-password");
+    setError("");
+  };
+
+  const finishSignUp = async (e) => {
     e.preventDefault();
 
     try {
-      if (!name || !email || !password || !confirmPassword) {
-        throw new Error("Please fill out all fields");
+      if (!password) {
+        throw new Error("Please provide a password");
       }
 
-      if (!validateEmail(email)) {
-        throw new Error("Invalid email");
+      if (!confirmPassword) {
+        throw new Error("Please confirm your password");
       }
 
       if (password !== confirmPassword) {
         throw new Error("Passwords do not match");
       }
-      const res = await register({ name, email, password }).unwrap();
 
-      dispatch(setCredentials({ ...res }));
+      // const res = await register({ name, email, password }).unwrap();
+
+      // dispatch(setCredentials({ ...res }));
       loginChannel.postMessage("login");
       navigate("/");
     } catch (error) {
@@ -69,7 +103,7 @@ const Register = () => {
       <title>Budgetarians' Log - Register</title>
       {isSettingPassword ? (
         <FormContainer title={"Set Password"}>
-          <form onSubmit={handleSubmit} className="h-full">
+          <form onSubmit={finishSignUp}>
             <div className="form-input-container">
               <label htmlFor="password">Password</label>
               <input
@@ -100,22 +134,23 @@ const Register = () => {
             <button type="submit" formNoValidate className="form-button">
               Save Password
             </button>
-          </form>
 
-          <div className="p-1">
-            <p>Already a user?</p>
-            <a
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                setIsVisible(false);
-                setTimeout(() => navigate("/login"), 450);
-              }}
-              className="underline cursor-pointer"
-            >
-              Log In Instead
-            </a>
-          </div>
+            <div className="p-1 mt-5">
+              <p>Need to change name or email?</p>
+              <a
+                href="#"
+                onClick={() => {
+                  setTimeout(() => navigate("/register"), 450);
+                  setIsSettingPassword(false);
+                  setPassword("");
+                  setConfirmPassword("");
+                }}
+                className="underline cursor-pointer"
+              >
+                Go back
+              </a>
+            </div>
+          </form>
         </FormContainer>
       ) : (
         <FormContainer title={"Sign Up"}>
@@ -152,13 +187,11 @@ const Register = () => {
             </button>
           </form>
 
-          <div className="p-1">
+          <div className="p-1 mt-5">
             <p>Already a user?</p>
             <a
               href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                setIsVisible(false);
+              onClick={() => {
                 setTimeout(() => navigate("/login"), 450);
               }}
               className="underline cursor-pointer"
