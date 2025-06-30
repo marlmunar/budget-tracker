@@ -166,7 +166,7 @@ const Register = () => {
             <div className="pl-1 text-red-500 text-sm">{error}</div>
 
             <button type="submit" formNoValidate className="form-button">
-              Sign Up
+              Save Password
             </button>
           </form>
 
