@@ -13,6 +13,7 @@ const logSchema = mongoose.Schema(
         {
           name: { type: String, required: true },
           color: { type: String, required: true },
+          subType: { type: String, required: true },
         },
       ],
       _id: false,
