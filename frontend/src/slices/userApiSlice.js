@@ -30,6 +30,13 @@ export const usersApiSlice = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+    verify: builder.mutation({
+      query: (data) => ({
+        url: `${USER_URL}/verify`,
+        method: "POST",
+        body: data,
+      }),
+    }),
   }),
 });
 
@@ -38,4 +45,5 @@ export const {
   useRegisterMutation,
   useLogoutMutation,
   useUpdateMutation,
+  useVerifyMutation,
 } = usersApiSlice;

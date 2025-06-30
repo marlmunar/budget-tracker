@@ -11,7 +11,7 @@ import protect from "../middlewares/authenticate.middleware.js";
 
 const router = express.Router();
 
-router.get("/verify", verifyEmail);
+router.post("/verify", verifyEmail);
 router.post("/register", registerUser);
 router.post("/login", loginUser);
 router.post("/logout", logoutUser);

@@ -2,7 +2,6 @@ import asyncHandler from "express-async-handler";
 import Log from "../models/log.model.js";
 
 import ExcelJS from "exceljs";
-import { json } from "express";
 
 // @desc Get Logs based on UserId
 // @route GET /api/logs
