@@ -49,7 +49,7 @@ button > * {
 }
 
 .login-button {
-  @apply border-slate-900 border-2 rounded px-4 py-1 md:min-w-[6rem] cursor-pointer
+  @apply border-slate-900 border-2 rounded px-2 py-2 md:px-4 md:py-1 md:min-w-[6rem] cursor-pointer
   text-center
   transition-all duration-300 ease-in
    hover:border-transparent hover:shadow hover:shadow-slate-900;

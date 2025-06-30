@@ -114,8 +114,8 @@ const Header = () => {
             !isLoggingIn && (
               <div className="login">
                 <Link className="login-button" to="/login">
-                  <span>Log In</span>
-                  <TbLogin2 />
+                  <span className="hidden md:block">Log In</span>
+                  <TbLogin2 className="md:hidden text-2xl" />
                 </Link>
 
                 <Link
