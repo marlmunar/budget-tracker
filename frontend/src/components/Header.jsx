@@ -63,7 +63,7 @@ const Header = () => {
   }, []);
 
   return (
-    <header className="header">
+    <header className="header z-10">
       <div className="header-container">
         <Link to="/">
           <div className="flex items-center gap-2">

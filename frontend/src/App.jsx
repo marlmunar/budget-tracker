@@ -4,10 +4,10 @@ import { Outlet } from "react-router-dom";
 
 const App = () => {
   return (
-    <div className="flex flex-col min-h-screen ">
+    <div className="flex flex-col min-h-screen w-scree">
       <Header />
-      <div className="relative grow grid items-center min-h-[100%] mx-auto">
-        <div className="container min-h-[100%] px-4 xl:px-10 min-w-[95vw]">
+      <div className="relative grow grid items-center h-full w-full mx-auto">
+        <div className="h-full xl:px-10">
           <Outlet />
         </div>
       </div>
