@@ -69,7 +69,7 @@ const Header = () => {
         <Link to="/" className="active:scale-95 transition-all duration-200">
           <div className="flex items-center gap-2">
             <img
-              className="h-12 w-12 md:h-10 md:w-10"
+              className="h-10 w-10 md:h-10 md:w-10"
               src={favicon}
               alt="Website logo"
             />

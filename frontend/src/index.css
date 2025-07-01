@@ -28,11 +28,12 @@ button > * {
 .header-container {
   @apply mx-auto px-4
   min-h-10 md:min-h-14
+  container
   flex items-center justify-between md:px-10;
 }
 
 .header-h1 {
-  @apply text-xl md:text-2xl font-semibold;
+  @apply text-lg md:text-2xl font-semibold;
 }
 
 .header-button {
@@ -97,7 +98,7 @@ button > * {
 }
 
 .hero-button {
-  @apply border-2 h-10 text-lg flex justify-center items-center rounded py-1 text-center min-w-[8rem] hover:bg-amber-300 hover:shadow hover:border-transparent transition-all duration-300;
+  @apply border-2 h-10 text-lg flex justify-center items-center rounded py-1 text-center min-w-[6rem] sm:min-w-[8rem] hover:bg-amber-300 hover:shadow hover:border-transparent transition-all duration-300;
 }
 
 .homecard-title {

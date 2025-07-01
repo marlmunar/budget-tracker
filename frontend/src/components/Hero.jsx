@@ -97,7 +97,7 @@ const Hero = () => {
         </div>
       </div>
 
-      <div className="p-2 lg:min-h-[80vh] md:min-h-[50vh] min-h-[65vh] grid md:p-4 bg-amber-200  row-span-2 rounded shadow-lg">
+      <div className="p-2 lg:min-h-[80vh] md:min-h-[50vh] min-h-[45vh] grid md:p-4 bg-amber-200  row-span-2 rounded shadow-lg">
         <div className="relative p-2 md:p-10 bg-slate-50 flex flex-col justify-end gap-2 h-[100%] rounded shadow">
           <div className="absolute z-0 w-full h-full top-0 right-0">
             <img
