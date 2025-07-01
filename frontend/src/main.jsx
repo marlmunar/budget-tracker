@@ -30,6 +30,12 @@ const router = createBrowserRouter(
     <Route path="/" element={<App />}>
       <Route path="login" element={<Login />} />
       <Route path="register/*" element={<Register />} />
+      <Route element={<PrivateRoute />}>
+        <Route element={<NewTabChecker />}>
+          <Route path="visualize/:logId" element={<Visualize />} />
+          <Route path="log/:logId" element={<LogScreen />} />
+        </Route>
+      </Route>
       <Route element={<PageWrapper />}>
         <Route index element={<Home />} />
         <Route element={<Loading />}>
@@ -37,10 +43,6 @@ const router = createBrowserRouter(
             <Route path="profile" element={<Profile />} />
             <Route path="settings" element={<UserSettings />} />
             <Route path="logs" element={<Logs />} />
-            <Route element={<NewTabChecker />}>
-              <Route path="visualize/:logId" element={<Visualize />} />
-              <Route path="log/:logId" element={<LogScreen />} />
-            </Route>
           </Route>
         </Route>
         <Route path="*" element={<NotFound />} />

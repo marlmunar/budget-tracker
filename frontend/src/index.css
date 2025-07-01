@@ -174,8 +174,9 @@ button > * {
 }
 
 .log-button {
-  @apply p-1 flex items-center justify-center rounded cursor-pointer w-12 h-12 text-3xl lg:text-5xl
-  hover:bg-slate-300/50 hover:shadow-md hover:border-transparent
+  @apply p-1 flex items-center justify-center rounded cursor-pointer text-[1.75rem] lg:text-[2rem]
+    active:scale-95
+  hover:bg-slate-300/40 hover:shadow-md hover:border-transparent hover:translate-y-[-2px]
     transition-all duration-300;
 }
 

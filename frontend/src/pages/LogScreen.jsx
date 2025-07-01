@@ -32,6 +32,7 @@ import LogScreenStatus from "../components/LogScreenStatus";
 import usePrompt from "../hooks/usePrompt";
 import Modal from "../components/Modal";
 import { AnimatePresence, motion } from "framer-motion";
+import LogScreenHeader from "../components/LogScreenHeader";
 
 const LogScreen = () => {
   const dispatch = useDispatch();
@@ -145,184 +146,96 @@ const LogScreen = () => {
     //   transition={{ duration: 0.5 }}
     //   className="overflow-hidden"
     // >
-    <main className="mx-auto my-5 md:max-w-[90%] lg:max-w-[80%]">
+    <main className="container mx-auto h-full">
       <title>{`Budgetarians' Log ${
         logData.name ? `- ${logData.name}` : ""
       }`}</title>
-      <div className="relative flex justify-between items-center">
-        <div className="flex gap-2 text-3xl items-center">
-          <Link className="log-button" to="/profile">
-            <TbArrowBackUp />
-          </Link>
+      <LogScreenHeader logName={logData.name} />
+      <div className="h-full mx-auto lg:max-w-[90%]">
+        <div className="w-[90%] mx-auto py-4 grid grid-cols-1 lg:grid-cols-[min-content_auto] grid-rows-[min-content_min-content] my-2 gap-4">
+          {!activeAction && <EntryOptions setActiveAction={setActiveAction} />}
 
-          <h2 className="text-xl md:text-2xl font-semibold underline">
-            {displayName}
-          </h2>
-        </div>
-
-        {error && (
-          <div className="absolute top-12 right-0 bg-slate-50 shadow-lg p-2 rounded text-red-500 text-sm italic ml-auto self-center">
-            {error}
-          </div>
-        )}
-
-        <div className="relative flex text-3xl">
-          <div className="flex items-center">
-            <span className="text-[0.65rem] md:text-sm italic">
-              <LogScreenStatus
-                isNotSaved={isNotSaved}
-                lastAction={lastAction}
-              />
-            </span>
-            <button className="log-button" onClick={handleSave}>
-              <TbDeviceSdCard />
-            </button>
-            <button
-              data-info="exempted"
-              name="buttoners"
-              className="log-button"
-              onClick={() => {
-                setIsSelecting((prev) => !prev);
-              }}
-            >
-              <TbFileDots />
-            </button>
-          </div>
-
-          {isSelecting && (
-            <OutsideClick
-              onOutsideClick={() => {
-                setIsSelecting(false);
-              }}
-            >
-              <menu className="z-10 absolute right-0 border-2 w-32 text-base p-2 flex flex-col items-center gap-2 mt-12 shadow-lg bg-white rounded ">
-                <li>
-                  <button
-                    className="log-options"
-                    onClick={() => {
-                      setIsRenaming(true);
-                    }}
-                  >
-                    <TbFilePencil />
-                    <span>Rename</span>
-                  </button>
-                </li>
-                <li>
-                  <button
-                    className="log-options"
-                    onClick={() => {
-                      handleDownload();
-                      setIsSelecting(false);
-                    }}
-                  >
-                    <TbFileDownload />
-                    <span>Download</span>
-                  </button>
-                </li>
-                <li>
-                  <Link className="log-options" to={`/visualize/${logId}`}>
-                    <TbFileAnalytics />
-                    <span>Visualize</span>
-                  </Link>
-                </li>
-                <li>
-                  <button
-                    className="log-options text-red-500"
-                    onClick={() => {
-                      setIsDeleting(true);
-                    }}
-                  >
-                    <TbFileX />
-                    <span>Delete</span>
-                  </button>
-                </li>
-              </menu>
-            </OutsideClick>
+          {activeAction === "Adding Entry" && (
+            <AddEntryForm
+              categories={categories}
+              setActiveAction={setActiveAction}
+              setLastAction={setLastAction}
+            />
           )}
+
+          {activeAction === "Adding Category" && (
+            <AddCategoryForm
+              logId={logId}
+              categories={categories}
+              setActiveAction={setActiveAction}
+              setLastAction={setLastAction}
+            />
+          )}
+
+          {activeAction === "Editing Category" && (
+            <EditCategoryForm
+              logId={logId}
+              categories={categories}
+              setActiveAction={setActiveAction}
+              setLastAction={setLastAction}
+            />
+          )}
+
+          {activeAction === "Deleting Category" && (
+            <DeleteCategoryForm
+              logId={logId}
+              categories={categories}
+              setActiveAction={setActiveAction}
+              setLastAction={setLastAction}
+            />
+          )}
+
+          <ExpenseList categories={categories} />
+          <ExpenseSummary entries={tempEntries} />
         </div>
-      </div>
-      <div className="py-4 grid grid-cols-1 lg:grid-cols-[min-content_auto] grid-rows-[min-content_min-content] my-2 gap-4">
-        {!activeAction && <EntryOptions setActiveAction={setActiveAction} />}
 
-        {activeAction === "Adding Entry" && (
-          <AddEntryForm
-            categories={categories}
-            setActiveAction={setActiveAction}
-            setLastAction={setLastAction}
+        {isRenaming && (
+          <RenameModal
+            isRenaming={isRenaming}
+            setIsRenaming={setIsRenaming}
+            displayName={displayName}
+            handleSubmit={(tempName) => {
+              setIsRenaming(false);
+              setDisplayName(tempName);
+              handleRename(tempName);
+              dispatch(setIsNotSaved(true));
+            }}
+            title="Edit Log Name"
+            description="Edit the name of your log"
           />
         )}
-
-        {activeAction === "Adding Category" && (
-          <AddCategoryForm
-            logId={logId}
-            categories={categories}
-            setActiveAction={setActiveAction}
-            setLastAction={setLastAction}
+        {isDeleting && (
+          <ConfirmModal
+            isOpen={isDeleting}
+            setIsOpen={setIsDeleting}
+            handleConfirm={() => {
+              setIsDeleting(false);
+              dispatch(setIsNotSaved(false));
+              handleDelete();
+            }}
+            action="Delete"
+            description={`Delelete ${displayName}?`}
           />
         )}
-
-        {activeAction === "Editing Category" && (
-          <EditCategoryForm
-            logId={logId}
-            categories={categories}
-            setActiveAction={setActiveAction}
-            setLastAction={setLastAction}
-          />
-        )}
-
-        {activeAction === "Deleting Category" && (
-          <DeleteCategoryForm
-            logId={logId}
-            categories={categories}
-            setActiveAction={setActiveAction}
-            setLastAction={setLastAction}
-          />
-        )}
-
-        <ExpenseList categories={categories} />
-        <ExpenseSummary entries={tempEntries} />
-      </div>
-
-      {isRenaming && (
-        <RenameModal
-          isRenaming={isRenaming}
-          setIsRenaming={setIsRenaming}
-          displayName={displayName}
-          handleSubmit={(tempName) => {
-            setIsRenaming(false);
-            setDisplayName(tempName);
-            handleRename(tempName);
-            dispatch(setIsNotSaved(true));
-          }}
-          title="Edit Log Name"
-          description="Edit the name of your log"
-        />
-      )}
-      {isDeleting && (
-        <ConfirmModal
-          isOpen={isDeleting}
-          setIsOpen={setIsDeleting}
-          handleConfirm={() => {
-            setIsDeleting(false);
-            dispatch(setIsNotSaved(false));
-            handleDelete();
-          }}
-          action="Delete"
-          description={`Delelete ${displayName}?`}
-        />
-      )}
-      {show && (
-        <Modal isOpen={show} onClose={cancel} title="Confirm Exit">
-          <div className="flex flex-col items-center gap-2 p-2">
-            <p>Leave with unsave changes?</p>
-            <div className="button-row">
-              <button onClick={confirm}>Confirm</button>
-              <button onClick={cancel}>Cancel</button>
+        {show && (
+          <Modal isOpen={show} onClose={cancel} title="Confirm Exit">
+            <div className="flex flex-col items-center gap-2 p-2">
+              <p>Leave with unsave changes?</p>
+              <div className="button-row">
+                <button onClick={confirm}>Confirm</button>
+                <button onClick={cancel}>Cancel</button>
+              </div>
             </div>
-          </div>
-        </Modal>
-      )}
+          </Modal>
+        )}
+      </div>
     </main>
+
     // </motion.div>
   );
 };
