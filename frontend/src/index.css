@@ -35,8 +35,16 @@ button > * {
   @apply text-xl md:text-2xl font-semibold;
 }
 
+.header-button {
+  @apply hidden md:block transition-all p-2 border-transparent
+  duration-200 ease-in underline-offset-8 decoration-amber-600 decoration-[1.5px]
+  hover:underline hover:translate-y-[-1px] active:scale-90;
+}
+
 .hamburger {
-  @apply border-2 rounded py-2 px-4 min-w-[2rem] flex justify-center md:hidden;
+  @apply border-2 rounded py-2 px-4 min-w-[2rem] flex justify-center md:hidden
+  transition-all duration-300 ease-in 
+   hover:border-transparent hover:shadow hover:shadow-slate-900;
 }
 
 .profile {
@@ -49,20 +57,24 @@ button > * {
 }
 
 .login-button {
-  @apply border-slate-900 border-2 rounded px-2 py-2 md:px-4 md:py-1 md:min-w-[6rem] cursor-pointer
+  @apply border-slate-900 border-2 rounded px-4 py-2 min-w-[2rem] md:px-4 md:py-1 md:min-w-[6rem] cursor-pointer
   text-center
-  transition-all duration-300 ease-in
+  transition-all duration-300 ease-in 
    hover:border-transparent hover:shadow hover:shadow-slate-900;
 }
 
 .nav-bar {
   @apply bg-white mt-2 right-0
   absolute shadow border-2 rounded 
-  p-2 min-w-[6.25rem] z-10 text-[1.15rem];
+  p-2 min-w-[8ch] z-10 text-base lg:text-lg;
 }
 
 .nav-bar ul > li {
-  @apply px-2 rounded hover:bg-slate-400/50;
+  @apply px-2 rounded hover:bg-slate-400/50 flex justify-end;
+}
+
+.nav-bar ul .sm-button {
+  @apply md:hidden;
 }
 
 .nav-active {
@@ -106,7 +118,7 @@ button > * {
 }
 
 .form-button {
-  @apply mt-3 border-2 h-8 rounded min-w-[22] px-2 font-semibold bg-amber-400 transition-all duration-300 
+  @apply mt-3 border-2 h-10 rounded min-w-[22] px-4 font-semibold bg-amber-400 transition-all duration-300 
   hover:bg-amber-300 hover:border-transparent hover:shadow shadow-slate-800;
 }
 

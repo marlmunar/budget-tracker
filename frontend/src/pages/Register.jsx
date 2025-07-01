@@ -133,7 +133,7 @@ const Register = () => {
           ref={passwordRef}
           duration={0.35}
         >
-          <h1 className="text-2xl font-semibold h-[min-content] ">
+          <h1 className="text-2xl lg:text-3xl font-semibold h-[min-content] ">
             Set Password
           </h1>
 
@@ -206,7 +206,7 @@ const Register = () => {
           ref={registerRef}
           duration={0.85}
         >
-          <h1 className="text-2xl font-semibold h-[min-content] relative md:left-[32%] ">
+          <h1 className="text-2xl lg:text-3xl font-semibold h-[min-content] relative md:left-[32%] ">
             Sign Up
           </h1>
 

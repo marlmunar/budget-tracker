@@ -69,7 +69,9 @@ const Login = () => {
         ref={loginRef}
         duration={0.85}
       >
-        <h1 className="text-2xl font-semibold h-[min-content]">Login</h1>
+        <h1 className="text-2xl lg:text-3xl font-semibold h-[min-content]">
+          Login
+        </h1>
 
         <form onSubmit={handleSubmit} className="h-[min-content] md:w-[65%]">
           <div className="form-input-container">
