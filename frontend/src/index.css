@@ -21,7 +21,7 @@ button > * {
 
 .header {
   @apply py-3 
-  bg-[#ffd700] text-[#040F0F]
+  bg-amber-400 text-[#040F0F]
   rounded-b-lg w-full;
 }
 
