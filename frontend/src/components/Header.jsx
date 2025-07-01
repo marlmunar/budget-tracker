@@ -66,28 +66,46 @@ const Header = () => {
   return (
     <header className="header z-10">
       <div className="header-container">
-        <Link to="/">
+        <Link to="/" className="active:scale-95 transition-all duration-200">
           <div className="flex items-center gap-2">
             <img
               className="h-12 w-12 md:h-10 md:w-10"
               src={favicon}
               alt="Website logo"
-              // width="40"
-              // height="40"
             />
             <h1 className="header-h1 text-white">Budgetarians' Log</h1>
           </div>
         </Link>
 
-        <div className="flex gap-4 items-center">
+        <div className="flex gap-4 items-center *:p-2">
           {!!userInfo ? (
             <>
-              <a className="header-button">
-                <NavLink to="/dashboard">Dashboard</NavLink>
-              </a>
-              <a className="header-button">
-                <NavLink to="/Logs">Logs</NavLink>
-              </a>
+              <div>
+                <NavLink
+                  to="/dashboard"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "font-semibold underline decoration-2 header-button"
+                      : "header-button"
+                  }
+                >
+                  Dashboard
+                </NavLink>
+              </div>
+
+              <div>
+                <NavLink
+                  to="/logs"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "font-semibold underline decoration-2 header-button"
+                      : "header-button"
+                  }
+                >
+                  Logs
+                </NavLink>
+              </div>
+
               <div>
                 <div>
                   <button

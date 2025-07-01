@@ -36,9 +36,9 @@ button > * {
 }
 
 .header-button {
-  @apply hidden md:block transition-all p-2 border-transparent
-  duration-200 ease-in underline-offset-8 decoration-amber-600 decoration-[1.5px]
-  hover:underline hover:translate-y-[-1px] active:scale-90;
+  @apply hidden md:block transition-all border-transparent
+  duration-200 ease-in underline-offset-8 decoration-amber-600 hover:decoration-[1.5px]
+  hover:translate-y-[-1px] active:scale-90;
 }
 
 .hamburger {
@@ -70,7 +70,7 @@ button > * {
 }
 
 .nav-bar ul > li {
-  @apply px-2 rounded hover:bg-slate-400/50 flex justify-end;
+  @apply px-2 rounded hover:bg-slate-400/50 flex justify-end transition-all duration-200 active:scale-90;
 }
 
 .nav-bar ul .sm-button {
@@ -82,7 +82,7 @@ button > * {
 }
 
 .icon {
-  @apply text-2xl cursor-pointer hover:text-amber-100 hover:shadow hover:border-white transition-all duration-300;
+  @apply text-2xl cursor-pointer hover:text-amber-100 hover:shadow hover:border-white transition-all duration-300 active:scale-90;
 }
 
 @theme {
