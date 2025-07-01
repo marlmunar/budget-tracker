@@ -22,7 +22,7 @@ button > * {
 .header {
   @apply py-3 
   bg-[#ffd700] text-[#040F0F]
-  rounded-b-lg;
+  rounded-b-lg border w-full;
 }
 
 .header-container {
@@ -91,7 +91,7 @@ button > * {
 
 .hero {
   @apply flex flex-col
-  lg:grid grid-rows-2 grid-cols-2 grid-flow-col 
+  lg:grid [grid-template-rows:repeat(2,min-content)] grid-cols-2 grid-flow-col
   gap-5 md:gap-2 
   md:min-h-[60vh];
 }
@@ -101,7 +101,7 @@ button > * {
 }
 
 .homecard-title {
-  @apply text-2xl font-semibold mb-4 underline;
+  @apply px-4 text-2xl font-semibold mb-4 underline;
 }
 
 .item {
