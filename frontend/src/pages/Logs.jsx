@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import LogCard from "./LogCard";
-import LogTools from "./LogTools";
-import NoRecords from "./NoRecords";
+import LogCard from "../components/LogCard";
+import LogTools from "../components/LogTools";
+import NoRecords from "../components/NoRecords";
 import { useLazyGetLogsQuery } from "../slices/logsApiSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { setGrade } from "../slices/userSlice";
 import { AnimatePresence, motion } from "framer-motion";
 
-const Logs = ({ setUserLogs, setLastUpdate }) => {
+const Logs = ({}) => {
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.auth);
   const [logs, setLogs] = useState([]);
@@ -41,7 +41,6 @@ const Logs = ({ setUserLogs, setLastUpdate }) => {
           (a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)
         );
         setLogs(sorted);
-        setUserLogs(sorted.length);
 
         setIsVisible(false);
         setTimeout(() => {
@@ -75,7 +74,7 @@ const Logs = ({ setUserLogs, setLastUpdate }) => {
   }, [lastAction]);
 
   return (
-    <div className="overflow-hidden">
+    <main className="overflow-hidden px-10">
       <section className="flex flex-col gap-4 p-4 shadow rounded">
         <h2 className="text-2xl font-semibold">Your Logs</h2>
         <LogTools searchState={searchState} setSearchState={setSearchState} />
@@ -112,7 +111,7 @@ const Logs = ({ setUserLogs, setLastUpdate }) => {
           <NoRecords />
         )}
       </section>
-    </div>
+    </main>
   );
 };
 

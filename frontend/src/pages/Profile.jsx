@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import Logs from "../components/Logs";
+// import Logs from "../components/Logs";
 import UserProfile from "../components/UserProfile";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
@@ -29,7 +29,7 @@ const Profile = () => {
             {`Budgetarians' Log - ${userInfo ? userInfo.name : "User Name"}`}
           </title>
           <UserProfile userLogs={userLogs} />
-          <Logs setUserLogs={setUserLogs} />
+          {/* <Logs setUserLogs={setUserLogs} /> */}
         </main>
       </motion.div>
     )
