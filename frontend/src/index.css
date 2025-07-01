@@ -90,9 +90,8 @@ button > * {
 }
 
 .hero {
-  @apply py-4
-  flex flex-col
-  md:grid grid-rows-2 grid-cols-2 grid-flow-col 
+  @apply flex flex-col
+  lg:grid grid-rows-2 grid-cols-2 grid-flow-col 
   gap-5 md:gap-2 
   md:min-h-[60vh];
 }
