@@ -4,15 +4,6 @@ import AddEntryForm from "../components/AddEntryForm";
 import ExpenseList from "../components/ExpenseList";
 import ExpenseSummary from "../components/ExpenseSummary";
 import {
-  TbArrowBackUp,
-  TbFileDots,
-  TbDeviceSdCard,
-  TbFilePencil,
-  TbFileDownload,
-  TbFileAnalytics,
-  TbFileX,
-} from "react-icons/tb";
-import {
   useDeleteLogMutation,
   useDownloadLogMutation,
   useLazyGetLogQuery,
@@ -33,6 +24,7 @@ import usePrompt from "../hooks/usePrompt";
 import Modal from "../components/Modal";
 import { AnimatePresence, motion } from "framer-motion";
 import LogScreenHeader from "../components/LogScreenHeader";
+import Footer from "../components/Footer";
 
 const LogScreen = () => {
   const dispatch = useDispatch();
@@ -234,6 +226,7 @@ const LogScreen = () => {
           </Modal>
         )}
       </div>
+      <Footer bg="bg-gray-100" />
     </main>
 
     // </motion.div>

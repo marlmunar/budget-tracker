@@ -31,9 +31,11 @@ const router = createBrowserRouter(
       <Route path="login" element={<Login />} />
       <Route path="register/*" element={<Register />} />
       <Route element={<PrivateRoute />}>
-        <Route element={<NewTabChecker />}>
-          <Route path="visualize/:logId" element={<Visualize />} />
-          <Route path="log/:logId" element={<LogScreen />} />
+        <Route element={<Loading />}>
+          <Route element={<NewTabChecker />}>
+            <Route path="visualize/:logId" element={<Visualize />} />
+            <Route path="log/:logId" element={<LogScreen />} />
+          </Route>
         </Route>
       </Route>
       <Route element={<PageWrapper />}>

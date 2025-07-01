@@ -1,8 +1,8 @@
-const Footer = () => {
+const Footer = ({ bg = "bg-amber-400" }) => {
   return (
-    <footer className="mt-auto p-2 bg-amber-400">
-      <div className="text-[0.65rem] md:text-xs">
-        <div className="container px-5 mx-auto md:px-10 min-h-10 md:flex items-center justify-between">
+    <footer className={`mt-auto p-2 ${bg}`}>
+      <div className="lg:px-10 text-[0.55rem] md:text-xs">
+        <div className="container px-5 mx-auto md:px-10 min-h-4 md:min-h-10 flex items-center justify-between">
           <p>
             Copyright &#169; 2025{" "}
             <span className="font-semibold"> Budgetarians' Log</span>
