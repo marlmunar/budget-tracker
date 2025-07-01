@@ -22,7 +22,7 @@ button > * {
 .header {
   @apply py-3 
   bg-[#ffd700] text-[#040F0F]
-  rounded-b-lg border w-full;
+  rounded-b-lg w-full;
 }
 
 .header-container {

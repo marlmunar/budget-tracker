@@ -80,31 +80,27 @@ const Header = () => {
         <div className="flex gap-4 items-center *:p-2">
           {!!userInfo ? (
             <>
-              <div>
-                <NavLink
-                  to="/dashboard"
-                  className={({ isActive }) =>
-                    isActive
-                      ? "font-semibold underline decoration-2 header-button"
-                      : "header-button"
-                  }
-                >
-                  Dashboard
-                </NavLink>
-              </div>
+              <NavLink
+                to="/dashboard"
+                className={({ isActive }) =>
+                  isActive
+                    ? "font-semibold underline decoration-2 header-button"
+                    : "header-button"
+                }
+              >
+                Dashboard
+              </NavLink>
 
-              <div>
-                <NavLink
-                  to="/logs"
-                  className={({ isActive }) =>
-                    isActive
-                      ? "font-semibold underline decoration-2 header-button"
-                      : "header-button"
-                  }
-                >
-                  Logs
-                </NavLink>
-              </div>
+              <NavLink
+                to="/logs"
+                className={({ isActive }) =>
+                  isActive
+                    ? "font-semibold underline decoration-2 header-button"
+                    : "header-button"
+                }
+              >
+                Logs
+              </NavLink>
 
               <div>
                 <div>
