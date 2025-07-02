@@ -81,7 +81,7 @@ const LogTools = ({ searchState, setSearchState }) => {
                     setSearchState({ isSearching: false, searchText: "" });
                 }}
               >
-                <span className="text-sm">Cancel</span>
+                <span className="text-sm md:text-[length:inherit]">Cancel</span>
               </button>
             </>
           ) : (
