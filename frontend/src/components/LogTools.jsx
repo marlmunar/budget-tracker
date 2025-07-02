@@ -46,10 +46,10 @@ const LogTools = ({ searchState, setSearchState }) => {
             <>
               <form
                 method="POST"
-                className="relative bg-white border-2 w-full text-black rounded-xl px-4 pr-8 min-h-8  lg:w-[16.5rem] lg:max-w-none flex items-center justify-between"
+                className="relative bg-white border-2 w-full text-black rounded-xl px-2 pr-8 min-h-8  lg:w-[16.5rem] lg:max-w-none flex items-center justify-between"
               >
                 <input
-                  className="focus:outline-none focus:ring-0 max-w-[10rem]"
+                  className="focus:outline-none focus:ring-0 w-full"
                   type="text"
                   id="search-log"
                   placeholder="Search by name..."
@@ -75,7 +75,7 @@ const LogTools = ({ searchState, setSearchState }) => {
               </form>
 
               <button
-                className="top-3 max-h-10 log-button-2 "
+                className="max-h-10 log-button-2 "
                 onClick={() => setShowSearch(false)}
               >
                 <span className="text-sm">Cancel</span>

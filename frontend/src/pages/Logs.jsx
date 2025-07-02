@@ -75,16 +75,18 @@ const Logs = ({}) => {
 
   return (
     <main className="overflow-hidden md:px-6 lg:px-10 h-full">
-      <section className="flex flex-col gap-4 md:px-4 shadow rounded h-full relative">
+      <section className="flex flex-col gap-4 px-1 md:px-4 shadow rounded h-full relative max-w-[100vw]">
         <div className="py-4 px-2 flex flex-col gap-2 md:flex-row justify-center md:justify-between md:items-center min-h-[min-content] border-b-2">
           <h2 className="text-2xl font-semibold">Your Logs</h2>
           <LogTools searchState={searchState} setSearchState={setSearchState} />
         </div>
 
         {searchState.isSearching && (
-          <span className="ml-5 text-sm">
-            Showing results for keyword: "
-            <span className="italic">{searchState.searchText}</span>"
+          <span className="ml-5 text-xs md:text-sm flex flex-col md:flex-row md:items-center">
+            Showing results for keyword:
+            <span className="italic px-2 font-semibold truncate max-w-[25ch] md:max-w-[20ch] inline-block">
+              {searchState.searchText}
+            </span>
           </span>
         )}
         {results.length > 0 ? (
