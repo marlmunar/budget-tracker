@@ -1,8 +1,9 @@
-import { RxDotsHorizontal } from "react-icons/rx";
 import {
   TbArrowBadgeRightFilled,
   TbLogin2,
   TbMapPinFilled,
+  TbMenu2,
+  TbX,
 } from "react-icons/tb";
 import { BsPersonSquare } from "react-icons/bs";
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
@@ -113,7 +114,11 @@ const Header = () => {
                     data-info="exempted"
                     onClick={() => setIsClicked((i) => !i)}
                   >
-                    <RxDotsHorizontal className="text-2xl" />
+                    {!isClicked ? (
+                      <TbMenu2 className="text-2xl" />
+                    ) : (
+                      <TbX className="text-2xl" />
+                    )}
                   </button>
                   <div className="profile">
                     <button>
@@ -135,7 +140,7 @@ const Header = () => {
                 </div>
                 <div className="md:relative">
                   {isClicked && (
-                    <div className="z-15 absolute flex top-[5.2rem] md:top-2 right-0 h-[calc(100%-5.2rem)] w-screen bg-gray-200/75">
+                    <div className="z-15 absolute flex top-[4.8rem] md:top-2 right-0 h-[calc(100%-5.2rem)] w-screen bg-gray-200/75">
                       <OutsideClick onOutsideClick={() => setIsClicked(false)}>
                         <nav className="nav-bar">
                           <ul className="flex flex-col gap-1">
