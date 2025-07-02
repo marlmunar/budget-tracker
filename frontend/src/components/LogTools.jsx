@@ -82,16 +82,18 @@ const LogTools = ({ searchState, setSearchState }) => {
             </>
           ) : (
             <>
-              <button className="log-button-2">
-                <TbPlus />
-                Add New
+              <button className="log-button-2 bottom-2 right-2 absolute flex flex-col max-h-18 md:static md:flex-row">
+                <TbPlus className="text-4xl md:text-[length:inherit]" />
+                <span className="text-xs md:text-[length:inherit]">
+                  Add New
+                </span>
               </button>
               <button
                 className="log-button-2"
                 onClick={() => setShowSearch(true)}
               >
                 <TbSearch />
-                Search
+                <span className="hidden md:block">Search</span>
               </button>
             </>
           )}
