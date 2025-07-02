@@ -180,6 +180,13 @@ button > * {
     transition-all duration-300;
 }
 
+.log-button-2 {
+  @apply p-1 px-2 flex items-center justify-center rounded cursor-pointer gap-1 h-full bg-blue-100 text-lg
+    active:scale-95
+  hover:bg-slate-300/40 hover:shadow-md hover:border-transparent hover:translate-y-[-2px]
+    transition-all duration-300;
+}
+
 .log-options {
   @apply w-full px-1 flex justify-start items-center gap-1 rounded cursor-pointer hover:bg-slate-400/50;
 }
