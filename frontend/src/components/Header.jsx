@@ -135,7 +135,7 @@ const Header = () => {
                 </div>
                 <div className="md:relative">
                   {isClicked && (
-                    <div className="z-15 absolute flex top-[5.2rem] right-0 h-[calc(100%-5.2rem)] w-screen bg-gray-200/75">
+                    <div className="z-15 absolute flex top-[5.2rem] md:top-2 right-0 h-[calc(100%-5.2rem)] w-screen bg-gray-200/75">
                       <OutsideClick onOutsideClick={() => setIsClicked(false)}>
                         <nav className="nav-bar">
                           <ul className="flex flex-col gap-1">
@@ -150,7 +150,7 @@ const Header = () => {
                                 {({ isActive }) => (
                                   <>
                                     Dashboard
-                                    <div className="text-2xl">
+                                    <div className="text-2xl md:hidden">
                                       {isActive ? (
                                         <TbMapPinFilled />
                                       ) : (
@@ -172,7 +172,7 @@ const Header = () => {
                                 {({ isActive }) => (
                                   <>
                                     Logs
-                                    <div className="text-2xl ">
+                                    <div className="text-2xl md:hidden">
                                       {isActive ? (
                                         <TbMapPinFilled />
                                       ) : (
@@ -194,7 +194,7 @@ const Header = () => {
                                 {({ isActive }) => (
                                   <>
                                     Profile
-                                    <div className="text-2xl">
+                                    <div className="text-2xl md:hidden">
                                       {isActive ? (
                                         <TbMapPinFilled />
                                       ) : (
@@ -216,7 +216,7 @@ const Header = () => {
                                 {({ isActive }) => (
                                   <>
                                     Settings
-                                    <div className="text-2xl">
+                                    <div className="text-2xl md:hidden">
                                       {isActive ? (
                                         <TbMapPinFilled />
                                       ) : (
