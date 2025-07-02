@@ -75,8 +75,8 @@ const Logs = ({}) => {
 
   return (
     <main className="overflow-hidden md:px-6 lg:px-10 h-full">
-      <section className="flex flex-col gap-4 px-1 md:px-4 shadow rounded h-full relative max-w-[100vw]">
-        <div className="py-4 px-2 flex flex-col gap-2 md:flex-row justify-center md:justify-between md:items-center min-h-[min-content] border-b-2">
+      <section className="flex flex-col shadow rounded h-full relative max-w-[100vw]">
+        <div className="z-2 bg-white py-2 lg:py-4 rounded-b px-4 flex flex-col gap-2 md:flex-row justify-center md:justify-between md:items-center min-h-[min-content]">
           <h2 className="text-2xl font-semibold">Your Logs</h2>
           <LogTools searchState={searchState} setSearchState={setSearchState} />
         </div>
@@ -89,32 +89,34 @@ const Logs = ({}) => {
             </span>
           </span>
         )}
-        {results.length > 0 ? (
-          <>
-            {isVisible &&
-              results.map((log) => (
-                <motion.div
-                  key={log._id}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4 }}
-                  className="overflow-hidden"
-                >
-                  <LogCard
-                    setLastAction={setLastAction}
-                    logName={log.name}
-                    logStats={{
-                      entries: log.entries.length,
-                      lastEdited: log.updatedAt.split("T")[0],
-                    }}
-                    logId={log._id}
-                  />
-                </motion.div>
-              ))}
-          </>
-        ) : (
-          <NoRecords />
-        )}
+        <div className=" mt-[-5px] bg-gray-200 flex flex-col gap-1 p-2 pt-3 pb-4 rounded-b">
+          {results.length > 0 ? (
+            <>
+              {isVisible &&
+                results.map((log) => (
+                  <motion.div
+                    key={log._id}
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4 }}
+                    className="overflow-hidden"
+                  >
+                    <LogCard
+                      setLastAction={setLastAction}
+                      logName={log.name}
+                      logStats={{
+                        entries: log.entries.length,
+                        lastEdited: log.updatedAt.split("T")[0],
+                      }}
+                      logId={log._id}
+                    />
+                  </motion.div>
+                ))}
+            </>
+          ) : (
+            <NoRecords />
+          )}
+        </div>
       </section>
     </main>
   );

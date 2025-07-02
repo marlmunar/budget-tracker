@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
-import { TbPencil, TbArrowsDiagonal2, TbTrash } from "react-icons/tb";
+import { TbDotsVertical } from "react-icons/tb";
 import { useState } from "react";
-import { motion } from "framer-motion";
 import ConfirmModal from "./ConfirmModal";
 import RenameModal from "./RenameModal";
 import {
@@ -42,62 +41,56 @@ const LogCard = ({ logName, logStats, logId, setLastAction }) => {
   };
 
   return (
-    <div className="p-2 pb-4 flex justify-between gap-2 border-b-2 border-slate-500 rounded">
-      <div className="flex flex-col gap-2">
-        <h3 className="text-lg font-semibold underline cursor-pointer">
-          <Link to={`/log/${logId}`}>{displayName}</Link>
-        </h3>
-        <div className="text-sm text-gray-800">
-          <p>Entries: {logStats.entries}</p>
-          <p>Last edited: {logStats.lastEdited}</p>
+    <div className="relative flex w-[98%] mx-auto trasition-all duration-100 bg-white shadow gap-2 rounded hover:shadow-lg hover:mb-2 hover:mt-1 hover:scale-x-[1.001]">
+      <Link
+        to={`/log/${logId}`}
+        className="p-2 pb-4 w-full"
+        onClick={() => console.log("clicked")}
+      >
+        <div className="flex flex-col gap-2">
+          <h3 className="text-lg font-semibold hover:bg-white">
+            {displayName}
+          </h3>
+          <div className="text-sm text-gray-800">
+            <p>Entries: {logStats.entries}</p>
+            <p>Last edited: {logStats.lastEdited}</p>
+          </div>
         </div>
-      </div>
-      <div className="flex gap-2">
-        <button
-          title="Rename"
-          className="tool-button"
-          onClick={() => setIsRenaming(true)}
-        >
-          <TbPencil />
-        </button>
-        <Link title="Open" className="tool-button" to={`/log/${logId}`}>
-          <TbArrowsDiagonal2 />
-        </Link>
+        {isRenaming && (
+          <RenameModal
+            isRenaming={isRenaming}
+            setIsRenaming={setIsRenaming}
+            displayName={displayName}
+            handleSubmit={(tempName) => {
+              setIsRenaming(false);
+              setDisplayName(tempName);
+              handleRename(tempName);
+            }}
+            title="Edit Log Name"
+            description="Edit the name of your log"
+          />
+        )}
+        {isDeleting && (
+          <ConfirmModal
+            isOpen={isDeleting}
+            setIsOpen={setIsDeleting}
+            handleConfirm={() => {
+              setIsDeleting(false);
+              handleDelete();
+            }}
+            action="Delete"
+            description={`Delelete ${displayName}?`}
+          />
+        )}
+      </Link>
 
-        <button
-          title="Delete"
-          className="tool-button"
-          onClick={() => setIsDeleting(true)}
-        >
-          <TbTrash />
-        </button>
-      </div>
-      {isRenaming && (
-        <RenameModal
-          isRenaming={isRenaming}
-          setIsRenaming={setIsRenaming}
-          displayName={displayName}
-          handleSubmit={(tempName) => {
-            setIsRenaming(false);
-            setDisplayName(tempName);
-            handleRename(tempName);
-          }}
-          title="Edit Log Name"
-          description="Edit the name of your log"
-        />
-      )}
-      {isDeleting && (
-        <ConfirmModal
-          isOpen={isDeleting}
-          setIsOpen={setIsDeleting}
-          handleConfirm={() => {
-            setIsDeleting(false);
-            handleDelete();
-          }}
-          action="Delete"
-          description={`Delelete ${displayName}?`}
-        />
-      )}
+      <button
+        title="Options"
+        onClick={() => console.log(options)}
+        className="absolute right-2 top-2 text-xl self-start hover:bg-slate-200 p-2 rounded"
+      >
+        <TbDotsVertical />
+      </button>
     </div>
   );
 };
