@@ -71,7 +71,7 @@ button > * {
 } */
 
 .nav-bar {
-  @apply bg-gray-50 md:bg-white right-0 h-full min-w-[45vw] md:min-w-[8ch]
+  @apply bg-gray-50 md:bg-white right-0 h-full min-w-[60vw] md:min-w-[8ch]
   absolute shadow rounded md:border-2 shadow-slate-400 md:shadow-gray-300
   p-2 z-10 text-base lg:text-lg md:h-[min-content];
 }
