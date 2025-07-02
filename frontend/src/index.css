@@ -64,14 +64,22 @@ button > * {
    hover:border-transparent hover:shadow hover:shadow-slate-900;
 }
 
-.nav-bar {
+/* .nav-bar {
   @apply bg-white mt-2 right-0
   absolute shadow border-2 rounded 
   p-2 min-w-[8ch] z-10 text-base lg:text-lg;
+} */
+
+.nav-bar {
+  @apply bg-white right-0 h-full w-[45vw]
+  absolute shadow rounded 
+  p-2 min-w-[8ch] z-10 text-base lg:text-lg;
 }
 
-.nav-bar ul > li {
-  @apply px-2 rounded hover:bg-slate-400/50 flex justify-end transition-all duration-200 active:scale-90;
+.nav-bar ul > li > * {
+  @apply p-2 cursor-pointer text-lg rounded
+  flex justify-between items-center
+  hover:bg-slate-400/50 transition-all duration-200 active:scale-95 active:translate-y-[-2px] w-full shadow;
 }
 
 .nav-bar ul .sm-button {
@@ -79,7 +87,7 @@ button > * {
 }
 
 .nav-active {
-  @apply text-amber-400 font-semibold border-b-2;
+  @apply underline rounded decoration-amber-500 decoration-2 rounded-b-none hover:no-underline hover:text-black text-amber-500;
 }
 
 .icon {
