@@ -46,7 +46,7 @@ const LogTools = ({ searchState, setSearchState }) => {
             <>
               <form
                 method="POST"
-                className="relative bg-white border-2 text-black rounded-xl px-4 min-h-8  lg:w-[16.5rem] lg:max-w-none flex items-center justify-between"
+                className="relative bg-white border-2 w-full text-black rounded-xl px-4 pr-8 min-h-8  lg:w-[16.5rem] lg:max-w-none flex items-center justify-between"
               >
                 <input
                   className="focus:outline-none focus:ring-0 max-w-[10rem]"
@@ -73,27 +73,28 @@ const LogTools = ({ searchState, setSearchState }) => {
                   </button>
                 )}
               </form>
+
               <button
-                className="log-button-2"
+                className="top-3 max-h-10 log-button-2 "
                 onClick={() => setShowSearch(false)}
               >
-                Cancel
+                <span className="text-sm">Cancel</span>
               </button>
             </>
           ) : (
             <>
-              <button className="log-button-2 bottom-2 right-2 absolute flex flex-col max-h-18 md:static md:flex-row">
+              <button className="log-button-2 bottom-2 right-4 absolute min-w-18 max-h-18 flex flex-col md:static md:flex-row">
                 <TbPlus className="text-4xl md:text-[length:inherit]" />
                 <span className="text-xs md:text-[length:inherit]">
                   Add New
                 </span>
               </button>
               <button
-                className="log-button-2"
+                className="log-button-2 min-w-10 top-3 absolute md:static max-h-10"
                 onClick={() => setShowSearch(true)}
               >
                 <TbSearch />
-                <span className="hidden md:block">Search</span>
+                <span className=" hidden md:block">Search</span>
               </button>
             </>
           )}

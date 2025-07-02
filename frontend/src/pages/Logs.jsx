@@ -75,8 +75,8 @@ const Logs = ({}) => {
 
   return (
     <main className="overflow-hidden md:px-6 lg:px-10 h-full">
-      <section className="flex flex-col gap-4 px-4 shadow rounded h-full relative">
-        <div className="py-4 px-2 flex justify-between items-center min-h-[min-content] border-b-2">
+      <section className="flex flex-col gap-4 md:px-4 shadow rounded h-full relative">
+        <div className="py-4 px-2 flex flex-col gap-2 md:flex-row justify-center md:justify-between md:items-center min-h-[min-content] border-b-2">
           <h2 className="text-2xl font-semibold">Your Logs</h2>
           <LogTools searchState={searchState} setSearchState={setSearchState} />
         </div>
