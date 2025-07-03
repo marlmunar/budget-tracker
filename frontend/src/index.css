@@ -213,6 +213,18 @@ button > * {
     transition-all duration-300;
 }
 
+.log-type-button {
+  @apply p-4 flex flex-col shadow shadow-slate-400 w-full;
+}
+
+.log-type-button > h4 {
+  @apply text-lg border-b-2 border-slate-400 pb-2;
+}
+
+.log-type-button > span {
+  @apply text-sm max-w-[20ch] pt-2;
+}
+
 menu li {
   @apply w-full;
 }
