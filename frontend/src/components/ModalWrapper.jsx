@@ -16,8 +16,8 @@ const ModalWrapper = () => {
 
   const modals = {
     addLog: <AddNewLog />,
-    rename: <Rename />,
-    delete: <Delete />,
+    rename: <Rename name={modalData.name} />,
+    delete: <Delete resource={modalData} />,
   };
 
   const getModal = () => modals[activeModal] || null;

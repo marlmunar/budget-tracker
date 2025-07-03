@@ -48,8 +48,9 @@ const AddNewLog = () => {
           <input
             id="logName"
             type="text"
+            autoComplete="off"
             className="border-2 border-gray-800 px-2 p-1"
-          ></input>
+          />
 
           {logType === "Saving Goal" && (
             <>
@@ -57,12 +58,14 @@ const AddNewLog = () => {
               <input
                 id="logName"
                 type="number"
+                autoComplete="off"
                 className="border-2 border-gray-800 px-2 p-1"
               />
               <label htmlFor="logName">End Date</label>
               <input
                 id="logName"
                 type="date"
+                autoComplete="off"
                 className="border-2 border-gray-800 px-2 p-1"
               />
             </>
@@ -74,20 +77,23 @@ const AddNewLog = () => {
               <input
                 id="logName"
                 type="number"
+                autoComplete="off"
                 className="border-2 border-gray-800 px-2 p-1"
-              ></input>
+              />
               <label htmlFor="logName">Start Date</label>
               <input
                 id="logName"
                 type="date"
+                autoComplete="off"
                 className="border-2 border-gray-800 px-2 p-1"
-              ></input>
+              />
               <label htmlFor="logName">End Date</label>
               <input
                 id="logName"
                 type="date"
+                autoComplete="off"
                 className="border-2 border-gray-800 px-2 p-1"
-              ></input>
+              />
             </>
           )}
 
