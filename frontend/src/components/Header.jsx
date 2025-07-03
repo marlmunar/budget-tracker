@@ -1,7 +1,7 @@
 import {
-  TbArrowBadgeRightFilled,
+  TbArrowBadgeRight,
   TbLogin2,
-  TbMapPinFilled,
+  TbMapPin,
   TbMenu2,
   TbX,
 } from "react-icons/tb";
@@ -140,7 +140,7 @@ const Header = () => {
                 </div>
                 <div className="md:relative">
                   {isClicked && (
-                    <div className="z-15 absolute flex top-[4.8rem] md:top-2 right-0 h-[calc(100%-5.2rem)] w-screen bg-gray-200/75">
+                    <div className="z-25 absolute flex top-[4.8rem] md:top-2 right-0 h-[calc(100%-5.2rem)] w-screen bg-gray-200/75">
                       <OutsideClick onOutsideClick={() => setIsClicked(false)}>
                         <nav className="nav-bar">
                           <ul className="flex flex-col gap-1">
@@ -157,9 +157,9 @@ const Header = () => {
                                     Dashboard
                                     <div className="text-2xl md:hidden">
                                       {isActive ? (
-                                        <TbMapPinFilled />
+                                        <TbMapPin />
                                       ) : (
-                                        <TbArrowBadgeRightFilled />
+                                        <TbArrowBadgeRight />
                                       )}
                                     </div>
                                   </>
@@ -179,9 +179,9 @@ const Header = () => {
                                     Logs
                                     <div className="text-2xl md:hidden">
                                       {isActive ? (
-                                        <TbMapPinFilled />
+                                        <TbMapPin />
                                       ) : (
-                                        <TbArrowBadgeRightFilled />
+                                        <TbArrowBadgeRight />
                                       )}
                                     </div>
                                   </>
@@ -201,9 +201,9 @@ const Header = () => {
                                     Profile
                                     <div className="text-2xl md:hidden">
                                       {isActive ? (
-                                        <TbMapPinFilled />
+                                        <TbMapPin />
                                       ) : (
-                                        <TbArrowBadgeRightFilled />
+                                        <TbArrowBadgeRight />
                                       )}
                                     </div>
                                   </>
@@ -223,9 +223,9 @@ const Header = () => {
                                     Settings
                                     <div className="text-2xl md:hidden">
                                       {isActive ? (
-                                        <TbMapPinFilled />
+                                        <TbMapPin />
                                       ) : (
-                                        <TbArrowBadgeRightFilled />
+                                        <TbArrowBadgeRight />
                                       )}
                                     </div>
                                   </>

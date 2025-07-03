@@ -97,7 +97,7 @@ const LogTools = ({ searchState, setSearchState }) => {
               </button>
 
               <button
-                className="log-button-2 min-w-10 top-[6px] absolute md:static max-h-10"
+                className="log-button-2 min-w-10 top-2 absolute md:static max-h-10"
                 onClick={() => setShowSearch(true)}
               >
                 <TbSearch />

@@ -2,6 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   isLoading: false,
+  showModal: true,
+  activeModal: "",
 };
 
 const appSlice = createSlice({
@@ -14,8 +16,12 @@ const appSlice = createSlice({
     stopLoading: (state) => {
       state.isLoading = false;
     },
+    setModalState: (state, action) => {
+      state.showModal = action.payload.showModal;
+      state.activeModal = action.payload.activeModal;
+    },
   },
 });
 
-export const { startLoading, stopLoading } = appSlice.actions;
+export const { startLoading, stopLoading, setModalState } = appSlice.actions;
 export default appSlice.reducer;

@@ -20,7 +20,7 @@ button > * {
 }
 
 .header {
-  @apply py-3 
+  @apply py-3 z-25
   bg-amber-400 text-[#040F0F]
   rounded-b-lg w-full;
 }
