@@ -101,7 +101,6 @@ const EditEntryForm = ({ categories, setIsEditing, entry }) => {
               <div className="relative custom-select">
                 <div
                   className="flex justify-between items-center *:pointer-events-none"
-                  data-info="exempted"
                   data-id="editEntry"
                   onClick={() => setIsSelecting((prev) => !prev)}
                 >

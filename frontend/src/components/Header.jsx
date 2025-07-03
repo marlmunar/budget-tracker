@@ -111,7 +111,6 @@ const Header = () => {
                 <div>
                   <button
                     className="hamburger"
-                    data-info="exempted"
                     data-id="hamburger"
                     onClick={() => setIsClicked((i) => !i)}
                   >
@@ -129,7 +128,6 @@ const Header = () => {
                       Hello, <span className="font-bold">{userInfo.name}!</span>
                     </p>
                     <button
-                      data-info="exempted"
                       data-id="hamburger"
                       className="icon"
                       onClick={() => {

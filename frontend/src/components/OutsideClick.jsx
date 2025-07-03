@@ -5,14 +5,10 @@ function OutsideClick({ children, onOutsideClick, id = "none" }) {
 
   useEffect(() => {
     function handleClickOutside(e) {
-      if (e.target.dataset.id && id !== e.target.dataset.id) {
-        onOutsideClick();
+      if (id === e.target.dataset.id) {
+        return;
       }
-      if (
-        ref.current &&
-        !ref.current.contains(e.target) &&
-        !e.target.dataset.info
-      ) {
+      if (ref.current && !ref.current.contains(e.target)) {
         onOutsideClick();
       }
     }

@@ -41,7 +41,6 @@ const LogScreenHeader = ({ logName }) => {
               <TbDeviceSdCard />
             </button>
             <button
-              data-info="exempted"
               data-id="options"
               name="buttoners"
               className="log-button"

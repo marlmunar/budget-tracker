@@ -212,7 +212,6 @@ const AddEntryForm = ({ categories, setActiveAction, setLastAction }) => {
                 <div className="relative custom-select">
                   <div
                     className="py-1 flex justify-between items-center *:pointer-events-none"
-                    data-info="exempted"
                     data-id="addEntry"
                     onClick={() => setIsSelecting((prev) => !prev)}
                   >

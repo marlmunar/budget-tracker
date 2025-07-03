@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { TbSearch, TbPlus, TbX } from "react-icons/tb";
 import Modal from "./Modal";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useCreateLogMutation } from "../slices/logsApiSlice";
 import { useNavigate } from "react-router-dom";
+import { setModalState } from "../slices/appSlice";
 
 const LogTools = ({ searchState, setSearchState }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { defaultCategories } = useSelector((state) => state.logs);
   const [createLog, { isLoading }] = useCreateLogMutation();
   const [isAdding, setIsAdding] = useState(false);
@@ -88,7 +90,14 @@ const LogTools = ({ searchState, setSearchState }) => {
             <>
               <button
                 className="log-button-2 top-[80vh] shadow md:shadow-none right-4 fixed min-w-18 max-h-18 flex flex-col md:static md:flex-row"
-                onClick={() => setIsAdding(true)}
+                onClick={() =>
+                  dispatch(
+                    setModalState({
+                      showModal: true,
+                      activeModal: "addLog",
+                    })
+                  )
+                }
               >
                 <TbPlus className="text-4xl md:text-[length:inherit]" />
                 <span className="text-xs md:text-[length:inherit]">
@@ -108,7 +117,7 @@ const LogTools = ({ searchState, setSearchState }) => {
         </div>
       </div>
 
-      {isAdding && (
+      {/* {isAdding && (
         <Modal
           isOpen={isAdding}
           onClose={() => {
@@ -151,7 +160,7 @@ const LogTools = ({ searchState, setSearchState }) => {
             </div>
           </form>
         </Modal>
-      )}
+      )} */}
     </>
   );
 };

@@ -1,21 +1,13 @@
 import { Link } from "react-router-dom";
 import { TbDotsVertical, TbPencil, TbTrash, TbX } from "react-icons/tb";
 import { useState } from "react";
-import ConfirmModal from "./ConfirmModal";
-import RenameModal from "./RenameModal";
-import {
-  useDeleteLogMutation,
-  useUpdateLogMutation,
-} from "../slices/logsApiSlice";
 import OutsideClick from "./OutsideClick";
+import { useDispatch } from "react-redux";
+import { setModalState } from "../slices/appSlice";
 
-const LogCard = ({ logName, logStats, logId, setLastAction }) => {
-  const [isRenaming, setIsRenaming] = useState(false);
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [displayName, setDisplayName] = useState(logName);
+const LogCard = ({ logName, logStats, logId }) => {
+  const dispatch = useDispatch();
   const [isSelecting, setIsSelecting] = useState(false);
-  const [updateLog] = useUpdateLogMutation();
-  const [deleteLog] = useDeleteLogMutation();
 
   // const handleRename = async (name) => {
   //   try {
@@ -51,7 +43,7 @@ const LogCard = ({ logName, logStats, logId, setLastAction }) => {
               to={`/log/${logId}`}
               className="block grow text-base md:text-lg font-semibold bg-gray-200 rounded p-2 "
             >
-              {displayName}
+              {logName}
             </Link>
 
             <OutsideClick
@@ -61,18 +53,39 @@ const LogCard = ({ logName, logStats, logId, setLastAction }) => {
               <div onClick={(e) => e.stopPropagation()} className="flex gap-2">
                 {isSelecting && (
                   <>
-                    <button className="log-tool-button min-h-10 min-w-10 md:min-h-11 md:min-w-11">
+                    <button
+                      className="log-tool-button min-h-10 min-w-10 md:min-h-11 md:min-w-11"
+                      onClick={() =>
+                        dispatch(
+                          setModalState({
+                            showModal: true,
+                            activeModal: "rename",
+                            modalData: { name: logName },
+                          })
+                        )
+                      }
+                    >
                       <TbPencil />
                     </button>
 
-                    <button className="log-tool-button min-h-10 min-w-10 md:min-h-11 md:min-w-11">
+                    <button
+                      className="log-tool-button min-h-10 min-w-10 md:min-h-11 md:min-w-11"
+                      onClick={() =>
+                        dispatch(
+                          setModalState({
+                            showModal: true,
+                            activeModal: "delete",
+                            modalData: { type: "log", id: logId },
+                          })
+                        )
+                      }
+                    >
                       <TbTrash />
                     </button>
                   </>
                 )}
                 <button
                   title="Options"
-                  data-info="exempted"
                   data-id={logId}
                   onClick={() => setIsSelecting((prev) => !prev)}
                   className="log-tool-button min-h-10 min-w-10 md:min-h-11 md:min-w-11"

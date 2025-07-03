@@ -4,6 +4,7 @@ const initialState = {
   isLoading: false,
   showModal: false,
   activeModal: "",
+  modalData: {},
 };
 
 const appSlice = createSlice({
@@ -18,7 +19,14 @@ const appSlice = createSlice({
     },
     setModalState: (state, action) => {
       state.showModal = action.payload.showModal;
-      state.activeModal = action.payload.activeModal;
+
+      if (action.payload.activeModal !== undefined) {
+        state.activeModal = action.payload.activeModal;
+      }
+
+      if (action.payload.modalData !== undefined) {
+        state.modalData = action.payload.modalData;
+      }
     },
   },
 });
