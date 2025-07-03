@@ -7,41 +7,43 @@ import {
   useDeleteLogMutation,
   useUpdateLogMutation,
 } from "../slices/logsApiSlice";
+import OutsideClick from "./OutsideClick";
 
 const LogCard = ({ logName, logStats, logId, setLastAction }) => {
   const [isRenaming, setIsRenaming] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [displayName, setDisplayName] = useState(logName);
+  const [isSelecting, setIsSelecting] = useState(false);
   const [updateLog] = useUpdateLogMutation();
   const [deleteLog] = useDeleteLogMutation();
 
-  const handleRename = async (name) => {
-    try {
-      const res = await updateLog({
-        id: logId,
-        data: { name },
-      }).unwrap();
-      console.log(res);
-      setLastAction(Date.now());
-    } catch (error) {
-      console.log(error?.data?.message || error.message);
-    }
-  };
+  // const handleRename = async (name) => {
+  //   try {
+  //     const res = await updateLog({
+  //       id: logId,
+  //       data: { name },
+  //     }).unwrap();
+  //     console.log(res);
+  //     setLastAction(Date.now());
+  //   } catch (error) {
+  //     console.log(error?.data?.message || error.message);
+  //   }
+  // };
 
-  const handleDelete = async () => {
-    try {
-      const res = await deleteLog({
-        id: logId,
-      }).unwrap();
-      console.log(res);
-      setLastAction(Date.now());
-    } catch (error) {
-      console.log(error?.data?.message || error.message);
-    }
-  };
+  // const handleDelete = async () => {
+  //   try {
+  //     const res = await deleteLog({
+  //       id: logId,
+  //     }).unwrap();
+  //     console.log(res);
+  //     setLastAction(Date.now());
+  //   } catch (error) {
+  //     console.log(error?.data?.message || error.message);
+  //   }
+  // };
 
   return (
-    <div className="relative mx-auto flex md:w-[98%] m-1 trasition-all duration-100 bg-white shadow-slate-300 shadow-sm rounded hover:shadow-lg hover:mb-2 hover:mt-1 hover:scale-x-[1.001]">
+    <div className="relative mx-auto flex md:w-[98%] m-1 trasition-all duration-100 bg-white shadow-slate-300 shadow-sm rounded hover:shadow-lg hover:mb-2 hover:mt-1 ">
       <Link
         to={`/log/${logId}`}
         className="p-2 pb-4 w-full"
@@ -59,7 +61,32 @@ const LogCard = ({ logName, logStats, logId, setLastAction }) => {
             </p>
           </div>
         </div>
-        {isRenaming && (
+      </Link>
+      <button
+        title="Options"
+        data-info="exempted"
+        onClick={() => setIsSelecting(true)}
+        className="log-tool-button absolute top-2 right-2 md:min-h-11 md:min-w-11 bg-gray-200 border-2 border-transparent hover:border-slate-400 rounded"
+      >
+        <TbDotsVertical />
+      </button>
+      {isSelecting && (
+        <OutsideClick onOutsideClick={() => setIsSelecting(false)}>
+          <menu className="z-5 absolute top-13 shadow shadow-slate-500 right-2 rounded mt-2 p-2 bg-white flex flex-col gap-1 min-w-[15%]">
+            <button className="log-button">Rename</button>
+            <button className="log-button">Edit</button>
+            <button className="log-button">Delete</button>
+          </menu>
+        </OutsideClick>
+      )}
+    </div>
+  );
+};
+
+export default LogCard;
+
+{
+  /* {isRenaming && (
           <RenameModal
             isRenaming={isRenaming}
             setIsRenaming={setIsRenaming}
@@ -72,8 +99,10 @@ const LogCard = ({ logName, logStats, logId, setLastAction }) => {
             title="Edit Log Name"
             description="Edit the name of your log"
           />
-        )}
-        {isDeleting && (
+        )} */
+}
+{
+  /* {isDeleting && (
           <ConfirmModal
             isOpen={isDeleting}
             setIsOpen={setIsDeleting}
@@ -84,17 +113,5 @@ const LogCard = ({ logName, logStats, logId, setLastAction }) => {
             action="Delete"
             description={`Delelete ${displayName}?`}
           />
-        )}
-      </Link>
-      <button
-        title="Options"
-        onClick={() => console.log(options)}
-        className="log-tool-button absolute top-2 right-2 md:min-h-11 md:min-w-11 bg-gray-200 border-2 border-transparent hover:border-slate-400 rounded"
-      >
-        <TbDotsVertical />
-      </button>
-    </div>
-  );
-};
-
-export default LogCard;
+        )} */
+}

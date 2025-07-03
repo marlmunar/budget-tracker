@@ -63,10 +63,7 @@ const Modal = ({ isOpen, onClose, title, children }) => {
               <h2 className="text-lg text-center font-semibold">{title}</h2>
               <div>{children}</div>
 
-              <button
-                className="absolute top-2 right-2 tool-button"
-                onClick={handleClose}
-              >
+              <button className="absolute top-2 right-2" onClick={handleClose}>
                 <IoClose />
               </button>
             </div>
