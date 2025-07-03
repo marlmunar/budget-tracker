@@ -6,7 +6,7 @@ const App = () => {
   const location = useLocation();
 
   return (
-    <div className="flex flex-col min-h-screen w-full relative">
+    <div className="flex flex-col min-h-screen w-full relative bg-gray-50">
       {location.pathname.includes("log/") || <Header />}
       <div className="relative grow grid items-center h-full w-full mx-auto lg">
         <div className="h-full">

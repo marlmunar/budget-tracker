@@ -87,7 +87,7 @@ const LogTools = ({ searchState, setSearchState }) => {
           ) : (
             <>
               <button
-                className="log-button-2 top-[88%] shadow md:shadow-none right-2 fixed min-w-18 max-h-18 flex flex-col md:static md:flex-row"
+                className="log-button-2 top-[80vh] shadow md:shadow-none right-4 fixed min-w-18 max-h-18 flex flex-col md:static md:flex-row"
                 onClick={() => setIsAdding(true)}
               >
                 <TbPlus className="text-4xl md:text-[length:inherit]" />
@@ -97,7 +97,7 @@ const LogTools = ({ searchState, setSearchState }) => {
               </button>
 
               <button
-                className="log-button-2 min-w-10 top-[2px] absolute md:static max-h-10"
+                className="log-button-2 min-w-10 top-[6px] absolute md:static max-h-10"
                 onClick={() => setShowSearch(true)}
               >
                 <TbSearch />

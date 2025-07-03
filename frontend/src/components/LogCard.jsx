@@ -41,19 +41,22 @@ const LogCard = ({ logName, logStats, logId, setLastAction }) => {
   };
 
   return (
-    <div className="relative flex w-[98%] mx-auto trasition-all duration-100 bg-white shadow gap-2 rounded hover:shadow-lg hover:mb-2 hover:mt-1 hover:scale-x-[1.001]">
+    <div className="relative mx-auto flex md:w-[98%] m-1 trasition-all duration-100 bg-white shadow-slate-300 shadow-sm rounded hover:shadow-lg hover:mb-2 hover:mt-1 hover:scale-x-[1.001]">
       <Link
         to={`/log/${logId}`}
         className="p-2 pb-4 w-full"
         onClick={() => console.log("clicked")}
       >
-        <div className="flex flex-col gap-2">
-          <h3 className="text-lg font-semibold hover:bg-white">
+        <div className="flex flex-col gap-1">
+          <h3 className="md:mr-13 mr-12 grow text-base md:text-lg font-semibold bg-gray-200 rounded p-2 ">
             {displayName}
           </h3>
-          <div className="text-sm text-gray-800">
-            <p>Entries: {logStats.entries}</p>
-            <p>Last edited: {logStats.lastEdited}</p>
+
+          <div className="flex gap-2 px-2 text-[0.75rem] md:text-sm text-gray-800">
+            <p>{logStats.lastEdited}</p>
+            <p>
+              {logStats.entries} {logStats.entries > 1 ? "entries" : "entry"}
+            </p>
           </div>
         </div>
         {isRenaming && (
@@ -83,11 +86,10 @@ const LogCard = ({ logName, logStats, logId, setLastAction }) => {
           />
         )}
       </Link>
-
       <button
         title="Options"
         onClick={() => console.log(options)}
-        className="absolute right-2 top-2 text-xl self-start hover:bg-slate-200 p-2 rounded"
+        className="log-tool-button absolute top-2 right-2 md:min-h-11 md:min-w-11 bg-gray-200 border-2 border-transparent hover:border-slate-400 rounded"
       >
         <TbDotsVertical />
       </button>
