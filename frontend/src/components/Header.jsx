@@ -112,6 +112,7 @@ const Header = () => {
                   <button
                     className="hamburger"
                     data-info="exempted"
+                    data-id="hamburger"
                     onClick={() => setIsClicked((i) => !i)}
                   >
                     {!isClicked ? (
@@ -129,6 +130,7 @@ const Header = () => {
                     </p>
                     <button
                       data-info="exempted"
+                      data-id="hamburger"
                       className="icon"
                       onClick={() => {
                         setIsClicked((i) => !i);
@@ -141,7 +143,10 @@ const Header = () => {
                 <div className="md:relative">
                   {isClicked && (
                     <div className="z-25 absolute flex top-[4.8rem] md:top-2 right-0 h-[calc(100%-5.2rem)] w-screen bg-gray-200/75">
-                      <OutsideClick onOutsideClick={() => setIsClicked(false)}>
+                      <OutsideClick
+                        onOutsideClick={() => setIsClicked(false)}
+                        id="hamburger"
+                      >
                         <nav className="nav-bar">
                           <ul className="flex flex-col gap-1">
                             <li className="sm-button">

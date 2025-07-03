@@ -102,6 +102,7 @@ const EditEntryForm = ({ categories, setIsEditing, entry }) => {
                 <div
                   className="flex justify-between items-center *:pointer-events-none"
                   data-info="exempted"
+                  data-id="editEntry"
                   onClick={() => setIsSelecting((prev) => !prev)}
                 >
                   <span className={!!selectedCategory ? "" : "text-gray-500"}>
@@ -117,7 +118,10 @@ const EditEntryForm = ({ categories, setIsEditing, entry }) => {
                   </button>
                 </div>
                 {isSelecting && (
-                  <OutsideClick onOutsideClick={() => setIsSelecting(false)}>
+                  <OutsideClick
+                    onOutsideClick={() => setIsSelecting(false)}
+                    id="editCat"
+                  >
                     <menu className="absolute right-0 rounded mt-2 p-2 bg-white border-2 w-full flex flex-col gap-1">
                       {categories.map((cat, index) => (
                         <li

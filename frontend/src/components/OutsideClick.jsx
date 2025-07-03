@@ -1,10 +1,13 @@
 import { useEffect, useRef } from "react";
 
-function OutsideClick({ children, onOutsideClick }) {
+function OutsideClick({ children, onOutsideClick, id = "none" }) {
   const ref = useRef(null);
 
   useEffect(() => {
     function handleClickOutside(e) {
+      if (e.target.dataset.id && id !== e.target.dataset.id) {
+        onOutsideClick();
+      }
       if (
         ref.current &&
         !ref.current.contains(e.target) &&
@@ -18,16 +21,9 @@ function OutsideClick({ children, onOutsideClick }) {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [onOutsideClick]);
+  }, [onOutsideClick, id]);
 
-  return (
-    <div
-      ref={ref}
-      // className="absolute right-0"
-    >
-      {children}
-    </div>
-  );
+  return <div ref={ref}>{children}</div>;
 }
 
 export default OutsideClick;

@@ -42,6 +42,7 @@ const LogScreenHeader = ({ logName }) => {
             </button>
             <button
               data-info="exempted"
+              data-id="options"
               name="buttoners"
               className="log-button"
               onClick={() => {
@@ -57,6 +58,7 @@ const LogScreenHeader = ({ logName }) => {
               onOutsideClick={() => {
                 //   setIsSelecting(false);
               }}
+              id="options"
             >
               <menu className="z-10 absolute top-[2.8rem] right-0 border-2 w-32 text-base p-2 flex flex-col items-center gap-2 shadow-lg bg-white rounded ">
                 <li>

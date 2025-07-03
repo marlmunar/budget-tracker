@@ -54,7 +54,10 @@ const LogCard = ({ logName, logStats, logId, setLastAction }) => {
               {displayName}
             </Link>
 
-            <OutsideClick onOutsideClick={() => setIsSelecting(false)}>
+            <OutsideClick
+              onOutsideClick={() => setIsSelecting(false)}
+              id={logId}
+            >
               <div onClick={(e) => e.stopPropagation()} className="flex gap-2">
                 {isSelecting && (
                   <>
@@ -70,6 +73,7 @@ const LogCard = ({ logName, logStats, logId, setLastAction }) => {
                 <button
                   title="Options"
                   data-info="exempted"
+                  data-id={logId}
                   onClick={() => setIsSelecting((prev) => !prev)}
                   className="log-tool-button min-h-10 min-w-10 md:min-h-11 md:min-w-11"
                 >

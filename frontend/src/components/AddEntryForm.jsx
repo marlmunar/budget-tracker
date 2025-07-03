@@ -213,6 +213,7 @@ const AddEntryForm = ({ categories, setActiveAction, setLastAction }) => {
                   <div
                     className="py-1 flex justify-between items-center *:pointer-events-none"
                     data-info="exempted"
+                    data-id="addEntry"
                     onClick={() => setIsSelecting((prev) => !prev)}
                   >
                     <span className={!!selectedCategory ? "" : "text-gray-500"}>
@@ -232,7 +233,10 @@ const AddEntryForm = ({ categories, setActiveAction, setLastAction }) => {
                     </button>
                   </div>
                   {isSelecting && (
-                    <OutsideClick onOutsideClick={() => setIsSelecting(false)}>
+                    <OutsideClick
+                      onOutsideClick={() => setIsSelecting(false)}
+                      id="addEntry"
+                    >
                       <menu className="absolute right-0 rounded mt-2 p-2 bg-white border-2 w-full flex flex-col gap-1">
                         {categories.map((cat, index) => (
                           <li
