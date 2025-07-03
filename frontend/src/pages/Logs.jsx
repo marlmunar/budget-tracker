@@ -75,7 +75,7 @@ const Logs = ({}) => {
 
   return (
     <main className="px-1 md:px-6 lg:px-10 h-full lg:w-[60%] mx-auto">
-      <section className="flex flex-col shadow rounded h-full relative">
+      <section className="shadow rounded">
         <div
           className="z-2 rounded bg-white py-2 lg:py-4 px-4
             shadow shadow-slate-300
@@ -87,16 +87,6 @@ const Logs = ({}) => {
           <LogTools searchState={searchState} setSearchState={setSearchState} />
         </div>
 
-        {searchState.isSearching && (
-          <div className="relative">
-            <span className="min-w-[30ch] absolute z-5 left-0 px-2 p-1 top-2 bg-white rounded ml-5 text-sm flex flex-col md:flex-row md:items-center">
-              Showing results for keyword:
-              <span className="italic px-2 font-semibold truncate max-w-[25ch] md:max-w-[20ch] inline-block">
-                {searchState.searchText}
-              </span>
-            </span>
-          </div>
-        )}
         <div className="flex flex-col w-full gap-1 p-2 md:px-0 pt-3 pb-4 rounded-b h-full">
           {results.length > 0 ? (
             <>

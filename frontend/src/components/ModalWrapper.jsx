@@ -7,6 +7,7 @@ import AddNewLog from "./Modals/AddNewLog";
 import { AnimatePresence, motion } from "framer-motion";
 import Rename from "./Modals/Rename";
 import Delete from "./Modals/Delete";
+import OutsideClick from "./OutsideClick";
 
 const ModalWrapper = () => {
   const dispatch = useDispatch();
@@ -65,39 +66,41 @@ const ModalWrapper = () => {
   }, [showModal]);
 
   return (
-    <div>
+    <>
       {showModal && (
-        <div
-          className="mt-[-5px] z-20 absolute h-[calc(100%+5px)] w-full bg-gray-300/75 outline-none"
-          onClick={closeModal}
-          ref={scrollToRef}
-          tabIndex={-1}
-        >
-          <div className="relative w-full h-full flex justify-center items-start">
-            <AnimatePresence mode="wait">
-              <motion.div
-                initial={{ opacity: 0, y: 100 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 100 }}
-                transition={{ duration: 0.3 }}
-                className="bg-white rounded p-4 relative top-[20%] min-w-[50%]"
-                onClick={(e) => e.stopPropagation()}
-              >
-                {getModal()}
-                <button
-                  className="absolute top-4 right-4 text-2xl log-tool-button min-h-12 min-w-12"
-                  onClick={closeModal}
+        <OutsideClick onOutsideClick={closeModal}>
+          <div
+            className="mt-[-5px] z-20 absolute h-[calc(100%+5px)] w-full bg-gray-300/75 outline-none"
+            onClick={closeModal}
+            ref={scrollToRef}
+            tabIndex={-1}
+          >
+            <div className="relative w-full h-full flex justify-center items-start">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  initial={{ opacity: 0, y: 100 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 100 }}
+                  transition={{ duration: 0.3 }}
+                  className="sticky bg-white rounded p-4 top-[20%] min-w-[50%]"
+                  onClick={(e) => e.stopPropagation()}
                 >
-                  <TbX />
-                </button>
-              </motion.div>
-            </AnimatePresence>
+                  {getModal()}
+                  <button
+                    className="absolute top-4 right-4 text-2xl log-tool-button min-h-12 min-w-12"
+                    onClick={closeModal}
+                  >
+                    <TbX />
+                  </button>
+                </motion.div>
+              </AnimatePresence>
+            </div>
           </div>
-        </div>
+        </OutsideClick>
       )}
 
       <Outlet />
-    </div>
+    </>
   );
 };
 

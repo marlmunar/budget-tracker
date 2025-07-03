@@ -42,7 +42,7 @@ const LogTools = ({ searchState, setSearchState }) => {
 
   return (
     <>
-      <div className="flex gap-2 items-center">
+      <div className="flex gap-2 items-center ">
         <div className="flex justify-end grow gap-2">
           {showSearch ? (
             <>
@@ -77,7 +77,7 @@ const LogTools = ({ searchState, setSearchState }) => {
               </form>
 
               <button
-                className="max-h-10 log-button-2 "
+                className="max-h-10 log-button-2"
                 onClick={() => {
                   setShowSearch(false),
                     setSearchState({ isSearching: false, searchText: "" });
@@ -88,8 +88,31 @@ const LogTools = ({ searchState, setSearchState }) => {
             </>
           ) : (
             <>
+              {/* <div className="z-25 absolute right-0 top-0 h-full w-full">
+                <div className="relative h-full w-full">
+                  <div className="= h-full w-full border">
+                    <button
+                      className="log-button-2 sticky bottom-0 right-0 shadow min-w-18 max-h-18 flex flex-col border"
+                      onClick={() =>
+                        dispatch(
+                          setModalState({
+                            showModal: true,
+                            activeModal: "addLog",
+                          })
+                        )
+                      }
+                    >
+                      <TbPlus className="text-4xl md:text-[length:inherit]" />
+                      <span className="text-xs md:text-[length:inherit]">
+                        Add New
+                      </span>
+                    </button>
+                  </div>
+                </div>
+              </div> */}
+
               <button
-                className="log-button-2 top-[80vh] shadow md:shadow-none right-4 fixed min-w-18 max-h-18 flex flex-col md:static md:flex-row"
+                className="hidden md:flex log-button-2 min-w-10 max-h-10"
                 onClick={() =>
                   dispatch(
                     setModalState({
@@ -106,11 +129,11 @@ const LogTools = ({ searchState, setSearchState }) => {
               </button>
 
               <button
-                className="log-button-2 min-w-10 top-2 absolute md:static max-h-10"
+                className="flex log-button-2 min-w-10 top-2 right-2 absolute md:static max-h-10"
                 onClick={() => setShowSearch(true)}
               >
                 <TbSearch />
-                <span className=" hidden md:block">Search</span>
+                <span className="hidden md:block">Search</span>
               </button>
             </>
           )}

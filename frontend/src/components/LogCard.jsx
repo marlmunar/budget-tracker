@@ -54,7 +54,7 @@ const LogCard = ({ logName, logStats, logId }) => {
                 {isSelecting && (
                   <>
                     <button
-                      className="log-tool-button min-h-10 min-w-10 md:min-h-11 md:min-w-11"
+                      className="log-tool-button min-h-10 min-w-10 md:min-h-11 md:min-w-11 text-blue-950 bg-blue-200 hover:bg-blue-200/75"
                       onClick={() =>
                         dispatch(
                           setModalState({
@@ -69,7 +69,8 @@ const LogCard = ({ logName, logStats, logId }) => {
                     </button>
 
                     <button
-                      className="log-tool-button min-h-10 min-w-10 md:min-h-11 md:min-w-11"
+                      className="log-tool-button min-h-10 min-w-10 md:min-h-11 md:min-w-11 
+                      text-red-700 hover:text-red-800 bg-red-300 hover:bg-red-300/75"
                       onClick={() =>
                         dispatch(
                           setModalState({
@@ -92,7 +93,9 @@ const LogCard = ({ logName, logStats, logId }) => {
                   title="Options"
                   data-id={logId}
                   onClick={() => setIsSelecting((prev) => !prev)}
-                  className="log-tool-button min-h-10 min-w-10 md:min-h-11 md:min-w-11"
+                  className="log-tool-button min-h-10 min-w-10 md:min-h-11 md:min-w-11  
+                  text-gray-700 hover:text-gray-800
+                  bg-amber-300 hover:bg-amber-300/75"
                 >
                   {isSelecting ? <TbX /> : <TbDotsVertical />}
                 </button>

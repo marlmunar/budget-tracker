@@ -12,7 +12,7 @@ input::-webkit-inner-spin-button {
 }
 
 button {
-  @apply cursor-pointer active:scale-95;
+  @apply focus:outline-none cursor-pointer active:scale-95;
 }
 
 button > * {
@@ -189,16 +189,18 @@ button > * {
 }
 
 .log-button-2 {
-  @apply p-1 min-h-10 z-5 px-2 flex items-center justify-center rounded cursor-pointer gap-1 h-full bg-blue-200 text-base
-    active:scale-95
-  hover:bg-amber-300 hover:shadow-md hover:border-transparent hover:translate-y-[-2px]
+  @apply p-1 min-h-10 z-5 px-2 items-center justify-center rounded cursor-pointer gap-1 h-full bg-blue-800/85 
+    text-base text-white
+  
+    active:scale-95 active:bg-blue-700 active:text-white
+  hover:bg-blue-300 hover:shadow-md hover:text-gray-500 hover:border-transparent hover:translate-y-[-2px]
     transition-all duration-300;
 }
 
 .log-tool-button {
-  @apply p-2 flex items-center justify-center rounded cursor-pointer bg-blue-200 text-xl
+  @apply p-2 flex items-center justify-center rounded cursor-pointer text-xl
     active:scale-95
-  hover:bg-amber-300 hover:shadow-md hover:border-transparent hover:translate-y-[-2px]
+    hover:shadow-md hover:border-transparent hover:translate-y-[-2px]
     transition-all duration-300;
 }
 
@@ -255,6 +257,9 @@ menu li {
 .color-picker .react-colorful__saturation-pointer,
 .color-picker .react-colorful__hue-pointer {
   @apply w-4 h-4;
+}
+.parent > .child {
+  @apply border-2 border-indigo-800;
 }
 
 .edit-entry-form {
