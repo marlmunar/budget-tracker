@@ -189,16 +189,24 @@ button > * {
 }
 
 .log-button-2 {
-  @apply p-1 min-h-10 z-5 px-2 items-center justify-center rounded cursor-pointer gap-1 h-full bg-blue-800/85 
+  @apply p-1 min-h-10 z-5 px-2 items-center justify-center rounded cursor-pointer gap-1 h-full bg-blue-600 
     text-base text-white
-  
-    active:scale-95 active:bg-blue-700 active:text-white
-  hover:bg-blue-300 hover:shadow-md hover:text-gray-500 hover:border-transparent hover:translate-y-[-2px]
+    active:scale-95 active:bg-blue-800 active:text-white
+  hover:bg-indigo-400 hover:shadow-md hover:text-gray-700 hover:border-transparent hover:translate-y-[-2px]
+    transition-all duration-300;
+}
+
+.log-button-3 {
+  @apply z-5 items-center justify-center rounded-[15rem] cursor-pointer bg-blue-600 
+    text-4xl text-white
+    sticky ml-auto bottom-4 shadow w-16 h-16 flex
+    active:scale-95 active:bg-blue-800 active:text-white
+  hover:bg-indigo-400 hover:shadow-md hover:text-gray-700 hover:border-transparent hover:translate-y-[-2px]
     transition-all duration-300;
 }
 
 .log-tool-button {
-  @apply p-2 flex items-center justify-center rounded cursor-pointer text-xl
+  @apply p-1 flex items-center justify-center rounded cursor-pointer text-xl
     active:scale-95
     hover:shadow-md hover:border-transparent hover:translate-y-[-2px]
     transition-all duration-300;

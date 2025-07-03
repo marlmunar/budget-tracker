@@ -120,7 +120,7 @@ const LogTools = ({ searchState, setSearchState }) => {
       <div className="md:hidden absolute top-0 left-0 h-full w-full flex flex-col p-4">
         <div className="flex-1"></div>
         <button
-          className="log-button-2 sticky ml-auto bottom-4 shadow max-w-18 max-h-18 flex flex-col"
+          className="log-button-3"
           onClick={() =>
             dispatch(
               setModalState({
@@ -130,8 +130,7 @@ const LogTools = ({ searchState, setSearchState }) => {
             )
           }
         >
-          <TbPlus className="text-4xl md:text-[length:inherit]" />
-          <span className="text-xs md:text-[length:inherit]">Add New</span>
+          <TbPlus />
         </button>
       </div>
 

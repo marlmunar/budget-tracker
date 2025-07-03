@@ -122,7 +122,7 @@ const Hero = () => {
                     <Link className="hero-button" to={`/log/${lastLog?._id}`}>
                       Last log
                     </Link>
-                    <Link className="hero-button" to="/profile">
+                    <Link className="hero-button" to="/logs">
                       All logs
                     </Link>
                   </div>

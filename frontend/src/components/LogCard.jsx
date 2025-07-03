@@ -38,13 +38,26 @@ const LogCard = ({ logName, logStats, logId }) => {
     <div className="relative mx-auto flex md:w-[98%] m-1 trasition-all duration-100 bg-white shadow-slate-300 shadow-sm rounded hover:shadow-lg hover:mb-2 hover:mt-1 ">
       <div className="p-2 pb-4 w-full">
         <div className="flex flex-col gap-1">
-          <div className="flex justify-between gap-2">
-            <Link
-              to={`/log/${logId}`}
-              className="block grow text-base md:text-lg font-semibold bg-gray-200 rounded p-2 "
-            >
-              {logName}
-            </Link>
+          <div className="flex p-1 justify-between">
+            <div className="grow flex flex-col gap-2">
+              <Link
+                to={`/log/${logId}`}
+                className="block text-base px-1 pt-2 mx-h-[min-content] md:text-xl font-semibold "
+              >
+                {logName}
+              </Link>
+              <div className="px-1 flex flex-col text-[0.75rem] md:text-sm text-gray-800">
+                <p className="text-[0.65rem] md:text-[0.70rem]">
+                  {logStats.lastEdited}
+                </p>
+                <p>General Tracker</p>
+                <p>
+                  {`${logStats.entries} ${
+                    logStats.entries > 1 ? "entries" : "entry"
+                  }`}
+                </p>
+              </div>
+            </div>
 
             <OutsideClick
               onOutsideClick={() => setIsSelecting(false)}
@@ -54,7 +67,8 @@ const LogCard = ({ logName, logStats, logId }) => {
                 {isSelecting && (
                   <>
                     <button
-                      className="log-tool-button min-h-10 min-w-10 md:min-h-11 md:min-w-11 text-blue-950 bg-blue-200 hover:bg-blue-200/75"
+                      className="log-tool-button min-h-7 w-7 md:min-h-9 md:w-9 
+                       text-blue-950"
                       onClick={() =>
                         dispatch(
                           setModalState({
@@ -69,8 +83,8 @@ const LogCard = ({ logName, logStats, logId }) => {
                     </button>
 
                     <button
-                      className="log-tool-button min-h-10 min-w-10 md:min-h-11 md:min-w-11 
-                      text-red-700 hover:text-red-800 bg-red-300 hover:bg-red-300/75"
+                      className="log-tool-button min-h-7 w-7 md:min-h-9 md:w-9 
+                      text-red-700 hover:text-red-800"
                       onClick={() =>
                         dispatch(
                           setModalState({
@@ -93,21 +107,13 @@ const LogCard = ({ logName, logStats, logId }) => {
                   title="Options"
                   data-id={logId}
                   onClick={() => setIsSelecting((prev) => !prev)}
-                  className="log-tool-button min-h-10 min-w-10 md:min-h-11 md:min-w-11  
-                  text-gray-700 hover:text-gray-800
-                  bg-amber-300 hover:bg-amber-300/75"
+                  className="log-tool-button min-h-7 w-7 md:min-h-9 md:w-9
+                  text-gray-700 hover:text-gray-800"
                 >
                   {isSelecting ? <TbX /> : <TbDotsVertical />}
                 </button>
               </div>
             </OutsideClick>
-          </div>
-
-          <div className="flex gap-2 px-2 text-[0.75rem] md:text-sm text-gray-800">
-            <p>{logStats.lastEdited}</p>
-            <p>
-              {logStats.entries} {logStats.entries > 1 ? "entries" : "entry"}
-            </p>
           </div>
         </div>
       </div>
