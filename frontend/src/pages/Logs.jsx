@@ -78,13 +78,13 @@ const Logs = ({}) => {
       <section className="shadow rounded">
         <div>
           <div
-            className="z-2 rounded bg-white py-2 lg:py-4 px-4
+            className="z-2 rounded bg-white p-4
             shadow shadow-slate-300
             flex flex-col gap-2 
             min-h-[min-content]
             md:flex-row md:justify-between md:items-center"
           >
-            <h2 className="pt-1 md:p-0 text-2xl font-semibold">Your Logs</h2>
+            <h2 className="md:p-0 text-2xl font-semibold">Your Logs</h2>
             <LogTools
               searchState={searchState}
               setSearchState={setSearchState}

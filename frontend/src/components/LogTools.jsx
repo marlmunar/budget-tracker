@@ -48,7 +48,7 @@ const LogTools = ({ searchState, setSearchState }) => {
             <>
               <form
                 method="POST"
-                className="relative bg-white border-2 w-full text-black rounded-xl px-2 pr-8 min-h-8  lg:w-[16.5rem] lg:max-w-none flex items-center justify-between"
+                className="z-1 relative bg-white border-2 w-full text-black rounded-xl px-2 pr-8 min-h-8  lg:w-[16.5rem] lg:max-w-none flex items-center justify-between"
               >
                 <input
                   className="focus:outline-none focus:ring-0 w-full"
@@ -77,13 +77,15 @@ const LogTools = ({ searchState, setSearchState }) => {
               </form>
 
               <button
-                className="max-h-10 log-button-2"
+                className="flex log-button-2 min-w-10 max-h-10"
                 onClick={() => {
                   setShowSearch(false),
                     setSearchState({ isSearching: false, searchText: "" });
                 }}
               >
-                <span className="text-sm md:text-[length:inherit]">Cancel</span>
+                <span className="">
+                  <TbX />
+                </span>
               </button>
             </>
           ) : (
@@ -118,7 +120,7 @@ const LogTools = ({ searchState, setSearchState }) => {
       </div>
 
       <div className="md:hidden absolute top-0 left-0 h-full w-full flex flex-col p-4">
-        <div className="flex-1"></div>
+        <div className="flex-1 z-0"></div>
         <button
           className="log-button-3"
           onClick={() =>
