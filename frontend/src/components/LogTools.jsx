@@ -120,7 +120,7 @@ const LogTools = ({ searchState, setSearchState }) => {
       <div className="md:hidden absolute top-0 left-0 h-full w-full flex flex-col p-4">
         <div className="flex-1"></div>
         <button
-          className="log-button-2 sticky ml-auto bottom-4 shadow max-w-18 max-h-18 flex flex-col border"
+          className="log-button-2 sticky ml-auto bottom-4 shadow max-w-18 max-h-18 flex flex-col"
           onClick={() =>
             dispatch(
               setModalState({
