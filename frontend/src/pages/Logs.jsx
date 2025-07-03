@@ -76,43 +76,48 @@ const Logs = ({}) => {
   return (
     <main className="px-1 md:px-6 lg:px-10 h-full lg:w-[60%] mx-auto">
       <section className="shadow rounded">
-        <div
-          className="z-2 rounded bg-white py-2 lg:py-4 px-4
+        <div>
+          <div
+            className="z-2 rounded bg-white py-2 lg:py-4 px-4
             shadow shadow-slate-300
             flex flex-col gap-2 
             min-h-[min-content]
             md:flex-row md:justify-between md:items-center"
-        >
-          <h2 className="pt-1 md:p-0 text-2xl font-semibold">Your Logs</h2>
-          <LogTools searchState={searchState} setSearchState={setSearchState} />
-        </div>
+          >
+            <h2 className="pt-1 md:p-0 text-2xl font-semibold">Your Logs</h2>
+            <LogTools
+              searchState={searchState}
+              setSearchState={setSearchState}
+            />
+          </div>
 
-        <div className="flex flex-col w-full gap-1 p-2 md:px-0 pt-3 pb-4 rounded-b h-full">
-          {results.length > 0 ? (
-            <>
-              {isVisible &&
-                results.map((log) => (
-                  <motion.div
-                    key={log._id}
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.4 }}
-                  >
-                    <LogCard
-                      setLastAction={setLastAction}
-                      logName={log.name}
-                      logStats={{
-                        entries: log.entries.length,
-                        lastEdited: log.updatedAt.split("T")[0],
-                      }}
-                      logId={log._id}
-                    />
-                  </motion.div>
-                ))}
-            </>
-          ) : (
-            <NoRecords />
-          )}
+          <div className="flex flex-col w-full gap-1 p-2 md:px-0 pt-3 pb-4 rounded-b h-full">
+            {results.length > 0 ? (
+              <>
+                {isVisible &&
+                  results.map((log) => (
+                    <motion.div
+                      key={log._id}
+                      initial={{ opacity: 0, y: 30 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.4 }}
+                    >
+                      <LogCard
+                        setLastAction={setLastAction}
+                        logName={log.name}
+                        logStats={{
+                          entries: log.entries.length,
+                          lastEdited: log.updatedAt.split("T")[0],
+                        }}
+                        logId={log._id}
+                      />
+                    </motion.div>
+                  ))}
+              </>
+            ) : (
+              <NoRecords />
+            )}
+          </div>
         </div>
       </section>
     </main>

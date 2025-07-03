@@ -42,7 +42,7 @@ const LogTools = ({ searchState, setSearchState }) => {
 
   return (
     <>
-      <div className="flex gap-2 items-center ">
+      <div className="flex gap-2 items-center relative">
         <div className="flex justify-end grow gap-2">
           {showSearch ? (
             <>
@@ -88,29 +88,6 @@ const LogTools = ({ searchState, setSearchState }) => {
             </>
           ) : (
             <>
-              {/* <div className="z-25 absolute right-0 top-0 h-full w-full">
-                <div className="relative h-full w-full">
-                  <div className="= h-full w-full border">
-                    <button
-                      className="log-button-2 sticky bottom-0 right-0 shadow min-w-18 max-h-18 flex flex-col border"
-                      onClick={() =>
-                        dispatch(
-                          setModalState({
-                            showModal: true,
-                            activeModal: "addLog",
-                          })
-                        )
-                      }
-                    >
-                      <TbPlus className="text-4xl md:text-[length:inherit]" />
-                      <span className="text-xs md:text-[length:inherit]">
-                        Add New
-                      </span>
-                    </button>
-                  </div>
-                </div>
-              </div> */}
-
               <button
                 className="hidden md:flex log-button-2 min-w-10 max-h-10"
                 onClick={() =>
@@ -129,7 +106,7 @@ const LogTools = ({ searchState, setSearchState }) => {
               </button>
 
               <button
-                className="flex log-button-2 min-w-10 top-2 right-2 absolute md:static max-h-10"
+                className="flex log-button-2 min-w-10 top-[-2.6rem] right-0 absolute md:static max-h-10"
                 onClick={() => setShowSearch(true)}
               >
                 <TbSearch />
@@ -138,6 +115,24 @@ const LogTools = ({ searchState, setSearchState }) => {
             </>
           )}
         </div>
+      </div>
+
+      <div className="md:hidden absolute top-0 left-0 h-full w-full flex flex-col p-4">
+        <div className="flex-1"></div>
+        <button
+          className="log-button-2 sticky ml-auto bottom-4 shadow max-w-18 max-h-18 flex flex-col border"
+          onClick={() =>
+            dispatch(
+              setModalState({
+                showModal: true,
+                activeModal: "addLog",
+              })
+            )
+          }
+        >
+          <TbPlus className="text-4xl md:text-[length:inherit]" />
+          <span className="text-xs md:text-[length:inherit]">Add New</span>
+        </button>
       </div>
 
       {/* {isAdding && (
