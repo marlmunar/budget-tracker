@@ -182,16 +182,16 @@ button > * {
 }
 
 .log-button {
-  @apply p-1 flex items-center justify-center rounded cursor-pointer bg-blue-200
+  @apply p-1 flex items-center justify-center rounded cursor-pointer text-[1.75rem] lg:text-[2rem]
     active:scale-95
-    hover:shadow-md hover:translate-y-[-2px]
+  hover:bg-slate-300/40 hover:shadow-md hover:border-transparent hover:translate-y-[-2px]
     transition-all duration-300;
 }
 
 .log-button-2 {
   @apply p-1 min-h-10 z-5 px-2 flex items-center justify-center rounded cursor-pointer gap-1 h-full bg-blue-200 text-base
     active:scale-95
-  hover:bg-amber-300 hover:shadow-md hover:translate-y-[-2px]
+  hover:bg-amber-300 hover:shadow-md hover:border-transparent hover:translate-y-[-2px]
     transition-all duration-300;
 }
 
@@ -204,6 +204,13 @@ button > * {
 
 .log-options {
   @apply w-full px-1 flex justify-start items-center gap-1 rounded cursor-pointer hover:bg-slate-400/50;
+}
+
+.log-options-button {
+  @apply p-1 flex items-center justify-center rounded cursor-pointer bg-blue-200
+    active:scale-95
+    hover:shadow-md hover:translate-y-[-2px]
+    transition-all duration-300;
 }
 
 menu li {

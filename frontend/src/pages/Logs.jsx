@@ -74,7 +74,7 @@ const Logs = ({}) => {
   }, [lastAction]);
 
   return (
-    <main className="overflow-hidden px-1 md:px-6 lg:px-10 h-full lg:w-[60%] mx-auto">
+    <main className="px-1 md:px-6 lg:px-10 h-full lg:w-[60%] mx-auto">
       <section className="flex flex-col shadow rounded h-full relative">
         <div
           className="z-2 rounded bg-white py-2 lg:py-4 px-4

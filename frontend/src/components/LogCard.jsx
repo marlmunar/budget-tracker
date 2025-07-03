@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { TbDotsVertical } from "react-icons/tb";
+import { TbDotsVertical, TbPencil, TbTrash, TbX } from "react-icons/tb";
 import { useState } from "react";
 import ConfirmModal from "./ConfirmModal";
 import RenameModal from "./RenameModal";
@@ -44,15 +44,40 @@ const LogCard = ({ logName, logStats, logId, setLastAction }) => {
 
   return (
     <div className="relative mx-auto flex md:w-[98%] m-1 trasition-all duration-100 bg-white shadow-slate-300 shadow-sm rounded hover:shadow-lg hover:mb-2 hover:mt-1 ">
-      <Link
-        to={`/log/${logId}`}
-        className="p-2 pb-4 w-full"
-        onClick={() => console.log("clicked")}
-      >
+      <div className="p-2 pb-4 w-full">
         <div className="flex flex-col gap-1">
-          <h3 className="md:mr-13 mr-12 grow text-base md:text-lg font-semibold bg-gray-200 rounded p-2 ">
-            {displayName}
-          </h3>
+          <div className="flex justify-between gap-2">
+            <Link
+              to={`/log/${logId}`}
+              className="block grow text-base md:text-lg font-semibold bg-gray-200 rounded p-2 "
+            >
+              {displayName}
+            </Link>
+
+            <OutsideClick onOutsideClick={() => setIsSelecting(false)}>
+              <div onClick={(e) => e.stopPropagation()} className="flex gap-2">
+                {isSelecting && (
+                  <>
+                    <button className="log-tool-button min-h-10 min-w-10 md:min-h-11 md:min-w-11">
+                      <TbPencil />
+                    </button>
+
+                    <button className="log-tool-button min-h-10 min-w-10 md:min-h-11 md:min-w-11">
+                      <TbTrash />
+                    </button>
+                  </>
+                )}
+                <button
+                  title="Options"
+                  data-info="exempted"
+                  onClick={() => setIsSelecting((prev) => !prev)}
+                  className="log-tool-button min-h-10 min-w-10 md:min-h-11 md:min-w-11"
+                >
+                  {isSelecting ? <TbX /> : <TbDotsVertical />}
+                </button>
+              </div>
+            </OutsideClick>
+          </div>
 
           <div className="flex gap-2 px-2 text-[0.75rem] md:text-sm text-gray-800">
             <p>{logStats.lastEdited}</p>
@@ -61,24 +86,7 @@ const LogCard = ({ logName, logStats, logId, setLastAction }) => {
             </p>
           </div>
         </div>
-      </Link>
-      <button
-        title="Options"
-        data-info="exempted"
-        onClick={() => setIsSelecting(true)}
-        className="log-tool-button absolute top-2 right-2 md:min-h-11 md:min-w-11 bg-gray-200 border-2 border-transparent hover:border-slate-400 rounded"
-      >
-        <TbDotsVertical />
-      </button>
-      {isSelecting && (
-        <OutsideClick onOutsideClick={() => setIsSelecting(false)}>
-          <menu className="z-5 absolute top-13 shadow shadow-slate-500 right-2 rounded mt-2 p-2 bg-white flex flex-col gap-1 min-w-[15%]">
-            <button className="log-button">Rename</button>
-            <button className="log-button">Edit</button>
-            <button className="log-button">Delete</button>
-          </menu>
-        </OutsideClick>
-      )}
+      </div>
     </div>
   );
 };
