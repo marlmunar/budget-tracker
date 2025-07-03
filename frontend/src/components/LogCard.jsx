@@ -75,7 +75,11 @@ const LogCard = ({ logName, logStats, logId }) => {
                           setModalState({
                             showModal: true,
                             activeModal: "delete",
-                            modalData: { type: "log", id: logId },
+                            modalData: {
+                              name: logName,
+                              type: "log",
+                              id: logId,
+                            },
                           })
                         )
                       }
