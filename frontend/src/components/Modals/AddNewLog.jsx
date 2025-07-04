@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TbArrowNarrowLeft, TbChevronLeft } from "react-icons/tb";
 import { useSelector } from "react-redux";
 import { useCreateLogMutation } from "../../slices/logsApiSlice";
@@ -6,16 +6,55 @@ import { useCreateLogMutation } from "../../slices/logsApiSlice";
 const AddNewLog = () => {
   const { defaultCategories } = useSelector((state) => state.logs);
   const [createLog] = useCreateLogMutation();
-  const [logType, setLogType] = useState(null);
+  const [logType, setLogType] = useState("");
   const [logName, setLogName] = useState("");
-  const [threshold, setTreshold] = useState(null);
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
+  const [threshold, setTreshold] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
   const [error, setError] = useState("");
   const logTypes = {
     1: "General Tracker",
     2: "Saving Goal",
     3: "Budget with Deadline",
+  };
+
+  useEffect(() => {
+    setError("");
+  }, [logType, logName, threshold, startDate, endDate]);
+
+  const isValidNumber = (value) => {
+    return (
+      typeof value === "number" &&
+      Number.isFinite(value) &&
+      value >= 0 &&
+      !value.toString().includes("e")
+    );
+  };
+
+  const isValidDate = (value) => {
+    const today = new Date();
+    return value > today;
+  };
+
+  const removeLeadingZeros = (value) => {
+    if (value === "0") return "0";
+    if (/^0+\./.test(value)) return value.replace(/^0+/, "");
+    return value.replace(/^0+/, "");
+  };
+
+  const handleNewThreshold = (e) => {
+    const raw = e.target.value;
+    const cleaned = removeLeadingZeros(raw);
+    setTreshold(+cleaned);
+  };
+
+  const resetForm = () => {
+    setError("");
+    setLogType("");
+    setLogName("");
+    setTreshold("");
+    setStartDate("");
+    setEndDate("");
   };
 
   const handleSubmit = async (e) => {
@@ -24,6 +63,22 @@ const AddNewLog = () => {
     if (!logName) {
       return setError("Please provide a name");
     }
+
+    if (logType > 1) {
+      if (!threshold) {
+        if (logType === 2) return setError("Please provide a saving goal");
+        if (logType === 3) return setError("Please provide a budget");
+      }
+      if (!endDate) return setError("Please select an end date");
+      if (logType === 3 && !startDate)
+        return setError("Please select a starting date");
+      if (!isValidNumber(threshold)) return setError("Invalid number format");
+      if (!isValidDate(new Date(endDate)))
+        return setError("Please use an upcoming date");
+      if (!isValidDate(new Date(startDate)))
+        return setError("Please use an upcoming date");
+    }
+
     const newLog = {
       name: logName,
       logData: {
@@ -84,7 +139,7 @@ const AddNewLog = () => {
         <>
           <button
             className="absolute top-4 left-4 modal-button"
-            onClick={() => setLogType(null)}
+            onClick={resetForm}
           >
             <TbChevronLeft />
           </button>
@@ -106,11 +161,23 @@ const AddNewLog = () => {
             <>
               <div className="modal-input-container">
                 <label htmlFor="goal">Saving Goal Amount</label>
-                <input id="goal" type="number" autoComplete="off" />
+                <input
+                  id="goal"
+                  type="number"
+                  value={threshold}
+                  onChange={(e) => handleNewThreshold(e)}
+                  autoComplete="off"
+                />
               </div>
               <div className="modal-input-container">
                 <label htmlFor="endDate1">End Date</label>
-                <input id="endDate1" type="date" autoComplete="off" />
+                <input
+                  id="endDate1"
+                  type="date"
+                  value={endDate}
+                  onChange={(e) => setEndDate(e.target.value)}
+                  autoComplete="off"
+                />
               </div>
             </>
           )}
@@ -132,7 +199,9 @@ const AddNewLog = () => {
             </>
           )}
           <div className=" text-left text-red-500 text-sm">{error}</div>
-          <button className="modal-action-button">Save</button>
+          <button className="modal-action-button" formNoValidate>
+            Save
+          </button>
         </>
       )}
     </form>
