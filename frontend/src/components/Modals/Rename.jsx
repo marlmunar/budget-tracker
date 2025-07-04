@@ -8,16 +8,27 @@ const Rename = ({ name }) => {
   };
 
   return (
-    <form className="flex flex-col gap-2 p-2" onSubmit={handleSubmit}>
-      <h3 className="text-xl font-semibold">Edit Log Name </h3>
-      <input
-        value={nameToEdit}
-        onChange={(e) => setNameToEdit(e.target.value)}
-        autoComplete="off"
-        required
-      />
+    <form className="flex flex-col gap-2 p-2 md:p-0" onSubmit={handleSubmit}>
+      <h3 className="text-xl mt-1 font-semibold ml-2">Rename Log</h3>
+      <div className="modal-input-container px-2">
+        <label className="flex items-center gap-1" htmlFor="newName">
+          Edit name of
+          <span className="font-semibold max-w-[15ch] inline-block truncate">
+            "{name}"
+          </span>
+        </label>
+        <input
+          value={nameToEdit}
+          id="newName"
+          onChange={(e) => setNameToEdit(e.target.value)}
+          autoComplete="off"
+          required
+        />
+      </div>
 
-      <button className="shadow rounded w-18 py-2 self-end">Save</button>
+      <button className="modal-action-button mr-2" formNoValidate>
+        Save
+      </button>
     </form>
   );
 };

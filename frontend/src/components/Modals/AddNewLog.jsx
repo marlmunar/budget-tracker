@@ -52,38 +52,23 @@ const AddNewLog = () => {
           >
             <TbChevronLeft />
           </button>
-          <h3 className="text-lg mt-10 text-center font-semibold">
+          <h3 className="text-lg mt-4 text-center font-semibold">
             Add New {logType}
           </h3>
           <div className="modal-input-container">
             <label htmlFor="logName">Log Name</label>
-            <input
-              id="logName"
-              type="text"
-              autoComplete="off"
-              className="border-2 border-gray-800 px-2 p-1"
-            />
+            <input id="logName" type="text" autoComplete="off" />
           </div>
 
           {logType === "Saving Goal" && (
             <>
               <div className="modal-input-container">
                 <label htmlFor="goal">Saving Goal Amount</label>
-                <input
-                  id="goal"
-                  type="number"
-                  autoComplete="off"
-                  className="border-2 border-gray-800 px-2 p-1"
-                />
+                <input id="goal" type="number" autoComplete="off" />
               </div>
               <div className="modal-input-container">
                 <label htmlFor="endDate1">End Date</label>
-                <input
-                  id="endDate1"
-                  type="date"
-                  autoComplete="off"
-                  className="border-2 border-gray-800 px-2 p-1"
-                />
+                <input id="endDate1" type="date" autoComplete="off" />
               </div>
             </>
           )}
@@ -92,30 +77,15 @@ const AddNewLog = () => {
             <>
               <div className="modal-input-container">
                 <label htmlFor="spendingLimit">Spending Limit</label>
-                <input
-                  id="spendingLimit"
-                  type="number"
-                  autoComplete="off"
-                  className="border-2 border-gray-800 px-2 p-1"
-                />
+                <input id="spendingLimit" type="number" autoComplete="off" />
               </div>
               <div className="modal-input-container">
                 <label htmlFor="startDate">Start Date</label>
-                <input
-                  id="startDate"
-                  type="date"
-                  autoComplete="off"
-                  className="border-2 border-gray-800 px-2 p-1"
-                />
+                <input id="startDate" type="date" autoComplete="off" />
               </div>
               <div className="modal-input-container">
                 <label htmlFor="endDate2">End Date</label>
-                <input
-                  id="endDate2"
-                  type="date"
-                  autoComplete="off"
-                  className="border-2 border-gray-800 px-2 p-1"
-                />
+                <input id="endDate2" type="date" autoComplete="off" />
               </div>
             </>
           )}

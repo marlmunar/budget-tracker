@@ -296,11 +296,11 @@ menu li {
 }
 
 .modal-input-container {
-  @apply lg:min-w-[25vw]  min-w-[60vw] px-2;
+  @apply lg:min-w-[25vw]  min-w-[60vw];
 }
 
 .modal-input-container > input {
-  @apply border-2 rounded block min-w-full;
+  @apply border-2 rounded block min-w-full border-gray-800 px-2 p-1;
 }
 
 .modal-button {
@@ -310,8 +310,9 @@ menu li {
     hover:shadow-md hover:border-transparent hover:translate-y-[-2px]
     transition-all duration-300;
 }
+
 .modal-action-button {
-  @apply mr-2 mt-2 shadow rounded w-18 py-2 self-end
+  @apply mt-2 shadow rounded w-18 py-2 self-end
     active:scale-95
     active:bg-amber-700
   bg-amber-300
