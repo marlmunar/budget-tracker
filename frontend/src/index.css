@@ -321,6 +321,17 @@ menu li {
     transition-all duration-300;
 }
 
+.modal-delete-button {
+  @apply mt-2 shadow rounded w-18 py-2 self-end
+    active:scale-95
+    active:bg-red-800
+  bg-red-500
+  hover:bg-red-700
+  text-white
+    hover:shadow-md hover:border-transparent hover:translate-y-[-2px]
+    transition-all duration-300;
+}
+
 @layer utilities {
   @keyframes fade-out {
     from {
