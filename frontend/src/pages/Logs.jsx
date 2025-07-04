@@ -86,6 +86,7 @@ const Logs = ({}) => {
                         lastEdited: log.updatedAt.split("T")[0],
                       }}
                       logId={log._id}
+                      logData={log.logData}
                     />
                   </motion.div>
                 ))}

@@ -5,21 +5,14 @@ import OutsideClick from "./OutsideClick";
 import { useDispatch } from "react-redux";
 import { setModalState } from "../slices/appSlice";
 
-const LogCard = ({ logName, logStats, logId }) => {
+const LogCard = ({ logName, logStats, logId, logData }) => {
   const dispatch = useDispatch();
   const [isSelecting, setIsSelecting] = useState(false);
-
-  // const handleDelete = async () => {
-  //   try {
-  //     const res = await deleteLog({
-  //       id: logId,
-  //     }).unwrap();
-  //     console.log(res);
-  //     setLastAction(Date.now());
-  //   } catch (error) {
-  //     console.log(error?.data?.message || error.message);
-  //   }
-  // };
+  const logTypes = {
+    1: "General Tracker",
+    2: "Saving Goal",
+    3: "Budget with Deadline",
+  };
 
   return (
     <div className="relative mx-auto flex md:w-[98%] m-1 trasition-all duration-100 bg-white shadow-slate-300 shadow-sm rounded hover:shadow-lg hover:mb-2 hover:mt-1 ">
@@ -37,7 +30,7 @@ const LogCard = ({ logName, logStats, logId }) => {
                 <p className="text-[0.65rem] md:text-[0.70rem]">
                   {logStats.lastEdited}
                 </p>
-                <p>General Tracker</p>
+                <p>{logTypes[logData.type]}</p>
                 <p>
                   {`${logStats.entries} ${
                     logStats.entries > 1 ? "entries" : "entry"

@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { TbArrowNarrowLeft, TbChevronLeft } from "react-icons/tb";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useCreateLogMutation } from "../../slices/logsApiSlice";
+import { setLastAction } from "../../slices/appSlice";
 
-const AddNewLog = () => {
+const AddNewLog = ({ closeModal }) => {
+  const dispatch = useDispatch();
   const { defaultCategories } = useSelector((state) => state.logs);
   const [createLog] = useCreateLogMutation();
   const [logType, setLogType] = useState("");
@@ -41,15 +43,16 @@ const AddNewLog = () => {
   };
 
   const removeLeadingZeros = (value) => {
+    if (!value) return value;
     if (value === "0") return "0";
     if (/^0+\./.test(value)) return value.replace(/^0+/, "");
-    return value.replace(/^0+/, "");
+    return value.replace(/^0+(?=\d)/, "");
   };
 
   const handleNewThreshold = (e) => {
     const raw = e.target.value;
     const cleaned = removeLeadingZeros(raw);
-    setTreshold(+cleaned);
+    setTreshold(cleaned);
   };
 
   const resetForm = () => {
@@ -76,12 +79,16 @@ const AddNewLog = () => {
       if (logType === 3 && !startDate)
         return setError("Please select a starting date");
       if (!endDate) return setError("Please select an end date");
-      if (!isValidNumber(threshold)) return setError("Invalid number format");
+      if (!isValidNumber(parseFloat(threshold)))
+        return setError("Invalid number format");
       if (!isValidDate(new Date(endDate)))
         return setError("Please use an upcoming date");
-      if (!isValidDate(new Date(startDate)))
+      if (logType === 3 && !isValidDate(new Date(startDate)))
         return setError("Please use an upcoming date");
-      if (!isValidRange(new Date(startDate), new Date(endDate)))
+      if (
+        logType === 3 &&
+        !isValidRange(new Date(startDate), new Date(endDate))
+      )
         return setError("Invalid date range");
     }
 
@@ -95,11 +102,11 @@ const AddNewLog = () => {
       },
       categories: defaultCategories,
     };
-    console.log(newLog);
 
     try {
       const res = await createLog(newLog).unwrap();
-      console.log(res);
+      closeModal();
+      dispatch(setLastAction(Date.now()));
     } catch (error) {
       console.log(error?.data?.message || error.message);
     }

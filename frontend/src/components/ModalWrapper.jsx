@@ -26,7 +26,7 @@ const ModalWrapper = () => {
   };
 
   const modals = {
-    addLog: <AddNewLog />,
+    addLog: <AddNewLog closeModal={closeModal} />,
     rename: (
       <Rename name={modalData.name} id={modalData.id} closeModal={closeModal} />
     ),
