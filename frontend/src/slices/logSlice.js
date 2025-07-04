@@ -3,32 +3,32 @@ const defaultCategories = [
   {
     name: "Food",
     color: "#82E0AA",
-    subType: "Expense",
+    type: "Expense",
   },
   {
     name: "Savings",
     color: "#F7DC6F",
-    subType: "Income",
+    type: "Income",
   },
   {
     name: "Health",
     color: "#A569BD",
-    subType: "Expense",
+    type: "Expense",
   },
   {
     name: "Housing",
     color: "#5DADE2",
-    subType: "Expense",
+    type: "Expense",
   },
   {
     name: "Bills",
     color: "#FF7F50",
-    subType: "Expense",
+    type: "Expense",
   },
   {
     name: "Transportation",
     color: "#40E0D0",
-    subType: "Expense",
+    type: "Expense",
   },
 ];
 

@@ -1,11 +1,47 @@
 import React, { useState } from "react";
 import { TbArrowNarrowLeft, TbChevronLeft } from "react-icons/tb";
+import { useSelector } from "react-redux";
+import { useCreateLogMutation } from "../../slices/logsApiSlice";
 
 const AddNewLog = () => {
-  const [logType, setLogType] = useState("");
+  const { defaultCategories } = useSelector((state) => state.logs);
+  const [createLog] = useCreateLogMutation();
+  const [logType, setLogType] = useState(null);
+  const [logName, setLogName] = useState("");
+  const [threshold, setTreshold] = useState(null);
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+  const [error, setError] = useState("");
+  const logTypes = {
+    1: "General Tracker",
+    2: "Saving Goal",
+    3: "Budget with Deadline",
+  };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!logName) {
+      return setError("Please provide a name");
+    }
+    const newLog = {
+      name: logName,
+      logData: {
+        type: logType,
+        threshold,
+        startDate,
+        endDate,
+      },
+      categories: defaultCategories,
+    };
+    console.log(newLog);
+
+    try {
+      const res = await createLog(newLog).unwrap();
+      console.log(res);
+    } catch (error) {
+      console.log(error?.data?.message || error.message);
+    }
   };
 
   return (
@@ -18,7 +54,7 @@ const AddNewLog = () => {
             <button
               className="log-type-button"
               type="button"
-              onClick={() => setLogType("General Tracker")}
+              onClick={() => setLogType(1)}
             >
               <h4>General Tracker</h4>
               <div></div>
@@ -27,7 +63,7 @@ const AddNewLog = () => {
             <button
               className="log-type-button"
               type="button"
-              onClick={() => setLogType("Saving Goal")}
+              onClick={() => setLogType(2)}
             >
               <h4>Saving Goal</h4>
               <div></div>
@@ -36,7 +72,7 @@ const AddNewLog = () => {
             <button
               className="log-type-button"
               type="button"
-              onClick={() => setLogType("Budget with Deadline")}
+              onClick={() => setLogType(3)}
             >
               <h4>Budget with Deadline</h4>
               <div></div>
@@ -48,19 +84,25 @@ const AddNewLog = () => {
         <>
           <button
             className="absolute top-4 left-4 modal-button"
-            onClick={() => setLogType("")}
+            onClick={() => setLogType(null)}
           >
             <TbChevronLeft />
           </button>
           <h3 className="text-lg mt-4 text-center font-semibold">
-            Add New {logType}
+            Add New {logTypes[logType]}
           </h3>
           <div className="modal-input-container">
             <label htmlFor="logName">Log Name</label>
-            <input id="logName" type="text" autoComplete="off" />
+            <input
+              id="logName"
+              type="text"
+              value={logName}
+              onChange={(e) => setLogName(e.target.value)}
+              autoComplete="off"
+            />
           </div>
 
-          {logType === "Saving Goal" && (
+          {logType === 2 && (
             <>
               <div className="modal-input-container">
                 <label htmlFor="goal">Saving Goal Amount</label>
@@ -73,7 +115,7 @@ const AddNewLog = () => {
             </>
           )}
 
-          {logType === "Budget with Deadline" && (
+          {logType === 3 && (
             <>
               <div className="modal-input-container">
                 <label htmlFor="spendingLimit">Spending Limit</label>
@@ -89,7 +131,7 @@ const AddNewLog = () => {
               </div>
             </>
           )}
-
+          <div className=" text-left text-red-500 text-sm">{error}</div>
           <button className="modal-action-button">Save</button>
         </>
       )}
