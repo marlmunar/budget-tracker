@@ -224,15 +224,27 @@ button > * {
 }
 
 .log-type-button {
-  @apply p-4 flex flex-col shadow shadow-slate-400 w-full;
+  @apply p-2 md:p-4 flex md:flex-col justify-between shadow shadow-slate-300 w-full
+  transition-all duration-200 
+  hover:*:border-slate-800
+  hover:shadow-lg
+  hover:mt-2 md:hover:mt-0
+  hover:translate-y-[-8px]
+hover:bg-blue-100;
 }
 
 .log-type-button > h4 {
-  @apply text-lg border-b-2 border-slate-400 pb-2;
+  @apply text-lg flex md:flex-1 text-left md:justify-center md:items-center my-auto md:mx-auto 
+  md:pb-2 min-h-[2rem] h-[min-content]
+  md:max-w-none;
+}
+
+.log-type-button > div {
+  @apply w-full border-slate-400 border-b-2 md:block hidden;
 }
 
 .log-type-button > span {
-  @apply text-sm max-w-[20ch] pt-2;
+  @apply text-sm my-auto max-w-[55%] text-right md:text-center md:max-w-[20ch] md:mx-auto md:pt-2;
 }
 
 menu li {
@@ -281,6 +293,31 @@ menu li {
 .edit-entry-form .input-row input,
 .edit-entry-form .input-row .custom-select {
   @apply flex flex-col justify-center h-8 px-2 p-1 rounded border-[2px] w-[12rem] lg:w-[14rem] bg-white text-base;
+}
+
+.modal-input-container {
+  @apply lg:min-w-[25vw]  min-w-[60vw] px-2;
+}
+
+.modal-input-container > input {
+  @apply border-2 rounded block min-w-full;
+}
+
+.modal-button {
+  @apply p-1 flex items-center justify-center rounded cursor-pointer text-2xl
+  text-amber-600
+    active:scale-95
+    hover:shadow-md hover:border-transparent hover:translate-y-[-2px]
+    transition-all duration-300;
+}
+.modal-action-button {
+  @apply mr-2 mt-2 shadow rounded w-18 py-2 self-end
+    active:scale-95
+    active:bg-amber-700
+  bg-amber-300
+  hover:bg-amber-400
+    hover:shadow-md hover:border-transparent hover:translate-y-[-2px]
+    transition-all duration-300;
 }
 
 @layer utilities {

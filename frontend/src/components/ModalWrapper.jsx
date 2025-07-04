@@ -82,12 +82,12 @@ const ModalWrapper = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 100 }}
                   transition={{ duration: 0.3 }}
-                  className="sticky bg-white rounded p-4 top-[20%] min-w-[50%]"
+                  className="sticky rounded p-2 md:p-4 top-[20%] bg-white"
                   onClick={(e) => e.stopPropagation()}
                 >
                   {getModal()}
                   <button
-                    className="absolute top-4 right-4 text-2xl log-tool-button min-h-12 min-w-12"
+                    className="absolute top-4 right-4 modal-button"
                     onClick={closeModal}
                   >
                     <TbX />
