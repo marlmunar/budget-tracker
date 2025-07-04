@@ -87,7 +87,7 @@ const LogCard = ({ logName, logStats, logId, logData }) => {
                   title="Options"
                   data-id={logId}
                   onClick={() => setIsSelecting((prev) => !prev)}
-                  className="log-tool-button min-h-7 w-7 md:min-h-9 md:w-9
+                  className="z-10 log-tool-button min-h-7 w-7 md:min-h-9 md:w-9
                   text-gray-700 hover:text-gray-800"
                 >
                   {isSelecting ? <TbX /> : <TbDotsVertical />}
