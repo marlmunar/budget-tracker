@@ -9,19 +9,6 @@ const LogCard = ({ logName, logStats, logId }) => {
   const dispatch = useDispatch();
   const [isSelecting, setIsSelecting] = useState(false);
 
-  // const handleRename = async (name) => {
-  //   try {
-  //     const res = await updateLog({
-  //       id: logId,
-  //       data: { name },
-  //     }).unwrap();
-  //     console.log(res);
-  //     setLastAction(Date.now());
-  //   } catch (error) {
-  //     console.log(error?.data?.message || error.message);
-  //   }
-  // };
-
   // const handleDelete = async () => {
   //   try {
   //     const res = await deleteLog({

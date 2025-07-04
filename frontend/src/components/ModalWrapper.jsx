@@ -30,7 +30,7 @@ const ModalWrapper = () => {
     rename: (
       <Rename name={modalData.name} id={modalData.id} closeModal={closeModal} />
     ),
-    delete: <Delete resource={modalData} />,
+    delete: <Delete resource={modalData} closeModal={closeModal} />,
   };
 
   const getModal = () => modals[activeModal] || null;
@@ -52,20 +52,20 @@ const ModalWrapper = () => {
     };
   }, [showModal]);
 
-  useEffect(() => {
-    const offset = 200;
-    const element = scrollToRef.current;
+  // useEffect(() => {
+  //   const offset = 200;
+  //   const element = scrollToRef.current;
 
-    if (element) {
-      const topPosition =
-        element.getBoundingClientRect().top + window.scrollY - offset;
+  //   if (element) {
+  //     const topPosition =
+  //       element.getBoundingClientRect().top + window.scrollY - offset;
 
-      window.scrollTo({
-        top: topPosition,
-        behavior: "smooth",
-      });
-    }
-  }, [showModal]);
+  //     window.scrollTo({
+  //       top: topPosition,
+  //       behavior: "smooth",
+  //     });
+  //   }
+  // }, [showModal]);
 
   return (
     <>
