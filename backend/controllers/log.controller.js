@@ -26,8 +26,8 @@ const getLogs = asyncHandler(async (req, res) => {
 // @access PRIVATE
 const createLog = asyncHandler(async (req, res) => {
   const userId = req.user._id;
-  const { name, categories } = req.body;
-  const newLog = await Log.create({ userId, name, categories });
+  const { name, logData, categories } = req.body;
+  const newLog = await Log.create({ userId, logData, name, categories });
 
   res.status(201).json({
     message: "Successfully created",
@@ -47,7 +47,12 @@ const getLog = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("Log is not available");
   }
-  const resultLog = await Log.findById(id, "_id name categories entries");
+
+  const resultLog = await Log.findById(
+    id,
+    "_id name logData categories entries"
+  );
+
   res.status(200).json({
     message: "Successfully fetched",
     data: resultLog,

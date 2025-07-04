@@ -8,7 +8,13 @@ const logSchema = mongoose.Schema(
       required: true,
     },
     name: { type: String, required: true },
-    type: { type: String, required: true },
+
+    logData: {
+      type: { type: Number, required: true },
+      threshold: { type: Number },
+      startDate: { type: Date },
+      endDate: { type: Date },
+    },
     categories: {
       type: [
         {
