@@ -36,6 +36,10 @@ const AddNewLog = () => {
     return value > today;
   };
 
+  const isValidRange = (d1, d2) => {
+    return d2 > d1;
+  };
+
   const removeLeadingZeros = (value) => {
     if (value === "0") return "0";
     if (/^0+\./.test(value)) return value.replace(/^0+/, "");
@@ -69,14 +73,16 @@ const AddNewLog = () => {
         if (logType === 2) return setError("Please provide a saving goal");
         if (logType === 3) return setError("Please provide a budget");
       }
-      if (!endDate) return setError("Please select an end date");
       if (logType === 3 && !startDate)
         return setError("Please select a starting date");
+      if (!endDate) return setError("Please select an end date");
       if (!isValidNumber(threshold)) return setError("Invalid number format");
       if (!isValidDate(new Date(endDate)))
         return setError("Please use an upcoming date");
       if (!isValidDate(new Date(startDate)))
         return setError("Please use an upcoming date");
+      if (!isValidRange(new Date(startDate), new Date(endDate)))
+        return setError("Invalid date range");
     }
 
     const newLog = {
@@ -186,15 +192,33 @@ const AddNewLog = () => {
             <>
               <div className="modal-input-container">
                 <label htmlFor="spendingLimit">Spending Limit</label>
-                <input id="spendingLimit" type="number" autoComplete="off" />
+                <input
+                  id="spendingLimit"
+                  type="number"
+                  autoComplete="off"
+                  value={threshold}
+                  onChange={(e) => handleNewThreshold(e)}
+                />
               </div>
               <div className="modal-input-container">
                 <label htmlFor="startDate">Start Date</label>
-                <input id="startDate" type="date" autoComplete="off" />
+                <input
+                  id="startDate"
+                  type="date"
+                  value={startDate}
+                  onChange={(e) => setStartDate(e.target.value)}
+                  autoComplete="off"
+                />
               </div>
               <div className="modal-input-container">
                 <label htmlFor="endDate2">End Date</label>
-                <input id="endDate2" type="date" autoComplete="off" />
+                <input
+                  id="endDate2"
+                  type="date"
+                  value={endDate}
+                  onChange={(e) => setEndDate(e.target.value)}
+                  autoComplete="off"
+                />
               </div>
             </>
           )}
