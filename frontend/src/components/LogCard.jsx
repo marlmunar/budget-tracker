@@ -74,7 +74,7 @@ const LogCard = ({ logName, logStats, logId }) => {
                           setModalState({
                             showModal: true,
                             activeModal: "rename",
-                            modalData: { name: logName },
+                            modalData: { name: logName, id: logId },
                           })
                         )
                       }

@@ -15,14 +15,6 @@ const ModalWrapper = () => {
     (state) => state.app
   );
 
-  const modals = {
-    addLog: <AddNewLog />,
-    rename: <Rename name={modalData.name} />,
-    delete: <Delete resource={modalData} />,
-  };
-
-  const getModal = () => modals[activeModal] || null;
-
   const closeModal = () => {
     dispatch(
       setModalState({
@@ -32,6 +24,16 @@ const ModalWrapper = () => {
       })
     );
   };
+
+  const modals = {
+    addLog: <AddNewLog />,
+    rename: (
+      <Rename name={modalData.name} id={modalData.id} closeModal={closeModal} />
+    ),
+    delete: <Delete resource={modalData} />,
+  };
+
+  const getModal = () => modals[activeModal] || null;
 
   const scrollToRef = useRef(null);
 
