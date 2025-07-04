@@ -156,7 +156,7 @@ const AddNewLog = ({ closeModal }) => {
           >
             <TbChevronLeft />
           </button>
-          <h3 className="text-lg mt-4 text-center font-semibold">
+          <h3 className="text-lg mt-8 md:mt-6 text-center font-semibold">
             Add New {logTypes[logType]}
           </h3>
           <div className="modal-input-container">
