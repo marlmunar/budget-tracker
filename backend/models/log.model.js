@@ -8,12 +8,13 @@ const logSchema = mongoose.Schema(
       required: true,
     },
     name: { type: String, required: true },
+    type: { type: String, required: true },
     categories: {
       type: [
         {
           name: { type: String, required: true },
           color: { type: String, required: true },
-          subType: { type: String, required: true },
+          type: { type: String, required: true },
         },
       ],
       _id: false,
