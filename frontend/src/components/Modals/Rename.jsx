@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { useUpdateLogMutation } from "../../slices/logsApiSlice";
+import { useDispatch } from "react-redux";
+import { setLastAction } from "../../slices/appSlice";
 
 const Rename = ({ name, id, closeModal }) => {
+  const dispatch = useDispatch();
   const [newName, setNewName] = useState(name);
   const [updateLog] = useUpdateLogMutation();
   const [error, setError] = useState("");
@@ -23,6 +26,7 @@ const Rename = ({ name, id, closeModal }) => {
         data: { name: newName },
       }).unwrap();
       closeModal();
+      dispatch(setLastAction(Date.now()));
     } catch (error) {
       const errorMsg = error?.data?.message || error.message;
       setError(errorMsg);

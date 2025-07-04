@@ -5,6 +5,7 @@ const initialState = {
   showModal: false,
   activeModal: "",
   modalData: {},
+  lastAction: null,
 };
 
 const appSlice = createSlice({
@@ -28,8 +29,12 @@ const appSlice = createSlice({
         state.modalData = action.payload.modalData;
       }
     },
+    setLastAction: (state, action) => {
+      state.lastAction = action.payload;
+    },
   },
 });
 
-export const { startLoading, stopLoading, setModalState } = appSlice.actions;
+export const { startLoading, stopLoading, setModalState, setLastAction } =
+  appSlice.actions;
 export default appSlice.reducer;

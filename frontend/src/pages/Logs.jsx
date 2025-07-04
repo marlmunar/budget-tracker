@@ -4,17 +4,15 @@ import LogTools from "../components/LogTools";
 import NoRecords from "../components/NoRecords";
 import { useLazyGetLogsQuery } from "../slices/logsApiSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { setGrade } from "../slices/userSlice";
 import { AnimatePresence, motion } from "framer-motion";
 
 const Logs = ({}) => {
   const dispatch = useDispatch();
-  const { userInfo } = useSelector((state) => state.auth);
+  const { lastAction } = useSelector((state) => state.app);
   const [logs, setLogs] = useState([]);
   const [results, setResults] = useState([]);
-  const [lastAction, setLastAction] = useState("");
   const [isVisible, setIsVisible] = useState(true);
-  const [getLogs, { data, isLoading }] = useLazyGetLogsQuery();
+  const [getLogs] = useLazyGetLogsQuery();
   const [searchState, setSearchState] = useState({
     isSearching: false,
     searchText: "",
@@ -48,23 +46,6 @@ const Logs = ({}) => {
         }, 50);
 
         const entries = sorted.flatMap((data) => data.entries);
-        const savings = entries.reduce(
-          (sum, entry) =>
-            entry.category.name === "Savings" ? entry.amount + sum : sum,
-          0
-        );
-
-        if (userInfo.stats.savingGoals > 0) {
-          const target = userInfo.stats.savingGoals;
-
-          if (savings / target > 0.95) {
-            dispatch(setGrade("Expert"));
-          } else if (savings / target > 0.65) {
-            dispatch(setGrade("Experienced"));
-          } else {
-            dispatch(setGrade("Beginner"));
-          }
-        }
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -103,7 +84,6 @@ const Logs = ({}) => {
                       transition={{ duration: 0.4 }}
                     >
                       <LogCard
-                        setLastAction={setLastAction}
                         logName={log.name}
                         logStats={{
                           entries: log.entries.length,
