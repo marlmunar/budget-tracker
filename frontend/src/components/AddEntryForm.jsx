@@ -28,7 +28,7 @@ const AddEntryForm = ({ categories, setActiveAction, setLastAction }) => {
   const [expense, setExpense] = useState("");
   const [amount, setAmount] = useState("");
   const [category, setCategory] = useState({});
-  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState({});
   const [error, setError] = useState("");
   const [file, setFile] = useState(null);
   const fileInputRef = useRef(null);
@@ -202,15 +202,24 @@ const AddEntryForm = ({ categories, setActiveAction, setLastAction }) => {
               </div>
               <div className="log-input-column">
                 <label htmlFor="category">Category</label>
-                <div className="relative custom-select">
+                <div
+                  className="relative custom-select"
+                  style={{ backgroundColor: selectedCategory?.color }}
+                >
                   <div
                     className="py-1 flex justify-between items-center *:pointer-events-none"
                     data-id="addEntry"
                     onClick={() => setIsSelecting((prev) => !prev)}
                   >
-                    <span className={!!selectedCategory ? "" : "text-gray-500"}>
-                      {!!selectedCategory
-                        ? selectedCategory
+                    <span
+                      className={
+                        Object.keys(selectedCategory).length > 0
+                          ? ""
+                          : "text-gray-500"
+                      }
+                    >
+                      {Object.keys(selectedCategory).length > 0
+                        ? selectedCategory.name
                         : "Select a category"}
                     </span>
                     <button
@@ -229,14 +238,20 @@ const AddEntryForm = ({ categories, setActiveAction, setLastAction }) => {
                       onOutsideClick={() => setIsSelecting(false)}
                       id="addEntry"
                     >
-                      <menu className="absolute right-0 rounded mt-2 p-2 bg-white border-2 w-full flex flex-col gap-1">
+                      <menu
+                        className="absolute right-0 rounded p-1 bg-white shadow 
+                      shadow-slate-400 w-full flex flex-col gap-1"
+                      >
                         {categories.map((cat, index) => (
                           <li
                             className="log-options"
                             style={{ backgroundColor: cat.color }}
                             key={index}
                             onClick={() => {
-                              setSelectedCategory(cat.name);
+                              setSelectedCategory({
+                                name: cat.name,
+                                color: cat.color,
+                              });
                               setCategory(cat);
                               setIsSelecting(false);
                             }}
@@ -272,7 +287,7 @@ const AddEntryForm = ({ categories, setActiveAction, setLastAction }) => {
               onClick={() => {
                 setExpense("");
                 setAmount("");
-                setSelectedCategory("");
+                setSelectedCategory({});
               }}
             >
               Clear Values
