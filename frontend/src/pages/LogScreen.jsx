@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import AddEntryForm from "../components/AddEntryForm";
 import ExpenseList from "../components/ExpenseList";
@@ -29,6 +29,22 @@ import Footer from "../components/Footer";
 const LogScreen = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const scrollToRef = useRef(null);
+
+  useEffect(() => {
+    const offset = 200;
+    const element = scrollToRef.current;
+
+    if (element) {
+      const topPosition =
+        element.getBoundingClientRect().top + window.scrollY - offset;
+
+      window.scrollTo({
+        top: topPosition,
+        behavior: "smooth",
+      });
+    }
+  }, []);
 
   const [logData, setLogData] = useState({});
   const [categories, setCategories] = useState([]);
@@ -131,100 +147,17 @@ const LogScreen = () => {
   };
 
   return (
-    // <motion.div
-    //   // key={lastAction}
-    //   initial={{ opacity: 0, y: 50 }}
-    //   animate={{ opacity: 1, y: 0 }}
-    //   transition={{ duration: 0.5 }}
-    //   className="overflow-hidden"
-    // >
-    <main className="container mx-auto h-full">
+    <main
+      ref={scrollToRef}
+      className="container mx-auto h-full flex flex-col bg-gray-300"
+    >
       <title>{`Budgetarians' Log ${
         logData.name ? `- ${logData.name}` : ""
       }`}</title>
       <LogScreenHeader logName={logData.name} />
-      <div className="h-full mx-auto lg:max-w-[90%]">
-        <div className="w-[90%] mx-auto py-4 grid grid-cols-1 lg:grid-cols-[min-content_auto] grid-rows-[min-content_min-content] my-2 gap-4">
-          {!activeAction && <EntryOptions setActiveAction={setActiveAction} />}
-
-          {activeAction === "Adding Entry" && (
-            <AddEntryForm
-              categories={categories}
-              setActiveAction={setActiveAction}
-              setLastAction={setLastAction}
-            />
-          )}
-
-          {activeAction === "Adding Category" && (
-            <AddCategoryForm
-              logId={logId}
-              categories={categories}
-              setActiveAction={setActiveAction}
-              setLastAction={setLastAction}
-            />
-          )}
-
-          {activeAction === "Editing Category" && (
-            <EditCategoryForm
-              logId={logId}
-              categories={categories}
-              setActiveAction={setActiveAction}
-              setLastAction={setLastAction}
-            />
-          )}
-
-          {activeAction === "Deleting Category" && (
-            <DeleteCategoryForm
-              logId={logId}
-              categories={categories}
-              setActiveAction={setActiveAction}
-              setLastAction={setLastAction}
-            />
-          )}
-
-          <ExpenseList categories={categories} />
-          <ExpenseSummary entries={tempEntries} />
-        </div>
-
-        {isRenaming && (
-          <RenameModal
-            isRenaming={isRenaming}
-            setIsRenaming={setIsRenaming}
-            displayName={displayName}
-            handleSubmit={(tempName) => {
-              setIsRenaming(false);
-              setDisplayName(tempName);
-              handleRename(tempName);
-              dispatch(setIsNotSaved(true));
-            }}
-            title="Edit Log Name"
-            description="Edit the name of your log"
-          />
-        )}
-        {isDeleting && (
-          <ConfirmModal
-            isOpen={isDeleting}
-            setIsOpen={setIsDeleting}
-            handleConfirm={() => {
-              setIsDeleting(false);
-              dispatch(setIsNotSaved(false));
-              handleDelete();
-            }}
-            action="Delete"
-            description={`Delelete ${displayName}?`}
-          />
-        )}
-        {show && (
-          <Modal isOpen={show} onClose={cancel} title="Confirm Exit">
-            <div className="flex flex-col items-center gap-2 p-2">
-              <p>Leave with unsave changes?</p>
-              <div className="button-row">
-                <button onClick={confirm}>Confirm</button>
-                <button onClick={cancel}>Cancel</button>
-              </div>
-            </div>
-          </Modal>
-        )}
+      <div className="h-full m-2 grid grid-cols-[75%_auto] gap-2 w-[90%] mx-auto">
+        <ExpenseList categories={categories} />
+        <ExpenseSummary entries={tempEntries} />
       </div>
       <Footer bg="bg-gray-100" />
     </main>

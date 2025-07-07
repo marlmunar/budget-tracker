@@ -28,9 +28,9 @@ const ExpenseListFilter = ({
   };
 
   return (
-    <div className="absolute bg-white p-1 shadow-xl rounded flex flex-col gap-2 right-0 top-0 z-10">
-      <div className="lg:w-[min-content] bg-slate-500 p-4 rounded flex flex-col gap-1">
-        <div className="font-semibold text-lg bg-slate-400 px-2 rounded flex justify-between items-center">
+    <div className="absolute bg-white p-1 shadow-xl rounded flex flex-col right-0 top-0 z-10">
+      <div className="lg:w-[min-content] bg-slate-500 rounded flex flex-col gap-1">
+        <div className="font-semibold text-lg bg-slate-400 rounded flex justify-between items-center">
           <h3 className="text-nowrap mr-5">Apply Filter</h3>
           <div className="py-2 flex gap-2 ">
             <button className="log-tool-button" onClick={handleConfirm}>

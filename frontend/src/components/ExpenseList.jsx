@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { use, useEffect, useState } from "react";
-import { TbFilter } from "react-icons/tb";
+import { TbFilter, TbPlus } from "react-icons/tb";
 import ExpenseListItem from "./ExpenseListItem";
 import NoRecords from "./NoRecords";
 import EditEntryForm from "./EditEntryForm";
@@ -58,12 +58,17 @@ const ExpenseList = ({ categories }) => {
       </div>
       <div className="log-section-header flex justify-between items-center">
         <h2>Expense List</h2>
-        <button
-          className="log-tool-button h-15"
-          onClick={() => setIsFiltering(true)}
-        >
-          <TbFilter />
-        </button>
+        <div className="flex gap-2">
+          <button className="log-tool-button h-10 w-10 bg-slate-200">
+            <TbPlus />
+          </button>
+          <button
+            className="log-tool-button h-10 w-10 bg-slate-200"
+            onClick={() => setIsFiltering(true)}
+          >
+            <TbFilter />
+          </button>
+        </div>
       </div>
 
       {filteredList.length < 1 ? (

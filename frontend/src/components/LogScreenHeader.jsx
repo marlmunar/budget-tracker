@@ -14,7 +14,7 @@ import { useState } from "react";
 const LogScreenHeader = ({ logName }) => {
   const [isSelecting, setIsSelecting] = useState(false);
   return (
-    <div className="bg-gray-100 mx-auto rounded-b shadow">
+    <div className="bg-gray-100 mx-auto rounded-b shadow w-full">
       <div className="mx-auto px-4 lg:px-10 relative text-lg lg:text-xl flex justify-between items-center lg:max-w-[90%] min-h-10 md:min-h-18">
         <div className="flex gap-2 items-center ">
           <Link to="/logs" className="log-button">

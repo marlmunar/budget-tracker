@@ -15,7 +15,7 @@ const LogCard = ({ logName, logStats, logId, logData }) => {
   };
 
   return (
-    <div className="border relative mx-auto flex md:w-[98%] m-1 trasition-all duration-100 bg-white shadow-slate-300 shadow-sm rounded hover:shadow-lg hover:mb-2 hover:mt-1 ">
+    <div className="relative mx-auto flex md:w-[98%] m-1 trasition-all duration-100 bg-white shadow-slate-300 shadow-sm rounded hover:shadow-lg hover:mb-2 hover:mt-1 ">
       <div className="p-2 pb-4 w-full">
         <div className="flex flex-col gap-1">
           <div className="flex p-1 justify-between">

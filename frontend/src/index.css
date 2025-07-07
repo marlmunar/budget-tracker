@@ -144,7 +144,7 @@ button > * {
 }
 
 .log-section-container {
-  @apply shadow rounded p-4 bg-gray-100;
+  @apply shadow rounded bg-white;
 }
 
 .log-form-container {
@@ -152,7 +152,11 @@ button > * {
 }
 
 .log-section-header {
-  @apply bg-slate-400 p-2 px-3 rounded shadow text-lg lg:text-xl font-semibold h-14 flex items-center;
+  @apply rounded bg-gray-100 p-4 text-lg font-semibold
+            shadow shadow-slate-300
+            flex flex-col gap-2 
+            min-h-[min-content]
+            md:flex-row md:justify-between md:items-center;
 }
 
 .input-row {
