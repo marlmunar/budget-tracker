@@ -155,7 +155,7 @@ const LogScreen = () => {
         logData.name ? `- ${logData.name}` : ""
       }`}</title>
       <LogScreenHeader logName={logData.name} />
-      <div className="h-full m-2 grid grid-cols-[75%_auto] gap-2 w-[90%] mx-auto">
+      <div className="h-full container m-2 grid grid-cols-[75%_auto] gap-2 w-[90%] mx-auto">
         <ExpenseList categories={categories} />
         <ExpenseSummary entries={tempEntries} />
       </div>
