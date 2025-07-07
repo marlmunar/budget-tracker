@@ -5,6 +5,7 @@ import {
   TbArrowLeft,
   TbFileImport,
   TbX,
+  TbCheck,
 } from "react-icons/tb";
 import OutsideClick from "./OutsideClick";
 import { useRef, useState } from "react";
@@ -25,7 +26,7 @@ const AddEntryForm = ({ categories, setActiveAction, setLastAction }) => {
   const [isSelecting, setIsSelecting] = useState(false);
   const [isImporting, setIsImporting] = useState(false);
   const [expense, setExpense] = useState("");
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState("");
   const [category, setCategory] = useState({});
   const [selectedCategory, setSelectedCategory] = useState("");
   const [error, setError] = useState("");
@@ -125,32 +126,23 @@ const AddEntryForm = ({ categories, setActiveAction, setLastAction }) => {
   };
 
   return (
-    <section className="log-form-container min-w-[min-content]">
+    <section className="log-form-container w-full absolute right-0 top-0 shadow shadow-slate-400">
       <div className="log-section-header">
-        <button
-          className="log-tool-button my-1 mr-2.5"
-          onClick={() => setActiveAction("")}
-        >
-          <TbArrowLeft />
-        </button>
-        <h3>Log an Entry</h3>
-
-        <button
-          className="ml-auto log-tool-button my-1 "
-          title="Import"
-          onClick={() => setIsImporting((prev) => !prev)}
-        >
-          {isImporting ? <TbX /> : <TbFileImport />}
-        </button>
+        <h3>New Entry</h3>
+        <div className="flex gap-2">
+          <button className="ml-auto log-tool-button h-10 w-10 bg-slate-200">
+            <TbCheck />
+          </button>
+          <button className="ml-auto log-tool-button h-10 w-10 bg-slate-200">
+            <TbX />
+          </button>
+        </div>
       </div>
 
-      <form
-        method="POST"
-        className="bg-slate-100 rounded mt-2 p-2 border lg:min-w-[22rem]"
-      >
+      <form method="POST" className="relative p-4 rounded">
         {isImporting ? (
           <>
-            <div className="relative  border-slate-400 border-2 h-40 flex flex-col items-center justify-center p-2 bg-white m-4 rounded">
+            <div className="relative border-slate-400 border-2 h-40 flex flex-col items-center justify-center p-2 bg-white m-4 rounded">
               <label
                 htmlFor="file-upload"
                 className="cursor-pointer text-xl z-50 flex justify-center items-center"
@@ -181,33 +173,34 @@ const AddEntryForm = ({ categories, setActiveAction, setLastAction }) => {
           </>
         ) : (
           <>
-            <div className="input-row">
-              <div className="input-column">
-                <label htmlFor="expense">Expense</label>
+            <div className="log-input-column">
+              <label htmlFor="amount">Amount</label>
+              <input
+                type="number"
+                name="amount"
+                className="text-4xl"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+                placeholder="100"
+                autoComplete="off"
+                step={0.01}
+                required
+              />
+            </div>
+            <div className="flex gap-2">
+              <div className="log-input-column">
+                <label htmlFor="expense">Expense Name</label>
                 <input
                   type="text"
                   name="expense"
                   value={expense}
                   onChange={(e) => setExpense(e.target.value)}
-                  placeholder="Lunch"
+                  placeholder="My Expense"
                   autoComplete="off"
                   required
                 />
               </div>
-              <div className="input-column">
-                <label htmlFor="amount">Amount</label>
-                <input
-                  type="number"
-                  name="amount"
-                  value={amount}
-                  onChange={(e) => setAmount(e.target.value)}
-                  placeholder="100"
-                  autoComplete="off"
-                  step={0.01}
-                  required
-                />
-              </div>
-              <div className="input-column">
+              <div className="log-input-column">
                 <label htmlFor="category">Category</label>
                 <div className="relative custom-select">
                   <div
@@ -265,28 +258,25 @@ const AddEntryForm = ({ categories, setActiveAction, setLastAction }) => {
                 </div>
               </div>
             </div>
-            <div className="text-right my-2 mr-5 text-red-500 text-sm">
-              {error}
-            </div>
-            <div className="button-row">
-              <button
+
+            {/* <button
                 formNoValidate
                 type="submit"
                 onClick={(e) => handleSubmit(e)}
               >
                 Save Entry
-              </button>
-              <button
-                type="reset"
-                onClick={() => {
-                  setExpense("");
-                  setAmount("");
-                  setSelectedCategory("");
-                }}
-              >
-                Clear Values
-              </button>
-            </div>
+              </button> */}
+            <button
+              className="absolute top-4 right-4 text-blue-400 text-sm"
+              type="reset"
+              onClick={() => {
+                setExpense("");
+                setAmount("");
+                setSelectedCategory("");
+              }}
+            >
+              Clear Values
+            </button>
           </>
         )}
       </form>

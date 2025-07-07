@@ -8,9 +8,11 @@ import DeleteEntryConfirm from "./DeleteEntryConfirm";
 import ExpenseListFilter from "./ExpenseListFilter";
 import OutsideClick from "./OutsideClick";
 import { motion } from "framer-motion";
+import AddEntryForm from "./AddEntryForm";
 
 const ExpenseList = ({ categories }) => {
   const { tempEntries } = useSelector((state) => state.logs);
+  const [isAdding, setIsAdding] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [isFiltering, setIsFiltering] = useState(false);
@@ -55,11 +57,24 @@ const ExpenseList = ({ categories }) => {
             />
           </OutsideClick>
         )}
+        {isAdding && (
+          <OutsideClick onOutsideClick={() => setIsAdding(false)}>
+            <AddEntryForm
+              setIsFiltering={setIsFiltering}
+              categories={categories}
+              selectedCategories={selectedCategories}
+              setSelectedCategories={setSelectedCategories}
+            />
+          </OutsideClick>
+        )}
       </div>
       <div className="log-section-header flex justify-between items-center">
         <h2>Expense List</h2>
         <div className="flex gap-2">
-          <button className="log-tool-button h-10 w-10 bg-slate-200">
+          <button
+            className="log-tool-button h-10 w-10 bg-slate-200"
+            onClick={() => setIsAdding(true)}
+          >
             <TbPlus />
           </button>
           <button
