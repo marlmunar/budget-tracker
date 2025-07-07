@@ -8,7 +8,7 @@ import {
   TbCheck,
 } from "react-icons/tb";
 import OutsideClick from "./OutsideClick";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addTempEntry, setIsNotSaved } from "../slices/logSlice";
 import {
@@ -42,6 +42,10 @@ const AddEntryForm = ({ props, closeUI }) => {
     );
   });
 
+  useEffect(() => {
+    setError("");
+  }, [expense, amount, selectedCategory]);
+
   const isValidNumber = (value) => {
     return (
       typeof value === "number" &&
@@ -64,7 +68,18 @@ const AddEntryForm = ({ props, closeUI }) => {
     const raw = e.target.value;
 
     const cleaned = cleanNumberInput(raw);
-    setAmount(cleaned);
+
+    const [integerPart, decimalPart = ""] = cleaned.split(".");
+
+    if (integerPart.length > 10) return;
+
+    const limitedDecimal = decimalPart.slice(0, 4);
+
+    const limitedValue = decimalPart
+      ? `${integerPart}.${limitedDecimal}`
+      : integerPart;
+
+    setAmount(limitedValue);
   };
 
   const handleChange = (e) => {

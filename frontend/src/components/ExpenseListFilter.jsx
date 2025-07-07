@@ -49,7 +49,7 @@ const ExpenseListFilter = ({ closeUI, props }) => {
               {selected.includes(cat.name) ? (
                 <TbSquareCheck className="text-blue-800" />
               ) : (
-                <TbSquare text-slate-400 className="text-slate-300" />
+                <TbSquare className="text-slate-300" />
               )}
             </button>
             <div
