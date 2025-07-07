@@ -52,28 +52,27 @@ const ExpenseList = ({ categories }) => {
       </div>
       <div className="log-section-header flex justify-between items-center">
         <h2>Expense List</h2>
-        {!activeUI && (
-          <div className="flex gap-2">
-            <button
-              className="log-tool-button h-10 w-10 bg-slate-200"
-              onClick={() => setActiveUI("addEntry")}
-            >
-              <TbPlus />
-            </button>
-            <button
-              className="log-tool-button h-10 w-10 bg-slate-200"
-              onClick={() => setActiveUI("filterEntries")}
-            >
-              <TbFilter />
-            </button>
-          </div>
-        )}
+
+        <div className="flex gap-2">
+          <button
+            className="log-tool-button h-10 w-10 bg-slate-200"
+            onClick={() => setActiveUI("addEntry")}
+          >
+            <TbPlus />
+          </button>
+          <button
+            className="log-tool-button h-10 w-10 bg-slate-200"
+            onClick={() => setActiveUI("filterEntries")}
+          >
+            <TbFilter />
+          </button>
+        </div>
       </div>
 
       {filteredList.length < 1 ? (
         <NoRecords />
       ) : (
-        <div className="relative">
+        <div className="relative py-2">
           {/* {isEditing && (
             <OutsideClick onOutsideClick={() => setIsEditing(false)}>
               <EditEntryForm
@@ -97,7 +96,6 @@ const ExpenseList = ({ categories }) => {
                   initial={{ opacity: 0, y: 30, scaleY: 0.85 }}
                   animate={{ opacity: 1, y: 0, scaleY: 1 }}
                   transition={{ duration: 0.4 }}
-                  className="overflow-hidden"
                 >
                   <ExpenseListItem
                     expense={entry.expense}
