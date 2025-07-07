@@ -52,7 +52,18 @@ const AddNewLog = ({ closeModal }) => {
   const handleNewThreshold = (e) => {
     const raw = e.target.value;
     const cleaned = removeLeadingZeros(raw);
-    setTreshold(cleaned);
+
+    const [integerPart, decimalPart = ""] = cleaned.split(".");
+
+    if (integerPart.length > 10) return;
+
+    const limitedDecimal = decimalPart.slice(0, 4);
+
+    const limitedValue = decimalPart
+      ? `${integerPart}.${limitedDecimal}`
+      : integerPart;
+
+    setTreshold(limitedValue);
   };
 
   const resetForm = () => {
@@ -164,6 +175,7 @@ const AddNewLog = ({ closeModal }) => {
             <input
               id="logName"
               type="text"
+              maxLength="25"
               value={logName}
               onChange={(e) => setLogName(e.target.value)}
               autoComplete="off"
@@ -177,6 +189,9 @@ const AddNewLog = ({ closeModal }) => {
                 <input
                   id="goal"
                   type="number"
+                  onKeyDown={(e) =>
+                    ["e", "E", "+", "-"].includes(e.key) && e.preventDefault()
+                  }
                   value={threshold}
                   onChange={(e) => handleNewThreshold(e)}
                   autoComplete="off"
@@ -202,6 +217,9 @@ const AddNewLog = ({ closeModal }) => {
                 <input
                   id="spendingLimit"
                   type="number"
+                  onKeyDown={(e) =>
+                    ["e", "E", "+", "-"].includes(e.key) && e.preventDefault()
+                  }
                   autoComplete="off"
                   value={threshold}
                   onChange={(e) => handleNewThreshold(e)}

@@ -147,7 +147,7 @@ const AddEntryForm = ({ props, closeUI }) => {
     e.preventDefault();
     if (!amount) return setError("Please fill out the amount filled");
     if (!expense) return setError("Please fill out the name filled");
-    if (!selectedCategory) return setError("Please select a category");
+    if (!selectedCategory.name) return setError("Please select a category");
 
     if (!isValidNumber(+amount)) return setError("Please enter a valid amount");
 
