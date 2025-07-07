@@ -17,7 +17,8 @@ import {
 } from "../slices/logsApiSlice";
 import { useParams } from "react-router-dom";
 
-const AddEntryForm = ({ categories, setActiveAction, setLastAction }) => {
+const AddEntryForm = ({ props, closeUI }) => {
+  const { categories } = props;
   const dispatch = useDispatch();
   const { logId } = useParams();
   const [importLog] = useImportLogMutation();
@@ -91,7 +92,6 @@ const AddEntryForm = ({ categories, setActiveAction, setLastAction }) => {
           id: logId,
           data: { categories: updatedCategories, entries: updatedEntries },
         }).unwrap();
-        setLastAction(Date.now());
       } catch (error) {
         const errorMsg = error?.data?.message || error.message;
         setError(errorMsg);
@@ -100,7 +100,6 @@ const AddEntryForm = ({ categories, setActiveAction, setLastAction }) => {
 
     setError("");
     setFile(null);
-    setActiveAction("");
     fileInputRef.current.value = null;
   };
 
@@ -121,7 +120,6 @@ const AddEntryForm = ({ categories, setActiveAction, setLastAction }) => {
       date: new Date().toISOString(),
     };
     dispatch(addTempEntry(newLog));
-    setActiveAction("");
     dispatch(setIsNotSaved(true));
   };
 
@@ -133,7 +131,10 @@ const AddEntryForm = ({ categories, setActiveAction, setLastAction }) => {
           <button className="ml-auto log-tool-button h-10 w-10 bg-slate-200">
             <TbCheck />
           </button>
-          <button className="ml-auto log-tool-button h-10 w-10 bg-slate-200">
+          <button
+            className="ml-auto log-tool-button h-10 w-10 bg-slate-200"
+            onClick={closeUI}
+          >
             <TbX />
           </button>
         </div>
@@ -259,12 +260,7 @@ const AddEntryForm = ({ categories, setActiveAction, setLastAction }) => {
                             {cat.name}
                           </li>
                         ))}
-                        <li
-                          className="log-options"
-                          onClick={() => {
-                            setActiveAction("Adding Category");
-                          }}
-                        >
+                        <li className="log-options" onClick={() => {}}>
                           <TbCirclePlus /> Add New
                         </li>
                       </menu>

@@ -2,17 +2,13 @@ import { TbCheck, TbX, TbSquareCheck, TbSquare } from "react-icons/tb";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 
-const ExpenseListFilter = ({
-  setIsFiltering,
-  categories,
-  selectedCategories,
-  setSelectedCategories,
-}) => {
+const ExpenseListFilter = ({ closeUI, props }) => {
+  const { categories, selectedCategories, setSelectedCategories } = props;
   const categoryNames = categories.map((cat) => cat.name);
   const [selected, setSelected] = useState(selectedCategories);
 
   const handleConfirm = () => {
-    setIsFiltering(false);
+    closeUI();
     setSelectedCategories(selected);
   };
 
@@ -35,10 +31,7 @@ const ExpenseListFilter = ({
           <button className="log-tool-button" onClick={handleConfirm}>
             <TbCheck />
           </button>
-          <button
-            className="log-tool-button"
-            onClick={() => setIsFiltering(false)}
-          >
+          <button className="log-tool-button" onClick={closeUI}>
             <TbX />
           </button>
         </div>
