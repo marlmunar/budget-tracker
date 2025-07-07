@@ -148,7 +148,7 @@ button > * {
 }
 
 .log-form-container {
-  @apply shadow rounded max-h-[min-content];
+  @apply shadow rounded max-h-[min-content] bg-white;
 }
 
 .log-section-header {
@@ -168,7 +168,7 @@ button > * {
 }
 
 .log-input-column label {
-  @apply text-sm;
+  @apply text-sm text-gray-800;
 }
 
 .log-input-column input,

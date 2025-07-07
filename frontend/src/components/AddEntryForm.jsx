@@ -42,6 +42,31 @@ const AddEntryForm = ({ props, closeUI }) => {
     );
   });
 
+  const isValidNumber = (value) => {
+    return (
+      typeof value === "number" &&
+      Number.isFinite(value) &&
+      value >= 0 &&
+      !value.toString().includes("e")
+    );
+  };
+
+  const cleanNumberInput = (value) => {
+    if (!value) return value;
+    if (value === "0") return "0";
+
+    if (/^0(\.\d+)?$/.test(value)) return value;
+
+    return value.replace(/^0+(?=\d)/, "");
+  };
+
+  const handleNewAmount = (e) => {
+    const raw = e.target.value;
+
+    const cleaned = cleanNumberInput(raw);
+    setAmount(cleaned);
+  };
+
   const handleChange = (e) => {
     if (!e.target.files[0].name) return;
     if (
@@ -105,14 +130,12 @@ const AddEntryForm = ({ props, closeUI }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!expense || !amount || !selectedCategory) {
-      setError("Please fill out fields with valid input");
-      return;
-    }
-    if (amount <= 0) {
-      setError("Value for amount should be greater than zero");
-      return;
-    }
+    if (!amount) return setError("Please fill out the amount filled");
+    if (!expense) return setError("Please fill out the name filled");
+    if (!selectedCategory) return setError("Please select a category");
+
+    if (!isValidNumber(+amount)) return setError("Please enter a valid amount");
+
     const newLog = {
       expense,
       amount: +amount,
@@ -121,14 +144,20 @@ const AddEntryForm = ({ props, closeUI }) => {
     };
     dispatch(addTempEntry(newLog));
     dispatch(setIsNotSaved(true));
+    closeUI();
   };
 
   return (
-    <section className="log-form-container w-full absolute right-0 top-0 shadow shadow-slate-400">
+    <section className="z-100 bg-white log-form-container w-full absolute right-0 top-0 shadow shadow-slate-400">
       <div className="log-section-header">
         <h3>New Entry</h3>
         <div className="flex gap-2">
-          <button className="ml-auto log-tool-button h-10 w-10 bg-slate-200">
+          <button
+            className="ml-auto log-tool-button h-10 w-10 bg-slate-200"
+            type="submit"
+            form="newEntryForm"
+            formNoValidate
+          >
             <TbCheck />
           </button>
           <button
@@ -140,7 +169,12 @@ const AddEntryForm = ({ props, closeUI }) => {
         </div>
       </div>
 
-      <form method="POST" className="relative p-4 rounded">
+      <form
+        id="newEntryForm"
+        method="POST"
+        className="relative p-4 rounded"
+        onSubmit={(e) => handleSubmit(e)}
+      >
         {isImporting ? (
           <>
             <div className="relative border-slate-400 border-2 h-40 flex flex-col items-center justify-center p-2 bg-white m-4 rounded">
@@ -178,10 +212,13 @@ const AddEntryForm = ({ props, closeUI }) => {
               <label htmlFor="amount">Amount</label>
               <input
                 type="number"
-                name="amount"
+                id="amount"
+                onKeyDown={(e) =>
+                  ["e", "E", "+", "-"].includes(e.key) && e.preventDefault()
+                }
                 className="text-4xl"
                 value={amount}
-                onChange={(e) => setAmount(e.target.value)}
+                onChange={(e) => handleNewAmount(e)}
                 placeholder="100"
                 autoComplete="off"
                 step={0.01}
@@ -193,7 +230,8 @@ const AddEntryForm = ({ props, closeUI }) => {
                 <label htmlFor="expense">Expense Name</label>
                 <input
                   type="text"
-                  name="expense"
+                  id="expense"
+                  maxLength="25"
                   value={expense}
                   onChange={(e) => setExpense(e.target.value)}
                   placeholder="My Expense"
@@ -204,13 +242,15 @@ const AddEntryForm = ({ props, closeUI }) => {
               <div className="log-input-column">
                 <label htmlFor="category">Category</label>
                 <div
-                  className="relative custom-select"
+                  className="relative custom-select focus:bg-gray-100/95 focus:shadow-lg"
                   style={{ backgroundColor: selectedCategory?.color }}
+                  tabIndex={0}
                 >
                   <div
                     className="py-1 flex justify-between items-center *:pointer-events-none"
                     data-id="addEntry"
                     onClick={() => setIsSelecting((prev) => !prev)}
+                    onFocus={() => setIsSelecting(true)}
                   >
                     <span
                       className={
@@ -270,13 +310,6 @@ const AddEntryForm = ({ props, closeUI }) => {
               </div>
             </div>
 
-            {/* <button
-                formNoValidate
-                type="submit"
-                onClick={(e) => handleSubmit(e)}
-              >
-                Save Entry
-              </button> */}
             <button
               className="absolute top-4 right-4 text-blue-400 text-sm"
               type="reset"
@@ -284,10 +317,16 @@ const AddEntryForm = ({ props, closeUI }) => {
                 setExpense("");
                 setAmount("");
                 setSelectedCategory({});
+                setError("");
               }}
             >
               Clear Values
             </button>
+            {error && (
+              <div className="text-left my-2 mr-5 text-red-500 text-sm">
+                {error}
+              </div>
+            )}
           </>
         )}
       </form>

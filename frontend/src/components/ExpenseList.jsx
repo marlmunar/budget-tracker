@@ -47,7 +47,7 @@ const ExpenseList = ({ categories }) => {
         <ExpenseListUIHandler
           activeUI={activeUI}
           setActiveUi={setActiveUI}
-          props={{ categories, selectedCategories, selectedCategories }}
+          props={{ categories, selectedCategories, setSelectedCategories }}
         />
       </div>
       <div className="log-section-header flex justify-between items-center">
@@ -74,7 +74,7 @@ const ExpenseList = ({ categories }) => {
         <NoRecords />
       ) : (
         <div className="relative">
-          {isEditing && (
+          {/* {isEditing && (
             <OutsideClick onOutsideClick={() => setIsEditing(false)}>
               <EditEntryForm
                 categories={categories}
@@ -87,7 +87,7 @@ const ExpenseList = ({ categories }) => {
             <OutsideClick onOutsideClick={() => setIsDeleting(false)}>
               <DeleteEntryConfirm setIsDeleting={setIsDeleting} entry={entry} />
             </OutsideClick>
-          )}
+          )} */}
           {isVisible &&
             filteredList
               .sort((a, b) => new Date(b.date) - new Date(a.date))
@@ -105,8 +105,8 @@ const ExpenseList = ({ categories }) => {
                     category={entry.category.name}
                     timeStamps={entry.date.split("T")[0]}
                     bgColor={entry.category.color}
-                    setIsEditing={setIsEditing}
-                    setIsDeleting={setIsDeleting}
+                    // setIsEditing={setIsEditing}
+                    // setIsDeleting={setIsDeleting}
                     setEntry={setEntry}
                   />
                 </motion.div>
