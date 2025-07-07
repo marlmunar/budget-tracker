@@ -1,35 +1,12 @@
 import { useState } from "react";
 import { TbSearch, TbPlus, TbX } from "react-icons/tb";
-import Modal from "./Modal";
-import { useDispatch, useSelector } from "react-redux";
-import { useCreateLogMutation } from "../slices/logsApiSlice";
-import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { setModalState } from "../slices/appSlice";
 
 const LogTools = ({ searchState, setSearchState }) => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { defaultCategories } = useSelector((state) => state.logs);
-  const [createLog, { isLoading }] = useCreateLogMutation();
-  const [isAdding, setIsAdding] = useState(false);
-  const [logName, setLogName] = useState("");
   const [showSearch, setShowSearch] = useState(false);
   const { isSearching, searchText } = searchState;
-
-  const handleAdd = async () => {
-    if (!logName) return;
-    try {
-      const res = await createLog({
-        name: logName,
-        categories: defaultCategories,
-      }).unwrap();
-      navigate(`/log/${res.data._id}`);
-    } catch (error) {
-      console.log(error?.data?.message || error.message);
-    }
-
-    setLogName("");
-  };
 
   const handleSearchText = async (e) => {
     setSearchState((prev) => ({ ...prev, searchText: e.target.value }));
@@ -119,10 +96,9 @@ const LogTools = ({ searchState, setSearchState }) => {
         </div>
       </div>
 
-      <div className="md:hidden absolute top-0 left-0 h-full w-full flex flex-col p-4">
-        <div className="flex-1 z-0"></div>
+      <div className="md:hidden absolute p-2 top-0 left-0 h-full w-full flex items-end">
         <button
-          className="log-button-3"
+          className="log-button-3 z-5"
           onClick={() =>
             dispatch(
               setModalState({
@@ -135,51 +111,6 @@ const LogTools = ({ searchState, setSearchState }) => {
           <TbPlus />
         </button>
       </div>
-
-      {/* {isAdding && (
-        <Modal
-          isOpen={isAdding}
-          onClose={() => {
-            setIsAdding(false);
-            setLogName("");
-          }}
-          title="Add New Log"
-        >
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              setIsAdding(false);
-              handleAdd();
-            }}
-            className="flex flex-col items-center gap-2 p-2"
-          >
-            <label htmlFor="logName">Please provide your log name</label>
-            <input
-              type="text"
-              name="logName"
-              className="form-input"
-              value={logName}
-              onChange={(e) => setLogName(e.target.value)}
-              autoComplete="off"
-            />
-            <div className="button-row">
-              <button className="modal-button" type="submit">
-                Save
-              </button>
-              <button
-                className="modal-button"
-                type="button"
-                onClick={() => {
-                  setIsAdding(false);
-                  setLogName("");
-                }}
-              >
-                Cancel
-              </button>
-            </div>
-          </form>
-        </Modal>
-      )} */}
     </>
   );
 };

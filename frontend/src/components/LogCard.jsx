@@ -15,7 +15,7 @@ const LogCard = ({ logName, logStats, logId, logData }) => {
   };
 
   return (
-    <div className="relative mx-auto flex md:w-[98%] m-1 trasition-all duration-100 bg-white shadow-slate-300 shadow-sm rounded hover:shadow-lg hover:mb-2 hover:mt-1 ">
+    <div className="border relative mx-auto flex md:w-[98%] m-1 trasition-all duration-100 bg-white shadow-slate-300 shadow-sm rounded hover:shadow-lg hover:mb-2 hover:mt-1 ">
       <div className="p-2 pb-4 w-full">
         <div className="flex flex-col gap-1">
           <div className="flex p-1 justify-between">
@@ -87,7 +87,7 @@ const LogCard = ({ logName, logStats, logId, logData }) => {
                   title="Options"
                   data-id={logId}
                   onClick={() => setIsSelecting((prev) => !prev)}
-                  className="z-10 log-tool-button min-h-7 w-7 md:min-h-9 md:w-9
+                  className="log-tool-button min-h-7 w-7 md:min-h-9 md:w-9
                   text-gray-700 hover:text-gray-800"
                 >
                   {isSelecting ? <TbX /> : <TbDotsVertical />}
@@ -102,34 +102,3 @@ const LogCard = ({ logName, logStats, logId, logData }) => {
 };
 
 export default LogCard;
-
-{
-  /* {isRenaming && (
-          <RenameModal
-            isRenaming={isRenaming}
-            setIsRenaming={setIsRenaming}
-            displayName={displayName}
-            handleSubmit={(tempName) => {
-              setIsRenaming(false);
-              setDisplayName(tempName);
-              handleRename(tempName);
-            }}
-            title="Edit Log Name"
-            description="Edit the name of your log"
-          />
-        )} */
-}
-{
-  /* {isDeleting && (
-          <ConfirmModal
-            isOpen={isDeleting}
-            setIsOpen={setIsDeleting}
-            handleConfirm={() => {
-              setIsDeleting(false);
-              handleDelete();
-            }}
-            action="Delete"
-            description={`Delelete ${displayName}?`}
-          />
-        )} */
-}

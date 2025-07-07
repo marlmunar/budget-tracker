@@ -5,6 +5,7 @@ import NoRecords from "../components/NoRecords";
 import { useLazyGetLogsQuery } from "../slices/logsApiSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { AnimatePresence, motion } from "framer-motion";
+import { startLoading, stopLoading } from "../slices/appSlice";
 
 const Logs = ({}) => {
   const dispatch = useDispatch();
@@ -34,6 +35,7 @@ const Logs = ({}) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        dispatch(startLoading());
         const res = await getLogs().unwrap();
         let sorted = [...res.data].sort(
           (a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)
@@ -48,6 +50,8 @@ const Logs = ({}) => {
         const entries = sorted.flatMap((data) => data.entries);
       } catch (error) {
         console.error("Error fetching data:", error);
+      } finally {
+        dispatch(stopLoading());
       }
     };
 
@@ -58,7 +62,7 @@ const Logs = ({}) => {
     <main className="px-1 md:px-6 lg:px-10 h-full lg:w-[60%] mx-auto ">
       <section className="flex flex-col shadow rounded h-full">
         <div
-          className="z-2 rounded bg-white p-4
+          className="rounded bg-white p-4
             shadow shadow-slate-300
             flex flex-col gap-2 
             min-h-[min-content]

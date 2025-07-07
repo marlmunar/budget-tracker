@@ -197,9 +197,9 @@ button > * {
 }
 
 .log-button-3 {
-  @apply z-5 items-center justify-center rounded-[15rem] cursor-pointer bg-blue-600 
-    text-4xl text-white
-    sticky ml-auto bottom-4 shadow w-16 h-16 flex
+  @apply items-center justify-center rounded-[15rem] cursor-pointer bg-blue-600 
+    text-4xl text-white sticky
+    ml-auto bottom-4 shadow w-16 h-16 flex
     active:scale-95 active:bg-blue-800 active:text-white
   hover:bg-indigo-400 hover:shadow-md hover:text-gray-700 hover:border-transparent hover:translate-y-[-2px]
     transition-all duration-300;
