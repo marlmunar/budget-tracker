@@ -48,14 +48,16 @@ const DeleteEntryConfirm = ({ closeUI, props }) => {
           </button>
         </div>
       </div>
-      <div className="p-4 px-6 rounded flex flex-col">
-        This will this entry:
-        <span className="font-semibold text-xl">
-          PHP {formatNumber(entry.amount)}
-        </span>
-        <div>
-          <span> {entry.expense}</span>
-          <span> {entry.category.name}</span>
+      <div className="p-4 ">
+        <p className="px-1">This will this entry:</p>
+        <div className="flex flex-col shadow rounded p-2 mt-1 shadow-slate-300">
+          <p className="font-semibold text-xl">
+            PHP {formatNumber(entry.amount)}
+          </p>
+          <div className="flex gap-2">
+            <p> {entry.expense}</p>
+            <p> {entry.category.name}</p>
+          </div>
         </div>
       </div>
     </div>

@@ -67,14 +67,14 @@ const EditEntryForm = ({ closeUI, props }) => {
     if (!amount) return setError("Please fill out the amount filled");
     if (!expense) return setError("Please fill out the name filled");
     if (!selectedCategory.name) return setError("Please select a category");
-    console.log(+amount > 0);
     if (!isValidNumber(+amount)) return setError("Please enter a valid amount");
-
+    console.log(category);
     const newEntry = {
       expense,
       amount,
       category,
     };
+    console.log(newEntry);
     const newTempEntries = tempEntries.map((tempEntry) =>
       tempEntry.expense === entry.expense
         ? {
@@ -191,7 +191,7 @@ const EditEntryForm = ({ closeUI, props }) => {
                             color: cat.color,
                           });
                           setIsSelecting(false);
-                          setCategory({ name: cat.name, color: cat.color });
+                          setCategory(cat);
                         }}
                       >
                         {cat.name}

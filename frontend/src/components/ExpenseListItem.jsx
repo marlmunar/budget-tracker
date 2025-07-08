@@ -1,11 +1,10 @@
 import { TbTrash, TbEdit } from "react-icons/tb";
-import ExpenseListUIHandler from "./ExpenseListUIHandler";
+
 const ExpenseListItem = ({
   expense,
   amount,
   category,
   timeStamps,
-  bgColor = "#4CAF50",
   setEntry,
   setActiveUI,
 }) => {
@@ -38,9 +37,9 @@ const ExpenseListItem = ({
         <p className="min-w-32">{expense}</p>
         <p
           className="max-w-[min-content] text-center rounded overflow-hidden whitespace-nowrap px-2"
-          style={{ backgroundColor: bgColor }}
+          style={{ backgroundColor: category.color }}
         >
-          {category}
+          {category.name}
         </p>
       </div>
       <div className="z-0 py-2 flex gap-1 justify-end row-start-1 col-start-2 self-start">
@@ -50,7 +49,7 @@ const ExpenseListItem = ({
             setEntry({
               expense,
               amount,
-              category: { name: category, color: bgColor },
+              category,
             });
             setActiveUI("editEntry");
           }}
@@ -63,7 +62,7 @@ const ExpenseListItem = ({
             setEntry({
               expense,
               amount,
-              category: { name: category, color: bgColor },
+              category,
             });
             setActiveUI("deleteEntry");
           }}

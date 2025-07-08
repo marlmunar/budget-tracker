@@ -87,9 +87,8 @@ const ExpenseList = ({ props }) => {
                   <ExpenseListItem
                     expense={entry.expense}
                     amount={entry.amount}
-                    category={entry.category.name}
+                    category={entry.category}
                     timeStamps={entry.date.split("T")[0]}
-                    bgColor={entry.category.color}
                     setEntry={setEntry}
                     setActiveUI={setActiveUI}
                   />

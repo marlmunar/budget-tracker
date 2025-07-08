@@ -6,7 +6,6 @@ const FormContainer = forwardRef(
 
     const handleExit = async () => {
       await animate(scope.current, exitTo, { delay: 0.25, duration });
-      console.log("Triggered");
     };
 
     useImperativeHandle(ref, () => ({

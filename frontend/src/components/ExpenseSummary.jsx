@@ -6,6 +6,7 @@ import { useState } from "react";
 const ExpenseSummary = ({ props }) => {
   const { categories, entries, selectedCategories, setSelectedCategories } =
     props;
+  console.log(entries);
 
   const [displayReload, setDisplayReload] = useState(false);
 
@@ -23,8 +24,6 @@ const ExpenseSummary = ({ props }) => {
       }, 0),
     }))
     .sort((a, b) => b.amount - a.amount);
-
-  console.log(sumPerCategory);
 
   const formatNumber = (value) => {
     if (!value) return "0";
