@@ -28,7 +28,7 @@ const AddNewLog = ({ closeModal }) => {
     return (
       typeof value === "number" &&
       Number.isFinite(value) &&
-      value >= 0 &&
+      value > 0 &&
       !value.toString().includes("e")
     );
   };

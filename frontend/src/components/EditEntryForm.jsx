@@ -30,7 +30,7 @@ const EditEntryForm = ({ closeUI, props }) => {
     return (
       typeof value === "number" &&
       Number.isFinite(value) &&
-      value >= 0 &&
+      value > 0 &&
       !value.toString().includes("e")
     );
   };
@@ -67,7 +67,7 @@ const EditEntryForm = ({ closeUI, props }) => {
     if (!amount) return setError("Please fill out the amount filled");
     if (!expense) return setError("Please fill out the name filled");
     if (!selectedCategory.name) return setError("Please select a category");
-
+    console.log(+amount > 0);
     if (!isValidNumber(+amount)) return setError("Please enter a valid amount");
 
     const newEntry = {
