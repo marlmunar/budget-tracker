@@ -30,34 +30,32 @@ const DeleteEntryConfirm = ({ closeUI, props }) => {
   };
 
   return (
-    <div className="sticky z-10 top-5">
-      <div className="z-25 bg-white log-form-container w-full absolute  right-2 top-2 shadow shadow-slate-400 max-w-[50%]">
-        <div className="log-section-header">
-          <h3 className="text-nowrap mr-5">Confirm Delete</h3>
-          <div className="flex gap-2">
-            <button
-              className="log-tool-button h-10 w-10 bg-slate-200 text-red-600"
-              onClick={handleConfirm}
-            >
-              <TbCheck />
-            </button>
-            <button
-              className="log-tool-button h-10 w-10 bg-slate-200"
-              onClick={closeUI}
-            >
-              <TbX />
-            </button>
-          </div>
+    <div className="z-25 bg-white log-form-container w-full absolute  right-2 top-2 shadow shadow-slate-400 max-w-[30rem]">
+      <div className="log-section-header">
+        <h3 className="text-nowrap mr-5">Confirm Delete</h3>
+        <div className="flex gap-2">
+          <button
+            className="log-tool-button h-10 w-10 bg-slate-200 text-red-600"
+            onClick={handleConfirm}
+          >
+            <TbCheck />
+          </button>
+          <button
+            className="log-tool-button h-10 w-10 bg-slate-200"
+            onClick={closeUI}
+          >
+            <TbX />
+          </button>
         </div>
-        <div className="p-4 px-10 rounded flex flex-col">
-          This will delete:
-          <span className="font-semibold text-xl">
-            PHP {formatNumber(entry.amount)}
-          </span>
-          <div>
-            <span> {entry.expense}</span>
-            <span> {entry.category.name}</span>
-          </div>
+      </div>
+      <div className="p-4 px-6 rounded flex flex-col">
+        This will this entry:
+        <span className="font-semibold text-xl">
+          PHP {formatNumber(entry.amount)}
+        </span>
+        <div>
+          <span> {entry.expense}</span>
+          <span> {entry.category.name}</span>
         </div>
       </div>
     </div>

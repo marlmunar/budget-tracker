@@ -22,9 +22,11 @@ const ExpenseListUIHandler = ({ activeUI, setActiveUi, props }) => {
   return (
     <>
       {activeUI && (
-        <OutsideClick onOutsideClick={() => setActiveUi("")}>
-          {getUI()}
-        </OutsideClick>
+        <div className="sticky top-5 z-10">
+          <OutsideClick onOutsideClick={() => setActiveUi("")}>
+            {getUI()}
+          </OutsideClick>
+        </div>
       )}
     </>
   );

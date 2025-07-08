@@ -42,7 +42,7 @@ const ExpenseList = ({ categories }) => {
   });
 
   return (
-    <section className="log-section-container relative border">
+    <section className="log-section-container relative">
       <ExpenseListUIHandler
         activeUI={activeUI}
         setActiveUi={setActiveUI}

@@ -91,138 +91,136 @@ const EditEntryForm = ({ closeUI, props }) => {
   };
 
   return (
-    <div className="sticky top-5 z-10">
-      <div className="z-25 bg-white log-form-container w-full absolute right-0 top-0 shadow shadow-slate-400">
-        <div className="log-section-header">
-          <h3>Edit Entry</h3>
-          <div className="flex gap-2">
-            <button
-              className="log-tool-button h-10 w-10 bg-slate-200"
-              type="submit"
-              form="editForm"
-              formNoValidate
-              onClick={handleSave}
-            >
-              <TbCheck />
-            </button>
-            <button
-              className="log-tool-button h-10 w-10 bg-slate-200"
-              onClick={closeUI}
-            >
-              <TbX />
-            </button>
-          </div>
+    <div className="z-25 bg-white log-form-container w-full absolute right-0 top-0 shadow shadow-slate-400">
+      <div className="log-section-header">
+        <h3>Edit Entry</h3>
+        <div className="flex gap-2">
+          <button
+            className="log-tool-button h-10 w-10 bg-slate-200"
+            type="submit"
+            form="editForm"
+            formNoValidate
+            onClick={handleSave}
+          >
+            <TbCheck />
+          </button>
+          <button
+            className="log-tool-button h-10 w-10 bg-slate-200"
+            onClick={closeUI}
+          >
+            <TbX />
+          </button>
         </div>
-        <form method="POST" id="editForm" className="relative p-4 rounded">
+      </div>
+      <form method="POST" id="editForm" className="relative p-4 rounded">
+        <div className="log-input-column">
+          <label htmlFor="newAmount">Amount</label>
+          <input
+            type="number"
+            name="newAmount"
+            onKeyDown={(e) =>
+              ["e", "E", "+", "-"].includes(e.key) && e.preventDefault()
+            }
+            className="text-4xl"
+            value={amount}
+            onChange={(e) => handleNewAmount(e)}
+            autoComplete="off"
+            placeholder="0"
+            required
+          />
+        </div>
+        <div className="flex gap-2">
           <div className="log-input-column">
-            <label htmlFor="newAmount">Amount</label>
+            <label htmlFor="newExpense">Expense Name</label>
             <input
-              type="number"
-              name="newAmount"
-              onKeyDown={(e) =>
-                ["e", "E", "+", "-"].includes(e.key) && e.preventDefault()
-              }
-              className="text-4xl"
-              value={amount}
-              onChange={(e) => handleNewAmount(e)}
+              type="text"
+              id="newExpense"
+              maxLength="25"
+              value={expense}
+              onChange={(e) => setExpense(e.target.value)}
+              placeholder="New Expense Name"
               autoComplete="off"
-              placeholder="0"
               required
             />
           </div>
-          <div className="flex gap-2">
-            <div className="log-input-column">
-              <label htmlFor="newExpense">Expense Name</label>
-              <input
-                type="text"
-                id="newExpense"
-                maxLength="25"
-                value={expense}
-                onChange={(e) => setExpense(e.target.value)}
-                placeholder="New Expense Name"
-                autoComplete="off"
-                required
-              />
-            </div>
-            <div className="log-input-column">
-              <label htmlFor="newCategory">Category</label>
+          <div className="log-input-column">
+            <label htmlFor="newCategory">Category</label>
+            <div
+              className="relative custom-select"
+              style={{ backgroundColor: selectedCategory?.color }}
+              tabIndex={0}
+            >
               <div
-                className="relative custom-select"
-                style={{ backgroundColor: selectedCategory?.color }}
-                tabIndex={0}
+                className="flex justify-between items-center *:pointer-events-none"
+                data-id="editEntry"
+                onClick={() => setIsSelecting((prev) => !prev)}
+                onFocus={() => setIsSelecting(true)}
               >
-                <div
-                  className="flex justify-between items-center *:pointer-events-none"
-                  data-id="editEntry"
-                  onClick={() => setIsSelecting((prev) => !prev)}
-                  onFocus={() => setIsSelecting(true)}
+                <span
+                  className={
+                    Object.keys(selectedCategory).length > 0
+                      ? ""
+                      : "text-gray-500"
+                  }
                 >
-                  <span
-                    className={
-                      Object.keys(selectedCategory).length > 0
-                        ? ""
-                        : "text-gray-500"
-                    }
-                  >
-                    {Object.keys(selectedCategory).length > 0
-                      ? selectedCategory.name
-                      : "Select a category"}
-                  </span>
-                  <button
-                    className="flex rounded justify-between items-center"
-                    type="button"
-                  >
-                    {isSelecting ? <TbCaretUpFilled /> : <TbCaretDownFilled />}
-                  </button>
-                </div>
-                {isSelecting && (
-                  <OutsideClick
-                    onOutsideClick={() => setIsSelecting(false)}
-                    id="editCat"
-                  >
-                    <menu className="absolute right-0 rounded mt-2 p-2 bg-white border-2 w-full flex flex-col gap-1">
-                      {categories.map((cat, index) => (
-                        <li
-                          className="log-options"
-                          style={{ backgroundColor: cat.color }}
-                          key={index}
-                          onClick={() => {
-                            setSelectedCategory({
-                              name: cat.name,
-                              color: cat.color,
-                            });
-                            setIsSelecting(false);
-                            setCategory({ name: cat.name, color: cat.color });
-                          }}
-                        >
-                          {cat.name}
-                        </li>
-                      ))}
-                    </menu>
-                  </OutsideClick>
-                )}
+                  {Object.keys(selectedCategory).length > 0
+                    ? selectedCategory.name
+                    : "Select a category"}
+                </span>
+                <button
+                  className="flex rounded justify-between items-center"
+                  type="button"
+                >
+                  {isSelecting ? <TbCaretUpFilled /> : <TbCaretDownFilled />}
+                </button>
               </div>
+              {isSelecting && (
+                <OutsideClick
+                  onOutsideClick={() => setIsSelecting(false)}
+                  id="editCat"
+                >
+                  <menu className="absolute right-0 rounded mt-2 p-2 bg-white border-2 w-full flex flex-col gap-1">
+                    {categories.map((cat, index) => (
+                      <li
+                        className="log-options"
+                        style={{ backgroundColor: cat.color }}
+                        key={index}
+                        onClick={() => {
+                          setSelectedCategory({
+                            name: cat.name,
+                            color: cat.color,
+                          });
+                          setIsSelecting(false);
+                          setCategory({ name: cat.name, color: cat.color });
+                        }}
+                      >
+                        {cat.name}
+                      </li>
+                    ))}
+                  </menu>
+                </OutsideClick>
+              )}
             </div>
           </div>
-          <button
-            className="absolute top-4 right-4 text-blue-400 text-sm"
-            type="reset"
-            onClick={() => {
-              setExpense("");
-              setAmount("");
-              setSelectedCategory({});
-              setError("");
-            }}
-          >
-            Clear Values
-          </button>
-          {error && (
-            <div className="text-left my-2 mr-5 text-red-500 text-sm">
-              {error}
-            </div>
-          )}
-        </form>
-      </div>
+        </div>
+        <button
+          className="absolute top-4 right-4 text-blue-400 text-sm"
+          type="reset"
+          onClick={() => {
+            setExpense("");
+            setAmount("");
+            setSelectedCategory({});
+            setError("");
+          }}
+        >
+          Clear Values
+        </button>
+        {error && (
+          <div className="text-left my-2 mr-5 text-red-500 text-sm">
+            {error}
+          </div>
+        )}
+      </form>
     </div>
   );
 };
