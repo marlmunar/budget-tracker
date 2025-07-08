@@ -154,9 +154,8 @@ button > * {
 .log-section-header {
   @apply rounded bg-gray-100 p-4 text-lg font-semibold
             shadow shadow-slate-300
-            flex flex-col gap-2 
-            min-h-[min-content]
-            md:flex-row md:justify-between md:items-center;
+            flex flex-row justify-between items-center gap-2 
+            min-h-[min-content];
 }
 
 .input-row {
