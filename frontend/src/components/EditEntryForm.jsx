@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   TbCheck,
   TbX,
@@ -22,16 +22,54 @@ const EditEntryForm = ({ closeUI, props }) => {
   });
   const [error, setError] = useState("");
 
+  useEffect(() => {
+    setError("");
+  }, [expense, amount, selectedCategory]);
+
+  const isValidNumber = (value) => {
+    return (
+      typeof value === "number" &&
+      Number.isFinite(value) &&
+      value >= 0 &&
+      !value.toString().includes("e")
+    );
+  };
+
+  const cleanNumberInput = (value) => {
+    if (!value) return value;
+    if (value === "0") return "0";
+
+    if (/^0(\.\d+)?$/.test(value)) return value;
+
+    return value.replace(/^0+(?=\d)/, "");
+  };
+
+  const handleNewAmount = (e) => {
+    const raw = e.target.value;
+
+    const cleaned = cleanNumberInput(raw);
+
+    const [integerPart, decimalPart = ""] = cleaned.split(".");
+
+    if (integerPart.length > 10) return;
+
+    const limitedDecimal = decimalPart.slice(0, 4);
+
+    const limitedValue = decimalPart
+      ? `${integerPart}.${limitedDecimal}`
+      : integerPart;
+
+    setAmount(limitedValue);
+  };
+
   const handleSave = (e) => {
     e.preventDefault();
-    if (!expense || !amount || !selectedCategory) {
-      setError("Please fill out all fields");
-      return;
-    }
-    if (amount <= 0) {
-      setError("Value for amount should be greater than zero");
-      return;
-    }
+    if (!amount) return setError("Please fill out the amount filled");
+    if (!expense) return setError("Please fill out the name filled");
+    if (!selectedCategory.name) return setError("Please select a category");
+
+    if (!isValidNumber(+amount)) return setError("Please enter a valid amount");
+
     const newEntry = {
       expense,
       amount,
@@ -59,7 +97,7 @@ const EditEntryForm = ({ closeUI, props }) => {
           <h3>Edit Entry</h3>
           <div className="flex gap-2">
             <button
-              className="log-tool-button  h-10 w-10 bg-slate-200"
+              className="log-tool-button h-10 w-10 bg-slate-200"
               type="submit"
               form="editForm"
               formNoValidate
@@ -68,7 +106,7 @@ const EditEntryForm = ({ closeUI, props }) => {
               <TbCheck />
             </button>
             <button
-              className="log-tool-button  h-10 w-10 bg-slate-200"
+              className="log-tool-button h-10 w-10 bg-slate-200"
               onClick={closeUI}
             >
               <TbX />
@@ -86,7 +124,7 @@ const EditEntryForm = ({ closeUI, props }) => {
               }
               className="text-4xl"
               value={amount}
-              onChange={(e) => setAmount(e.target.value)}
+              onChange={(e) => handleNewAmount(e)}
               autoComplete="off"
               placeholder="0"
               required

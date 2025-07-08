@@ -17,24 +17,46 @@ const DeleteEntryConfirm = ({ closeUI, props }) => {
     dispatch(setIsNotSaved(true));
   };
 
+  const formatNumber = (value) => {
+    if (!value) return "0";
+
+    const [integerPart, decimalPart] = value.toString().split(".");
+
+    const formattedInt = parseInt(integerPart, 10).toLocaleString("en-US");
+
+    const trimmedDecimal = decimalPart ? decimalPart.slice(0, 4) : "";
+
+    return trimmedDecimal ? `${formattedInt}.${trimmedDecimal}` : formattedInt;
+  };
+
   return (
-    <div className="sticky top-5 z-10">
-      <div className="absolute bg-white p-2 shadow-xl rounded flex flex-col gap-2 right-0 top-0">
-        <div className="lg:w-[min-content] bg-slate-500 p-4 rounded">
-          <div className="font-semibold text-lg bg-slate-400 p-2 rounded flex justify-between items-center">
-            <h3 className="text-nowrap mr-5">Confirm Delete</h3>
-            <div className="py-2 flex gap-2 ">
-              <button className="log-tool-button" onClick={handleConfirm}>
-                <TbCheck />
-              </button>
-              <button className="log-tool-button" onClick={closeUI}>
-                <TbX />
-              </button>
-            </div>
+    <div className="sticky z-10 top-5">
+      <div className="z-25 bg-white log-form-container w-full absolute  right-2 top-2 shadow shadow-slate-400 max-w-[50%]">
+        <div className="log-section-header">
+          <h3 className="text-nowrap mr-5">Confirm Delete</h3>
+          <div className="flex gap-2">
+            <button
+              className="log-tool-button h-10 w-10 bg-slate-200 text-red-600"
+              onClick={handleConfirm}
+            >
+              <TbCheck />
+            </button>
+            <button
+              className="log-tool-button h-10 w-10 bg-slate-200"
+              onClick={closeUI}
+            >
+              <TbX />
+            </button>
           </div>
-          <div className="bg-slate-100 p-1 rounded mt-2 text-center">
-            This will delete:
-            <span className="font-semibold"> {entry.expense}</span>
+        </div>
+        <div className="p-4 px-10 rounded flex flex-col">
+          This will delete:
+          <span className="font-semibold text-xl">
+            PHP {formatNumber(entry.amount)}
+          </span>
+          <div>
+            <span> {entry.expense}</span>
+            <span> {entry.category.name}</span>
           </div>
         </div>
       </div>
