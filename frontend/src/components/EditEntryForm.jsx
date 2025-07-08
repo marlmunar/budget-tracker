@@ -17,7 +17,9 @@ const EditEntryForm = ({ closeUI, props }) => {
   const [expense, setExpense] = useState(entry.expense);
   const [amount, setAmount] = useState(entry.amount);
   const [category, setCategory] = useState(entry.category);
-  const [selectedCategory, setSelectedCategory] = useState(entry.category.name);
+  const [selectedCategory, setSelectedCategory] = useState({
+    ...entry.category,
+  });
   const [error, setError] = useState("");
 
   const handleSave = (e) => {
@@ -52,59 +54,80 @@ const EditEntryForm = ({ closeUI, props }) => {
 
   return (
     <div className="sticky top-5 z-10">
-      <div className="absolute bg-white p-2 shadow-xl rounded flex flex-col gap-2 right-0 top-0 ">
-        <div className="lg:w-[min-content] bg-slate-500 p-4 rounded">
-          <div className="font-semibold text-lg bg-slate-400 p-2 rounded flex justify-between items-center">
-            <h3>Edit Entry</h3>
-            <div className="py-2 flex gap-2 ">
-              <button
-                className="log-tool-button"
-                type="submit"
-                form="editForm"
-                formNoValidate
-                onClick={handleSave}
-              >
-                <TbCheck />
-              </button>
-              <button className="log-tool-button" onClick={closeUI}>
-                <TbX />
-              </button>
-            </div>
+      <div className="z-25 bg-white log-form-container w-full absolute right-0 top-0 shadow shadow-slate-400">
+        <div className="log-section-header">
+          <h3>Edit Entry</h3>
+          <div className="flex gap-2">
+            <button
+              className="log-tool-button  h-10 w-10 bg-slate-200"
+              type="submit"
+              form="editForm"
+              formNoValidate
+              onClick={handleSave}
+            >
+              <TbCheck />
+            </button>
+            <button
+              className="log-tool-button  h-10 w-10 bg-slate-200"
+              onClick={closeUI}
+            >
+              <TbX />
+            </button>
           </div>
-          <form method="POST" id="editForm" className="edit-entry-form">
-            <div className="input-row">
-              <label htmlFor="expense">Expense</label>
+        </div>
+        <form method="POST" id="editForm" className="relative p-4 rounded">
+          <div className="log-input-column">
+            <label htmlFor="newAmount">Amount</label>
+            <input
+              type="number"
+              name="newAmount"
+              onKeyDown={(e) =>
+                ["e", "E", "+", "-"].includes(e.key) && e.preventDefault()
+              }
+              className="text-4xl"
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+              autoComplete="off"
+              placeholder="0"
+              required
+            />
+          </div>
+          <div className="flex gap-2">
+            <div className="log-input-column">
+              <label htmlFor="newExpense">Expense Name</label>
               <input
                 type="text"
-                name="expense"
+                id="newExpense"
+                maxLength="25"
                 value={expense}
                 onChange={(e) => setExpense(e.target.value)}
+                placeholder="New Expense Name"
                 autoComplete="off"
                 required
               />
             </div>
-            <div className="input-row">
-              <label htmlFor="expense">Amount</label>
-              <input
-                type="number"
-                name="expense"
-                value={amount}
-                onChange={(e) => setAmount(e.target.value)}
-                autoComplete="off"
-                required
-              />
-            </div>
-            <div className="input-row">
-              <label htmlFor="category">Category</label>
-              <div className="relative custom-select">
+            <div className="log-input-column">
+              <label htmlFor="newCategory">Category</label>
+              <div
+                className="relative custom-select"
+                style={{ backgroundColor: selectedCategory?.color }}
+                tabIndex={0}
+              >
                 <div
                   className="flex justify-between items-center *:pointer-events-none"
                   data-id="editEntry"
                   onClick={() => setIsSelecting((prev) => !prev)}
+                  onFocus={() => setIsSelecting(true)}
                 >
-                  <span className={!!selectedCategory ? "" : "text-gray-500"}>
-                    {!!selectedCategory
-                      ? selectedCategory
+                  <span
+                    className={
+                      Object.keys(selectedCategory).length > 0
+                        ? ""
+                        : "text-gray-500"
+                    }
+                  >
+                    {Object.keys(selectedCategory).length > 0
+                      ? selectedCategory.name
                       : "Select a category"}
                   </span>
                   <button
@@ -126,7 +149,10 @@ const EditEntryForm = ({ closeUI, props }) => {
                           style={{ backgroundColor: cat.color }}
                           key={index}
                           onClick={() => {
-                            setSelectedCategory(cat.name);
+                            setSelectedCategory({
+                              name: cat.name,
+                              color: cat.color,
+                            });
                             setIsSelecting(false);
                             setCategory({ name: cat.name, color: cat.color });
                           }}
@@ -139,11 +165,25 @@ const EditEntryForm = ({ closeUI, props }) => {
                 )}
               </div>
             </div>
-            <div className="text-right my-2 mr-5 text-red-500 text-sm">
+          </div>
+          <button
+            className="absolute top-4 right-4 text-blue-400 text-sm"
+            type="reset"
+            onClick={() => {
+              setExpense("");
+              setAmount("");
+              setSelectedCategory({});
+              setError("");
+            }}
+          >
+            Clear Values
+          </button>
+          {error && (
+            <div className="text-left my-2 mr-5 text-red-500 text-sm">
               {error}
             </div>
-          </form>
-        </div>
+          )}
+        </form>
       </div>
     </div>
   );

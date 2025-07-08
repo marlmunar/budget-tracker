@@ -50,22 +50,24 @@ const ExpenseList = ({ categories }) => {
       />
 
       <div className="log-section-header flex justify-between items-center">
-        <h2>Expense List</h2>
+        <h2 className="h-10 flex items-center">Expense List</h2>
 
-        <div className="flex gap-2">
-          <button
-            className="log-tool-button h-10 w-10 bg-slate-200"
-            onClick={() => setActiveUI("addEntry")}
-          >
-            <TbPlus />
-          </button>
-          <button
-            className="log-tool-button h-10 w-10 bg-slate-200"
-            onClick={() => setActiveUI("filterEntries")}
-          >
-            <TbFilter />
-          </button>
-        </div>
+        {!activeUI && (
+          <div className="flex gap-2">
+            <button
+              className="log-tool-button h-10 w-10 bg-slate-200"
+              onClick={() => setActiveUI("addEntry")}
+            >
+              <TbPlus />
+            </button>
+            <button
+              className="log-tool-button h-10 w-10 bg-slate-200"
+              onClick={() => setActiveUI("filterEntries")}
+            >
+              <TbFilter />
+            </button>
+          </div>
+        )}
       </div>
 
       {filteredList.length < 1 ? (

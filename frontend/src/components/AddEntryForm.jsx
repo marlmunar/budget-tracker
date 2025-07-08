@@ -163,7 +163,7 @@ const AddEntryForm = ({ props, closeUI }) => {
   };
 
   return (
-    <section className="z-100 bg-white log-form-container w-full absolute right-0 top-0 shadow shadow-slate-400">
+    <div className="z-25 bg-white log-form-container w-full absolute right-0 top-0 shadow shadow-slate-400">
       <div className="log-section-header">
         <h3>New Entry</h3>
         <div className="flex gap-2">
@@ -345,7 +345,7 @@ const AddEntryForm = ({ props, closeUI }) => {
           </>
         )}
       </form>
-    </section>
+    </div>
   );
 };
 
