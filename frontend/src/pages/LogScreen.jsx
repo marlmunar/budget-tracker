@@ -48,6 +48,7 @@ const LogScreen = () => {
 
   const [logData, setLogData] = useState({});
   const [categories, setCategories] = useState([]);
+  const [selectedCategories, setSelectedCategories] = useState([]);
   const [isSelecting, setIsSelecting] = useState(false);
   const [isRenaming, setIsRenaming] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -155,9 +156,18 @@ const LogScreen = () => {
         logData.name ? `- ${logData.name}` : ""
       }`}</title>
       <LogScreenHeader logName={logData.name} />
-      <div className="h-full container m-2 grid md:grid-cols-[75%_auto] gap-2 w-[90%] mx-auto">
-        <ExpenseList categories={categories} />
-        <ExpenseSummary entries={tempEntries} />
+      <div className="container m-2 grid md:grid-cols-[75%_auto] grid-rows-[minmax(1fr,min-content)] gap-2 w-[90%] mx-auto items-start">
+        <ExpenseList
+          props={{ categories, selectedCategories, setSelectedCategories }}
+        />
+        <ExpenseSummary
+          props={{
+            entries: tempEntries,
+            categories,
+            selectedCategories,
+            setSelectedCategories,
+          }}
+        />
       </div>
       <Footer bg="bg-gray-100" />
     </main>

@@ -11,18 +11,18 @@ import { motion } from "framer-motion";
 
 import ExpenseListUIHandler from "./ExpenseListUIHandler";
 
-const ExpenseList = ({ categories }) => {
+const ExpenseList = ({ props }) => {
+  const { categories, selectedCategories, setSelectedCategories } = props;
   const { tempEntries } = useSelector((state) => state.logs);
   const [activeUI, setActiveUI] = useState("");
   const [isVisible, setIsVisible] = useState(true);
-  const [selectedCategories, setSelectedCategories] = useState([]);
 
   useEffect(() => {
     if (categories.length > 0) {
       const categoryNames = categories.map((cat) => cat.name);
       setSelectedCategories(categoryNames);
     }
-  }, [categories]);
+  }, [categories, setSelectedCategories]);
 
   const filteredList = tempEntries.filter((entry) =>
     selectedCategories.includes(entry.category.name)
@@ -74,20 +74,6 @@ const ExpenseList = ({ categories }) => {
         <NoRecords />
       ) : (
         <div className="relative py-2">
-          {/* {isEditing && (
-            <OutsideClick onOutsideClick={() => setIsEditing(false)}>
-              <EditEntryForm
-                categories={categories}
-                setIsEditing={setIsEditing}
-                entry={entry}
-              />
-            </OutsideClick>
-          )}
-          {isDeleting && (
-            <OutsideClick onOutsideClick={() => setIsDeleting(false)}>
-              <DeleteEntryConfirm setIsDeleting={setIsDeleting} entry={entry} />
-            </OutsideClick>
-          )} */}
           {isVisible &&
             filteredList
               .sort((a, b) => new Date(b.date) - new Date(a.date))
