@@ -6,13 +6,31 @@ import { useState } from "react";
 const ExpenseSummary = ({ props }) => {
   const { categories, entries, selectedCategories, setSelectedCategories } =
     props;
-  console.log(entries);
 
   const [displayReload, setDisplayReload] = useState(false);
 
   const entriesCount = entries.reduce(
     (sum, entry) =>
       sum + (selectedCategories.includes(entry.category.name) ? 1 : 0),
+    0
+  );
+
+  const totalIncome = entries.reduce(
+    (sum, entry) =>
+      sum + (entry.category.type === "Income" ? +entry.amount : 0),
+    0
+  );
+
+  const totalExpense = entries.reduce(
+    (sum, entry) =>
+      sum + (entry.category.type === "Expense" ? +entry.amount : 0),
+    0
+  );
+
+  const total = entries.reduce(
+    (sum, entry) =>
+      sum +
+      (selectedCategories.includes(entry.category.name) ? +entry.amount : 0),
     0
   );
 
@@ -74,28 +92,28 @@ const ExpenseSummary = ({ props }) => {
               ""
             )
           )}
-          <div className="rounded shadow">
-            <div className="flex bg-slate-200 p-2 text-gray-800 justify-between font-semibold">
-              <h3>Total</h3>
-            </div>
-            <div className="flex justify-between p-2">
-              <p className="font-semibold">
-                {`${entriesCount} ${entriesCount > 1 ? "entries" : "entry"}`}
+          {!displayReload && (
+            <div className="rounded shadow bg-slate-200">
+              <div className="flex text-lg p-2 text-gray-800 justify-between font-semibold">
+                <h3>Total</h3>
+              </div>
+              <div className="flex justify-between p-2 bg-white">
+                <p>Entries</p>
+                <p>{formatNumber(entriesCount)}</p>
+              </div>
+              <div className="flex justify-between p-2 bg-white">
+                <p>Income</p>
+                <p>{formatNumber(totalIncome)}</p>
+              </div>
+              <div className="flex justify-between p-2 bg-white">
+                <p>Expense</p>
+                <p>{formatNumber(totalExpense)}</p>
+              </div>
+              <p className="font-semibold p-2 text-lg text-right">
+                {formatNumber(total)}
               </p>
-              <p>
-                {formatNumber(
-                  entries.reduce(
-                    (sum, entry) =>
-                      sum +
-                      (selectedCategories.includes(entry.category.name)
-                        ? +entry.amount
-                        : 0),
-                    0
-                  )
-                )}
-              </p>
             </div>
-          </div>
+          )}
         </div>
       ) : (
         <NoRecords />

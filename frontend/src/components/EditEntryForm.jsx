@@ -68,13 +68,13 @@ const EditEntryForm = ({ closeUI, props }) => {
     if (!expense) return setError("Please fill out the name filled");
     if (!selectedCategory.name) return setError("Please select a category");
     if (!isValidNumber(+amount)) return setError("Please enter a valid amount");
-    console.log(category);
+
     const newEntry = {
       expense,
       amount,
       category,
     };
-    console.log(newEntry);
+
     const newTempEntries = tempEntries.map((tempEntry) =>
       tempEntry.expense === entry.expense
         ? {
