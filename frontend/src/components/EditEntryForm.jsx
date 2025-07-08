@@ -9,7 +9,8 @@ import OutsideClick from "./OutsideClick";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsNotSaved, setTempEntries } from "../slices/logSlice";
 
-const EditEntryForm = ({ categories, setIsEditing, entry }) => {
+const EditEntryForm = ({ closeUI, props }) => {
+  const { categories, entry } = props;
   const dispatch = useDispatch();
   const { tempEntries } = useSelector((state) => state.logs);
   const [isSelecting, setIsSelecting] = useState(false);
@@ -46,7 +47,7 @@ const EditEntryForm = ({ categories, setIsEditing, entry }) => {
     );
     dispatch(setTempEntries(newTempEntries));
     dispatch(setIsNotSaved(true));
-    setIsEditing(false);
+    closeUI();
   };
 
   return (
@@ -65,10 +66,7 @@ const EditEntryForm = ({ categories, setIsEditing, entry }) => {
               >
                 <TbCheck />
               </button>
-              <button
-                className="log-tool-button"
-                onClick={() => setIsEditing(false)}
-              >
+              <button className="log-tool-button" onClick={closeUI}>
                 <TbX />
               </button>
             </div>

@@ -42,14 +42,13 @@ const ExpenseList = ({ categories }) => {
   });
 
   return (
-    <section className="log-section-container">
-      <div className="relative">
-        <ExpenseListUIHandler
-          activeUI={activeUI}
-          setActiveUi={setActiveUI}
-          props={{ categories, selectedCategories, setSelectedCategories }}
-        />
-      </div>
+    <section className="log-section-container relative">
+      <ExpenseListUIHandler
+        activeUI={activeUI}
+        setActiveUi={setActiveUI}
+        props={{ entry, categories, selectedCategories, setSelectedCategories }}
+      />
+
       <div className="log-section-header flex justify-between items-center">
         <h2>Expense List</h2>
 
@@ -103,9 +102,8 @@ const ExpenseList = ({ categories }) => {
                     category={entry.category.name}
                     timeStamps={entry.date.split("T")[0]}
                     bgColor={entry.category.color}
-                    // setIsEditing={setIsEditing}
-                    // setIsDeleting={setIsDeleting}
                     setEntry={setEntry}
+                    setActiveUI={setActiveUI}
                   />
                 </motion.div>
               ))}

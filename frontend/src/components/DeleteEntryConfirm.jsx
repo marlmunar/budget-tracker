@@ -2,7 +2,8 @@ import { TbCheck, TbX } from "react-icons/tb";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsNotSaved, setTempEntries } from "../slices/logSlice";
 
-const DeleteEntryConfirm = ({ setIsDeleting, entry }) => {
+const DeleteEntryConfirm = ({ closeUI, props }) => {
+  const { entry } = props;
   const dispatch = useDispatch();
   const { tempEntries } = useSelector((state) => state.logs);
 
@@ -12,7 +13,7 @@ const DeleteEntryConfirm = ({ setIsDeleting, entry }) => {
     );
 
     dispatch(setTempEntries(newTempEntries));
-    setIsDeleting(false);
+    closeUI();
     dispatch(setIsNotSaved(true));
   };
 
@@ -26,10 +27,7 @@ const DeleteEntryConfirm = ({ setIsDeleting, entry }) => {
               <button className="log-tool-button" onClick={handleConfirm}>
                 <TbCheck />
               </button>
-              <button
-                className="log-tool-button"
-                onClick={() => setIsDeleting(false)}
-              >
+              <button className="log-tool-button" onClick={closeUI}>
                 <TbX />
               </button>
             </div>

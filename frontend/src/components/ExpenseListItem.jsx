@@ -1,13 +1,13 @@
 import { TbTrash, TbEdit } from "react-icons/tb";
+import ExpenseListUIHandler from "./ExpenseListUIHandler";
 const ExpenseListItem = ({
   expense,
   amount,
   category,
   timeStamps,
   bgColor = "#4CAF50",
-  setIsEditing,
-  setIsDeleting,
   setEntry,
+  setActiveUI,
 }) => {
   const formatNumber = (value) => {
     if (!value) return "0";
@@ -52,7 +52,7 @@ const ExpenseListItem = ({
               amount,
               category: { name: category, color: bgColor },
             });
-            setIsEditing(true);
+            setActiveUI("editEntry");
           }}
         >
           <TbEdit />
@@ -65,7 +65,7 @@ const ExpenseListItem = ({
               amount,
               category: { name: category, color: bgColor },
             });
-            setIsDeleting(true);
+            setActiveUI("deleteEntry");
           }}
         >
           <TbTrash />
