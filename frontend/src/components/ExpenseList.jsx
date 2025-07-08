@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { use, useEffect, useState } from "react";
-import { TbFilter, TbPlus } from "react-icons/tb";
+import { TbFilter, TbFilterEdit, TbPlus } from "react-icons/tb";
 import ExpenseListItem from "./ExpenseListItem";
 import NoRecords from "./NoRecords";
 import EditEntryForm from "./EditEntryForm";
@@ -16,6 +16,8 @@ const ExpenseList = ({ props }) => {
   const { tempEntries } = useSelector((state) => state.logs);
   const [activeUI, setActiveUI] = useState("");
   const [isVisible, setIsVisible] = useState(true);
+  console.log(categories);
+  console.log(selectedCategories);
 
   useEffect(() => {
     if (categories.length > 0) {
@@ -64,7 +66,11 @@ const ExpenseList = ({ props }) => {
               className="log-tool-button h-10 w-10 bg-slate-200"
               onClick={() => setActiveUI("filterEntries")}
             >
-              <TbFilter />
+              {categories.length > selectedCategories.length ? (
+                <TbFilterEdit />
+              ) : (
+                <TbFilter />
+              )}
             </button>
           </div>
         )}

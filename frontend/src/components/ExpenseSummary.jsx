@@ -1,7 +1,7 @@
 import { TbReload } from "react-icons/tb";
 import ExpenseSummaryItem from "./ExpenseSummaryItem";
 import NoRecords from "./NoRecords";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const ExpenseSummary = ({ props }) => {
   const { categories, entries, selectedCategories, setSelectedCategories } =
@@ -15,15 +15,29 @@ const ExpenseSummary = ({ props }) => {
     0
   );
 
+  useEffect(() => {
+    if (categories.length === selectedCategories.length) {
+      setDisplayReload(false);
+    }
+  }, [selectedCategories, categories]);
+
   const totalIncome = entries.reduce(
     (sum, entry) =>
-      sum + (entry.category.type === "Income" ? +entry.amount : 0),
+      sum +
+      (entry.category.type === "Income" &&
+      selectedCategories.includes(entry.category.name)
+        ? +entry.amount
+        : 0),
     0
   );
 
   const totalExpense = entries.reduce(
     (sum, entry) =>
-      sum + (entry.category.type === "Expense" ? +entry.amount : 0),
+      sum +
+      (entry.category.type === "Expense" &&
+      selectedCategories.includes(entry.category.name)
+        ? +entry.amount
+        : 0),
     0
   );
 

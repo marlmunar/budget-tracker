@@ -7,12 +7,12 @@ const ExpenseSummaryItem = ({
   return (
     <div
       className="p-1 flex flex-col justify-between bg-white shadow rounded 
-      hover:shadow-slate-300 hover:translate-y-[-5px]
+      hover:shadow-slate-300 hover:translate-y-[-2px]
       active:scale-95
       transition-all duration-300"
       style={{ backgroundColor: category.color }}
       onClick={() => {
-        setSelectedCategories(category.name);
+        setSelectedCategories([category.name]);
         setDisplayReload(true);
       }}
     >
