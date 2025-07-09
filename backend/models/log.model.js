@@ -40,6 +40,7 @@ const logSchema = mongoose.Schema(
           category: {
             name: { type: String, required: true },
             color: { type: String, required: true },
+            type: { type: String, required: true },
           },
           date: { type: Date, default: Date.now },
         },
