@@ -23,8 +23,9 @@ const ExpenseListItem = ({
   return (
     <div
       className="
-      bg-white w-[98%] mx-auto shadow rounded pl-4 pr-2 pb-4 mb-1 
-      grid grid-rows-[repeat(2, min-content)] grid-cols-2 
+      bg-white w-[98%] mx-auto shadow rounded 
+      pl-4 pr-2 pb-4 mb-1 
+      grid grid-rows-[repeat(2,min-content)] grid-cols-2 
       transition-all duration-300
       hover:shadow-lg hover:shadow-slate-200 hover:mb-2
       "
@@ -33,8 +34,8 @@ const ExpenseListItem = ({
         <p className="text-lg font-semibold my-1">PHP {formatNumber(amount)}</p>
         <p className="text-[0.7rem]">{timeStamps}</p>
       </div>
-      <div className="flex items-start gap-2">
-        <p className="min-w-32">{expense}</p>
+      <div className="flex items-start gap-2 col-span-2">
+        <p className="max-w-50">{expense}</p>
         <p
           className="max-w-[min-content] text-center rounded overflow-hidden whitespace-nowrap px-2"
           style={{ backgroundColor: category.color }}
