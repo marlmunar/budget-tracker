@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 const ExpenseSummary = ({ props }) => {
   const { categories, entries, selectedCategories, setSelectedCategories } =
     props;
-  console.log(entries);
 
   const [displayReload, setDisplayReload] = useState(false);
 

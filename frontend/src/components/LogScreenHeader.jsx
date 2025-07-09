@@ -25,8 +25,6 @@ const LogScreenHeader = ({ logData }) => {
 
   const [isSelecting, setIsSelecting] = useState(false);
 
-  console.log(logData);
-
   const handleSave = async () => {
     if (!isNotSaved) return;
     try {
@@ -35,7 +33,6 @@ const LogScreenHeader = ({ logData }) => {
         id: logData._id,
         data: { ...logData, entries: tempEntries },
       }).unwrap();
-      console.log(res);
       dispatch(setIsNotSaved(false));
     } catch (error) {
       console.log(error?.data?.message || error.message);

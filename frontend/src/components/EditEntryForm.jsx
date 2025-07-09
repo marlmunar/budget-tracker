@@ -11,6 +11,7 @@ import { setIsNotSaved, setTempEntries } from "../slices/logSlice";
 
 const EditEntryForm = ({ closeUI, props }) => {
   const { categories, entry } = props;
+  const refEntry = entry;
   const dispatch = useDispatch();
   const { tempEntries } = useSelector((state) => state.logs);
   const [isSelecting, setIsSelecting] = useState(false);
@@ -62,6 +63,29 @@ const EditEntryForm = ({ closeUI, props }) => {
     setAmount(limitedValue);
   };
 
+  const isEqual = (a, b) => {
+    if (a === b) return true;
+
+    if (
+      typeof a !== "object" ||
+      a === null ||
+      typeof b !== "object" ||
+      b === null
+    )
+      return false;
+
+    const keysA = Object.keys(a);
+    const keysB = Object.keys(b);
+
+    if (keysA.length !== keysB.length) return false;
+
+    for (let key of keysA) {
+      if (!keysB.includes(key) || !isEqual(a[key], b[key])) return false;
+    }
+
+    return true;
+  };
+
   const handleSave = (e) => {
     e.preventDefault();
     if (!amount) return setError("Please fill out the amount filled");
@@ -74,6 +98,8 @@ const EditEntryForm = ({ closeUI, props }) => {
       amount,
       category,
     };
+
+    if (isEqual(newEntry, refEntry)) return closeUI();
 
     const newTempEntries = tempEntries.map((tempEntry) =>
       tempEntry.expense === entry.expense
