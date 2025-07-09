@@ -13,11 +13,12 @@ import { useState } from "react";
 import LogScreenStatus from "./LogScreenStatus";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsNotSaved } from "../slices/logSlice";
-import { startLoading, stopLoading } from "../slices/appSlice";
+import { setModalState, startLoading, stopLoading } from "../slices/appSlice";
 import { useUpdateLogMutation } from "../slices/logsApiSlice";
 
 const LogScreenHeader = ({ logData }) => {
   const dispatch = useDispatch();
+  const id = logData._id;
   const { name } = logData;
   const { isNotSaved } = useSelector((state) => state.logs);
   const { tempEntries } = useSelector((state) => state.logs);
@@ -30,7 +31,7 @@ const LogScreenHeader = ({ logData }) => {
     try {
       dispatch(startLoading());
       const res = await updateLog({
-        id: logData._id,
+        id,
         data: { ...logData, entries: tempEntries },
       }).unwrap();
       dispatch(setIsNotSaved(false));
@@ -120,9 +121,19 @@ const LogScreenHeader = ({ logData }) => {
                 <li>
                   <button
                     className="log-options text-red-500"
-                    onClick={() => {
-                      // setIsDeleting(true);
-                    }}
+                    onClick={() =>
+                      dispatch(
+                        setModalState({
+                          showModal: true,
+                          activeModal: "delete",
+                          modalData: {
+                            name: name,
+                            type: "log",
+                            id,
+                          },
+                        })
+                      )
+                    }
                   >
                     <TbFileX />
                     <span>Delete</span>

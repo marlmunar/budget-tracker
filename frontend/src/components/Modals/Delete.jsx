@@ -2,8 +2,11 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { useDeleteLogMutation } from "../../slices/logsApiSlice";
 import { setLastAction } from "../../slices/appSlice";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Delete = ({ resource, closeModal }) => {
+  const location = useLocation();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [deleteLog] = useDeleteLogMutation();
 
@@ -14,7 +17,11 @@ const Delete = ({ resource, closeModal }) => {
       const res = await deleteLog({
         id: resource.id,
       }).unwrap();
+      if (location.pathname !== "/logs") {
+        navigate("/logs");
+      }
       closeModal();
+
       dispatch(setLastAction(Date.now()));
     } catch (error) {
       console.log(error?.data?.message || error.message);
