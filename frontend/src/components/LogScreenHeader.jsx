@@ -89,9 +89,15 @@ const LogScreenHeader = ({ logData }) => {
                 <li>
                   <button
                     className="log-options"
-                    onClick={() => {
-                      // setIsRenaming(true);
-                    }}
+                    onClick={() =>
+                      dispatch(
+                        setModalState({
+                          showModal: true,
+                          activeModal: "rename",
+                          modalData: { name, id },
+                        })
+                      )
+                    }
                   >
                     <TbFilePencil />
                     <span>Rename</span>

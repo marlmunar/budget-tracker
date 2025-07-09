@@ -50,12 +50,11 @@ const LogScreen = () => {
   const [categories, setCategories] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [isSelecting, setIsSelecting] = useState(false);
-  const [isRenaming, setIsRenaming] = useState(false);
-  const [isDeleting, setIsDeleting] = useState(false);
+  const { lastAction } = useSelector((state) => state.app);
 
   const [displayName, setDisplayName] = useState("");
   const [activeAction, setActiveAction] = useState("");
-  const [lastAction, setLastAction] = useState("");
+
   const [error, setError] = useState("");
 
   const [getLog, { data }] = useLazyGetLogQuery();
@@ -88,7 +87,7 @@ const LogScreen = () => {
     };
 
     fetchData();
-  }, [logId, getLog, dispatch, lastAction]);
+  }, [isNotSaved, lastAction]);
 
   const handleRename = async (name) => {
     try {
