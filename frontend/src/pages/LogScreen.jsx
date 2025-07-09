@@ -10,7 +10,7 @@ import {
   useUpdateLogMutation,
 } from "../slices/logsApiSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { startLoading, stopLoading } from "../slices/appSlice";
+import { setModalState, startLoading, stopLoading } from "../slices/appSlice";
 import OutsideClick from "../components/OutsideClick";
 import { setIsNotSaved, setTempEntries } from "../slices/logSlice";
 import RenameModal from "../components/RenameModal";
@@ -65,7 +65,18 @@ const LogScreen = () => {
   const { isNotSaved } = useSelector((state) => state.logs);
   const { logId } = useParams();
 
-  const { show, confirm, cancel } = usePrompt(isNotSaved);
+  const { show } = usePrompt(isNotSaved);
+
+  useEffect(() => {
+    if (show) {
+      dispatch(
+        setModalState({
+          showModal: true,
+          activeModal: "confirmExit",
+        })
+      );
+    }
+  }, [show]);
 
   useEffect(() => {
     const fetchData = async () => {

@@ -8,6 +8,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import Rename from "./Modals/Rename";
 import Delete from "./Modals/Delete";
 import OutsideClick from "./OutsideClick";
+import ConfirmExit from "./Modals/ConfirmExit";
 
 const ModalWrapper = () => {
   const dispatch = useDispatch();
@@ -31,6 +32,7 @@ const ModalWrapper = () => {
       <Rename name={modalData.name} id={modalData.id} closeModal={closeModal} />
     ),
     delete: <Delete resource={modalData} closeModal={closeModal} />,
+    confirmExit: <ConfirmExit closeModal={closeModal} />,
   };
 
   const getModal = () => modals[activeModal] || null;
