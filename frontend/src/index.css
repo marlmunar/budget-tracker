@@ -264,7 +264,8 @@ menu li {
 }
 
 .entry-button {
-  @apply bg-blue-700 shadow text-sm text-white p-1 rounded transition-all duration-300 min-w-full
+  @apply bg-blue-700 shadow text-sm text-white p-1 rounded 
+  transition-all duration-300 w-full
    hover:shadow-slate-800 hover:border-transparent hover:shadow;
 }
 

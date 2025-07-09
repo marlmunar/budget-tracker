@@ -24,14 +24,24 @@ const ExpenseListFilter = ({ closeUI, props }) => {
   };
 
   return (
-    <div className="absolute bg-white m-2 shadow shadow-slate-400 rounded flex flex-col right-0 top-0 z-10">
-      <div className="font-semibold text-lg px-2 pl-4 py-1 bg-gray-100 rounded shadow flex justify-between items-center">
-        <h3 className="text-nowrap mr-5 text-base">Apply Filter</h3>
-        <div className="py-2 flex gap-2 ">
-          <button className="log-tool-button" onClick={handleConfirm}>
+    <div
+      className="absolute bg-white md:m-2
+      shadow shadow-slate-400 rounded 
+      flex flex-col right-0 top-0 z-10"
+    >
+      <div className="log-section-header">
+        <h3 className="text-nowrap mr-5">Apply Filter</h3>
+        <div className="flex gap-2 ">
+          <button
+            className="log-tool-button h-10 w-10 bg-slate-200"
+            onClick={handleConfirm}
+          >
             <TbCheck />
           </button>
-          <button className="log-tool-button" onClick={closeUI}>
+          <button
+            className="log-tool-button h-10 w-10 bg-slate-200"
+            onClick={closeUI}
+          >
             <TbX />
           </button>
         </div>
@@ -40,12 +50,13 @@ const ExpenseListFilter = ({ closeUI, props }) => {
         {categories.map((cat, index) => (
           <li
             key={index}
-            className="flex justify-start items-center gap-1 px-1 "
+            className="flex justify-start items-center gap-1 px-1
+            active:scale-95"
             onClick={() => {
               handleSelect(cat.name);
             }}
           >
-            <button className="text-2xl h-full hover:translate-y-[-2px]">
+            <button className="text-3xl h-full hover:translate-y-[-2px]">
               {selected.includes(cat.name) ? (
                 <TbSquareCheck className="text-blue-800" />
               ) : (
@@ -54,15 +65,15 @@ const ExpenseListFilter = ({ closeUI, props }) => {
             </button>
             <div
               style={{ backgroundColor: cat.color }}
-              className="p-1 rounded w-full text-sm"
+              className="p-1 rounded w-full text-base md:text-sm"
             >
               {cat.name}
             </div>
           </li>
         ))}
-        <li className="px-1 pb-1">
+        <li className="px-1 pb-1 flex gap-2 min-h-10 md:min-h-8 text-base mt-1">
           <button
-            className="entry-button my-1"
+            className="entry-button"
             onClick={() => {
               setSelected(categoryNames);
             }}
