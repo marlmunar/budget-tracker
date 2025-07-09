@@ -30,7 +30,11 @@ const DeleteEntryConfirm = ({ closeUI, props }) => {
   };
 
   return (
-    <div className="z-25 bg-white log-form-container w-full absolute  right-2 top-2 shadow shadow-slate-400 max-w-[30rem]">
+    <div
+      className="z-25 bg-white log-form-container w-full absolute 
+      md:right-2 md:top-2 shadow shadow-slate-400 
+      md:max-w-[30rem]"
+    >
       <div className="log-section-header">
         <h3 className="text-nowrap mr-5">Confirm Delete</h3>
         <div className="flex gap-2">

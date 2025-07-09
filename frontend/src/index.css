@@ -163,7 +163,7 @@ button > * {
 }
 
 .log-input-column {
-  @apply flex flex-col min-h-8 gap-1;
+  @apply flex flex-col min-h-8 gap-1 w-full;
 }
 
 .log-input-column label {
@@ -172,7 +172,8 @@ button > * {
 
 .log-input-column input,
 .log-input-column .custom-select {
-  @apply px-1 block focus:outline-none min-w-50 rounded;
+  @apply px-1 focus:outline-none w-full md:max-w-50 rounded
+  border h-full;
 }
 
 .button-row {

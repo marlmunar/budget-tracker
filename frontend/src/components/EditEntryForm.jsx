@@ -146,13 +146,14 @@ const EditEntryForm = ({ closeUI, props }) => {
           <div className="log-input-column">
             <label htmlFor="newCategory">Category</label>
             <div
-              className="relative custom-select"
+              className="relative custom-select focus:bg-gray-100/95 focus:shadow-lg"
               style={{ backgroundColor: selectedCategory?.color }}
               tabIndex={0}
             >
               <div
-                className="flex justify-between items-center *:pointer-events-none"
-                data-id="editEntry"
+                className="py-1 flex justify-between 
+                                items-center *:pointer-events-none"
+                data-id="addEntry"
                 onClick={() => setIsSelecting((prev) => !prev)}
                 onFocus={() => setIsSelecting(true)}
               >
@@ -177,9 +178,14 @@ const EditEntryForm = ({ closeUI, props }) => {
               {isSelecting && (
                 <OutsideClick
                   onOutsideClick={() => setIsSelecting(false)}
-                  id="editCat"
+                  id="addEntry"
                 >
-                  <menu className="absolute right-0 rounded mt-2 p-2 bg-white border-2 w-full flex flex-col gap-1">
+                  <menu
+                    className="absolute right-0 rounded p-1
+                            bg-white shadow 
+                            shadow-slate-400 w-full 
+                              flex flex-col gap-1"
+                  >
                     {categories.map((cat, index) => (
                       <li
                         className="log-options"
@@ -190,8 +196,8 @@ const EditEntryForm = ({ closeUI, props }) => {
                             name: cat.name,
                             color: cat.color,
                           });
-                          setIsSelecting(false);
                           setCategory(cat);
+                          setIsSelecting(false);
                         }}
                       >
                         {cat.name}

@@ -163,7 +163,12 @@ const AddEntryForm = ({ props, closeUI }) => {
   };
 
   return (
-    <div className="z-25 bg-white log-form-container w-full absolute right-0 top-0 shadow shadow-slate-400">
+    <div
+      className="
+     bg-white log-form-container w-full 
+     absolute top-0 
+     shadow shadow-slate-400"
+    >
       <div className="log-section-header">
         <h3>New Entry</h3>
         <div className="flex gap-2">
@@ -262,7 +267,8 @@ const AddEntryForm = ({ props, closeUI }) => {
                   tabIndex={0}
                 >
                   <div
-                    className="py-1 flex justify-between items-center *:pointer-events-none"
+                    className="py-1 flex justify-between 
+                    items-center *:pointer-events-none"
                     data-id="addEntry"
                     onClick={() => setIsSelecting((prev) => !prev)}
                     onFocus={() => setIsSelecting(true)}
@@ -295,8 +301,8 @@ const AddEntryForm = ({ props, closeUI }) => {
                       id="addEntry"
                     >
                       <menu
-                        className="absolute right-0 rounded p-1 bg-white shadow 
-                      shadow-slate-400 w-full flex flex-col gap-1"
+                        className="absolute right-0 top-9 rounded p-1 bg-white 
+                        shadow shadow-slate-400 w-full flex flex-col gap-1"
                       >
                         {categories.map((cat, index) => (
                           <li
