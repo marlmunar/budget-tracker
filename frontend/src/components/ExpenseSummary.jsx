@@ -54,6 +54,10 @@ const ExpenseSummary = ({ props }) => {
       amount: entries.reduce((acc, entry) => {
         return entry.category.name === cat.name ? acc + +entry.amount : acc;
       }, 0),
+      count: entries.reduce(
+        (sum, entry) => sum + (cat.name === entry.category.name ? 1 : 0),
+        0
+      ),
     }))
     .sort((a, b) => b.amount - a.amount);
 
@@ -99,6 +103,7 @@ const ExpenseSummary = ({ props }) => {
                 key={index}
                 category={item.category}
                 amount={formatNumber(item.amount)}
+                count={item.count}
                 setSelectedCategories={setSelectedCategories}
                 setDisplayReload={setDisplayReload}
               />
@@ -112,10 +117,6 @@ const ExpenseSummary = ({ props }) => {
                 <h3>Total</h3>
               </div>
               <div className="flex justify-between p-2 bg-white">
-                <p>Entries</p>
-                <p>{formatNumber(entriesCount)}</p>
-              </div>
-              <div className="flex justify-between p-2 bg-white">
                 <p>Income</p>
                 <p>{formatNumber(totalIncome)}</p>
               </div>
@@ -123,9 +124,12 @@ const ExpenseSummary = ({ props }) => {
                 <p>Expense</p>
                 <p>{formatNumber(totalExpense)}</p>
               </div>
-              <p className="font-semibold p-2 text-lg text-right">
-                {formatNumber(total)}
-              </p>
+              <div className="flex justify-between font-semibold p-2">
+                <p>{`${entriesCount} ${
+                  entriesCount > 1 ? "entries" : "entry"
+                }`}</p>
+                <p>{formatNumber(total)}</p>
+              </div>
             </div>
           )}
         </div>

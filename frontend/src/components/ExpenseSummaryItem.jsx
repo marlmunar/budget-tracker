@@ -1,12 +1,13 @@
 const ExpenseSummaryItem = ({
   category,
   amount,
+  count,
   setSelectedCategories,
   setDisplayReload,
 }) => {
   return (
     <div
-      className="p-1 flex md:flex-col justify-between
+      className="p-1 justify-between
       shadow rounded 
       hover:shadow-gray-400 
       hover:translate-y-[-2px]
@@ -24,7 +25,10 @@ const ExpenseSummaryItem = ({
       >
         {category.name}
       </p>
-      <p className="text-right bg-white rounded w-full p-1">{amount}</p>
+      <div className="flex justify-between w-full bg-white rounded p-1">
+        <p>{`${count} ${count > 1 ? "entries" : "entry"}`}</p>
+        <p>{amount}</p>
+      </div>
     </div>
   );
 };
