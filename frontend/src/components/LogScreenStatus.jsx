@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const LogScreenStatus = ({ isNotSaved, lastAction }) => {
+const LogScreenStatus = ({ isNotSaved }) => {
   const [fadeOut, setFadeOut] = useState(false);
 
   useEffect(() => {
@@ -11,16 +11,16 @@ const LogScreenStatus = ({ isNotSaved, lastAction }) => {
       }, 2000);
       return () => clearTimeout(timeout);
     }
-  }, [isNotSaved, lastAction]);
+  }, [isNotSaved]);
 
   return (
-    <>
+    <div className="text-gray-500">
       {isNotSaved ? (
-        "Changes not saved!"
+        "Log has unsaved changes"
       ) : (
         <div className={fadeOut ? "disappear" : ""}>Log is up to date</div>
       )}
-    </>
+    </div>
   );
 };
 

@@ -75,7 +75,6 @@ const LogScreen = () => {
         const res = await getLog(logId).unwrap();
         setLogData(res.data);
         setCategories(res.data.categories);
-        setDisplayName(res.data.name);
 
         if (!isNotSaved) dispatch(setTempEntries([...res.data.entries]));
       } catch (error) {
@@ -90,23 +89,6 @@ const LogScreen = () => {
 
     fetchData();
   }, [logId, getLog, dispatch, lastAction]);
-
-  const handleSave = async () => {
-    try {
-      dispatch(startLoading());
-      const res = await updateLog({
-        id: logId,
-        data: { name: logData.name, categories, entries: tempEntries },
-      }).unwrap();
-      console.log(res);
-      setLastAction(Date.now());
-      dispatch(setIsNotSaved(false));
-    } catch (error) {
-      console.log(error?.data?.message || error.message);
-    } finally {
-      dispatch(stopLoading());
-    }
-  };
 
   const handleRename = async (name) => {
     try {
@@ -155,7 +137,7 @@ const LogScreen = () => {
       <title>{`Budgetarians' Log ${
         logData.name ? `- ${logData.name}` : ""
       }`}</title>
-      <LogScreenHeader logName={logData.name} />
+      <LogScreenHeader logData={logData} />
       <div className="container m-2 grid md:grid-cols-[75%_auto] grid-rows-[minmax(1fr,min-content)] gap-2 w-[90%] mx-auto items-start">
         <ExpenseList
           props={{ categories, selectedCategories, setSelectedCategories }}
@@ -171,8 +153,6 @@ const LogScreen = () => {
       </div>
       <Footer bg="bg-gray-100" />
     </main>
-
-    // </motion.div>
   );
 };
 
