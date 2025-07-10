@@ -22,7 +22,7 @@ const LogTools = ({ searchState, setSearchState }) => {
       {/* <div className="flex gap-2 items-center relative"> */}
       {showSearch ? (
         <>
-          <div className="md:absolute top-3 right-3 flex md:justify-end mx-auto gap-2 bg-gray-300 md:bg-transparent p-1 px-2 rounded">
+          <div className="md:absolute top-3 right-3 flex md:justify-end mx-auto gap-2 bg-gray-300 md:bg-transparent p-1 px-2 md:rounded">
             <form
               method="POST"
               className="z-1 relative bg-gray-100 w-full text-black 

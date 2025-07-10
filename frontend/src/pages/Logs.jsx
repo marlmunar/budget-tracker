@@ -59,8 +59,8 @@ const Logs = ({}) => {
   }, [lastAction]);
 
   return (
-    <main className="px-1 md:px-6 lg:px-10 h-full lg:w-[60%] mx-auto ">
-      <section className="flex flex-col shadow rounded h-full">
+    <main className="px-1 md:px-6 lg:px-10 h-full lg:w-[60%] mx-auto">
+      <section className="flex flex-col shadow rounded h-full bg-gray-200">
         <div className="md:relative">
           <div
             className="rounded bg-white p-2 md:p-4
@@ -81,7 +81,7 @@ const Logs = ({}) => {
           </div>
         </div>
 
-        <div className="flex flex-col w-full gap-1 p-2 md:px-0 pt-3 pb-4 rounded-b h-full">
+        <div className="flex flex-col w-full rounded-b h-full pt-1">
           {results.length > 0 ? (
             <>
               {isVisible &&
