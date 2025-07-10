@@ -131,8 +131,8 @@ const LogScreenHeader = ({ logData }) => {
                 <button
                   className="log-options"
                   onClick={() => {
-                    // handleDownload();
-                    // setIsSelecting(false);
+                    handleSave();
+                    setIsSelecting(false);
                   }}
                 >
                   <TbDeviceSdCard />
@@ -142,15 +142,16 @@ const LogScreenHeader = ({ logData }) => {
               <li>
                 <button
                   className="log-options"
-                  onClick={() =>
+                  onClick={() => {
+                    setIsSelecting(false);
                     dispatch(
                       setModalState({
                         showModal: true,
                         activeModal: "rename",
                         modalData: { name, id },
                       })
-                    )
-                  }
+                    );
+                  }}
                 >
                   <TbFilePencil />
                   <span>Rename</span>
@@ -180,7 +181,8 @@ const LogScreenHeader = ({ logData }) => {
               <li>
                 <button
                   className="log-options text-red-500"
-                  onClick={() =>
+                  onClick={() => {
+                    setIsSelecting(false);
                     dispatch(
                       setModalState({
                         showModal: true,
@@ -191,8 +193,8 @@ const LogScreenHeader = ({ logData }) => {
                           id,
                         },
                       })
-                    )
-                  }
+                    );
+                  }}
                 >
                   <TbFileX />
                   <span>Delete</span>

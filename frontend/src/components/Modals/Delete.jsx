@@ -14,12 +14,14 @@ const Delete = ({ resource, closeModal }) => {
     e.preventDefault();
 
     try {
-      const res = await deleteLog({
-        id: resource.id,
-      }).unwrap();
       if (location.pathname !== "/logs") {
         navigate("/logs");
       }
+
+      const res = await deleteLog({
+        id: resource.id,
+      }).unwrap();
+
       closeModal();
 
       dispatch(setLastAction(Date.now()));
@@ -29,9 +31,14 @@ const Delete = ({ resource, closeModal }) => {
   };
 
   return (
-    <form className="flex flex-col gap-2 p-2" onSubmit={handleSubmit}>
-      <h3 className="text-xl font-semibold">Delete {resource.name} </h3>
-      <p className="modal-input-container">
+    <form className="flex flex-col gap-2 p-2 min-w-72" onSubmit={handleSubmit}>
+      <h3 className="text-base md:text-xl font-semibold flex items-center gap-1">
+        Delete
+        <span className="inline-block truncate max-w-[14ch]">
+          {resource.name}
+        </span>
+      </h3>
+      <p className="text-sm md:text-base modal-input-container">
         Do you want to delete this {resource.type}?
       </p>
       <div className="self-end flex gap-2">

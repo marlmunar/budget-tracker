@@ -124,11 +124,16 @@ const AddNewLog = ({ closeModal }) => {
   };
 
   return (
-    <form className="flex flex-col gap-2 p-2 mx-auto" onSubmit={handleSubmit}>
+    <form
+      className="flex flex-col gap-2 p-2 mx-auto min-w-72"
+      onSubmit={handleSubmit}
+    >
       {!logType ? (
         <>
-          <h3 className="text-xl my-2 font-semibold">Add New Log</h3>
-          <p>Choose a log type</p>
+          <h3 className="text-base md:text-xl my-2 font-semibold">
+            Add New Log
+          </h3>
+          <p className="text-sm md:text-base">Choose a log type</p>
           <menu className="flex flex-col md:flex-row gap-2 w-[84vw] lg:w-[55vw]">
             <button
               className="log-type-button"
@@ -167,7 +172,7 @@ const AddNewLog = ({ closeModal }) => {
           >
             <TbChevronLeft />
           </button>
-          <h3 className="text-lg mt-8 md:mt-6 text-center font-semibold">
+          <h3 className="text-base md:text-xl mt-10 md:mt-6 text-center font-semibold">
             Add New {logTypes[logType]}
           </h3>
           <div className="modal-input-container">

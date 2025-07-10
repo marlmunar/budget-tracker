@@ -231,7 +231,7 @@ button > * {
 
 .log-options {
   @apply w-full px-1 flex justify-start 
-    min-h-10 md:min-h-8
+    min-h-8
     hover:translate-y-[-2px]
     items-center gap-1 rounded cursor-pointer 
     shadow shadow-transparent
@@ -240,7 +240,7 @@ button > * {
 }
 
 .log-options > span {
-  @apply text-base;
+  @apply text-sm;
 }
 
 .log-options-button {
@@ -252,6 +252,7 @@ button > * {
 
 .log-type-button {
   @apply p-2 md:p-4 flex md:flex-col justify-between shadow shadow-slate-300 w-full
+  min-h-20 md:min-h-0 rounded
   transition-all duration-200 
   hover:*:border-slate-800
   hover:shadow-lg
@@ -261,7 +262,7 @@ hover:bg-blue-100;
 }
 
 .log-type-button > h4 {
-  @apply text-lg flex md:flex-1 text-left md:justify-center md:items-center my-auto md:mx-auto 
+  @apply text-base md:text-lg flex md:flex-1 text-left md:justify-center md:items-center my-auto md:mx-auto 
   md:pb-2 min-h-[2rem] h-[min-content]
   md:max-w-none;
 }
@@ -271,7 +272,7 @@ hover:bg-blue-100;
 }
 
 .log-type-button > span {
-  @apply text-sm my-auto max-w-[55%] text-right md:text-center md:max-w-[20ch] md:mx-auto md:pt-2;
+  @apply text-xs md:text-sm my-auto max-w-[55%] text-right md:text-center md:max-w-[20ch] md:mx-auto md:pt-2;
 }
 
 menu li {
@@ -317,15 +318,16 @@ menu li {
 }
 
 .modal-input-container {
-  @apply lg:min-w-[25vw]  min-w-[60vw];
+  @apply lg:min-w-[25vw] min-w-[60vw];
 }
 
 .modal-input-container > input {
-  @apply border-2 rounded block min-w-full border-gray-800 px-2 p-1;
+  @apply border-2 rounded block min-w-full border-gray-800 px-2 p-1 text-sm md:text-base;
 }
 
 .modal-button {
   @apply p-1 flex items-center justify-center rounded cursor-pointer text-2xl
+  bg-slate-200
   text-amber-600
     active:scale-95
     hover:shadow-md hover:border-transparent hover:translate-y-[-2px]
@@ -334,10 +336,11 @@ menu li {
 
 .modal-action-button {
   @apply mt-2 shadow rounded w-18 py-2 self-end
+    text-sm md:text-base
     active:scale-95
-    active:bg-amber-700
-  bg-amber-300
-  hover:bg-amber-400
+   active:bg-amber-700
+   bg-amber-300
+   hover:bg-amber-400
     hover:shadow-md hover:border-transparent hover:translate-y-[-2px]
     transition-all duration-300;
 }
@@ -345,10 +348,11 @@ menu li {
 .modal-delete-button {
   @apply mt-2 shadow rounded w-18 py-2 self-end
     active:scale-95
-    active:bg-red-800
-  bg-red-500
-  hover:bg-red-700
-  text-white
+    text-sm md:text-base
+   active:bg-red-800
+   bg-red-500
+   hover:bg-red-700
+   text-white
     hover:shadow-md hover:border-transparent hover:translate-y-[-2px]
     transition-all duration-300;
 }
