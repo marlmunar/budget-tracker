@@ -152,7 +152,7 @@ button > * {
 }
 
 .log-section-header {
-  @apply rounded bg-gray-100 p-4 text-lg font-semibold
+  @apply rounded bg-gray-100 p-2 pl-4 text-lg font-semibold
             shadow shadow-slate-300
             flex flex-row justify-between items-center gap-2 
             min-h-[min-content];
@@ -190,9 +190,11 @@ button > * {
 }
 
 .log-button {
-  @apply p-1 flex items-center justify-center rounded cursor-pointer text-[1.75rem] lg:text-[2rem]
-    active:scale-95
-  hover:bg-slate-300/40 hover:shadow-md hover:border-transparent hover:translate-y-[-2px]
+  @apply rounded cursor-pointer text-[1.75rem] lg:text-[2rem]
+    active:scale-95 flex items-center justify-center
+    min-h-12 min-w-12
+   hover:bg-slate-300/40 hover:shadow-md 
+    hover:border-transparent hover:translate-y-[-2px]
     transition-all duration-300;
 }
 
@@ -228,7 +230,17 @@ button > * {
 }
 
 .log-options {
-  @apply w-full px-1 flex justify-start items-center gap-1 rounded cursor-pointer hover:bg-slate-400/50;
+  @apply w-full px-1 flex justify-start 
+    min-h-10 md:min-h-8
+    hover:translate-y-[-2px]
+    items-center gap-1 rounded cursor-pointer 
+    shadow shadow-transparent
+    text-xl
+   hover:shadow-slate-300;
+}
+
+.log-options > span {
+  @apply text-base;
 }
 
 .log-options-button {

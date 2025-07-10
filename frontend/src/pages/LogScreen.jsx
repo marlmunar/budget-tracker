@@ -81,19 +81,17 @@ const LogScreen = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        dispatch(startLoading());
         const res = await getLog(logId).unwrap();
         setLogData(res.data);
         setCategories(res.data.categories);
 
-        if (!isNotSaved) dispatch(setTempEntries([...res.data.entries]));
+        dispatch(setTempEntries([...res.data.entries]));
       } catch (error) {
         console.error("Error fetching data:", error);
         if (error.status === 400 || error.status === 404) {
           navigate("/not-found");
         }
       } finally {
-        dispatch(stopLoading());
       }
     };
 

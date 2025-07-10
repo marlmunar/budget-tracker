@@ -10,7 +10,6 @@ import {
 import { Link } from "react-router-dom";
 import OutsideClick from "./OutsideClick";
 import { useState } from "react";
-import LogScreenStatus from "./LogScreenStatus";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsNotSaved } from "../slices/logSlice";
 import { setModalState, startLoading, stopLoading } from "../slices/appSlice";
@@ -43,29 +42,30 @@ const LogScreenHeader = ({ logData }) => {
   };
 
   return (
-    <div className="bg-gray-100 mx-auto rounded-b shadow w-full">
-      <div className="mx-auto px-4 lg:px-10 relative text-lg lg:text-xl flex justify-between items-center lg:max-w-[90%] min-h-18">
-        <div className="flex gap-2 items-center ">
+    <div className="bg-gray-100 mx-auto rounded-b shadow w-full flex">
+      <div
+        className="mx-auto px-2 md:px-0 text-lg lg:text-xl
+                  w-full relative
+                  lg:max-w-[90%] min-h-18"
+      >
+        <div className="flex items-center gap-1 md:gap-2 h-full">
           <Link to="/logs" className="log-button">
             <TbLogs />
           </Link>
-          <h2 className="font-semibold">{name}</h2>
-        </div>
-
-        {/* {error && (
-        <div className="absolute top-12 right-0 bg-slate-50 shadow-lg p-2 rounded text-red-500 text-sm italic ml-auto self-center">
-          {error}
-        </div>
-      )} */}
-
-        <div className="relative">
-          <div className="flex gap-2 items-center">
-            <span className="text-[0.65rem] md:text-sm italic">
-              <LogScreenStatus isNotSaved={isNotSaved} />
+          <div className="flex-1 flex flex-col">
+            <h2 className="font-semibold text-base md:text-xl">{name}</h2>
+            <span className="text-gray-500 text-[0.65rem] md:text-[0.7rem] italic">
+              {isNotSaved ? "Log has unsaved changes" : " Log is updated"}
             </span>
-            <button className="log-button" onClick={handleSave}>
-              <TbDeviceSdCard />
-            </button>
+          </div>
+
+          <div className="flex gap-1 items-center">
+            <div className="hidden md:block">
+              <button className="log-button" onClick={handleSave}>
+                <TbDeviceSdCard />
+              </button>
+            </div>
+
             <button
               data-id="options"
               name="buttoners"
@@ -77,78 +77,105 @@ const LogScreenHeader = ({ logData }) => {
               <TbFileDots />
             </button>
           </div>
-
-          {isSelecting && (
-            <OutsideClick
-              onOutsideClick={() => {
-                //   setIsSelecting(false);
-              }}
-              id="options"
-            >
-              <menu className="z-10 absolute top-[2.8rem] right-0 border-2 w-32 text-base p-2 flex flex-col items-center gap-2 shadow-lg bg-white rounded ">
-                <li>
-                  <button
-                    className="log-options"
-                    onClick={() =>
-                      dispatch(
-                        setModalState({
-                          showModal: true,
-                          activeModal: "rename",
-                          modalData: { name, id },
-                        })
-                      )
-                    }
-                  >
-                    <TbFilePencil />
-                    <span>Rename</span>
-                  </button>
-                </li>
-                <li>
-                  <button
-                    className="log-options"
-                    onClick={() => {
-                      // handleDownload();
-                      // setIsSelecting(false);
-                    }}
-                  >
-                    <TbFileDownload />
-                    <span>Download</span>
-                  </button>
-                </li>
-                <li>
-                  <Link
-                    className="log-options"
-                    //   to={`/visualize/${logId}`}
-                  >
-                    <TbFileAnalytics />
-                    <span>Visualize</span>
-                  </Link>
-                </li>
-                <li>
-                  <button
-                    className="log-options text-red-500"
-                    onClick={() =>
-                      dispatch(
-                        setModalState({
-                          showModal: true,
-                          activeModal: "delete",
-                          modalData: {
-                            name: name,
-                            type: "log",
-                            id,
-                          },
-                        })
-                      )
-                    }
-                  >
-                    <TbFileX />
-                    <span>Delete</span>
-                  </button>
-                </li>
-              </menu>
-            </OutsideClick>
-          )}
         </div>
+        {isSelecting && (
+          <OutsideClick
+            onOutsideClick={() => {
+              //   setIsSelecting(false);
+            }}
+            id="options"
+          >
+            <menu
+              className="z-5 
+                absolute
+                top-[80%]
+                right-2
+                md:right-0
+                rounded
+                w-32 text-base 
+                p-1 md:px-1 flex flex-col items-center gap-1 
+                shadow shadow-slate-500 bg-white"
+            >
+              <li className="md:hidden">
+                <button
+                  className="log-options"
+                  onClick={() => {
+                    // handleDownload();
+                    // setIsSelecting(false);
+                  }}
+                >
+                  <TbDeviceSdCard />
+                  <span>Save</span>
+                </button>
+              </li>
+              <li>
+                <button
+                  className="log-options"
+                  onClick={() =>
+                    dispatch(
+                      setModalState({
+                        showModal: true,
+                        activeModal: "rename",
+                        modalData: { name, id },
+                      })
+                    )
+                  }
+                >
+                  <TbFilePencil />
+                  <span>Rename</span>
+                </button>
+              </li>
+              <li>
+                <button
+                  className="log-options"
+                  onClick={() => {
+                    // handleDownload();
+                    // setIsSelecting(false);
+                  }}
+                >
+                  <TbFileDownload />
+                  <span>Download</span>
+                </button>
+              </li>
+              <li>
+                <Link
+                  className="log-options"
+                  //   to={`/visualize/${logId}`}
+                >
+                  <TbFileAnalytics />
+                  <span>Visualize</span>
+                </Link>
+              </li>
+              <li>
+                <button
+                  className="log-options text-red-500"
+                  onClick={() =>
+                    dispatch(
+                      setModalState({
+                        showModal: true,
+                        activeModal: "delete",
+                        modalData: {
+                          name: name,
+                          type: "log",
+                          id,
+                        },
+                      })
+                    )
+                  }
+                >
+                  <TbFileX />
+                  <span>Delete</span>
+                </button>
+              </li>
+            </menu>
+          </OutsideClick>
+        )}
+
+        {/* {error && (
+        <div className="absolute top-12 right-0 bg-slate-50 shadow-lg p-2 rounded text-red-500 text-sm italic ml-auto self-center">
+          {error}
+        </div>
+      )} */}
       </div>
     </div>
   );

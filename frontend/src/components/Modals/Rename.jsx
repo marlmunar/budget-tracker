@@ -46,6 +46,7 @@ const Rename = ({ name, id, closeModal }) => {
         <input
           value={newName}
           id="newName"
+          maxLength="25"
           onChange={(e) => setNewName(e.target.value)}
           autoComplete="off"
           required
