@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { TbSearch, TbPlus, TbX } from "react-icons/tb";
+import { TbSearch, TbPlus, TbX, TbTrash } from "react-icons/tb";
 import { useDispatch } from "react-redux";
 import { setModalState } from "../slices/appSlice";
 
@@ -21,11 +21,13 @@ const LogTools = ({ searchState, setSearchState }) => {
     <>
       {/* <div className="flex gap-2 items-center relative"> */}
       {showSearch ? (
-        <div className="flex justify-end grow gap-2">
-          <>
+        <>
+          <div className="md:absolute top-3 right-3 flex md:justify-end mx-auto gap-2 bg-gray-300 md:bg-transparent p-1 px-2 rounded">
             <form
               method="POST"
-              className="z-1 relative bg-gray-200 w-full text-black rounded-xl px-2 pr-8 min-h-8  lg:w-[16.5rem] lg:max-w-none flex items-center justify-between"
+              className="z-1 relative bg-gray-100 w-full text-black 
+                rounded-xl px-2 pr-8 min-h-8 lg:w-[16.5rem] 
+                lg:max-w-none flex items-center justify-between"
             >
               <input
                 className="focus:outline-none focus:ring-0 w-full"
@@ -45,11 +47,13 @@ const LogTools = ({ searchState, setSearchState }) => {
                       searchText: "",
                     }));
                   }}
-                  className="right-2 absolute rounded-xl h-[min-content] w-[min-content] text-base 
-                     border text-gray-500 border-gray-500 
+                  className="right-2 absolute rounded-xl 
+                    h-[min-content] w-[min-content] 
+                    text-base md:text-xl
+                    border text-gray-500 border-gray-500 
                     hover:shadow hover:shadow-gray-700 hover:border-transparent"
                 >
-                  <TbX />
+                  <TbTrash />
                 </button>
               )}
             </form>
@@ -65,12 +69,10 @@ const LogTools = ({ searchState, setSearchState }) => {
                 <TbX />
               </span>
             </button>
-          </>
-          <></>
-          {/* )} */}
-        </div>
+          </div>
+        </>
       ) : (
-        <div className="flex gap-2 absolute md:static top-3 right-2">
+        <div className="absolute flex gap-2 top-5 right-4 md:top-4 md:right-4">
           <button
             className="hidden md:flex log-button-2 min-w-10 min-h-10 md:min-w-[6.5rem] max-h-10"
             onClick={() =>
@@ -95,12 +97,9 @@ const LogTools = ({ searchState, setSearchState }) => {
         </div>
       )}
 
-      {/* </div> */}
-
-      {/* <div className="md:hidden absolute p-2 top-0 left-0 h-full w-full flex items-end">
+      <div className="md:hidden absolute pb-10 p-2 top-0 left-0 h-full w-full flex items-end">
         <button
-          className="
-          utton-3 z-5"
+          className="log-button-3 z-5"
           onClick={() =>
             dispatch(
               setModalState({
@@ -112,7 +111,7 @@ const LogTools = ({ searchState, setSearchState }) => {
         >
           <TbPlus />
         </button>
-      </div> */}
+      </div>
     </>
   );
 };

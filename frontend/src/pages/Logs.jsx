@@ -61,18 +61,24 @@ const Logs = ({}) => {
   return (
     <main className="px-1 md:px-6 lg:px-10 h-full lg:w-[60%] mx-auto ">
       <section className="flex flex-col shadow rounded h-full">
-        <div
-          className="rounded bg-white p-2 md:p-4
-            relative 
+        <div className="md:relative">
+          <div
+            className="rounded bg-white p-2 md:p-4
             shadow shadow-slate-300
             flex flex-col gap-1 justify-center h-full
             max-h-[min-content] min-h-10
             md:flex-row md:justify-between md:items-center"
-        >
-          <h2 className="px-1 md:p-0 text-lg md:text-2xl flex items-center min-h-10 font-semibold">
-            Your Logs
-          </h2>
-          <LogTools searchState={searchState} setSearchState={setSearchState} />
+          >
+            <h2 className="px-1 md:p-0 text-lg md:text-2xl flex items-center min-h-10 font-semibold">
+              Your Logs
+            </h2>
+          </div>
+          <div>
+            <LogTools
+              searchState={searchState}
+              setSearchState={setSearchState}
+            />
+          </div>
         </div>
 
         <div className="flex flex-col w-full gap-1 p-2 md:px-0 pt-3 pb-4 rounded-b h-full">
