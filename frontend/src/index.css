@@ -21,15 +21,15 @@ button > * {
 
 .header {
   @apply py-3 z-25
-  bg-amber-400 text-[#040F0F]
-  rounded-b-lg w-full;
+  bg-[#FFE779] text-[#040F0F]
+  rounded-b-lg w-full px-2 md:px-10;
 }
 
 .header-container {
-  @apply mx-auto px-4
+  @apply mx-auto
   min-h-10 md:min-h-14
   container
-  flex items-center justify-between md:px-10;
+  flex items-center justify-between;
 }
 
 .header-h1 {
@@ -43,9 +43,12 @@ button > * {
 }
 
 .hamburger {
-  @apply border-2 rounded py-1 px-2 flex justify-center md:hidden
-  transition-all duration-300 ease-in 
-   hover:border-transparent hover:shadow hover:shadow-slate-900;
+  @apply rounded cursor-pointer text-[1.75rem] lg:text-[2rem]
+    active:scale-95 flex items-center justify-center
+    h-10 w-10 md:hidden
+   hover:bg-slate-300/40 hover:shadow-md 
+    hover:border-transparent hover:translate-y-[-2px]
+    transition-all duration-300;
 }
 
 .profile {
@@ -58,28 +61,30 @@ button > * {
 }
 
 .login-button {
-  @apply border-slate-900 border-2 rounded py-1 px-2 md:px-4 md:py-1 md:min-w-[6rem]
+  @apply border-2 rounded
+  px-4 border-slate-900
+  md:px-4 md:py-1 md:min-w-[6rem]
+  min-h-10 min-w-10
+  md:min-h-0
   text-center
   transition-all duration-300 ease-in 
    hover:border-transparent hover:shadow hover:shadow-slate-900;
 }
 
-/* .nav-bar {
-  @apply bg-white mt-2 right-0
-  absolute shadow border-2 rounded 
-  p-2 min-w-[8ch] z-10 text-base lg:text-lg;
-} */
-
 .nav-bar {
-  @apply bg-gray-50 md:bg-white right-0 h-full min-w-[60vw] md:min-w-[8ch]
-  absolute shadow rounded md:border-2 shadow-slate-400 md:shadow-gray-300
-  p-2 z-10 text-base lg:text-lg md:h-[min-content];
+  @apply bg-white right-[0.25rem] md:right-2 top-[calc(100%+0.05rem)] md:top-[80%]
+  absolute shadow shadow-slate-400 rounded 
+  p-1 min-w-[8ch] z-10 text-base lg:text-lg;
 }
 
 .nav-bar ul > li > * {
-  @apply p-2 md:px-1 md:p-0 cursor-pointer text-lg rounded md:shadow-none bg-white
-  flex justify-between md:justify-end items-center
-  hover:bg-slate-400/50 transition-all duration-200 active:scale-95 active:translate-y-[-2px] w-full shadow;
+  @apply px-2 flex justify-start 
+    min-h-8 text-sm md:text-base
+    hover:translate-y-[-2px]
+    items-center gap-1 rounded cursor-pointer 
+    shadow shadow-transparent
+    bg-slate-50 w-[8.75rem] md:w-[8.5rem]
+   hover:shadow-slate-300;
 }
 
 .nav-bar ul .sm-button {

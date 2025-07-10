@@ -1,4 +1,4 @@
-const Footer = ({ bg = "bg-amber-400" }) => {
+const Footer = ({ bg = "bg-[#FFE779]" }) => {
   return (
     <footer className={`mt-auto p-2 ${bg}`}>
       <div className="lg:px-10 text-[0.55rem] md:text-xs">

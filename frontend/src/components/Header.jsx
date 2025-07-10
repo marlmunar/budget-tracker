@@ -70,19 +70,80 @@ const Header = () => {
 
   return (
     <header className="header">
-      <div className="header-container">
-        <Link to="/" className="active:scale-95 transition-all duration-200">
+      <div className="header-container relative">
+        <Link
+          to="/"
+          className="active:scale-95 transition-all duration-200 pl-2 md:pl-0"
+        >
           <div className="flex items-center gap-2">
             <img
               className="h-10 w-10 md:h-10 md:w-10"
               src={favicon}
               alt="Website logo"
             />
-            <h1 className="header-h1 text-white">Budgetarians' Log</h1>
+            <h1 className="header-h1 text-amber-950">Budgetarians' Log</h1>
           </div>
         </Link>
 
-        <div className="flex gap-4 items-center *:p-2">
+        {isClicked && (
+          <OutsideClick
+            onOutsideClick={() => setIsClicked(false)}
+            id="hamburger"
+          >
+            <nav className="nav-bar">
+              <ul className="flex flex-col gap-1">
+                <li className="sm-button">
+                  <NavLink
+                    to="/dashboard"
+                    className={({ isActive }) => (isActive ? "nav-active" : "")}
+                    onClick={() => setIsClicked(false)}
+                  >
+                    Dashboard
+                  </NavLink>
+                </li>
+                <li className="sm-button">
+                  <NavLink
+                    to="/logs"
+                    className={({ isActive }) => (isActive ? "nav-active" : "")}
+                    onClick={() => setIsClicked(false)}
+                  >
+                    Logs
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/profile"
+                    className={({ isActive }) => (isActive ? "nav-active" : "")}
+                    onClick={() => setIsClicked(false)}
+                  >
+                    Profile
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/settings"
+                    className={({ isActive }) => (isActive ? "nav-active" : "")}
+                    onClick={() => setIsClicked(false)}
+                  >
+                    Settings
+                  </NavLink>
+                </li>
+                <li>
+                  <span
+                    onClick={() => {
+                      setIsClicked(false);
+                      setIsLoggingOut(true);
+                    }}
+                  >
+                    Logout
+                  </span>
+                </li>
+              </ul>
+            </nav>
+          </OutsideClick>
+        )}
+
+        <div className="flex gap-4 items-center text-amber-950 *:md:p-2">
           {!!userInfo ? (
             <>
               <NavLink
@@ -108,157 +169,44 @@ const Header = () => {
               </NavLink>
 
               <div>
-                <div>
-                  <button
-                    className="hamburger"
-                    data-id="hamburger"
-                    onClick={() => setIsClicked((i) => !i)}
-                  >
-                    {!isClicked ? (
-                      <TbMenu2 className="text-2xl" />
-                    ) : (
-                      <TbX className="text-2xl" />
-                    )}
-                  </button>
-                  <div className="profile">
-                    <button>
-                      <BsPersonSquare className="text-2xl mr-1" />
-                    </button>
-                    <p>
-                      Hello, <span className="font-bold">{userInfo.name}!</span>
-                    </p>
-                    <button
-                      data-id="hamburger"
-                      className="icon"
-                      onClick={() => {
-                        setIsClicked((i) => !i);
-                      }}
-                    >
-                      {isClicked ? <IoMdArrowDropup /> : <IoMdArrowDropdown />}
-                    </button>
-                  </div>
-                </div>
-                <div className="md:relative">
-                  {isClicked && (
-                    <div className="z-25 absolute flex top-[4.8rem] md:top-2 right-0 h-[calc(100%-5.2rem)] w-screen bg-gray-200/75">
-                      <OutsideClick
-                        onOutsideClick={() => setIsClicked(false)}
-                        id="hamburger"
-                      >
-                        <nav className="nav-bar">
-                          <ul className="flex flex-col gap-1">
-                            <li className="sm-button">
-                              <NavLink
-                                to="/dashboard"
-                                className={({ isActive }) =>
-                                  isActive ? "nav-active" : ""
-                                }
-                                onClick={() => setIsClicked(false)}
-                              >
-                                {({ isActive }) => (
-                                  <>
-                                    Dashboard
-                                    <div className="text-2xl md:hidden">
-                                      {isActive ? (
-                                        <TbMapPin />
-                                      ) : (
-                                        <TbArrowBadgeRight />
-                                      )}
-                                    </div>
-                                  </>
-                                )}
-                              </NavLink>
-                            </li>
-                            <li className="sm-button">
-                              <NavLink
-                                to="/logs"
-                                className={({ isActive }) =>
-                                  isActive ? "nav-active" : ""
-                                }
-                                onClick={() => setIsClicked(false)}
-                              >
-                                {({ isActive }) => (
-                                  <>
-                                    Logs
-                                    <div className="text-2xl md:hidden">
-                                      {isActive ? (
-                                        <TbMapPin />
-                                      ) : (
-                                        <TbArrowBadgeRight />
-                                      )}
-                                    </div>
-                                  </>
-                                )}
-                              </NavLink>
-                            </li>
-                            <li>
-                              <NavLink
-                                to="/profile"
-                                className={({ isActive }) =>
-                                  isActive ? "nav-active" : ""
-                                }
-                                onClick={() => setIsClicked(false)}
-                              >
-                                {({ isActive }) => (
-                                  <>
-                                    Profile
-                                    <div className="text-2xl md:hidden">
-                                      {isActive ? (
-                                        <TbMapPin />
-                                      ) : (
-                                        <TbArrowBadgeRight />
-                                      )}
-                                    </div>
-                                  </>
-                                )}
-                              </NavLink>
-                            </li>
-                            <li>
-                              <NavLink
-                                to="/settings"
-                                className={({ isActive }) =>
-                                  isActive ? "nav-active" : ""
-                                }
-                                onClick={() => setIsClicked(false)}
-                              >
-                                {({ isActive }) => (
-                                  <>
-                                    Settings
-                                    <div className="text-2xl md:hidden">
-                                      {isActive ? (
-                                        <TbMapPin />
-                                      ) : (
-                                        <TbArrowBadgeRight />
-                                      )}
-                                    </div>
-                                  </>
-                                )}
-                              </NavLink>
-                            </li>
-                            <li>
-                              <span
-                                onClick={() => {
-                                  setIsClicked(false);
-                                  setIsLoggingOut(true);
-                                }}
-                              >
-                                Logout
-                              </span>
-                            </li>
-                          </ul>
-                        </nav>
-                      </OutsideClick>
-                    </div>
+                <button
+                  className="hamburger"
+                  data-id="hamburger"
+                  onClick={() => setIsClicked((i) => !i)}
+                >
+                  {!isClicked ? (
+                    <TbMenu2 className="text-2xl" />
+                  ) : (
+                    <TbX className="text-2xl" />
                   )}
+                </button>
+                <div className="profile">
+                  <button>
+                    <BsPersonSquare className="text-2xl mr-1" />
+                  </button>
+                  <p>
+                    Hello, <span className="font-bold">{userInfo.name}!</span>
+                  </p>
+                  <button
+                    data-id="hamburger"
+                    className="icon"
+                    onClick={() => {
+                      setIsClicked((i) => !i);
+                    }}
+                  >
+                    {isClicked ? <IoMdArrowDropup /> : <IoMdArrowDropdown />}
+                  </button>
                 </div>
               </div>
             </>
           ) : (
             !isLoggingIn && (
               <div className="login">
-                <Link className="login-button" to="/login">
-                  <span className="hidden md:block">Log In</span>
-                  <TbLogin2 className="md:hidden text-2xl" />
+                <Link
+                  className="login-button flex justify-center items-center"
+                  to="/login"
+                >
+                  Log In
                 </Link>
 
                 <Link
