@@ -50,7 +50,7 @@ const getLog = asyncHandler(async (req, res) => {
 
   const resultLog = await Log.findById(
     id,
-    "_id name logData categories entries"
+    "_id name logData categories entries updatedAt"
   );
 
   res.status(200).json({

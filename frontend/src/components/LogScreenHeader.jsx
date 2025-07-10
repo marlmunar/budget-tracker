@@ -9,7 +9,7 @@ import {
 } from "react-icons/tb";
 import { Link } from "react-router-dom";
 import OutsideClick from "./OutsideClick";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsNotSaved } from "../slices/logSlice";
 import { setModalState, startLoading, stopLoading } from "../slices/appSlice";
@@ -19,11 +19,20 @@ const LogScreenHeader = ({ logData }) => {
   const dispatch = useDispatch();
   const id = logData._id;
   const { name } = logData;
+  const lastUpdate = logData.updatedAt;
+  const [elapsedTime, setElapsedTime] = useState("");
   const { isNotSaved } = useSelector((state) => state.logs);
   const { tempEntries } = useSelector((state) => state.logs);
   const [updateLog] = useUpdateLogMutation();
 
   const [isSelecting, setIsSelecting] = useState(false);
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      updateLastSave();
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, [lastUpdate]);
 
   const handleSave = async () => {
     if (!isNotSaved) return;
@@ -41,6 +50,24 @@ const LogScreenHeader = ({ logData }) => {
     }
   };
 
+  const formatElapsedTime = (ms) => {
+    const seconds = Math.floor(ms / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+
+    if (seconds < 5) return "Just now";
+    if (minutes < 60) {
+      return `${minutes} minute${minutes !== 1 ? "s" : ""} ago`;
+    }
+    return `${hours} hour${hours !== 1 ? "s" : ""} ago`;
+  };
+
+  function updateLastSave() {
+    const elapsed = Date.now() - lastUpdate;
+    console.log(elapsed);
+    setElapsedTime(formatElapsedTime(elapsed));
+  }
+
   return (
     <div className="bg-gray-100 mx-auto rounded-b shadow w-full flex">
       <div
@@ -56,6 +83,7 @@ const LogScreenHeader = ({ logData }) => {
             <h2 className="font-semibold text-base md:text-xl">{name}</h2>
             <span className="text-gray-500 text-[0.65rem] md:text-[0.7rem] italic">
               {isNotSaved ? "Log has unsaved changes" : " Log is updated"}
+              {elapsedTime}
             </span>
           </div>
 

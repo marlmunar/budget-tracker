@@ -19,7 +19,6 @@ import AddCategoryForm from "../components/AddCategoryForm";
 import EditCategoryForm from "../components/EditCategoryForm";
 import DeleteCategoryForm from "../components/DeleteCategoryForm";
 import ConfirmModal from "../components/ConfirmModal";
-import LogScreenStatus from "../components/LogScreenStatus";
 import usePrompt from "../hooks/usePrompt";
 import Modal from "../components/Modal";
 import { AnimatePresence, motion } from "framer-motion";
@@ -82,7 +81,7 @@ const LogScreen = () => {
     const fetchData = async () => {
       try {
         const res = await getLog(logId).unwrap();
-        setLogData(res.data);
+        setLogData({ ...res.data, updatedAt: Date.now() });
         setCategories(res.data.categories);
 
         dispatch(setTempEntries([...res.data.entries]));
