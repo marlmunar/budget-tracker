@@ -91,7 +91,7 @@ const ExpenseSummary = ({ props }) => {
       </div>
 
       {entries.length > 0 ? (
-        <div className="flex flex-col gap-2 p-2">
+        <div className="flex text-xs md:text-sm flex-col gap-2 p-2">
           <div className="flex bg-slate-200 p-2 rounded text-gray-800 justify-between font-semibold">
             <h3>Category</h3>
             <h3>Subtotal</h3>
@@ -113,19 +113,19 @@ const ExpenseSummary = ({ props }) => {
           )}
           {!displayReload && (
             <div className="rounded shadow bg-slate-200">
-              <div className="flex text-lg p-2 text-gray-800 justify-between font-semibold">
+              <div className="flex text-base md:text-lg p-2 text-gray-800 justify-between font-semibold">
                 <h3>Total</h3>
               </div>
-              <div className="flex justify-between p-2 bg-white">
+              <div className="text-xs md:text-sm flex justify-between p-2 bg-white">
                 <p>Income</p>
                 <p>{formatNumber(totalIncome)}</p>
               </div>
-              <div className="flex justify-between p-2 bg-white">
+              <div className="text-xs md:text-sm flex justify-between p-2 bg-white">
                 <p>Expense</p>
                 <p>{formatNumber(totalExpense)}</p>
               </div>
-              <div className="flex justify-between font-semibold p-2">
-                <p>{`${entriesCount} ${
+              <div className="text-sm md:text-base flex items-center justify-between font-semibold p-2">
+                <p className="text-xs md:text-sm">{`${entriesCount} ${
                   entriesCount > 1 ? "entries" : "entry"
                 }`}</p>
                 <p>{formatNumber(total)}</p>

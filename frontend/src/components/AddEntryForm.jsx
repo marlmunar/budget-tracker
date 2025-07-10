@@ -301,12 +301,12 @@ const AddEntryForm = ({ props, closeUI }) => {
                       id="addEntry"
                     >
                       <menu
-                        className="absolute right-0 top-9 rounded p-1 bg-white 
+                        className="absolute right-0 top-9 rounded p-1 bg-slate-100
                         shadow shadow-slate-400 w-full flex flex-col gap-1"
                       >
                         {categories.map((cat, index) => (
                           <li
-                            className="log-options"
+                            className="log-options-2"
                             style={{ backgroundColor: cat.color }}
                             key={index}
                             onClick={() => {
@@ -321,7 +321,10 @@ const AddEntryForm = ({ props, closeUI }) => {
                             {cat.name}
                           </li>
                         ))}
-                        <li className="log-options" onClick={() => {}}>
+                        <li
+                          className="log-options-2 bg-white"
+                          onClick={() => {}}
+                        >
                           <TbCirclePlus /> Add New
                         </li>
                       </menu>

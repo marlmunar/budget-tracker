@@ -11,7 +11,6 @@ const DeleteEntryConfirm = ({ closeUI, props }) => {
     const newTempEntries = tempEntries.filter(
       (tempEntry) => tempEntry.expense !== entry.expense
     );
-
     dispatch(setTempEntries(newTempEntries));
     closeUI();
     dispatch(setIsNotSaved(true));

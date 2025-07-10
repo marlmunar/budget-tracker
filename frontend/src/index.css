@@ -157,7 +157,8 @@ button > * {
 }
 
 .log-section-header {
-  @apply rounded bg-gray-100 p-2 pl-4 text-lg font-semibold
+  @apply rounded bg-gray-100 p-2 pl-4 text-base 
+            md:text-lg font-semibold
             shadow shadow-slate-300
             flex flex-row justify-between items-center gap-2 
             min-h-[min-content];
@@ -241,6 +242,16 @@ button > * {
     items-center gap-1 rounded cursor-pointer 
     shadow shadow-transparent
     text-xl
+   hover:shadow-slate-300;
+}
+
+.log-options-2 {
+  @apply w-full px-1 flex justify-start 
+    min-h-6
+    hover:translate-y-[-2px]
+    items-center gap-1 rounded cursor-pointer 
+    shadow shadow-transparent
+    text-sm
    hover:shadow-slate-300;
 }
 

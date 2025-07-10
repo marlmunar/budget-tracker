@@ -207,14 +207,12 @@ const EditEntryForm = ({ closeUI, props }) => {
                   id="addEntry"
                 >
                   <menu
-                    className="absolute right-0 rounded p-1
-                            bg-white shadow 
-                            shadow-slate-400 w-full 
-                              flex flex-col gap-1"
+                    className="absolute right-0 top-9 rounded p-1 bg-slate-100
+                        shadow shadow-slate-400 w-full flex flex-col gap-1"
                   >
                     {categories.map((cat, index) => (
                       <li
-                        className="log-options"
+                        className="log-options-2"
                         style={{ backgroundColor: cat.color }}
                         key={index}
                         onClick={() => {

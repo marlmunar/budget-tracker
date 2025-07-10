@@ -20,12 +20,12 @@ const ExpenseSummaryItem = ({
       }}
     >
       <p
-        className="text-base md:tetx-lg font-semibold  
+        className="text-xs md:text-sm font-semibold  
         w-[45%] p-1 rounded"
       >
         {category.name}
       </p>
-      <div className="flex justify-between w-full bg-white rounded p-1">
+      <div className="flex text-xs md:text-sm justify-between w-full bg-white rounded p-1">
         <p>{`${count} ${count > 1 ? "entries" : "entry"}`}</p>
         <p>{amount}</p>
       </div>

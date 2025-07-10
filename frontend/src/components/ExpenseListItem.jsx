@@ -31,10 +31,12 @@ const ExpenseListItem = ({
       "
     >
       <div className="mb-1 my-2">
-        <p className="text-lg font-semibold my-1">PHP {formatNumber(amount)}</p>
-        <p className="text-[0.7rem]">{timeStamps}</p>
+        <p className="md:text-lg font-semibold my-1">
+          PHP {formatNumber(amount)}
+        </p>
+        <p className="text-[0.625rem] md:text-[0.7rem]">{timeStamps}</p>
       </div>
-      <div className="flex items-start gap-2 col-span-2">
+      <div className="text-xs md:text-base flex items-start gap-2 col-span-2">
         <p className="max-w-50">{expense}</p>
         <p
           className="max-w-[min-content] text-center rounded overflow-hidden whitespace-nowrap px-2"
@@ -45,7 +47,7 @@ const ExpenseListItem = ({
       </div>
       <div className="z-0 py-2 flex gap-1 justify-end row-start-1 col-start-2 self-start">
         <button
-          className="entry-tool-button min-h-10 min-w-10 text-indigo-800"
+          className="entry-tool-button min-h-8 min-w-8 text-indigo-800"
           onClick={() => {
             setEntry({
               expense,
@@ -58,7 +60,7 @@ const ExpenseListItem = ({
           <TbEdit />
         </button>
         <button
-          className="entry-tool-button min-h-10 min-w-10 text-red-800"
+          className="entry-tool-button button min-h-8 min-w-8 text-red-800"
           onClick={() => {
             setEntry({
               expense,

@@ -15,7 +15,6 @@ const ExpenseList = ({ props }) => {
   const { categories, selectedCategories, setSelectedCategories } = props;
   const { tempEntries } = useSelector((state) => state.logs);
   const [activeUI, setActiveUI] = useState("");
-  const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
     if (categories.length > 0) {
@@ -29,10 +28,7 @@ const ExpenseList = ({ props }) => {
   );
 
   useEffect(() => {
-    setIsVisible(false);
-    setTimeout(() => {
-      setIsVisible(true);
-    }, 50);
+    console.log(tempEntries);
   }, [selectedCategories, tempEntries]);
 
   const [entry, setEntry] = useState({
@@ -77,27 +73,20 @@ const ExpenseList = ({ props }) => {
       {filteredList.length < 1 ? (
         <NoRecords />
       ) : (
-        <div className="relative py-2">
-          {isVisible &&
-            filteredList
-              .sort((a, b) => new Date(b.date) - new Date(a.date))
-              .map((entry, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 30, scaleY: 0.85 }}
-                  animate={{ opacity: 1, y: 0, scaleY: 1 }}
-                  transition={{ duration: 0.4 }}
-                >
-                  <ExpenseListItem
-                    expense={entry.expense}
-                    amount={entry.amount}
-                    category={entry.category}
-                    timeStamps={entry.date.split("T")[0]}
-                    setEntry={setEntry}
-                    setActiveUI={setActiveUI}
-                  />
-                </motion.div>
-              ))}
+        <div className="relative mt-1">
+          {filteredList
+            .sort((a, b) => new Date(b.date) - new Date(a.date))
+            .map((entry, index) => (
+              <ExpenseListItem
+                key={index}
+                expense={entry.expense}
+                amount={entry.amount}
+                category={entry.category}
+                timeStamps={entry.date.split("T")[0]}
+                setEntry={setEntry}
+                setActiveUI={setActiveUI}
+              />
+            ))}
         </div>
       )}
     </section>

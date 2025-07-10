@@ -84,7 +84,7 @@ const LogScreen = () => {
         setLogData(res.data);
         setCategories(res.data.categories);
 
-        dispatch(setTempEntries([...res.data.entries]));
+        if (!isNotSaved) dispatch(setTempEntries([...res.data.entries]));
       } catch (error) {
         console.error("Error fetching data:", error);
         if (error.status === 400 || error.status === 404) {
@@ -147,7 +147,11 @@ const LogScreen = () => {
 
       <LogScreenHeader logData={logData} />
       <div className="h-full relative">
-        <div className="container m-2 grid md:grid-cols-[75%_auto] grid-rows-[minmax(1fr,min-content)] gap-2 w-[90%] mx-auto items-start">
+        <div
+          className="container m-2 grid md:grid-cols-[75%_auto] 
+            grid-rows-[minmax(1fr,min-content)] gap-2
+            w-[95%] md:w-[90%] mx-auto items-start"
+        >
           <ExpenseList
             props={{ categories, selectedCategories, setSelectedCategories }}
           />
