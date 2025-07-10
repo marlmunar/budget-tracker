@@ -147,20 +147,24 @@ const LogScreen = () => {
       <title>{`Budgetarians' Log ${
         logData.name ? `- ${logData.name}` : ""
       }`}</title>
+
       <LogScreenHeader logData={logData} />
-      <div className="container m-2 grid md:grid-cols-[75%_auto] grid-rows-[minmax(1fr,min-content)] gap-2 w-[90%] mx-auto items-start">
-        <ExpenseList
-          props={{ categories, selectedCategories, setSelectedCategories }}
-        />
-        <ExpenseSummary
-          props={{
-            entries: tempEntries,
-            categories,
-            selectedCategories,
-            setSelectedCategories,
-          }}
-        />
+      <div className="h-full relative">
+        <div className="container m-2 grid md:grid-cols-[75%_auto] grid-rows-[minmax(1fr,min-content)] gap-2 w-[90%] mx-auto items-start">
+          <ExpenseList
+            props={{ categories, selectedCategories, setSelectedCategories }}
+          />
+          <ExpenseSummary
+            props={{
+              entries: tempEntries,
+              categories,
+              selectedCategories,
+              setSelectedCategories,
+            }}
+          />
+        </div>
       </div>
+
       <Footer bg="bg-gray-100" />
     </main>
   );

@@ -42,7 +42,7 @@ const ExpenseList = ({ props }) => {
   });
 
   return (
-    <section className="log-section-container relative">
+    <section className="log-section-container md:relative">
       <ExpenseListUIHandler
         activeUI={activeUI}
         setActiveUi={setActiveUI}

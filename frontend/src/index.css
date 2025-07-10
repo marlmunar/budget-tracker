@@ -175,7 +175,7 @@ button > * {
 .log-input-column input,
 .log-input-column .custom-select {
   @apply px-1 focus:outline-none 
-  min-w-full
+  min-h-8
   md:min-w-50
   rounded h-full;
 }

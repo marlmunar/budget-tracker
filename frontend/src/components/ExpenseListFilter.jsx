@@ -27,7 +27,7 @@ const ExpenseListFilter = ({ closeUI, props }) => {
     <div
       className="absolute bg-white md:m-2
       shadow shadow-slate-400 rounded 
-      flex flex-col right-0 top-0 z-10"
+      flex flex-col right-0 top-0"
     >
       <div className="log-section-header">
         <h3 className="text-nowrap mr-5">Apply Filter</h3>
