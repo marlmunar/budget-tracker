@@ -19,17 +19,19 @@ const LogScreenHeader = ({ logData }) => {
   const dispatch = useDispatch();
   const id = logData._id;
   const { name } = logData;
-  const lastUpdate = logData.updatedAt;
+  const lastUpdate = new Date(logData.updatedAt);
   const [elapsedTime, setElapsedTime] = useState("");
   const { isNotSaved } = useSelector((state) => state.logs);
   const { tempEntries } = useSelector((state) => state.logs);
   const [updateLog] = useUpdateLogMutation();
 
   const [isSelecting, setIsSelecting] = useState(false);
+
   useEffect(() => {
+    updateLastSave();
     const intervalId = setInterval(() => {
       updateLastSave();
-    }, 1000);
+    }, 10000);
 
     return () => clearInterval(intervalId);
   }, [lastUpdate]);
@@ -54,17 +56,17 @@ const LogScreenHeader = ({ logData }) => {
     const seconds = Math.floor(ms / 1000);
     const minutes = Math.floor(seconds / 60);
     const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
 
-    if (seconds < 5) return "Just now";
-    if (minutes < 60) {
-      return `${minutes} minute${minutes !== 1 ? "s" : ""} ago`;
-    }
-    return `${hours} hour${hours !== 1 ? "s" : ""} ago`;
+    if (seconds < 5) return "just now";
+    if (seconds < 60) return "less than a minute ago";
+    if (minutes < 60) return `${minutes} minute${minutes !== 1 ? "s" : ""} ago`;
+    if (hours < 24) return `${hours} hour${hours !== 1 ? "s" : ""} ago`;
+    return `${days} day${days !== 1 ? "s" : ""} ago`;
   };
 
   function updateLastSave() {
     const elapsed = Date.now() - lastUpdate;
-    console.log(elapsed);
     setElapsedTime(formatElapsedTime(elapsed));
   }
 
@@ -82,8 +84,9 @@ const LogScreenHeader = ({ logData }) => {
           <div className="flex-1 flex flex-col">
             <h2 className="font-semibold text-base md:text-xl">{name}</h2>
             <span className="text-gray-500 text-[0.65rem] md:text-[0.7rem] italic">
-              {isNotSaved ? "Log has unsaved changes" : " Log is updated"}
-              {elapsedTime}
+              {isNotSaved
+                ? "Log has unsaved changes"
+                : `Log was updated ${elapsedTime}`}
             </span>
           </div>
 

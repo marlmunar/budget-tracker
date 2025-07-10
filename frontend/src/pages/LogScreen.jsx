@@ -81,7 +81,7 @@ const LogScreen = () => {
     const fetchData = async () => {
       try {
         const res = await getLog(logId).unwrap();
-        setLogData({ ...res.data, updatedAt: Date.now() });
+        setLogData(res.data);
         setCategories(res.data.categories);
 
         dispatch(setTempEntries([...res.data.entries]));
