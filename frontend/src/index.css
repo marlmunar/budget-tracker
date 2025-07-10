@@ -72,7 +72,7 @@ button > * {
 }
 
 .nav-bar {
-  @apply bg-white right-[0.25rem] md:right-2 top-[calc(100%+0.05rem)] md:top-[80%]
+  @apply bg-gray-50 right-[0.25rem] md:right-2 top-[calc(100%+0.05rem)] md:top-[80%]
   absolute shadow shadow-slate-400 rounded 
   p-1 min-w-[8ch] z-10 text-base lg:text-lg;
 }
@@ -83,7 +83,7 @@ button > * {
     hover:translate-y-[-2px]
     items-center gap-1 rounded cursor-pointer 
     shadow shadow-transparent
-    bg-slate-50 w-[8.75rem] md:w-[8.5rem]
+    bg-white w-[8.75rem] md:w-[8.5rem]
    hover:shadow-slate-300;
 }
 
