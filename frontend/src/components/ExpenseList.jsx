@@ -27,9 +27,9 @@ const ExpenseList = ({ props }) => {
     selectedCategories.includes(entry.category.name)
   );
 
-  useEffect(() => {
-    console.log(tempEntries);
-  }, [selectedCategories, tempEntries]);
+  // useEffect(() => {
+  //   console.log(tempEntries);
+  // }, [selectedCategories, tempEntries]);
 
   const [entry, setEntry] = useState({
     expense: "",

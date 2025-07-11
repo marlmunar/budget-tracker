@@ -21,21 +21,25 @@ const ModalWrapper = () => {
     console.log(show);
     console.log(blocker);
     if (!show) {
-      setIsNotSaved(false);
+      C;
+      dispatch(setIsNotSaved(false));
     }
-    dispatch(
-      setModalState({
-        showModal: true,
-        activeModal: "confirmExit",
-      })
-    );
-  }, [blocker]);
+    if (blocker.state === "blocked") {
+      dispatch(
+        setModalState({
+          showModal: true,
+          activeModal: "confirmExit",
+        })
+      );
+    }
+  }, [show, blocker]);
 
   const { showModal, activeModal, modalData } = useSelector(
     (state) => state.app
   );
 
   const closeModal = () => {
+    if (show) cancel();
     dispatch(
       setModalState({
         showModal: false,
