@@ -23,25 +23,26 @@ import NewTabChecker from "./components/NewTabChecker.jsx";
 import Logs from "./pages/Logs.jsx";
 import PageWrapper from "./components/PageWrapper.jsx";
 import ModalWrapper from "./components/ModalWrapper.jsx";
+import CustomRouter from "./components/CustomRouter.jsx";
 
 createRoot(document.getElementById("root")).render(
   <Provider store={store}>
     <StrictMode>
-      <Router
+      <CustomRouter
         navigator={history}
         location={history.location}
         navigationType={history.action}
       >
         <Routes>
           <Route path="/" element={<App />}>
-            <Route path="/login" element={<Login />} />
-            <Route path="/register/*" element={<Register />} />
+            <Route path="login" element={<Login />} />
+            <Route path="register/*" element={<Register />} />
             <Route element={<ModalWrapper />}>
               <Route element={<PrivateRoute />}>
                 <Route element={<Loading />}>
                   <Route element={<NewTabChecker />}>
-                    <Route path="/visualize/:logId" element={<Visualize />} />
-                    <Route path="/log/:logId" element={<LogScreen />} />
+                    <Route path="visualize/:logId" element={<Visualize />} />
+                    <Route path="log/:logId" element={<LogScreen />} />
                   </Route>
                 </Route>
               </Route>
@@ -49,17 +50,17 @@ createRoot(document.getElementById("root")).render(
                 <Route index element={<Home />} />
                 <Route element={<Loading />}>
                   <Route element={<PrivateRoute />}>
-                    <Route path="/profile" element={<Profile />} />
-                    <Route path="/settings" element={<UserSettings />} />
-                    <Route path="/logs" element={<Logs />} />
+                    <Route path="profile" element={<Profile />} />
+                    <Route path="settings" element={<UserSettings />} />
+                    <Route path="logs" element={<Logs />} />
                   </Route>
                 </Route>
-                <Route path="/*" element={<NotFound />} />
+                <Route path="*" element={<NotFound />} />
               </Route>
             </Route>
           </Route>
         </Routes>
-      </Router>
+      </CustomRouter>
     </StrictMode>
   </Provider>
 );
