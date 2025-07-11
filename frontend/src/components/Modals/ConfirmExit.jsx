@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-const ConfirmExit = ({ closeModal }) => {
+const ConfirmExit = ({ closeModal, pendingTx }) => {
   return (
     <form className="flex flex-col gap-2 p-2">
       <h3 className="text-xl font-semibold">Confirm Exit</h3>

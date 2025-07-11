@@ -19,7 +19,7 @@ import AddCategoryForm from "../components/AddCategoryForm";
 import EditCategoryForm from "../components/EditCategoryForm";
 import DeleteCategoryForm from "../components/DeleteCategoryForm";
 import ConfirmModal from "../components/ConfirmModal";
-import usePrompt from "../hooks/usePrompt";
+
 import Modal from "../components/Modal";
 import { AnimatePresence, motion } from "framer-motion";
 import LogScreenHeader from "../components/LogScreenHeader";
@@ -63,19 +63,6 @@ const LogScreen = () => {
   const { tempEntries } = useSelector((state) => state.logs);
   const { isNotSaved } = useSelector((state) => state.logs);
   const { logId } = useParams();
-
-  const { show } = usePrompt(isNotSaved);
-
-  useEffect(() => {
-    if (show) {
-      dispatch(
-        setModalState({
-          showModal: true,
-          activeModal: "confirmExit",
-        })
-      );
-    }
-  }, [show]);
 
   useEffect(() => {
     const fetchData = async () => {

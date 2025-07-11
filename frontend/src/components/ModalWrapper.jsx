@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { act, useCallback, useEffect, useRef, useState } from "react";
 import { TbX } from "react-icons/tb";
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
@@ -9,14 +9,30 @@ import Rename from "./Modals/Rename";
 import Delete from "./Modals/Delete";
 import OutsideClick from "./OutsideClick";
 import ConfirmExit from "./Modals/ConfirmExit";
+import useNavigationBlocker from "../hooks/useNavigationBlocker";
 
 const ModalWrapper = () => {
   const dispatch = useDispatch();
+  const { isNotSaved } = useSelector((state) => state.logs);
+  const [pendingTx, setPendingTx] = useState(null);
   const { showModal, activeModal, modalData } = useSelector(
     (state) => state.app
   );
 
+  const blocker = useCallback((tx) => {
+    setPendingTx(tx);
+    setModalState({
+      showModal: true,
+      activeModal: "ConfirmExit",
+    });
+  }, []);
+
+  useNavigationBlocker(blocker, isNotSaved);
+
   const closeModal = () => {
+    if (pendingTx) {
+      setPendingTx(null);
+    }
     dispatch(
       setModalState({
         showModal: false,
@@ -32,7 +48,13 @@ const ModalWrapper = () => {
       <Rename name={modalData.name} id={modalData.id} closeModal={closeModal} />
     ),
     delete: <Delete resource={modalData} closeModal={closeModal} />,
-    confirmExit: <ConfirmExit closeModal={closeModal} />,
+    confirmExit: (
+      <ConfirmExit
+        closeModal={closeModal}
+        pendingTx={pendingTx}
+        setPendingTx={setPendingTx}
+      />
+    ),
   };
 
   const getModal = () => modals[activeModal] || null;
