@@ -19,16 +19,6 @@ const ModalWrapper = () => {
     (state) => state.app
   );
 
-  const blocker = useCallback((tx) => {
-    setPendingTx(tx);
-    setModalState({
-      showModal: true,
-      activeModal: "ConfirmExit",
-    });
-  }, []);
-
-  useNavigationBlocker(blocker, isNotSaved);
-
   const closeModal = () => {
     if (pendingTx) {
       setPendingTx(null);
@@ -61,6 +51,18 @@ const ModalWrapper = () => {
 
   const scrollToRef = useRef(null);
 
+  const blocker = useCallback((tx) => {
+    setPendingTx(tx);
+    dispatch(
+      setModalState({
+        showModal: true,
+        activeModal: "confirmExit",
+      })
+    );
+  }, []);
+
+  useNavigationBlocker(blocker, isNotSaved);
+
   useEffect(() => {
     function handleKeyDown(e) {
       if (e.key === "Escape") closeModal();
@@ -74,7 +76,7 @@ const ModalWrapper = () => {
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [showModal]);
+  }, [showModal, pendingTx]);
 
   // useEffect(() => {
   //   const offset = 200;

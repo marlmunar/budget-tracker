@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 const ConfirmExit = ({ closeModal, pendingTx }) => {
   return (
@@ -11,14 +11,19 @@ const ConfirmExit = ({ closeModal, pendingTx }) => {
         <button
           type="button"
           className="modal-delete-button"
-          onClick={() => {}}
+          onClick={() => {
+            closeModal();
+            pendingTx.retry();
+          }}
         >
           Confirm
         </button>
         <button
           type="button"
           className="modal-action-button"
-          onClick={() => {}}
+          onClick={() => {
+            closeModal();
+          }}
         >
           Cancel
         </button>

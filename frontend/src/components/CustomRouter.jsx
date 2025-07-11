@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useLayoutEffect } from "react";
 import { Router } from "react-router-dom";
-import { history } from "./history";
+import { history } from "../history";
 
 const CustomRouter = ({ children }) => {
   const [location, setLocation] = useState(history.location);
