@@ -1,4 +1,4 @@
-import React, { act, useCallback, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { TbX } from "react-icons/tb";
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
@@ -10,19 +10,32 @@ import Delete from "./Modals/Delete";
 import OutsideClick from "./OutsideClick";
 import ConfirmExit from "./Modals/ConfirmExit";
 import useNavigationBlocker from "../hooks/useNavigationBlocker";
+import { setIsNotSaved } from "../slices/logSlice";
 
 const ModalWrapper = () => {
   const dispatch = useDispatch();
   const { isNotSaved } = useSelector((state) => state.logs);
-  const [pendingTx, setPendingTx] = useState(null);
+  const { show, confirm, cancel, blocker } = useNavigationBlocker(isNotSaved);
+
+  useEffect(() => {
+    console.log(show);
+    console.log(blocker);
+    if (!show) {
+      setIsNotSaved(false);
+    }
+    dispatch(
+      setModalState({
+        showModal: true,
+        activeModal: "confirmExit",
+      })
+    );
+  }, [blocker]);
+
   const { showModal, activeModal, modalData } = useSelector(
     (state) => state.app
   );
 
   const closeModal = () => {
-    if (pendingTx) {
-      setPendingTx(null);
-    }
     dispatch(
       setModalState({
         showModal: false,
@@ -41,8 +54,8 @@ const ModalWrapper = () => {
     confirmExit: (
       <ConfirmExit
         closeModal={closeModal}
-        pendingTx={pendingTx}
-        setPendingTx={setPendingTx}
+        confirmNaviagtion={confirm}
+        cancelNavigation={cancel}
       />
     ),
   };
@@ -50,18 +63,6 @@ const ModalWrapper = () => {
   const getModal = () => modals[activeModal] || null;
 
   const scrollToRef = useRef(null);
-
-  const blocker = useCallback((tx) => {
-    setPendingTx(tx);
-    dispatch(
-      setModalState({
-        showModal: true,
-        activeModal: "confirmExit",
-      })
-    );
-  }, []);
-
-  useNavigationBlocker(blocker, isNotSaved);
 
   useEffect(() => {
     function handleKeyDown(e) {
@@ -76,7 +77,7 @@ const ModalWrapper = () => {
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [showModal, pendingTx]);
+  }, [showModal]);
 
   // useEffect(() => {
   //   const offset = 200;

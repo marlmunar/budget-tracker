@@ -1,23 +1,33 @@
-import { useContext, useEffect } from "react";
-import { UNSAFE_NavigationContext as NavigationContext } from "react-router-dom";
+import { useCallback, useEffect, useState } from "react";
+import { useBlocker } from "react-router-dom";
 
-export default function useNavigationBlocker(blocker, when = true) {
-  const navigator = useContext(NavigationContext).navigator;
+export default function useNavigationBlocker(when) {
+  const shouldBlock = useCallback(
+    ({ currentLocation, nextLocation }) => {
+      console.log(currentLocation);
+      console.log(nextLocation);
+      return when && currentLocation.pathname !== nextLocation.pathname;
+    },
+    [when]
+  );
+  const blocker = useBlocker(shouldBlock);
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
-    if (!when) return;
+    if (blocker.state === "blocked") {
+      setShow(true);
+    }
+  }, [blocker]);
 
-    const unblock = navigator.block((tx) => {
-      const autoUnblockingTx = {
-        ...tx,
-        retry() {
-          unblock();
-          tx.retry();
-        },
-      };
-      blocker(autoUnblockingTx);
-    });
+  const confirm = () => {
+    setShow(false);
+    blocker.proceed();
+  };
 
-    return unblock;
-  }, [navigator, blocker, when]);
+  const cancel = () => {
+    setShow(false);
+    blocker.reset();
+  };
+
+  return { show, confirm, cancel, blocker };
 }

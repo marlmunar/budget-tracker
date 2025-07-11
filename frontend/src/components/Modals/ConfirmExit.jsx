@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
+import useNavigationBlocker from "../../hooks/useNavigationBlocker";
 
-const ConfirmExit = ({ closeModal, pendingTx }) => {
+const ConfirmExit = ({ closeModal, confirmNaviagtion, cancelNavigation }) => {
   return (
     <form className="flex flex-col gap-2 p-2">
       <h3 className="text-xl font-semibold">Confirm Exit</h3>
@@ -13,7 +14,7 @@ const ConfirmExit = ({ closeModal, pendingTx }) => {
           className="modal-delete-button"
           onClick={() => {
             closeModal();
-            pendingTx.retry();
+            confirmNaviagtion();
           }}
         >
           Confirm
@@ -23,6 +24,7 @@ const ConfirmExit = ({ closeModal, pendingTx }) => {
           className="modal-action-button"
           onClick={() => {
             closeModal();
+            cancelNavigation();
           }}
         >
           Cancel
