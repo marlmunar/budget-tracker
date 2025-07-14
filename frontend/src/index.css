@@ -175,7 +175,7 @@ button > * {
 }
 
 .log-input-column label {
-  @apply text-sm text-gray-800;
+  @apply text-sm md:text-base text-gray-800;
 }
 
 .log-input-column input,
@@ -193,14 +193,14 @@ button > * {
 
 .category-input-column label,
 .category-input-column p {
-  @apply text-gray-800;
+  @apply text-sm md:text-base text-gray-800;
 }
 
 .category-input-column input:not([type="radio"]),
 .category-input-column .radio,
 .category-input-column .color-menu {
   @apply px-1 focus:outline-none 
-  min-h-8 text-xl
+  min-h-8 md:text-xl text-base
   md:min-w-50
   rounded h-full;
 }
@@ -232,8 +232,8 @@ button > * {
 
 .color-menu > li > button,
 .color-button {
-  @apply h-8 w-8 rounded hover:translate-y-[-2px]
-  flex items-center justify-center;
+  @apply min-h-8 min-w-8 rounded hover:translate-y-[-2px]
+  inline-flex items-center justify-center transition-all duration-200;
 }
 
 .button-row {

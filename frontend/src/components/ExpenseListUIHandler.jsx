@@ -23,19 +23,11 @@ const ExpenseListUIHandler = ({ activeUI, setActiveUi, props }) => {
 
   const getUI = () => UIs[activeUI] || null;
 
-  const getTop = () => {
-    if (activeUI === "filterEntries") return "20px";
-    return "30%";
-  };
-
   return (
     <>
       {activeUI && (
         <div className="top-0 right-0 absolute h-full w-full bg-gray-300/75 z-10 md:sticky">
-          <div
-            className="sticky bottom-0 md:static m-2 mx-4 md:m-0"
-            style={{ top: getTop() }}
-          >
+          <div className="sticky bottom-0 md:static m-2 mx-4 md:m-0 top-[20%]">
             <OutsideClick onOutsideClick={() => setActiveUi("")}>
               {getUI()}
             </OutsideClick>

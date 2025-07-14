@@ -78,9 +78,10 @@ const AddCategoryForm = ({ closeUI, props }) => {
 
   return (
     <section
-      className="bg-white log-form-container w-full 
-     absolute top-0 
-     shadow shadow-slate-400"
+      className="bg-white
+      log-form-container w-full 
+      absolute top-0
+      shadow shadow-slate-400"
     >
       <div className="log-section-header">
         <h3>New Category</h3>
@@ -105,10 +106,10 @@ const AddCategoryForm = ({ closeUI, props }) => {
         method="POST"
         onSubmit={handleSubmit}
         id="newCategoryForm"
-        className="relative p-4 rounded"
+        className="relative p-2 rounded"
       >
         <div
-          className="input-row grid grid-cols-2 
+          className="input-row grid md:grid-cols-2 grid-cols-1
              gap-2 items-start"
         >
           <div className="flex flex-col gap-2">
@@ -164,26 +165,26 @@ const AddCategoryForm = ({ closeUI, props }) => {
               </div>
             </div>
           </div>
-          <div className="category-input-column flex flex-col relative max-w-[95%]">
+          <div className="category-input-column flex flex-col relative md:max-w-[95%]">
             <p>Color:</p>
 
             {isSelecting ? (
               <div className="flex flex-col gap-2">
-                <div className="flex gap-1 items-center justify-between">
+                <div className=" flex gap-1 items-center justify-between">
                   <div
-                    className="w-7 h-7 border-2 border-gray-200 rounded"
+                    className="min-w-7 min-h-7 border-2 border-gray-200 rounded"
                     style={{ backgroundColor: color }}
                   ></div>
                   <input
                     type="text"
-                    className="flex-1"
+                    className="w-full flex-1"
                     value={color}
                     placeholder="#000000"
                     onChange={(e) => handleChange(e.target.value)}
                   />
                   <button
                     type="button"
-                    className="justify-self-end color-button bg-gray-200 text-xl"
+                    className=" block color-button bg-gray-200 text-xl"
                     onClick={() => setIsSelecting((prev) => !prev)}
                   >
                     <TbX />
@@ -194,7 +195,7 @@ const AddCategoryForm = ({ closeUI, props }) => {
                 </div>
               </div>
             ) : (
-              <menu className="color-menu">
+              <menu className="color-menu py-2 overflow-x-auto md:py-0 md:overflow-x-visible">
                 {colors.map((item, index) => (
                   <li key={item}>
                     <button
@@ -221,12 +222,12 @@ const AddCategoryForm = ({ closeUI, props }) => {
           </div>
         </div>
         {error && (
-          <div className="text-left my-2 mr-5 text-red-500 text-sm">
+          <div className="text-left my-2 mr-5 text-red-500 md:text-sm text-xs">
             {error}
           </div>
         )}
         <button
-          className="absolute top-4 right-4 text-blue-400 text-sm"
+          className="absolute top-4 right-4 text-blue-400 md:text-sm text-xs"
           type="reset"
           onClick={() => {
             setName("");
