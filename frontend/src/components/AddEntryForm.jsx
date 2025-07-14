@@ -6,6 +6,7 @@ import {
   TbFileImport,
   TbX,
   TbCheck,
+  TbTool,
 } from "react-icons/tb";
 import OutsideClick from "./OutsideClick";
 import { useEffect, useRef, useState } from "react";
@@ -322,10 +323,10 @@ const AddEntryForm = ({ props, closeUI, setActiveUi }) => {
                         <li
                           className="log-options-2 bg-white"
                           onClick={() => {
-                            setActiveUi("addCategory");
+                            setActiveUi("manageCategories");
                           }}
                         >
-                          <TbCirclePlus /> Add New
+                          <TbTool /> Manage Categories
                         </li>
                       </menu>
                     </OutsideClick>

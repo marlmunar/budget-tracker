@@ -236,6 +236,17 @@ button > * {
   inline-flex items-center justify-center transition-all duration-200;
 }
 
+.category-menu {
+  @apply p-4 space-y-2 text-sm  md:text-base;
+}
+
+.category-menu > li > button {
+  @apply bg-gray-200 p-2 w-full rounded 
+  hover:shadow hover:shadow-slate-300
+  hover:translate-y-[-2px]
+  transition-all duration-300;
+}
+
 .button-row {
   @apply flex px-2 justify-end gap-2;
 }

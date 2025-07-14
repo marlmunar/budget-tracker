@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
-import AddEntryForm from "../components/AddEntryForm";
 import ExpenseList from "../components/ExpenseList";
 import ExpenseSummary from "../components/ExpenseSummary";
 import {
@@ -10,20 +9,10 @@ import {
   useUpdateLogMutation,
 } from "../slices/logsApiSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { setModalState, startLoading, stopLoading } from "../slices/appSlice";
-import OutsideClick from "../components/OutsideClick";
-import { setIsNotSaved, setTempEntries } from "../slices/logSlice";
-import RenameModal from "../components/RenameModal";
-import EntryOptions from "../components/EntryOptions";
-import AddCategoryForm from "../components/AddCategoryForm";
-import EditCategoryForm from "../components/EditCategoryForm";
-import DeleteCategoryForm from "../components/DeleteCategoryForm";
-import ConfirmModal from "../components/ConfirmModal";
-
-import Modal from "../components/Modal";
-import { AnimatePresence, motion } from "framer-motion";
+import { startLoading, stopLoading } from "../slices/appSlice";
 import LogScreenHeader from "../components/LogScreenHeader";
 import Footer from "../components/Footer";
+import { setTempEntries } from "../slices/logSlice";
 
 const LogScreen = () => {
   const dispatch = useDispatch();

@@ -3,8 +3,11 @@ import OutsideClick from "./OutsideClick";
 import AddEntryForm from "./AddEntryForm";
 import ExpenseListFilter from "./ExpenseListFilter";
 import EditEntryForm from "./EditEntryForm";
+import EditCategoryForm from "./EditCategoryForm";
 import DeleteEntryConfirm from "./DeleteEntryConfirm";
+import DeleteCategoryForm from "./DeleteCategoryForm";
 import AddCategoryForm from "./AddCategoryForm";
+import CategoryOptions from "./CategoryOptions";
 
 const ExpenseListUIHandler = ({ activeUI, setActiveUi, props }) => {
   const closeUI = () => {
@@ -18,7 +21,12 @@ const ExpenseListUIHandler = ({ activeUI, setActiveUi, props }) => {
     filterEntries: <ExpenseListFilter closeUI={closeUI} props={props} />,
     editEntry: <EditEntryForm closeUI={closeUI} props={props} />,
     deleteEntry: <DeleteEntryConfirm closeUI={closeUI} props={props} />,
+    manageCategories: (
+      <CategoryOptions closeUI={closeUI} setActiveUi={setActiveUi} />
+    ),
     addCategory: <AddCategoryForm closeUI={closeUI} props={props} />,
+    editCategories: <EditCategoryForm />,
+    deleteCategories: <DeleteCategoryForm />,
   };
 
   const getUI = () => UIs[activeUI] || null;
