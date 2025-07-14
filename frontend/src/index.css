@@ -247,11 +247,11 @@ button > * {
 
 .log-options-2 {
   @apply w-full px-1 flex justify-start 
-    min-h-6
+    min-h-6 md:min-h-8
     hover:translate-y-[-2px]
     items-center gap-1 rounded cursor-pointer 
     shadow shadow-transparent
-    text-sm
+    text-sm md:text-base
    hover:shadow-slate-300;
 }
 
