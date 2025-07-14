@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
 import { setModalState } from "../slices/appSlice";
 import AddNewLog from "./Modals/AddNewLog";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, flushKeyframeResolvers, motion } from "framer-motion";
 import Rename from "./Modals/Rename";
 import Delete from "./Modals/Delete";
 import OutsideClick from "./OutsideClick";
@@ -15,16 +15,10 @@ import { setIsNotSaved } from "../slices/logSlice";
 const ModalWrapper = () => {
   const dispatch = useDispatch();
   const { isNotSaved } = useSelector((state) => state.logs);
-  const { show, confirm, cancel, blocker } = useNavigationBlocker(isNotSaved);
+  const { confirm, blocker } = useNavigationBlocker(isNotSaved);
 
   useEffect(() => {
-    console.log(show);
-    console.log(blocker);
-    if (!show) {
-      C;
-      dispatch(setIsNotSaved(false));
-    }
-    if (blocker.state === "blocked") {
+    if (blocker.state === "blocked" && isNotSaved) {
       dispatch(
         setModalState({
           showModal: true,
@@ -32,14 +26,13 @@ const ModalWrapper = () => {
         })
       );
     }
-  }, [show, blocker]);
+  }, [blocker, isNotSaved]);
 
   const { showModal, activeModal, modalData } = useSelector(
     (state) => state.app
   );
 
   const closeModal = () => {
-    if (show) cancel();
     dispatch(
       setModalState({
         showModal: false,
@@ -47,6 +40,11 @@ const ModalWrapper = () => {
         modalData: {},
       })
     );
+  };
+
+  const confirmNavigation = async () => {
+    dispatch(setIsNotSaved(false));
+    confirm();
   };
 
   const modals = {
@@ -58,8 +56,7 @@ const ModalWrapper = () => {
     confirmExit: (
       <ConfirmExit
         closeModal={closeModal}
-        confirmNaviagtion={confirm}
-        cancelNavigation={cancel}
+        confirmNavigation={confirmNavigation}
       />
     ),
   };
