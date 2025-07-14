@@ -186,6 +186,49 @@ button > * {
   rounded h-full;
 }
 
+.category-input-column {
+  @apply flex flex-col 
+  min-h-8 gap-1;
+}
+
+.category-input-column label,
+.category-input-column p {
+  @apply text-gray-800;
+}
+
+.category-input-column input:not([type="radio"]),
+.category-input-column .radio {
+  @apply px-1 focus:outline-none 
+  min-h-8 text-xl
+  md:min-w-50
+  rounded h-full;
+}
+
+.category-input-column input[type="radio"] {
+  @apply hidden;
+}
+
+.radio-input {
+  @apply flex items-center gap-1;
+}
+
+.radio-input input[type="radio"]:checked + .custom-radio > div {
+  @apply bg-amber-500 h-2 w-2 rounded-full;
+}
+
+.custom-radio {
+  @apply min-h-[0.9rem] min-w-[0.9rem] border border-gray-800
+   relative flex items-center justify-center rounded-lg;
+}
+
+.color-menu {
+  @apply flex px-2 gap-1;
+}
+
+.color-menu > li > button {
+  @apply min-h-6 min-w-6 rounded hover:translate-y-[-2px];
+}
+
 .button-row {
   @apply flex px-2 justify-end gap-2;
 }

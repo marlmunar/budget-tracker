@@ -17,7 +17,7 @@ import {
 } from "../slices/logsApiSlice";
 import { useParams } from "react-router-dom";
 
-const AddEntryForm = ({ props, closeUI }) => {
+const AddEntryForm = ({ props, closeUI, setActiveUi }) => {
   const { categories } = props;
   const dispatch = useDispatch();
   const { logId } = useParams();
@@ -323,7 +323,9 @@ const AddEntryForm = ({ props, closeUI }) => {
                         ))}
                         <li
                           className="log-options-2 bg-white"
-                          onClick={() => {}}
+                          onClick={() => {
+                            setActiveUi("addCategory");
+                          }}
                         >
                           <TbCirclePlus /> Add New
                         </li>

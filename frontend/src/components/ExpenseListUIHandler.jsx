@@ -4,6 +4,7 @@ import AddEntryForm from "./AddEntryForm";
 import ExpenseListFilter from "./ExpenseListFilter";
 import EditEntryForm from "./EditEntryForm";
 import DeleteEntryConfirm from "./DeleteEntryConfirm";
+import AddCategoryForm from "./AddCategoryForm";
 
 const ExpenseListUIHandler = ({ activeUI, setActiveUi, props }) => {
   const closeUI = () => {
@@ -11,10 +12,13 @@ const ExpenseListUIHandler = ({ activeUI, setActiveUi, props }) => {
   };
 
   const UIs = {
-    addEntry: <AddEntryForm closeUI={closeUI} props={props} />,
+    addEntry: (
+      <AddEntryForm closeUI={closeUI} props={props} setActiveUi={setActiveUi} />
+    ),
     filterEntries: <ExpenseListFilter closeUI={closeUI} props={props} />,
     editEntry: <EditEntryForm closeUI={closeUI} props={props} />,
     deleteEntry: <DeleteEntryConfirm closeUI={closeUI} props={props} />,
+    addCategory: <AddCategoryForm />,
   };
 
   const getUI = () => UIs[activeUI] || null;
