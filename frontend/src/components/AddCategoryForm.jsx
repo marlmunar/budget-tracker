@@ -1,18 +1,21 @@
 import { TbCheck, TbPlus, TbX } from "react-icons/tb";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { HexColorPicker } from "react-colorful";
 import { useUpdateLogMutation } from "../slices/logsApiSlice";
+import { useParams } from "react-router-dom";
 
-const AddCategoryForm = ({
-  logId,
-  categories,
-  setActiveAction,
-  setLastAction,
-}) => {
+const AddCategoryForm = ({ closeUI, props }) => {
+  const { categories } = props;
+  const { logId } = useParams();
   const [name, setName] = useState("");
-  const [color, setColor] = useState("#000000");
+  const [color, setColor] = useState("");
   const [isSelecting, setIsSelecting] = useState(false);
+  const [type, setType] = useState("");
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    setError("");
+  }, [name, type, color]);
 
   const colors = [
     "#FF7F50",
@@ -33,38 +36,40 @@ const AddCategoryForm = ({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!name) {
-      setError("Please fill out all fields");
-      return;
-    }
-    const newCategory = { name, color };
+    if (!name) return setError("Please fill out the name field");
+    if (!type) return setError("Please select a type");
+    if (!color) return setError("Please select a color");
+    if (color.length < 7) return setError("Please complete the color code");
+
+    const newCategory = { name, color, type };
     const newCategories = [...categories, newCategory];
-    try {
-      const res = await updateLog({
-        id: logId,
-        data: { categories: newCategories },
-      }).unwrap();
+    console.log(newCategories);
+    // try {
+    //   const res = await updateLog({
+    //     id: logId,
+    //     data: { categories: newCategories },
+    //   }).unwrap();
 
-      console.log(res);
+    //   console.log(res);
 
-      setName("");
-      setColor("#000000");
-      setActiveAction("Adding Entry");
-      setLastAction(Date.now());
-    } catch (error) {
-      console.log(error?.data?.message || error.message);
-    }
+    //   setName("");
+    //   setColor("#000000");
+    //   setActiveAction("Adding Entry");
+    //   setLastAction(Date.now());
+    // } catch (error) {
+    //   console.log(error?.data?.message || error.message);
+    // }
   };
 
   const handleChange = (newColor) => {
     if (!newColor.startsWith("#")) {
-      value = "#" + value;
+      newColor = "#" + newColor;
     }
 
     newColor = "#" + newColor.slice(1).replace(/[^0-9a-fA-F]/g, "");
 
     if (newColor.length > 7) {
-      value = value.slice(0, 7);
+      newColor = newColor.slice(0, 7);
     }
 
     const uppercase = newColor.toUpperCase();
@@ -83,12 +88,15 @@ const AddCategoryForm = ({
           <button
             className="ml-auto log-tool-button h-10 w-10 bg-slate-200"
             type="submit"
-            form="newEntryForm"
+            form="newCategoryForm"
             formNoValidate
           >
             <TbCheck />
           </button>
-          <button className="ml-auto log-tool-button h-10 w-10 bg-slate-200">
+          <button
+            className="ml-auto log-tool-button h-10 w-10 bg-slate-200"
+            onClick={closeUI}
+          >
             <TbX />
           </button>
         </div>
@@ -96,7 +104,8 @@ const AddCategoryForm = ({
       <form
         method="POST"
         onSubmit={handleSubmit}
-        className="relative p-4 rounded "
+        id="newCategoryForm"
+        className="relative p-4 rounded"
       >
         <div
           className="input-row grid grid-cols-2 
@@ -126,8 +135,8 @@ const AddCategoryForm = ({
                     id="expense"
                     name="expenseType"
                     value="Expense"
-                    onChange={(e) => {
-                      console.log(e.target.value);
+                    onClick={(e) => {
+                      setType(e.target.value);
                     }}
                   />
                   <div className="custom-radio">
@@ -143,7 +152,9 @@ const AddCategoryForm = ({
                     id="income"
                     name="expenseType"
                     value="Income"
-                    onChange={(e) => console.log(e.target.value)}
+                    onClick={(e) => {
+                      setType(e.target.value);
+                    }}
                   />
                   <div className="custom-radio">
                     <div></div>
@@ -209,6 +220,22 @@ const AddCategoryForm = ({
             )}
           </div>
         </div>
+        {error && (
+          <div className="text-left my-2 mr-5 text-red-500 text-sm">
+            {error}
+          </div>
+        )}
+        <button
+          className="absolute top-4 right-4 text-blue-400 text-sm"
+          type="reset"
+          onClick={() => {
+            setName("");
+            setType("");
+            setColor("");
+          }}
+        >
+          Clear Values
+        </button>
 
         {/* <div className="text-right my-2 mr-5 text-red-500 text-sm">{error}</div> */}
         {/* <div className="button-row">

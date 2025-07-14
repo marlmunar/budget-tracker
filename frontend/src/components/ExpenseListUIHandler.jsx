@@ -18,7 +18,7 @@ const ExpenseListUIHandler = ({ activeUI, setActiveUi, props }) => {
     filterEntries: <ExpenseListFilter closeUI={closeUI} props={props} />,
     editEntry: <EditEntryForm closeUI={closeUI} props={props} />,
     deleteEntry: <DeleteEntryConfirm closeUI={closeUI} props={props} />,
-    addCategory: <AddCategoryForm />,
+    addCategory: <AddCategoryForm closeUI={closeUI} props={props} />,
   };
 
   const getUI = () => UIs[activeUI] || null;
