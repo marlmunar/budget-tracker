@@ -57,6 +57,16 @@ const AddCategoryForm = ({
   };
 
   const handleChange = (newColor) => {
+    if (!newColor.startsWith("#")) {
+      value = "#" + value;
+    }
+
+    newColor = "#" + newColor.slice(1).replace(/[^0-9a-fA-F]/g, "");
+
+    if (newColor.length > 7) {
+      value = value.slice(0, 7);
+    }
+
     const uppercase = newColor.toUpperCase();
     setColor(uppercase);
   };
