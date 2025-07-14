@@ -164,10 +164,6 @@ button > * {
             min-h-[min-content];
 }
 
-.input-row {
-  @apply p-2 mx-auto;
-}
-
 .log-input-column {
   @apply flex flex-col min-h-8 gap-1
   w-full
@@ -200,8 +196,8 @@ button > * {
 .category-input-column .radio,
 .category-input-column .color-menu {
   @apply px-1 focus:outline-none 
-  min-h-8 md:text-xl text-base
-  md:min-w-50
+  min-h-8 md:text-lg text-sm
+  md:min-w-45
   rounded h-full;
 }
 
@@ -210,7 +206,7 @@ button > * {
 }
 
 .radio-input {
-  @apply flex items-center gap-1;
+  @apply flex items-center gap-1 px-2;
 }
 
 .radio-input input[type="radio"]:checked + .custom-radio > div {

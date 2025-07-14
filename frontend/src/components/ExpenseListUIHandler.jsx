@@ -25,7 +25,7 @@ const ExpenseListUIHandler = ({ activeUI, setActiveUi, props }) => {
       <CategoryOptions closeUI={closeUI} setActiveUi={setActiveUi} />
     ),
     addCategory: <AddCategoryForm closeUI={closeUI} props={props} />,
-    editCategories: <EditCategoryForm />,
+    editCategories: <EditCategoryForm closeUI={closeUI} props={props} />,
     deleteCategories: <DeleteCategoryForm />,
   };
 
