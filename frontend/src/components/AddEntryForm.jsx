@@ -213,9 +213,7 @@ const AddEntryForm = ({ props, closeUI, setActiveUi }) => {
                 ref={fileInputRef}
               />
             </div>
-            <div className="text-right my-2 mr-5 text-red-500 text-sm">
-              {error}
-            </div>
+            <div className="error-message">{error}</div>
             <div className="button-row">
               <button
                 formNoValidate
@@ -337,7 +335,7 @@ const AddEntryForm = ({ props, closeUI, setActiveUi }) => {
             </div>
 
             <button
-              className="absolute top-4 right-4 text-blue-400 text-sm"
+              className="clear-button"
               type="reset"
               onClick={() => {
                 setExpense("");
@@ -348,11 +346,7 @@ const AddEntryForm = ({ props, closeUI, setActiveUi }) => {
             >
               Clear Values
             </button>
-            {error && (
-              <div className="text-left my-2 mr-5 text-red-500 text-sm">
-                {error}
-              </div>
-            )}
+            {error && <div className="error-message">{error}</div>}
           </>
         )}
       </form>

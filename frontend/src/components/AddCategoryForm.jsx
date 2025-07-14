@@ -172,7 +172,7 @@ const AddCategoryForm = ({ closeUI, props }) => {
               <div className="flex flex-col gap-2">
                 <div className=" flex gap-1 items-center justify-between">
                   <div
-                    className="min-w-7 min-h-7 border-2 border-gray-200 rounded"
+                    className="min-w-6 min-h-6 md:min-h-7 md:min-w-7 border-2 border-gray-200 rounded"
                     style={{ backgroundColor: color }}
                   ></div>
                   <input
@@ -221,13 +221,9 @@ const AddCategoryForm = ({ closeUI, props }) => {
             )}
           </div>
         </div>
-        {error && (
-          <div className="text-left my-2 mr-5 text-red-500 md:text-sm text-xs">
-            {error}
-          </div>
-        )}
+        {error && <div className="error-message">{error}</div>}
         <button
-          className="absolute top-4 right-4 text-blue-400 md:text-sm text-xs"
+          className="clear-button"
           type="reset"
           onClick={() => {
             setName("");

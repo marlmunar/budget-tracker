@@ -232,7 +232,7 @@ button > * {
 
 .color-menu > li > button,
 .color-button {
-  @apply min-h-8 min-w-8 rounded hover:translate-y-[-2px]
+  @apply min-h-6 min-w-6 md:min-h-8 md:min-w-8 rounded hover:translate-y-[-2px]
   inline-flex items-center justify-center transition-all duration-200;
 }
 
@@ -349,6 +349,14 @@ menu li {
   @apply bg-blue-700 shadow text-sm text-white p-1 rounded 
   transition-all duration-300 w-full
    hover:shadow-slate-800 hover:border-transparent hover:shadow;
+}
+
+.clear-button {
+  @apply absolute top-4 right-4 text-blue-400 md:text-sm text-xs;
+}
+
+.error-message {
+  @apply text-left my-2 mr-5 text-red-500 md:text-sm text-xs;
 }
 
 .color-picker .react-colorful {

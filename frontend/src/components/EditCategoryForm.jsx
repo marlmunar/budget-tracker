@@ -165,22 +165,19 @@ const EditCategoryForm = ({
             </div>
           </div>
         </div>
-        <div className="text-right my-2 mr-5 text-red-500 text-sm">{error}</div>
-        <div className="button-row">
-          <button formNoValidate type="submit">
-            Save Category
-          </button>
-          <button
-            type="reset"
-            onClick={() => {
-              setName("");
-              setColor("#000000");
-              setSelectedCategory("");
-            }}
-          >
-            Clear Values
-          </button>
-        </div>
+        <div className="error-message">{error}</div>
+
+        <button
+          className="clear-button"
+          type="reset"
+          onClick={() => {
+            setName("");
+            setColor("#000000");
+            setSelectedCategory("");
+          }}
+        >
+          Clear Values
+        </button>
       </form>
     </section>
   );

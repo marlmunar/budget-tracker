@@ -234,7 +234,7 @@ const EditEntryForm = ({ closeUI, props }) => {
           </div>
         </div>
         <button
-          className="absolute top-4 right-4 text-blue-400 text-sm"
+          className="clear-button"
           type="reset"
           onClick={() => {
             setExpense("");
@@ -245,11 +245,7 @@ const EditEntryForm = ({ closeUI, props }) => {
         >
           Clear Values
         </button>
-        {error && (
-          <div className="text-left my-2 mr-5 text-red-500 text-sm">
-            {error}
-          </div>
-        )}
+        {error && <div className="error-message">{error}</div>}
       </form>
     </div>
   );
