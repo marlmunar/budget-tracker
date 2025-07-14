@@ -43,6 +43,29 @@ const EditCategoryForm = ({ closeUI, props }) => {
 
   const [updateLog, { isLoading }] = useUpdateLogMutation();
 
+  const isEqual = (a, b) => {
+    if (a === b) return true;
+
+    if (
+      typeof a !== "object" ||
+      a === null ||
+      typeof b !== "object" ||
+      b === null
+    )
+      return false;
+
+    const keysA = Object.keys(a);
+    const keysB = Object.keys(b);
+
+    if (keysA.length !== keysB.length) return false;
+
+    for (let key of keysA) {
+      if (!keysB.includes(key) || !isEqual(a[key], b[key])) return false;
+    }
+
+    return true;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (Object.keys(selectedCategory).length === 0) return;
@@ -51,8 +74,12 @@ const EditCategoryForm = ({ closeUI, props }) => {
     if (!color) return setError("Please select a color");
     if (color.length < 7) return setError("Please complete the color code");
 
-    const newCategory = { name, color, type };
-    const newCategories = [...categories, newCategory];
+    const updatedCategory = { name, color, type };
+    if (isEqual(updatedCategory, selectedCategory)) return;
+
+    const newCategories = categories.map((cat) =>
+      cat.name === selectedCategory.name ? updatedCategory : cat
+    );
     console.log(newCategories);
     // try {
     //   const res = await updateLog({
@@ -118,7 +145,7 @@ const EditCategoryForm = ({ closeUI, props }) => {
         id="newCategoryForm"
         className="relative p-2 rounded space-y-2"
       >
-        <div className="px-2 log-input-column md:max-w-[50%]">
+        <div className="p-2 pb-1 log-input-column md:max-w-[50%]">
           <label htmlFor="newCategory">Category</label>
           <div
             className="relative custom-select focus:bg-gray-100/95 focus:shadow-lg"
@@ -168,6 +195,7 @@ const EditCategoryForm = ({ closeUI, props }) => {
                         setSelectedCategory({
                           name: cat.name,
                           color: cat.color,
+                          type: cat.type,
                         });
                         setName(cat.name);
                         setColor(cat.color);
@@ -184,7 +212,7 @@ const EditCategoryForm = ({ closeUI, props }) => {
           </div>
         </div>
         <div className="mx-2 border-2 border-slate-300"></div>
-        <div className="px-2 grid md:grid-cols-2 grid-cols-1 items-start">
+        <div className="p-2 py-1 grid md:grid-cols-2 grid-cols-1 items-start">
           <div className="flex flex-col md:flex-row md:items-center gap-2">
             <div className="category-input-column">
               <label htmlFor="name">New Name:</label>
@@ -273,7 +301,7 @@ const EditCategoryForm = ({ closeUI, props }) => {
                 </div>
               </div>
             ) : (
-              <menu className="color-menu py-2 overflow-x-auto md:py-0 md:overflow-x-visible">
+              <menu className="color-menu py-1 overflow-x-auto md:py-0 md:overflow-x-visible">
                 {colors.map((item, index) => (
                   <li key={item}>
                     <button
@@ -299,7 +327,7 @@ const EditCategoryForm = ({ closeUI, props }) => {
             )}
           </div>
         </div>
-        {error && <div className="error-message">{error}</div>}
+        {error && <div className="px-2 error-message">{error}</div>}
         <button
           className="clear-button"
           type="reset"

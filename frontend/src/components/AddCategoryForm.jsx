@@ -44,6 +44,7 @@ const AddCategoryForm = ({ closeUI, props }) => {
     const newCategory = { name, color, type };
     const newCategories = [...categories, newCategory];
     console.log(newCategories);
+
     // try {
     //   const res = await updateLog({
     //     id: logId,
@@ -195,7 +196,7 @@ const AddCategoryForm = ({ closeUI, props }) => {
                 </div>
               </div>
             ) : (
-              <menu className="color-menu py-2 overflow-x-auto md:py-0 md:overflow-x-visible">
+              <menu className="color-menu py-1 overflow-x-auto md:py-0 md:overflow-x-visible">
                 {colors.map((item, index) => (
                   <li key={item}>
                     <button
@@ -221,7 +222,7 @@ const AddCategoryForm = ({ closeUI, props }) => {
             )}
           </div>
         </div>
-        {error && <div className="error-message">{error}</div>}
+        {error && <div className="px-2 error-message">{error}</div>}
         <button
           className="clear-button"
           type="reset"
@@ -233,22 +234,6 @@ const AddCategoryForm = ({ closeUI, props }) => {
         >
           Clear Values
         </button>
-
-        {/* <div className="text-right my-2 mr-5 text-red-500 text-sm">{error}</div> */}
-        {/* <div className="button-row">
-          <button formNoValidate type="submit">
-            Save Category
-          </button>
-          <button
-            type="reset"
-            onClick={() => {
-              setName("");
-              setColor("#000000");
-            }}
-          >
-            Clear Values
-          </button>
-        </div> */}
       </form>
     </section>
   );
