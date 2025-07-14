@@ -197,7 +197,8 @@ button > * {
 }
 
 .category-input-column input:not([type="radio"]),
-.category-input-column .radio {
+.category-input-column .radio,
+.category-input-column .color-menu {
   @apply px-1 focus:outline-none 
   min-h-8 text-xl
   md:min-w-50
@@ -222,11 +223,17 @@ button > * {
 }
 
 .color-menu {
-  @apply flex px-2 gap-1;
+  @apply flex items-center px-2 gap-1 max-w-[min-content];
 }
 
-.color-menu > li > button {
-  @apply min-h-6 min-w-6 rounded hover:translate-y-[-2px];
+.color-menu > li {
+  @apply h-8 w-8;
+}
+
+.color-menu > li > button,
+.color-button {
+  @apply h-8 w-8 rounded hover:translate-y-[-2px]
+  flex items-center justify-center;
 }
 
 .button-row {
@@ -345,16 +352,16 @@ menu li {
 }
 
 .color-picker .react-colorful {
-  @apply w-full bg-white p-4 rounded border-2;
+  @apply w-full bg-gray-50 shadow shadow-slate-400 p-2 rounded space-y-2;
 }
 
 .color-picker .react-colorful__hue,
 .color-picker .react-colorful__saturation {
-  @apply rounded p-2 border-slate-400 border my-1;
+  @apply rounded;
 }
 
 .color-picker .react-colorful__hue {
-  @apply h-2;
+  @apply h-6;
 }
 
 .color-picker .react-colorful__hue-pointer,

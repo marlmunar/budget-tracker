@@ -1,4 +1,4 @@
-import { TbArrowLeft, TbCheck, TbX } from "react-icons/tb";
+import { TbCheck, TbPlus, TbX } from "react-icons/tb";
 import { useState } from "react";
 import { HexColorPicker } from "react-colorful";
 import { useUpdateLogMutation } from "../slices/logsApiSlice";
@@ -11,6 +11,7 @@ const AddCategoryForm = ({
 }) => {
   const [name, setName] = useState("");
   const [color, setColor] = useState("#000000");
+  const [isSelecting, setIsSelecting] = useState(false);
   const [error, setError] = useState("");
 
   const colors = [
@@ -87,90 +88,116 @@ const AddCategoryForm = ({
         onSubmit={handleSubmit}
         className="relative p-4 rounded "
       >
-        <div className="input-row grid grid-cols-2 grid-rows-2 grid-flow-col gap-2">
-          <div className="category-input-column">
-            <label htmlFor="name">Name:</label>
-            <input
-              type="text"
-              name="name"
-              maxLength="25"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder="Category name"
-              autoComplete="off"
-              required
-            />
-          </div>
-          <div className="category-input-column">
-            <p>Expense Type:</p>
-            <div className="radio flex gap-6">
-              <label htmlFor="expense" className="radio-input">
-                <input
-                  className="hidden"
-                  type="radio"
-                  id="expense"
-                  name="expenseType"
-                  value="Expense"
-                  onChange={(e) => {
-                    console.log(e.target.value);
-                  }}
-                />
-                <div className="custom-radio">
-                  <div></div>
-                </div>
-                Expense
-              </label>
+        <div
+          className="input-row grid grid-cols-2 
+             gap-2 items-start"
+        >
+          <div className="flex flex-col gap-2">
+            <div className="category-input-column">
+              <label htmlFor="name">Name:</label>
+              <input
+                type="text"
+                name="name"
+                maxLength="25"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Category name"
+                autoComplete="off"
+                required
+              />
+            </div>
+            <div className="category-input-column row-start-2">
+              <p>Expense Type:</p>
+              <div className="radio flex gap-6">
+                <label htmlFor="expense" className="radio-input">
+                  <input
+                    className="hidden"
+                    type="radio"
+                    id="expense"
+                    name="expenseType"
+                    value="Expense"
+                    onChange={(e) => {
+                      console.log(e.target.value);
+                    }}
+                  />
+                  <div className="custom-radio">
+                    <div></div>
+                  </div>
+                  Expense
+                </label>
 
-              <label htmlFor="income" className="radio-input">
-                <input
-                  className="hidden"
-                  type="radio"
-                  id="income"
-                  name="expenseType"
-                  value="Income"
-                  onChange={(e) => console.log(e.target.value)}
-                />
-                <div className="custom-radio">
-                  <div></div>
-                </div>
-                Income
-              </label>
+                <label htmlFor="income" className="radio-input">
+                  <input
+                    className="hidden"
+                    type="radio"
+                    id="income"
+                    name="expenseType"
+                    value="Income"
+                    onChange={(e) => console.log(e.target.value)}
+                  />
+                  <div className="custom-radio">
+                    <div></div>
+                  </div>
+                  Income
+                </label>
+              </div>
             </div>
           </div>
-          <div className="category-input-column">
+          <div className="category-input-column flex flex-col relative max-w-[95%]">
             <p>Color:</p>
-            <menu className="color-menu">
-              {colors.map((color, index) => (
+
+            {isSelecting ? (
+              <div className="flex flex-col gap-2">
+                <div className="flex gap-1 items-center justify-between">
+                  <div
+                    className="w-7 h-7 border-2 border-gray-200 rounded"
+                    style={{ backgroundColor: color }}
+                  ></div>
+                  <input
+                    type="text"
+                    className="flex-1"
+                    value={color}
+                    placeholder="#000000"
+                    onChange={(e) => handleChange(e.target.value)}
+                  />
+                  <button
+                    type="button"
+                    className="justify-self-end color-button bg-gray-200 text-xl"
+                    onClick={() => setIsSelecting((prev) => !prev)}
+                  >
+                    <TbX />
+                  </button>
+                </div>
+                <div className="color-picker flex-1">
+                  <HexColorPicker color={color} onChange={handleChange} />
+                </div>
+              </div>
+            ) : (
+              <menu className="color-menu">
+                {colors.map((item, index) => (
+                  <li key={item}>
+                    <button
+                      className={
+                        item === color ? "border-2 border-amber-800" : ""
+                      }
+                      type="button"
+                      style={{ backgroundColor: item }}
+                      onClick={() => setColor(item)}
+                    ></button>
+                  </li>
+                ))}
                 <li>
                   <button
                     type="button"
-                    style={{ backgroundColor: color }}
-                  ></button>
+                    className="bg-gray-200"
+                    onClick={() => setIsSelecting((prev) => !prev)}
+                  >
+                    <TbPlus />
+                  </button>
                 </li>
-              ))}
-            </menu>
+              </menu>
+            )}
           </div>
-          {/* <div className="input-column">
-            <label htmlFor="color">Color:</label>
-            <div className="flex flex-col gap-1">
-              <div className="relative">
-                <input
-                  type="text"
-                  value={color}
-                  placeholder="#000000"
-                  onChange={(e) => handleChange(e.target.value)}
-                />
-                <div
-                  className="absolute top-1 right-1 w-6 h-6 border rounded"
-                  style={{ backgroundColor: color }}
-                ></div>
-              </div>
-
-              <div className="color-picker">
-                <HexColorPicker color={color} onChange={handleChange} />
-              </div>
-            </div>
-          </div> */}
         </div>
 
         {/* <div className="text-right my-2 mr-5 text-red-500 text-sm">{error}</div> */}
