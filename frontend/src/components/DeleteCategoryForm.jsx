@@ -47,9 +47,9 @@ const DeleteCategoryForm = ({ closeUI, props }) => {
 
   return (
     <div
-      className="z-25 bg-white l
-      og-form-container w-full absolute 
-      right-0 top-0 shadow shadow-slate-400
+      className="z-25 bg-white log-form-container 
+      w-full absolute right-0 top-0 
+      shadow shadow-slate-400
       max-w-[80%] md:max-w-[20rem] md:m-2"
     >
       <div className="log-section-header">
@@ -76,40 +76,43 @@ const DeleteCategoryForm = ({ closeUI, props }) => {
       <form
         method="POST"
         onSubmit={handleSubmit}
-        className="flex flex-col relative p-2"
+        className="flex flex-col relative p-2 gap-1"
       >
-        <menu className="input-row flex flex-col gap-1.5 mb-2">
+        <menu className="rounded text-center text-base flex flex-col gap-1">
           {tempCategories.map((cat, index) => (
             <li
               key={index}
-              className="flex justify-between items-center shadow shadow-gray-400/50
-              bg-white rounded min-h-8 p-2
-              hover:translate-y-[-2px] transition-all duration-300"
-              style={{ backgroundColor: cat.color }}
+              className="flex 
+            justify-start 
+            items-center gap-1
+            min-h-8"
             >
-              <span>{cat.name}</span>
-              <div className="bg-white w-7 h-7 rounded flex justify-center items-center">
-                <button
-                  type="button"
-                  onClick={() => {
-                    handleClick(cat);
-                  }}
-                  className="text-xl border-2 rounded
+              <div
+                className="flex items-center p-1 px-2 rounded w-full min-h-8 text-sm md:text-base"
+                style={{ backgroundColor: cat.color }}
+              >
+                {cat.name}
+              </div>
+              <button
+                type="button"
+                className="text-xl border-2 rounded
                    text-red-400
                    hover:bg-red-300 
                    hover:border-transparent hover:shadow shadow-gray-700/50 
                    transition-all duration-300"
-                >
-                  <TbX />
-                </button>
-              </div>
+                onClick={() => {
+                  handleClick(cat);
+                }}
+              >
+                <TbX />
+              </button>
             </li>
           ))}
         </menu>
 
         <button
           type="reset"
-          className="text-blue-400 md:text-sm text-xs self-end"
+          className="entry-button"
           onClick={() => {
             setTempCategories(categories);
           }}

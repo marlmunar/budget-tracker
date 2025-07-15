@@ -51,7 +51,9 @@ const ExpenseListFilter = ({ closeUI, props }) => {
         {categories.map((cat, index) => (
           <li
             key={index}
-            className="flex justify-start items-center gap-1
+            className="flex 
+            justify-start 
+            items-center gap-1
             min-h-8
             active:scale-95"
             onClick={() => {
@@ -67,26 +69,23 @@ const ExpenseListFilter = ({ closeUI, props }) => {
             </button>
             <div
               style={{ backgroundColor: cat.color }}
-              className="p-1 rounded w-full min-h-8 text-sm md:text-base"
+              className="flex items-center p-1 px-2 rounded w-full min-h-8 text-sm md:text-base"
             >
               {cat.name}
             </div>
           </li>
         ))}
-        <li className="flex gap-2 justify-end items-center ">
+        <li className="flex gap-1 justify-end items-center ">
           <button
-            className="text-blue-400 md:text-sm text-xs"
+            className="entry-button"
             onClick={() => {
               setSelected(categoryNames);
             }}
           >
             Select All
           </button>
-          <button
-            className="text-blue-400 md:text-sm text-xs"
-            onClick={() => setSelected([])}
-          >
-            Reset
+          <button className="entry-button" onClick={() => setSelected([])}>
+            Clear
           </button>
         </li>
       </menu>
