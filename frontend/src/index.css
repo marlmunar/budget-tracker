@@ -233,14 +233,19 @@ button > * {
 }
 
 .category-menu {
-  @apply p-4 space-y-2 text-sm  md:text-base;
+  @apply p-4 space-y-2;
 }
 
 .category-menu > li > button {
   @apply bg-gray-200 p-2 w-full rounded 
+  flex gap-1 items-center text-xl justify-center
   hover:shadow hover:shadow-slate-300
-  hover:translate-y-[-2px]
+  hover:translate-y-[-2px] 
   transition-all duration-300;
+}
+
+.category-menu > li > button > span {
+  @apply text-sm md:text-base;
 }
 
 .button-row {

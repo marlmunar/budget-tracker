@@ -1,4 +1,4 @@
-import { TbX } from "react-icons/tb";
+import { TbPencil, TbPlus, TbTrash, TbX } from "react-icons/tb";
 
 const CategoryOptions = ({ closeUI, setActiveUi }) => {
   return (
@@ -13,7 +13,7 @@ const CategoryOptions = ({ closeUI, setActiveUi }) => {
       <div className="log-section-header">
         <h3>Manage Categories</h3>
         <button
-          className="ml-auto log-tool-button  h-8 w-8 md:h-10 md:w-10 bg-slate-200"
+          className="ml-auto log-tool-button h-8 w-8 md:h-10 md:w-10 bg-slate-200"
           onClick={closeUI}
         >
           <TbX />
@@ -22,17 +22,20 @@ const CategoryOptions = ({ closeUI, setActiveUi }) => {
       <menu className="category-menu">
         <li>
           <button onClick={() => setActiveUi("addCategory")}>
-            Add New Category
+            <TbPlus />
+            <span>Add New Category</span>
           </button>
         </li>
         <li>
           <button onClick={() => setActiveUi("editCategories")}>
-            Edit Categories
+            <TbPencil />
+            <span>Edit Categories</span>
           </button>
         </li>
         <li>
           <button onClick={() => setActiveUi("deleteCategories")}>
-            Delete Categories
+            <TbTrash />
+            <span>Delete Categories</span>
           </button>
         </li>
       </menu>
