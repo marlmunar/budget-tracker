@@ -1,11 +1,12 @@
 import { TbArrowLeft, TbCheck, TbX } from "react-icons/tb";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useUpdateLogMutation } from "../slices/logsApiSlice";
 import { useSelector } from "react-redux";
 
 const DeleteCategoryForm = ({ closeUI, props }) => {
   const { categories } = props;
   const [tempCategories, setTempCategories] = useState(categories);
+  const [error, setError] = useState("");
 
   const [updateLog, { isLoading }] = useUpdateLogMutation();
   const { tempEntries } = useSelector((state) => state.logs);
@@ -13,14 +14,17 @@ const DeleteCategoryForm = ({ closeUI, props }) => {
     ...new Set(tempEntries.map((cat) => cat.category.name)),
   ];
 
+  useEffect(() => {
+    setError("");
+  }, [tempCategories]);
+
   const handleClick = (selectedCategory) => {
-    if (tempCategories.length < 0) {
-      console.error("Categories cannot be empty");
-      return;
+    if (tempCategories.length === 1) {
+      return setError("Categories cannot be empty");
     }
+
     if (activeCategories.includes(selectedCategory.name)) {
-      console.error("Cannot delete a category in use");
-      return;
+      return setError("Cannot delete a category in use");
     }
 
     const newTempCategories = tempCategories.filter(
@@ -50,7 +54,7 @@ const DeleteCategoryForm = ({ closeUI, props }) => {
       className="z-25 bg-white log-form-container 
       w-full absolute right-0 top-0 
       shadow shadow-slate-400
-      max-w-[80%] md:max-w-[20rem] md:m-2"
+      max-w-[80%] md:max-w-[18rem] md:m-2"
     >
       <div className="log-section-header">
         <h3>Delete Categories</h3>
@@ -109,12 +113,17 @@ const DeleteCategoryForm = ({ closeUI, props }) => {
             </li>
           ))}
         </menu>
-
+        {error && (
+          <div className="mx-1 text-left text-red-500 md:text-sm text-xs">
+            {error}
+          </div>
+        )}
         <button
           type="reset"
           className="entry-button"
           onClick={() => {
             setTempCategories(categories);
+            setError("");
           }}
         >
           Reset Values
