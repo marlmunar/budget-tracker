@@ -112,7 +112,7 @@ const LogScreenHeader = ({ logData }) => {
         {isSelecting && (
           <OutsideClick
             onOutsideClick={() => {
-              //   setIsSelecting(false);
+              setIsSelecting(false);
             }}
             id="options"
           >

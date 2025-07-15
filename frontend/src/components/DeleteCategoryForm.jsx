@@ -33,6 +33,7 @@ const DeleteCategoryForm = ({ closeUI, props }) => {
     setTempCategories(newTempCategories);
     return;
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
