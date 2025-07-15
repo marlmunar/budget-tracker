@@ -27,11 +27,12 @@ const ExpenseListFilter = ({ closeUI, props }) => {
     <div
       className="absolute bg-white md:m-2
       shadow shadow-slate-400 rounded 
-      flex flex-col right-0 top-0"
+      flex flex-col right-0 top-0 w-full 
+      max-w-[80%] md:max-w-[15rem]"
     >
       <div className="log-section-header">
-        <h3 className="text-nowrap mr-5">Apply Filter</h3>
-        <div className="flex gap-2 ">
+        <h3>Apply Filter</h3>
+        <div className="flex gap-2">
           <button
             className="log-tool-button h-10 w-10 bg-slate-200"
             onClick={handleConfirm}
@@ -46,17 +47,18 @@ const ExpenseListFilter = ({ closeUI, props }) => {
           </button>
         </div>
       </div>
-      <menu className="pt-2 p-1 rounded text-center text-base font-normal flex flex-col gap-1">
+      <menu className="p-2 rounded text-center text-base font-normal flex flex-col gap-1 ">
         {categories.map((cat, index) => (
           <li
             key={index}
-            className="flex justify-start items-center gap-1 px-1
+            className="flex justify-start items-center gap-1
+            min-h-8
             active:scale-95"
             onClick={() => {
               handleSelect(cat.name);
             }}
           >
-            <button className="text-3xl h-full hover:translate-y-[-2px]">
+            <button className="text-3xl hover:translate-y-[-2px]">
               {selected.includes(cat.name) ? (
                 <TbSquareCheck className="text-blue-800" />
               ) : (
@@ -65,22 +67,25 @@ const ExpenseListFilter = ({ closeUI, props }) => {
             </button>
             <div
               style={{ backgroundColor: cat.color }}
-              className="p-1 rounded w-full text-base md:text-sm"
+              className="p-1 rounded w-full min-h-8 text-sm md:text-base"
             >
               {cat.name}
             </div>
           </li>
         ))}
-        <li className="px-1 pb-1 flex gap-2 min-h-10 md:min-h-8 text-base mt-1">
+        <li className="flex gap-2 justify-end items-center ">
           <button
-            className="entry-button"
+            className="text-blue-400 md:text-sm text-xs"
             onClick={() => {
               setSelected(categoryNames);
             }}
           >
             Select All
           </button>
-          <button className="entry-button" onClick={() => setSelected([])}>
+          <button
+            className="text-blue-400 md:text-sm text-xs"
+            onClick={() => setSelected([])}
+          >
             Reset
           </button>
         </li>

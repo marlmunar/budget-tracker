@@ -8,7 +8,7 @@ const CategoryOptions = ({ closeUI, setActiveUi }) => {
           absolute top-0 right-[10%] md:right-0
           shadow shadow-slate-400
           max-w-[80%]
-          md:max-w-[30%]"
+          md:max-w-[15rem]"
     >
       <div className="log-section-header">
         <h3>Manage Categories</h3>

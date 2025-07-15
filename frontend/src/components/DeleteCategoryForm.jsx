@@ -1,14 +1,10 @@
-import { TbArrowLeft, TbX } from "react-icons/tb";
+import { TbArrowLeft, TbCheck, TbX } from "react-icons/tb";
 import { useState } from "react";
 import { useUpdateLogMutation } from "../slices/logsApiSlice";
 import { useSelector } from "react-redux";
 
-const DeleteCategoryForm = ({
-  logId,
-  categories,
-  setActiveAction,
-  setLastAction,
-}) => {
+const DeleteCategoryForm = ({ closeUI, props }) => {
+  const { categories } = props;
   const [tempCategories, setTempCategories] = useState(categories);
 
   const [updateLog, { isLoading }] = useUpdateLogMutation();
@@ -50,27 +46,45 @@ const DeleteCategoryForm = ({
   };
 
   return (
-    <section className="log-form-container min-w-[min-content]">
+    <div
+      className="z-25 bg-white l
+      og-form-container w-full absolute 
+      right-0 top-0 shadow shadow-slate-400
+      max-w-[80%] md:max-w-[20rem] md:m-2"
+    >
       <div className="log-section-header">
-        <button
-          className="log-tool-button my-1 mr-2.5"
-          onClick={() => setActiveAction("")}
-        >
-          <TbArrowLeft />
-        </button>
         <h3>Delete Categories</h3>
+        <div className="flex gap-2">
+          <button
+            className="log-tool-button h-10 w-10 bg-slate-200"
+            type="submit"
+            form="editForm"
+            formNoValidate
+            // onClick={handleSave}
+          >
+            <TbCheck />
+          </button>
+          <button
+            className="log-tool-button h-10 w-10 bg-slate-200"
+            onClick={closeUI}
+          >
+            <TbX />
+          </button>
+        </div>
       </div>
 
       <form
         method="POST"
         onSubmit={handleSubmit}
-        className="bg-slate-100 rounded mt-2 pb-2 lg:min-w-[22rem]"
+        className="flex flex-col relative p-2"
       >
         <menu className="input-row flex flex-col gap-1.5 mb-2">
           {tempCategories.map((cat, index) => (
             <li
               key={index}
-              className="flex justify-between items-center shadow shadow-gray-400/50 bg-white rounded min-h-12 p-2"
+              className="flex justify-between items-center shadow shadow-gray-400/50
+              bg-white rounded min-h-8 p-2
+              hover:translate-y-[-2px] transition-all duration-300"
               style={{ backgroundColor: cat.color }}
             >
               <span>{cat.name}</span>
@@ -80,7 +94,11 @@ const DeleteCategoryForm = ({
                   onClick={() => {
                     handleClick(cat);
                   }}
-                  className="text-xl border-2 rounded  text-red-400 hover:bg-red-300 hover:border-transparent hover:shadow shadow-gray-700/50 transition-all duration-300"
+                  className="text-xl border-2 rounded
+                   text-red-400
+                   hover:bg-red-300 
+                   hover:border-transparent hover:shadow shadow-gray-700/50 
+                   transition-all duration-300"
                 >
                   <TbX />
                 </button>
@@ -89,19 +107,17 @@ const DeleteCategoryForm = ({
           ))}
         </menu>
 
-        <div className="button-row">
-          <button type="submit">Save Changes</button>
-          <button
-            type="reset"
-            onClick={() => {
-              setTempCategories(categories);
-            }}
-          >
-            Reset Values
-          </button>
-        </div>
+        <button
+          type="reset"
+          className="text-blue-400 md:text-sm text-xs self-end"
+          onClick={() => {
+            setTempCategories(categories);
+          }}
+        >
+          Reset Values
+        </button>
       </form>
-    </section>
+    </div>
   );
 };
 
