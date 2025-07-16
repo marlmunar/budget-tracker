@@ -84,10 +84,12 @@ const LogScreenHeader = ({ logData }) => {
           </Link>
           <div className="flex-1 flex flex-col">
             <h2 className="font-semibold text-base md:text-xl">{name}</h2>
-            <span className="text-gray-500 text-[0.65rem] md:text-[0.7rem] italic">
-              {isNotSaved
-                ? "Log has unsaved changes"
-                : `Log was updated ${elapsedTime}`}
+            <span className="text-gray-500 text-[0.7rem] md:text-xs italic">
+              {isNotSaved ? (
+                <span className="text-red-500">Log has unsaved changes</span>
+              ) : (
+                `Log was updated ${elapsedTime}`
+              )}
             </span>
           </div>
 
