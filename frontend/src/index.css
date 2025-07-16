@@ -7,6 +7,15 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 :root {
   font-family: var(--font-outfit);
 }
@@ -232,11 +241,11 @@ button > * {
   inline-flex items-center justify-center transition-all duration-200;
 }
 
-.category-menu {
+.category-options {
   @apply p-4 space-y-2;
 }
 
-.category-menu > li > button {
+.category-options > li > button {
   @apply bg-gray-200 p-2 w-full rounded 
   flex gap-1 items-center text-xl justify-center
   hover:shadow hover:shadow-slate-300
@@ -244,8 +253,14 @@ button > * {
   transition-all duration-300;
 }
 
-.category-menu > li > button > span {
+.category-options > li > button > span {
   @apply text-sm md:text-base;
+}
+
+.category-menu {
+  @apply absolute right-0 top-9 rounded p-1 bg-slate-100
+    shadow shadow-slate-400 w-full flex flex-col gap-1 z-10
+    max-h-[10rem] overflow-auto;
 }
 
 .button-row {

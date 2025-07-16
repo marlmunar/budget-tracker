@@ -299,10 +299,7 @@ const AddEntryForm = ({ closeUI, setActiveUi }) => {
                       onOutsideClick={() => setIsSelecting(false)}
                       id="addEntry"
                     >
-                      <menu
-                        className="absolute right-0 top-9 rounded p-1 bg-slate-100
-                        shadow shadow-slate-400 w-full flex flex-col gap-1"
-                      >
+                      <menu className="category-menu scrollbar-hide">
                         {tempCategories.map((cat, index) => (
                           <li
                             className="log-options-2"

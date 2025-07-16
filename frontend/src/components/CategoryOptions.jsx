@@ -19,7 +19,7 @@ const CategoryOptions = ({ closeUI, setActiveUi }) => {
           <TbX />
         </button>
       </div>
-      <menu className="category-menu">
+      <menu className="category-options">
         <li>
           <button onClick={() => setActiveUi("addCategory")}>
             <TbPlus />
