@@ -77,8 +77,15 @@ const EditCategoryForm = ({ closeUI }) => {
     if (!color) return setError("Please select a color");
     if (color.length < 7) return setError("Please complete the color code");
 
+    const categoryNames = tempCategories
+      .filter((cat) => cat.name !== selectedCategory.name)
+      .map((cat) => cat.name.toLowerCase());
+
+    if (categoryNames.includes(name.toLowerCase()))
+      return setError("Category already exists");
+
     const updatedCategory = { name, color, type };
-    if (isEqual(updatedCategory, selectedCategory)) return;
+    if (isEqual(updatedCategory, selectedCategory)) return closeUI();
 
     const newTempEntries = tempEntries.map((entry) =>
       entry.category.name === selectedCategory.name
