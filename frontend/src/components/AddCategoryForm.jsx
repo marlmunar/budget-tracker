@@ -2,13 +2,14 @@ import { TbCheck, TbPlus, TbX } from "react-icons/tb";
 import { useEffect, useState } from "react";
 import { HexColorPicker } from "react-colorful";
 import { useUpdateLogMutation } from "../slices/logsApiSlice";
-import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { addTempCategories, setIsNotSaved } from "../slices/logSlice";
+import { retry } from "@reduxjs/toolkit/query";
 
 const AddCategoryForm = ({ closeUI }) => {
-  // const { categories } = props;
+  const dispatch = useDispatch();
   const { tempCategories } = useSelector((state) => state.logs);
-  const { logId } = useParams();
+  const categoryNames = tempCategories.map((cat) => cat.name.toLowerCase());
   const [name, setName] = useState("");
   const [color, setColor] = useState("");
   const [isSelecting, setIsSelecting] = useState(false);
@@ -36,32 +37,20 @@ const AddCategoryForm = ({ closeUI }) => {
 
   const [updateLog, { isLoading }] = useUpdateLogMutation();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (!name) return setError("Please fill out the name field");
     if (!type) return setError("Please select a type");
     if (!color) return setError("Please select a color");
     if (color.length < 7) return setError("Please complete the color code");
+    if (categoryNames.includes(name.toLowerCase()))
+      return setError("Category already exists");
 
     const newCategory = { name, color, type };
-    // const newCategories = [...categories, newCategory];
-    // console.log(newCategories);
-
-    // try {
-    //   const res = await updateLog({
-    //     id: logId,
-    //     data: { categories: newCategories },
-    //   }).unwrap();
-
-    //   console.log(res);
-
-    //   setName("");
-    //   setColor("#000000");
-    //   setActiveAction("Adding Entry");
-    //   setLastAction(Date.now());
-    // } catch (error) {
-    //   console.log(error?.data?.message || error.message);
-    // }
+    console.log(newCategory);
+    dispatch(addTempCategories(newCategory));
+    dispatch(setIsNotSaved(true));
+    closeUI();
   };
 
   const handleChange = (newColor) => {
