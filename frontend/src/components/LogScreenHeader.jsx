@@ -23,6 +23,7 @@ const LogScreenHeader = ({ logData }) => {
   const [elapsedTime, setElapsedTime] = useState("");
   const { isNotSaved } = useSelector((state) => state.logs);
   const { tempEntries } = useSelector((state) => state.logs);
+  const { tempCategories } = useSelector((state) => state.logs);
   const [updateLog] = useUpdateLogMutation();
 
   const [isSelecting, setIsSelecting] = useState(false);
@@ -42,7 +43,7 @@ const LogScreenHeader = ({ logData }) => {
       dispatch(startLoading());
       const res = await updateLog({
         id,
-        data: { ...logData, entries: tempEntries },
+        data: { ...logData, entries: tempEntries, categories: tempCategories },
       }).unwrap();
       dispatch(setIsNotSaved(false));
     } catch (error) {
