@@ -2,10 +2,11 @@ import { TbArrowLeft, TbCheck, TbX } from "react-icons/tb";
 import { useEffect, useState } from "react";
 import { useUpdateLogMutation } from "../slices/logsApiSlice";
 import { useSelector } from "react-redux";
+import { setTempCategories } from "../slices/logSlice";
 
-const DeleteCategoryForm = ({ closeUI, props }) => {
-  const { categories } = props;
-  const [tempCategories, setTempCategories] = useState(categories);
+const DeleteCategoryForm = ({ closeUI }) => {
+  const { tempCategories } = useSelector((state) => state.logs);
+  const [tempList, setTempList] = useState(tempCategories);
   const [error, setError] = useState("");
 
   const [updateLog, { isLoading }] = useUpdateLogMutation();
@@ -16,10 +17,10 @@ const DeleteCategoryForm = ({ closeUI, props }) => {
 
   useEffect(() => {
     setError("");
-  }, [tempCategories]);
+  }, [tempList]);
 
   const handleClick = (selectedCategory) => {
-    if (tempCategories.length === 1) {
+    if (tempList.length === 1) {
       return setError("Categories cannot be empty");
     }
 
@@ -27,10 +28,10 @@ const DeleteCategoryForm = ({ closeUI, props }) => {
       return setError("Cannot delete a category in use");
     }
 
-    const newTempCategories = tempCategories.filter(
+    const newTempCategories = tempList.filter(
       (cat) => cat !== selectedCategory
     );
-    setTempCategories(newTempCategories);
+    setTempList(newTempCategories);
     return;
   };
 
@@ -84,7 +85,7 @@ const DeleteCategoryForm = ({ closeUI, props }) => {
         className="flex flex-col relative p-2 gap-1"
       >
         <menu className="rounded text-center text-base flex flex-col gap-1">
-          {tempCategories.map((cat, index) => (
+          {tempList.map((cat, index) => (
             <li
               key={index}
               className="flex 
@@ -123,7 +124,7 @@ const DeleteCategoryForm = ({ closeUI, props }) => {
           type="reset"
           className="entry-button"
           onClick={() => {
-            setTempCategories(categories);
+            setTempList(tempCategories);
             setError("");
           }}
         >

@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 
 const ExpenseListFilter = ({ closeUI, props }) => {
-  const { categories, selectedCategories, setSelectedCategories } = props;
-  const categoryNames = categories.map((cat) => cat.name);
+  const { selectedCategories, setSelectedCategories } = props;
+  const { tempCategories } = useSelector((state) => state.logs);
+  const categoryNames = tempCategories.map((cat) => cat.name);
   const [selected, setSelected] = useState(selectedCategories);
 
   const handleConfirm = () => {
@@ -48,7 +49,7 @@ const ExpenseListFilter = ({ closeUI, props }) => {
         </div>
       </div>
       <menu className="p-2 rounded text-center text-base font-normal flex flex-col gap-1 ">
-        {categories.map((cat, index) => (
+        {tempCategories.map((cat, index) => (
           <li
             key={index}
             className="flex 

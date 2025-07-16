@@ -18,13 +18,13 @@ import {
 } from "../slices/logsApiSlice";
 import { useParams } from "react-router-dom";
 
-const AddEntryForm = ({ props, closeUI, setActiveUi }) => {
-  const { categories } = props;
+const AddEntryForm = ({ closeUI, setActiveUi }) => {
   const dispatch = useDispatch();
   const { logId } = useParams();
   const [importLog] = useImportLogMutation();
   const [updateLog] = useUpdateLogMutation();
   const { tempEntries } = useSelector((state) => state.logs);
+  const { tempCategories } = useSelector((state) => state.logs);
   const [isSelecting, setIsSelecting] = useState(false);
   const [isImporting, setIsImporting] = useState(false);
   const [expense, setExpense] = useState("");
@@ -97,52 +97,52 @@ const AddEntryForm = ({ props, closeUI, setActiveUi }) => {
     setFile(e.target.files[0]);
   };
 
-  const handleImport = async (e) => {
-    e.preventDefault();
-    if (!file) return setError("Please select a file");
+  // const handleImport = async (e) => {
+  //   e.preventDefault();
+  //   if (!file) return setError("Please select a file");
 
-    const formData = new FormData();
-    formData.append("file", file);
-    let res;
-    let updatedEntries = [];
+  //   const formData = new FormData();
+  //   formData.append("file", file);
+  //   let res;
+  //   let updatedEntries = [];
 
-    try {
-      res = await importLog(formData).unwrap();
-      const newTempEntries = res.entries.filter(
-        (entry) => !referenceEntries.includes(JSON.stringify(entry))
-      );
-      if (newTempEntries.length > 0) {
-        newTempEntries.map((entry) => dispatch(addTempEntry(entry)));
-      }
-      updatedEntries = [...tempEntries, ...newTempEntries];
-    } catch (error) {
-      const errorMsg = error?.data?.message || error.message;
-      setError(errorMsg);
-    } finally {
-      if (!res) return;
-      const updatedCategories = [...res.categories];
-      const newCategoryNames = res.categories.map((cat) => cat.name);
-      console.log(newCategoryNames);
-      categories.map(
-        (cat) =>
-          !newCategoryNames.includes(cat.name) && updatedCategories.push(cat)
-      );
-      try {
-        console.log(updatedEntries);
-        const result = await updateLog({
-          id: logId,
-          data: { categories: updatedCategories, entries: updatedEntries },
-        }).unwrap();
-      } catch (error) {
-        const errorMsg = error?.data?.message || error.message;
-        setError(errorMsg);
-      }
-    }
+  //   try {
+  //     res = await importLog(formData).unwrap();
+  //     const newTempEntries = res.entries.filter(
+  //       (entry) => !referenceEntries.includes(JSON.stringify(entry))
+  //     );
+  //     if (newTempEntries.length > 0) {
+  //       newTempEntries.map((entry) => dispatch(addTempEntry(entry)));
+  //     }
+  //     updatedEntries = [...tempEntries, ...newTempEntries];
+  //   } catch (error) {
+  //     const errorMsg = error?.data?.message || error.message;
+  //     setError(errorMsg);
+  //   } finally {
+  //     if (!res) return;
+  //     const updatedCategories = [...res.categories];
+  //     const newCategoryNames = res.categories.map((cat) => cat.name);
+  //     console.log(newCategoryNames);
+  //     categories.map(
+  //       (cat) =>
+  //         !newCategoryNames.includes(cat.name) && updatedCategories.push(cat)
+  //     );
+  //     try {
+  //       console.log(updatedEntries);
+  //       const result = await updateLog({
+  //         id: logId,
+  //         data: { categories: updatedCategories, entries: updatedEntries },
+  //       }).unwrap();
+  //     } catch (error) {
+  //       const errorMsg = error?.data?.message || error.message;
+  //       setError(errorMsg);
+  //     }
+  //   }
 
-    setError("");
-    setFile(null);
-    fileInputRef.current.value = null;
-  };
+  //   setError("");
+  //   setFile(null);
+  //   fileInputRef.current.value = null;
+  // };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -303,7 +303,7 @@ const AddEntryForm = ({ props, closeUI, setActiveUi }) => {
                         className="absolute right-0 top-9 rounded p-1 bg-slate-100
                         shadow shadow-slate-400 w-full flex flex-col gap-1"
                       >
-                        {categories.map((cat, index) => (
+                        {tempCategories.map((cat, index) => (
                           <li
                             className="log-options-2"
                             style={{ backgroundColor: cat.color }}

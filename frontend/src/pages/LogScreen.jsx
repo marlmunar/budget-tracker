@@ -100,13 +100,9 @@ const LogScreen = () => {
             grid-rows-[minmax(1fr,min-content)] gap-2
             w-[95%] md:w-[90%] mx-auto items-start"
         >
-          <ExpenseList
-            props={{ categories, selectedCategories, setSelectedCategories }}
-          />
+          <ExpenseList props={{ selectedCategories, setSelectedCategories }} />
           <ExpenseSummary
             props={{
-              entries: tempEntries,
-              categories,
               selectedCategories,
               setSelectedCategories,
             }}

@@ -15,18 +15,16 @@ const ExpenseListUIHandler = ({ activeUI, setActiveUi, props }) => {
   };
 
   const UIs = {
-    addEntry: (
-      <AddEntryForm closeUI={closeUI} props={props} setActiveUi={setActiveUi} />
-    ),
+    addEntry: <AddEntryForm closeUI={closeUI} setActiveUi={setActiveUi} />,
     filterEntries: <ExpenseListFilter closeUI={closeUI} props={props} />,
     editEntry: <EditEntryForm closeUI={closeUI} props={props} />,
     deleteEntry: <DeleteEntryConfirm closeUI={closeUI} props={props} />,
     manageCategories: (
       <CategoryOptions closeUI={closeUI} setActiveUi={setActiveUi} />
     ),
-    addCategory: <AddCategoryForm closeUI={closeUI} props={props} />,
-    editCategories: <EditCategoryForm closeUI={closeUI} props={props} />,
-    deleteCategories: <DeleteCategoryForm closeUI={closeUI} props={props} />,
+    addCategory: <AddCategoryForm closeUI={closeUI} />,
+    editCategories: <EditCategoryForm closeUI={closeUI} />,
+    deleteCategories: <DeleteCategoryForm closeUI={closeUI} />,
   };
 
   const getUI = () => UIs[activeUI] || null;

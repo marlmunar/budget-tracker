@@ -10,10 +10,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { setIsNotSaved, setTempEntries } from "../slices/logSlice";
 
 const EditEntryForm = ({ closeUI, props }) => {
-  const { categories, entry } = props;
+  const { entry } = props;
   const refEntry = entry;
   const dispatch = useDispatch();
   const { tempEntries } = useSelector((state) => state.logs);
+  const { tempCategories } = useSelector((state) => state.logs);
   const [isSelecting, setIsSelecting] = useState(false);
   const [expense, setExpense] = useState(entry.expense);
   const [amount, setAmount] = useState(entry.amount);
@@ -210,7 +211,7 @@ const EditEntryForm = ({ closeUI, props }) => {
                     className="absolute right-0 top-9 rounded p-1 bg-slate-100
                         shadow shadow-slate-400 w-full flex flex-col gap-1"
                   >
-                    {categories.map((cat, index) => (
+                    {tempCategories.map((cat, index) => (
                       <li
                         className="log-options-2"
                         style={{ backgroundColor: cat.color }}

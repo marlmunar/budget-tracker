@@ -2,26 +2,28 @@ import { TbReload } from "react-icons/tb";
 import ExpenseSummaryItem from "./ExpenseSummaryItem";
 import NoRecords from "./NoRecords";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 const ExpenseSummary = ({ props }) => {
-  const { categories, entries, selectedCategories, setSelectedCategories } =
-    props;
+  const { selectedCategories, setSelectedCategories } = props;
+  const { tempCategories } = useSelector((state) => state.logs);
+  const { tempEntries } = useSelector((state) => state.logs);
 
   const [displayReload, setDisplayReload] = useState(false);
 
-  const entriesCount = entries.reduce(
+  const entriesCount = tempEntries.reduce(
     (sum, entry) =>
       sum + (selectedCategories.includes(entry.category.name) ? 1 : 0),
     0
   );
 
   useEffect(() => {
-    if (categories.length === selectedCategories.length) {
+    if (tempCategories.length === selectedCategories.length) {
       setDisplayReload(false);
     }
-  }, [selectedCategories, categories]);
+  }, [selectedCategories, tempCategories]);
 
-  const totalIncome = entries.reduce(
+  const totalIncome = tempEntries.reduce(
     (sum, entry) =>
       sum +
       (entry.category.type === "Income" &&
@@ -31,7 +33,7 @@ const ExpenseSummary = ({ props }) => {
     0
   );
 
-  const totalExpense = entries.reduce(
+  const totalExpense = tempEntries.reduce(
     (sum, entry) =>
       sum +
       (entry.category.type === "Expense" &&
@@ -41,20 +43,20 @@ const ExpenseSummary = ({ props }) => {
     0
   );
 
-  const total = entries.reduce(
+  const total = tempEntries.reduce(
     (sum, entry) =>
       sum +
       (selectedCategories.includes(entry.category.name) ? +entry.amount : 0),
     0
   );
 
-  const sumPerCategory = categories
+  const sumPerCategory = tempCategories
     .map((cat) => ({
       category: cat,
-      amount: entries.reduce((acc, entry) => {
+      amount: tempEntries.reduce((acc, entry) => {
         return entry.category.name === cat.name ? acc + +entry.amount : acc;
       }, 0),
-      count: entries.reduce(
+      count: tempEntries.reduce(
         (sum, entry) => sum + (cat.name === entry.category.name ? 1 : 0),
         0
       ),
@@ -81,7 +83,7 @@ const ExpenseSummary = ({ props }) => {
           <button
             className="log-tool-button h-10 w-10 bg-slate-200"
             onClick={() => {
-              setSelectedCategories(categories.map((cat) => cat.name));
+              setSelectedCategories(tempCategories.map((cat) => cat.name));
               setDisplayReload(false);
             }}
           >
@@ -90,7 +92,7 @@ const ExpenseSummary = ({ props }) => {
         )}
       </div>
 
-      {entries.length > 0 ? (
+      {tempEntries.length > 0 ? (
         <div className="flex text-xs md:text-sm flex-col gap-2 p-2">
           <div className="flex bg-slate-200 p-2 rounded text-gray-800 justify-between font-semibold">
             <h3>Category</h3>
@@ -126,7 +128,7 @@ const ExpenseSummary = ({ props }) => {
               </div>
               <div className="text-sm md:text-base flex items-center justify-between font-semibold p-2">
                 <p className="text-xs md:text-sm">{`${entriesCount} ${
-                  entriesCount > 1 ? "entries" : "entry"
+                  entriesCount > 1 ? "tempEntries" : "entry"
                 }`}</p>
                 <p>{formatNumber(total)}</p>
               </div>

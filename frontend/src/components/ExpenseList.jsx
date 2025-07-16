@@ -12,16 +12,17 @@ import { motion } from "framer-motion";
 import ExpenseListUIHandler from "./ExpenseListUIHandler";
 
 const ExpenseList = ({ props }) => {
-  const { categories, selectedCategories, setSelectedCategories } = props;
+  const { selectedCategories, setSelectedCategories } = props;
+  const { tempCategories } = useSelector((state) => state.logs);
   const { tempEntries } = useSelector((state) => state.logs);
   const [activeUI, setActiveUI] = useState("");
 
   useEffect(() => {
-    if (categories.length > 0) {
-      const categoryNames = categories.map((cat) => cat.name);
+    if (tempCategories.length > 0) {
+      const categoryNames = tempCategories.map((cat) => cat.name);
       setSelectedCategories(categoryNames);
     }
-  }, [categories, setSelectedCategories]);
+  }, [tempCategories, setSelectedCategories]);
 
   const filteredList = tempEntries.filter((entry) =>
     selectedCategories.includes(entry.category.name)
@@ -42,7 +43,7 @@ const ExpenseList = ({ props }) => {
       <ExpenseListUIHandler
         activeUI={activeUI}
         setActiveUi={setActiveUI}
-        props={{ entry, categories, selectedCategories, setSelectedCategories }}
+        props={{ entry, selectedCategories, setSelectedCategories }}
       />
 
       <div className="log-section-header flex justify-between items-center">
@@ -60,7 +61,7 @@ const ExpenseList = ({ props }) => {
               className="log-tool-button h-10 w-10 bg-slate-200"
               onClick={() => setActiveUI("filterEntries")}
             >
-              {categories.length > selectedCategories.length ? (
+              {tempCategories.length > selectedCategories.length ? (
                 <TbFilterEdit />
               ) : (
                 <TbFilter />

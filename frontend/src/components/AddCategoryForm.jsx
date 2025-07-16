@@ -3,9 +3,11 @@ import { useEffect, useState } from "react";
 import { HexColorPicker } from "react-colorful";
 import { useUpdateLogMutation } from "../slices/logsApiSlice";
 import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-const AddCategoryForm = ({ closeUI, props }) => {
-  const { categories } = props;
+const AddCategoryForm = ({ closeUI }) => {
+  // const { categories } = props;
+  const { tempCategories } = useSelector((state) => state.logs);
   const { logId } = useParams();
   const [name, setName] = useState("");
   const [color, setColor] = useState("");
@@ -42,8 +44,8 @@ const AddCategoryForm = ({ closeUI, props }) => {
     if (color.length < 7) return setError("Please complete the color code");
 
     const newCategory = { name, color, type };
-    const newCategories = [...categories, newCategory];
-    console.log(newCategories);
+    // const newCategories = [...categories, newCategory];
+    // console.log(newCategories);
 
     // try {
     //   const res = await updateLog({

@@ -10,9 +10,11 @@ import { HexColorPicker } from "react-colorful";
 import { useUpdateLogMutation } from "../slices/logsApiSlice";
 import { useParams } from "react-router-dom";
 import OutsideClick from "./OutsideClick";
+import { useSelector } from "react-redux";
 
-const EditCategoryForm = ({ closeUI, props }) => {
-  const { categories } = props;
+const EditCategoryForm = ({ closeUI }) => {
+  // const { categories } = props;
+  const { tempCategories } = useSelector((state) => state.logs);
   const { logId } = useParams();
   const [name, setName] = useState("");
   const [color, setColor] = useState("");
@@ -77,10 +79,10 @@ const EditCategoryForm = ({ closeUI, props }) => {
     const updatedCategory = { name, color, type };
     if (isEqual(updatedCategory, selectedCategory)) return;
 
-    const newCategories = categories.map((cat) =>
-      cat.name === selectedCategory.name ? updatedCategory : cat
-    );
-    console.log(newCategories);
+    // const newCategories = categories.map((cat) =>
+    //   cat.name === selectedCategory.name ? updatedCategory : cat
+    // );
+    // console.log(newCategories);
     // try {
     //   const res = await updateLog({
     //     id: logId,
@@ -186,7 +188,7 @@ const EditCategoryForm = ({ closeUI, props }) => {
                   className="absolute right-0 top-9 rounded p-1 bg-slate-100
                         shadow shadow-slate-400 w-full flex flex-col gap-1 z-10"
                 >
-                  {categories.map((cat, index) => (
+                  {tempCategories.map((cat, index) => (
                     <li
                       className="log-options-2"
                       style={{ backgroundColor: cat.color }}
