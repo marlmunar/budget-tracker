@@ -128,7 +128,7 @@ const ExpenseSummary = ({ props }) => {
               </div>
               <div className="text-sm md:text-base flex items-center justify-between font-semibold p-2">
                 <p className="text-xs md:text-sm">{`${entriesCount} ${
-                  entriesCount > 1 ? "tempEntries" : "entry"
+                  entriesCount > 1 ? "entries" : "entry"
                 }`}</p>
                 <p>{formatNumber(total)}</p>
               </div>

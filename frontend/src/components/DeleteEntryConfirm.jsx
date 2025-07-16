@@ -52,7 +52,7 @@ const DeleteEntryConfirm = ({ closeUI, props }) => {
         </div>
       </div>
       <div className="p-4 ">
-        <p className="px-1">This will this entry:</p>
+        <p className="px-1">This will delete this entry:</p>
         <div className="flex flex-col shadow rounded p-2 mt-1 shadow-slate-300">
           <p className="font-semibold text-xl">
             PHP {formatNumber(entry.amount)}
