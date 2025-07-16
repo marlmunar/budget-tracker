@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { startLoading, stopLoading } from "../slices/appSlice";
 import LogScreenHeader from "../components/LogScreenHeader";
 import Footer from "../components/Footer";
-import { setTempEntries } from "../slices/logSlice";
+import { setTempCategories, setTempEntries } from "../slices/logSlice";
 
 const LogScreen = () => {
   const dispatch = useDispatch();
@@ -37,11 +37,7 @@ const LogScreen = () => {
   const [logData, setLogData] = useState({});
   const [categories, setCategories] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
-  const [isSelecting, setIsSelecting] = useState(false);
   const { lastAction } = useSelector((state) => state.app);
-
-  const [displayName, setDisplayName] = useState("");
-  const [activeAction, setActiveAction] = useState("");
 
   const [error, setError] = useState("");
 
@@ -60,7 +56,10 @@ const LogScreen = () => {
         setLogData(res.data);
         setCategories(res.data.categories);
 
-        if (!isNotSaved) dispatch(setTempEntries([...res.data.entries]));
+        if (!isNotSaved) {
+          dispatch(setTempEntries([...res.data.entries]));
+          dispatch(setTempCategories([...res.data.categories]));
+        }
       } catch (error) {
         console.error("Error fetching data:", error);
         if (error.status === 400 || error.status === 404) {
@@ -73,21 +72,6 @@ const LogScreen = () => {
     fetchData();
   }, [isNotSaved, lastAction]);
 
-  const handleRename = async (name) => {
-    try {
-      dispatch(startLoading());
-      const res = await updateLog({
-        id: logId,
-        data: { name },
-      }).unwrap();
-      console.log(res);
-    } catch (error) {
-      console.log(error?.data?.message || error.message);
-    } finally {
-      dispatch(stopLoading());
-    }
-  };
-
   const handleDownload = async () => {
     try {
       dispatch(startLoading());
@@ -97,18 +81,6 @@ const LogScreen = () => {
     } finally {
       dispatch(stopLoading());
       setTimeout(() => setError(""), 2000);
-    }
-  };
-
-  const handleDelete = async () => {
-    try {
-      const res = await deleteLog({
-        id: logId,
-      }).unwrap();
-      console.log(res);
-      navigate("/profile");
-    } catch (error) {
-      console.log(error?.data?.message || error.message);
     }
   };
 
