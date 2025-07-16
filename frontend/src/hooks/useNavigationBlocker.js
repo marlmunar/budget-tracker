@@ -8,20 +8,26 @@ export default function useNavigationBlocker(when) {
 
   useEffect(() => {
     const handleBeforeUnload = (e) => {
-      e.preventDefault();
-      e.returnValue = "";
+      if (when) {
+        e.preventDefault();
+        e.returnValue = "";
+      }
     };
 
     window.addEventListener("beforeunload", handleBeforeUnload);
     return () => window.removeEventListener("beforeunload", handleBeforeUnload);
-  }, []);
+  }, [when]);
 
   const blocker = useBlocker(shouldBlock);
 
-  const confirm = () => {
-    blocker.proceed();
-    blocker.reset();
-  };
+  const confirm = useCallback(() => {
+    blocker?.proceed?.();
+    blocker?.reset?.();
+  }, [blocker]);
 
-  return { confirm, blocker };
+  const cancel = useCallback(() => {
+    blocker?.reset?.();
+  }, [blocker]);
+
+  return { confirm, cancel, blocker };
 }

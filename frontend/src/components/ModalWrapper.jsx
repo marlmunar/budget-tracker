@@ -15,10 +15,11 @@ import { setIsNotSaved } from "../slices/logSlice";
 const ModalWrapper = () => {
   const dispatch = useDispatch();
   const { isNotSaved } = useSelector((state) => state.logs);
-  const { confirm, blocker } = useNavigationBlocker(isNotSaved);
+  const { blocker, confirm, cancel } = useNavigationBlocker(isNotSaved);
 
   useEffect(() => {
-    if (blocker.state === "blocked" && isNotSaved) {
+    if (blocker?.state === "blocked" && isNotSaved) {
+      console.log(blocker);
       dispatch(
         setModalState({
           showModal: true,
@@ -33,6 +34,9 @@ const ModalWrapper = () => {
   );
 
   const closeModal = () => {
+    if (blocker.state === "blocked") {
+      cancel();
+    }
     dispatch(
       setModalState({
         showModal: false,
