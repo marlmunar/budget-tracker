@@ -9,7 +9,11 @@ import { useEffect, useState } from "react";
 import { HexColorPicker } from "react-colorful";
 import OutsideClick from "./OutsideClick";
 import { useDispatch, useSelector } from "react-redux";
-import { setTempCategories, setTempEntries } from "../slices/logSlice";
+import {
+  setIsNotSaved,
+  setTempCategories,
+  setTempEntries,
+} from "../slices/logSlice";
 
 const EditCategoryForm = ({ closeUI }) => {
   const dispatch = useDispatch();
@@ -81,13 +85,12 @@ const EditCategoryForm = ({ closeUI }) => {
         ? { ...entry, category: updatedCategory }
         : entry
     );
-    console.log(newTempEntries);
     dispatch(setTempEntries(newTempEntries));
     const newCategories = tempCategories.map((cat) =>
       cat.name === selectedCategory.name ? updatedCategory : cat
     );
-    console.log(newCategories);
     dispatch(setTempCategories(newCategories));
+    dispatch(setIsNotSaved(true));
     closeUI();
   };
 

@@ -1,15 +1,14 @@
-import { TbArrowLeft, TbCheck, TbX } from "react-icons/tb";
+import { TbCheck, TbX } from "react-icons/tb";
 import { useEffect, useState } from "react";
-import { useUpdateLogMutation } from "../slices/logsApiSlice";
-import { useSelector } from "react-redux";
-import { setTempCategories } from "../slices/logSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { setIsNotSaved, setTempCategories } from "../slices/logSlice";
 
 const DeleteCategoryForm = ({ closeUI }) => {
+  const dispatch = useDispatch();
   const { tempCategories } = useSelector((state) => state.logs);
   const [tempList, setTempList] = useState(tempCategories);
   const [error, setError] = useState("");
 
-  const [updateLog, { isLoading }] = useUpdateLogMutation();
   const { tempEntries } = useSelector((state) => state.logs);
   const activeCategories = [
     ...new Set(tempEntries.map((cat) => cat.category.name)),
@@ -35,20 +34,11 @@ const DeleteCategoryForm = ({ closeUI }) => {
     return;
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      const res = await updateLog({
-        id: logId,
-        data: { categories: tempCategories },
-      }).unwrap();
-
-      console.log(res);
-
-      setLastAction(Date.now());
-    } catch (error) {
-      console.log(error?.data?.message || error.message);
-    }
+    dispatch(setTempCategories(tempList));
+    dispatch(setIsNotSaved(true));
+    closeUI();
   };
 
   return (
@@ -64,9 +54,8 @@ const DeleteCategoryForm = ({ closeUI }) => {
           <button
             className="log-tool-button h-10 w-10 bg-slate-200"
             type="submit"
-            form="editForm"
+            form="deleteCat"
             formNoValidate
-            // onClick={handleSave}
           >
             <TbCheck />
           </button>
@@ -81,6 +70,7 @@ const DeleteCategoryForm = ({ closeUI }) => {
 
       <form
         method="POST"
+        id="deleteCat"
         onSubmit={handleSubmit}
         className="flex flex-col relative p-2 gap-1"
       >
