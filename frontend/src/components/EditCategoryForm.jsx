@@ -7,15 +7,14 @@ import {
 } from "react-icons/tb";
 import { useEffect, useState } from "react";
 import { HexColorPicker } from "react-colorful";
-import { useUpdateLogMutation } from "../slices/logsApiSlice";
-import { useParams } from "react-router-dom";
 import OutsideClick from "./OutsideClick";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setTempCategories, setTempEntries } from "../slices/logSlice";
 
 const EditCategoryForm = ({ closeUI }) => {
-  // const { categories } = props;
+  const dispatch = useDispatch();
   const { tempCategories } = useSelector((state) => state.logs);
-  const { logId } = useParams();
+  const { tempEntries } = useSelector((state) => state.logs);
   const [name, setName] = useState("");
   const [color, setColor] = useState("");
   const [selectedCategory, setSelectedCategory] = useState({});
@@ -42,8 +41,6 @@ const EditCategoryForm = ({ closeUI }) => {
     "#A569BD",
     "#C39BD3",
   ];
-
-  const [updateLog, { isLoading }] = useUpdateLogMutation();
 
   const isEqual = (a, b) => {
     if (a === b) return true;
@@ -79,25 +76,19 @@ const EditCategoryForm = ({ closeUI }) => {
     const updatedCategory = { name, color, type };
     if (isEqual(updatedCategory, selectedCategory)) return;
 
-    // const newCategories = categories.map((cat) =>
-    //   cat.name === selectedCategory.name ? updatedCategory : cat
-    // );
-    // console.log(newCategories);
-    // try {
-    //   const res = await updateLog({
-    //     id: logId,
-    //     data: { categories: newCategories },
-    //   }).unwrap();
-
-    //   console.log(res);
-
-    //   setName("");
-    //   setColor("#000000");
-    //   setActiveAction("Adding Entry");
-    //   setLastAction(Date.now());
-    // } catch (error) {
-    //   console.log(error?.data?.message || error.message);
-    // }
+    const newTempEntries = tempEntries.map((entry) =>
+      entry.category.name === selectedCategory.name
+        ? { ...entry, category: updatedCategory }
+        : entry
+    );
+    console.log(newTempEntries);
+    dispatch(setTempEntries(newTempEntries));
+    const newCategories = tempCategories.map((cat) =>
+      cat.name === selectedCategory.name ? updatedCategory : cat
+    );
+    console.log(newCategories);
+    dispatch(setTempCategories(newCategories));
+    closeUI();
   };
 
   const handleChange = (newColor) => {

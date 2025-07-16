@@ -1,7 +1,6 @@
 import { TbCheck, TbPlus, TbX } from "react-icons/tb";
 import { useEffect, useState } from "react";
 import { HexColorPicker } from "react-colorful";
-import { useUpdateLogMutation } from "../slices/logsApiSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { addTempCategories, setIsNotSaved } from "../slices/logSlice";
 import { retry } from "@reduxjs/toolkit/query";
@@ -35,8 +34,6 @@ const AddCategoryForm = ({ closeUI }) => {
     "#C39BD3",
   ];
 
-  const [updateLog, { isLoading }] = useUpdateLogMutation();
-
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!name) return setError("Please fill out the name field");
@@ -47,7 +44,6 @@ const AddCategoryForm = ({ closeUI }) => {
       return setError("Category already exists");
 
     const newCategory = { name, color, type };
-    console.log(newCategory);
     dispatch(addTempCategories(newCategory));
     dispatch(setIsNotSaved(true));
     closeUI();
