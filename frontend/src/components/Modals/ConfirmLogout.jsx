@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { startLoading, stopLoading } from "../../slices/appSlice";
 import { useLogoutMutation } from "../../slices/userApiSlice";
 import { clearCredentials } from "../../slices/authSlice";
+const logoutChannel = new BroadcastChannel("logout_channel");
 
 const ConfirmLogout = ({ closeModal }) => {
   const dispatch = useDispatch();
@@ -14,16 +15,16 @@ const ConfirmLogout = ({ closeModal }) => {
     console.log("here");
     try {
       dispatch(startLoading());
-      console.log("started loading");
       const res = await logout().unwrap();
       dispatch(clearCredentials());
+      logoutChannel.postMessage("logout");
+
       navigate("/");
-      console.log("should navigate");
     } catch (error) {
       console.log(error);
     } finally {
       dispatch(stopLoading());
-      console.log("stopped loading");
+
       closeModal();
     }
   };
