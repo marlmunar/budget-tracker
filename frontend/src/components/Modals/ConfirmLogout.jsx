@@ -12,7 +12,6 @@ const ConfirmLogout = ({ closeModal }) => {
   const [logout, { isLoading }] = useLogoutMutation();
 
   const handleLogout = async () => {
-    console.log("here");
     try {
       dispatch(startLoading());
       const res = await logout().unwrap();

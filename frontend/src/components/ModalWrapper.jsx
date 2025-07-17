@@ -20,7 +20,6 @@ const ModalWrapper = () => {
 
   useEffect(() => {
     if (blocker?.state === "blocked" && isNotSaved) {
-      console.log(blocker);
       dispatch(
         setModalState({
           showModal: true,
