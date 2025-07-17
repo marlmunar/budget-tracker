@@ -5,10 +5,8 @@ import { useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import favicon from "../assets/favicon.png";
 import { useDispatch, useSelector } from "react-redux";
-import { useLogoutMutation } from "../slices/userApiSlice";
-import { clearCredentials } from "../slices/authSlice";
 import OutsideClick from "./OutsideClick";
-import { setModalState, startLoading, stopLoading } from "../slices/appSlice";
+import { setModalState } from "../slices/appSlice";
 const logoutChannel = new BroadcastChannel("logout_channel");
 const loginChannel = new BroadcastChannel("login_channel");
 
@@ -18,23 +16,6 @@ const Header = () => {
   const [isClicked, setIsClicked] = useState(false);
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  const [logout, { isLoading }] = useLogoutMutation();
-
-  const handleLogout = async () => {
-    try {
-      dispatch(startLoading());
-      const res = await logout().unwrap();
-      logoutChannel.postMessage("logout");
-      dispatch(clearCredentials());
-      navigate("/");
-    } catch (error) {
-      console.log(error);
-    } finally {
-      dispatch(stopLoading());
-    }
-  };
 
   useEffect(() => {
     logoutChannel.onmessage = (event) => {
