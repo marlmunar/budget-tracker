@@ -67,6 +67,15 @@ const ModalWrapper = () => {
 
   const getModal = () => modals[activeModal] || null;
 
+  const titles = {
+    addLog: "Add New Log",
+    rename: "Rename Log",
+    delete: "Delete Log",
+    confirmExit: "Leave Log",
+  };
+
+  const getModalTitle = () => titles[activeModal] || null;
+
   const scrollToRef = useRef(null);
 
   useEffect(() => {
@@ -120,7 +129,7 @@ const ModalWrapper = () => {
                   onClick={(e) => e.stopPropagation()}
                 >
                   <div className="log-section-header">
-                    <h3>Add New Log</h3>
+                    <h3>{getModalTitle()}</h3>
                     <div className="flex gap-2">
                       <button
                         className="ml-auto log-tool-button h-10 w-10 bg-slate-200"

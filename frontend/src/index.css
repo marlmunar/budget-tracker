@@ -420,7 +420,7 @@ menu li {
 }
 
 .modal-form {
-  @apply flex flex-col gap-2 mx-auto min-w-72 border;
+  @apply flex flex-col gap-2 mx-auto min-w-72;
 }
 
 .modal-container {
@@ -433,7 +433,7 @@ menu li {
 
 .modal-input-container > label,
 .modal-input-container > p {
-  @apply text-sm md:text-base border;
+  @apply text-sm md:text-base;
 }
 
 .modal-input-container > input {
