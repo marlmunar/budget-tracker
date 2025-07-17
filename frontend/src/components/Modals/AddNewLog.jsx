@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { TbArrowNarrowLeft, TbChevronLeft } from "react-icons/tb";
+import { TbArrowNarrowLeft, TbCheck, TbChevronLeft, TbX } from "react-icons/tb";
 import { useDispatch, useSelector } from "react-redux";
 import { useCreateLogMutation } from "../../slices/logsApiSlice";
 import { setLastAction } from "../../slices/appSlice";
@@ -124,141 +124,133 @@ const AddNewLog = ({ closeModal }) => {
   };
 
   return (
-    <form
-      className="flex flex-col gap-2 p-2 mx-auto min-w-72"
-      onSubmit={handleSubmit}
-    >
-      {!logType ? (
-        <>
-          <h3 className="text-base md:text-xl my-2 font-semibold">
-            Add New Log
-          </h3>
-          <p className="text-sm md:text-base">Choose a log type</p>
-          <menu className="flex flex-col md:flex-row gap-2 w-[84vw] lg:w-[55vw]">
-            <button
-              className="log-type-button"
-              type="button"
-              onClick={() => setLogType(1)}
-            >
-              <h4>General Tracker</h4>
-              <div></div>
-              <span>Simple logging without goals or deadlines.</span>
-            </button>
-            <button
-              className="log-type-button"
-              type="button"
-              onClick={() => setLogType(2)}
-            >
-              <h4>Saving Goal</h4>
-              <div></div>
-              <span>Save toward an amount by a chosen date.</span>
-            </button>
-            <button
-              className="log-type-button"
-              type="button"
-              onClick={() => setLogType(3)}
-            >
-              <h4>Budget with Deadline</h4>
-              <div></div>
-              <span>Stay within a spending limit over time.</span>
-            </button>
-          </menu>
-        </>
-      ) : (
-        <>
-          <button
-            className="absolute top-4 left-4 modal-button"
-            onClick={resetForm}
-          >
-            <TbChevronLeft />
-          </button>
-          <h3 className="text-base md:text-xl mt-10 md:mt-6 text-center font-semibold">
-            Add New {logTypes[logType]}
-          </h3>
-          <div className="modal-input-container">
-            <label htmlFor="logName">Log Name</label>
-            <input
-              id="logName"
-              type="text"
-              maxLength="25"
-              value={logName}
-              onChange={(e) => setLogName(e.target.value)}
-              autoComplete="off"
-            />
-          </div>
+    <>
+      <form className="modal-form" onSubmit={handleSubmit}>
+        {!logType ? (
+          <>
+            <p className="text-sm md:text-base">Choose a log type</p>
+            <menu className="flex flex-col md:flex-row gap-2 w-[84vw] lg:w-[55vw]">
+              <button
+                className="log-type-button"
+                type="button"
+                onClick={() => setLogType(1)}
+              >
+                <h4>General Tracker</h4>
+                <div></div>
+                <span>Simple logging without goals or deadlines.</span>
+              </button>
+              <button
+                className="log-type-button"
+                type="button"
+                onClick={() => setLogType(2)}
+              >
+                <h4>Saving Goal</h4>
+                <div></div>
+                <span>Save toward an amount by a chosen date.</span>
+              </button>
+              <button
+                className="log-type-button"
+                type="button"
+                onClick={() => setLogType(3)}
+              >
+                <h4>Budget with Deadline</h4>
+                <div></div>
+                <span>Stay within a spending limit over time.</span>
+              </button>
+            </menu>
+          </>
+        ) : (
+          <>
+            <h3 className="text-base md:text-lg text-center font-semibold">
+              Add New {logTypes[logType]}
+            </h3>
+            <div className="modal-input-container">
+              <label htmlFor="logName">Log Name</label>
+              <input
+                id="logName"
+                type="text"
+                maxLength="25"
+                value={logName}
+                onChange={(e) => setLogName(e.target.value)}
+                autoComplete="off"
+              />
+            </div>
 
-          {logType === 2 && (
-            <>
-              <div className="modal-input-container">
-                <label htmlFor="goal">Saving Goal Amount</label>
-                <input
-                  id="goal"
-                  type="number"
-                  onKeyDown={(e) =>
-                    ["e", "E", "+", "-"].includes(e.key) && e.preventDefault()
-                  }
-                  value={threshold}
-                  onChange={(e) => handleNewThreshold(e)}
-                  autoComplete="off"
-                />
-              </div>
-              <div className="modal-input-container">
-                <label htmlFor="endDate1">End Date</label>
-                <input
-                  id="endDate1"
-                  type="date"
-                  value={endDate}
-                  onChange={(e) => setEndDate(e.target.value)}
-                  autoComplete="off"
-                />
-              </div>
-            </>
-          )}
+            {logType === 2 && (
+              <>
+                <div className="modal-input-container">
+                  <label htmlFor="goal">Saving Goal Amount</label>
+                  <input
+                    id="goal"
+                    type="number"
+                    onKeyDown={(e) =>
+                      ["e", "E", "+", "-"].includes(e.key) && e.preventDefault()
+                    }
+                    value={threshold}
+                    onChange={(e) => handleNewThreshold(e)}
+                    autoComplete="off"
+                  />
+                </div>
+                <div className="modal-input-container">
+                  <label htmlFor="endDate1">End Date</label>
+                  <input
+                    id="endDate1"
+                    type="date"
+                    value={endDate}
+                    onChange={(e) => setEndDate(e.target.value)}
+                    autoComplete="off"
+                  />
+                </div>
+              </>
+            )}
 
-          {logType === 3 && (
-            <>
-              <div className="modal-input-container">
-                <label htmlFor="spendingLimit">Spending Limit</label>
-                <input
-                  id="spendingLimit"
-                  type="number"
-                  onKeyDown={(e) =>
-                    ["e", "E", "+", "-"].includes(e.key) && e.preventDefault()
-                  }
-                  autoComplete="off"
-                  value={threshold}
-                  onChange={(e) => handleNewThreshold(e)}
-                />
-              </div>
-              <div className="modal-input-container">
-                <label htmlFor="startDate">Start Date</label>
-                <input
-                  id="startDate"
-                  type="date"
-                  value={startDate}
-                  onChange={(e) => setStartDate(e.target.value)}
-                  autoComplete="off"
-                />
-              </div>
-              <div className="modal-input-container">
-                <label htmlFor="endDate2">End Date</label>
-                <input
-                  id="endDate2"
-                  type="date"
-                  value={endDate}
-                  onChange={(e) => setEndDate(e.target.value)}
-                  autoComplete="off"
-                />
-              </div>
-            </>
-          )}
-          <div className=" text-left text-red-500 text-sm">{error}</div>
-          <button className="modal-action-button" formNoValidate>
-            Save
-          </button>
-        </>
-      )}
-    </form>
+            {logType === 3 && (
+              <>
+                <div className="modal-input-container">
+                  <label htmlFor="spendingLimit">Spending Limit</label>
+                  <input
+                    id="spendingLimit"
+                    type="number"
+                    onKeyDown={(e) =>
+                      ["e", "E", "+", "-"].includes(e.key) && e.preventDefault()
+                    }
+                    autoComplete="off"
+                    value={threshold}
+                    onChange={(e) => handleNewThreshold(e)}
+                  />
+                </div>
+                <div className="modal-input-container">
+                  <label htmlFor="startDate">Start Date</label>
+                  <input
+                    id="startDate"
+                    type="date"
+                    value={startDate}
+                    onChange={(e) => setStartDate(e.target.value)}
+                    autoComplete="off"
+                  />
+                </div>
+                <div className="modal-input-container">
+                  <label htmlFor="endDate2">End Date</label>
+                  <input
+                    id="endDate2"
+                    type="date"
+                    value={endDate}
+                    onChange={(e) => setEndDate(e.target.value)}
+                    autoComplete="off"
+                  />
+                </div>
+              </>
+            )}
+            {error && (
+              <div className="text-left text-red-500 text-sm">{error}</div>
+            )}
+            <button className="modal-action-button" formNoValidate>
+              Save
+            </button>
+          </>
+        )}
+      </form>
+    </>
   );
 };
 

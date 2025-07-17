@@ -116,16 +116,21 @@ const ModalWrapper = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 100 }}
                   transition={{ duration: 0.3 }}
-                  className="sticky rounded p-2 md:p-4 top-[20%] bg-white"
+                  className="sticky rounded top-[20%] bg-white"
                   onClick={(e) => e.stopPropagation()}
                 >
-                  {getModal()}
-                  <button
-                    className="absolute top-4 right-4 modal-button"
-                    onClick={closeModal}
-                  >
-                    <TbX />
-                  </button>
+                  <div className="log-section-header">
+                    <h3>Add New Log</h3>
+                    <div className="flex gap-2">
+                      <button
+                        className="ml-auto log-tool-button h-10 w-10 bg-slate-200"
+                        onClick={closeModal}
+                      >
+                        <TbX />
+                      </button>
+                    </div>
+                  </div>
+                  <div className="modal-container">{getModal()}</div>
                 </motion.div>
               </AnimatePresence>
             </div>

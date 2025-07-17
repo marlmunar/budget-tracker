@@ -34,23 +34,10 @@ const Rename = ({ name, id, closeModal }) => {
   };
 
   return (
-    <form
-      className="flex flex-col gap-2 p-2 md:p-0 min-w-72"
-      onSubmit={handleSubmit}
-    >
-      <h3 className="text-base md:text-xl mt-2 font-semibold ml-2">
-        Rename Log
-      </h3>
-      <div className="modal-input-container px-2">
-        <label
-          className="text-sm md:text-base flex items-center pr-2"
-          htmlFor="newName"
-        >
-          Edit name of "
-          <span className="font-semibold max-w-[15ch] inline-block truncate">
-            {name}
-          </span>
-          "
+    <form className="modal-form" onSubmit={handleSubmit}>
+      <div className="modal-input-container">
+        <label htmlFor="newName">
+          Edit name of "<span className="font-semibold">{name}</span>"
         </label>
         <input
           value={newName}
@@ -63,7 +50,7 @@ const Rename = ({ name, id, closeModal }) => {
         <div className="ml-1 text-left mt-1 text-red-500 text-sm">{error}</div>
       </div>
 
-      <button className="modal-action-button mr-2" formNoValidate>
+      <button className="modal-action-button" formNoValidate>
         Save
       </button>
     </form>
