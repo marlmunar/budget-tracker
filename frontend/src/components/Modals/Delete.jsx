@@ -33,9 +33,9 @@ const Delete = ({ resource, closeModal }) => {
   return (
     <form className="modal-form" onSubmit={handleSubmit}>
       <div className="modal-input-container">
-        <p>Do you want to delete this {resource.type}?</p>
+        <p>Do you want to delete "{resource.name}"?</p>
       </div>
-      <div className="self-end flex gap-2 border">
+      <div className="self-end flex gap-2">
         <button type="submit" className="modal-delete-button">
           Confirm
         </button>
