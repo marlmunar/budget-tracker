@@ -1,18 +1,17 @@
 import React from "react";
 
-const ConfirmExit = ({ closeModal, confirmNavigation }) => {
+const ConfirmLogout = ({ closeModal }) => {
   return (
     <form className="modal-form">
       <div className="modal-input-container">
-        <p>You are trying to leave a log with unsaved changes.</p>
+        <p>Are you sure you want to leave?</p>
       </div>
       <div className="self-end flex gap-2">
         <button
           type="button"
-          className="modal-delete-button"
+          className="modal-action-button"
           onClick={() => {
             closeModal();
-            confirmNavigation();
           }}
         >
           Confirm
@@ -31,4 +30,4 @@ const ConfirmExit = ({ closeModal, confirmNavigation }) => {
   );
 };
 
-export default ConfirmExit;
+export default ConfirmLogout;

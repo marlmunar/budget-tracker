@@ -11,6 +11,7 @@ import OutsideClick from "./OutsideClick";
 import ConfirmExit from "./Modals/ConfirmExit";
 import useNavigationBlocker from "../hooks/useNavigationBlocker";
 import { setIsNotSaved } from "../slices/logSlice";
+import ConfirmLogout from "./Modals/ConfirmLogout";
 
 const ModalWrapper = () => {
   const dispatch = useDispatch();
@@ -63,6 +64,7 @@ const ModalWrapper = () => {
         confirmNavigation={confirmNavigation}
       />
     ),
+    confirmLogout: <ConfirmLogout closeModal={closeModal} />,
   };
 
   const getModal = () => modals[activeModal] || null;
@@ -72,6 +74,7 @@ const ModalWrapper = () => {
     rename: "Rename Log",
     delete: "Delete Log",
     confirmExit: "Leave Log",
+    confirmLogout: "Confirm Logout",
   };
 
   const getModalTitle = () => titles[activeModal] || null;

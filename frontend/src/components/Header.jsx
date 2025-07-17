@@ -1,10 +1,4 @@
-import {
-  TbArrowBadgeRight,
-  TbLogin2,
-  TbMapPin,
-  TbMenu2,
-  TbX,
-} from "react-icons/tb";
+import { TbMenu2, TbX } from "react-icons/tb";
 import { BsPersonSquare } from "react-icons/bs";
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 import { useEffect, useState } from "react";
@@ -13,14 +7,12 @@ import favicon from "../assets/favicon.png";
 import { useDispatch, useSelector } from "react-redux";
 import { useLogoutMutation } from "../slices/userApiSlice";
 import { clearCredentials } from "../slices/authSlice";
-import ConfirmModal from "./ConfirmModal";
 import OutsideClick from "./OutsideClick";
-import { startLoading, stopLoading } from "../slices/appSlice";
+import { setModalState, startLoading, stopLoading } from "../slices/appSlice";
 const logoutChannel = new BroadcastChannel("logout_channel");
 const loginChannel = new BroadcastChannel("login_channel");
 
 const Header = () => {
-  const [isLoggingOut, setIsLoggingOut] = useState(false);
   const { userInfo } = useSelector((state) => state.auth);
   const { isLoggingIn } = useSelector((state) => state.user);
   const [isClicked, setIsClicked] = useState(false);
@@ -132,7 +124,12 @@ const Header = () => {
                   <span
                     onClick={() => {
                       setIsClicked(false);
-                      setIsLoggingOut(true);
+                      dispatch(
+                        setModalState({
+                          showModal: true,
+                          activeModal: "confirmLogout",
+                        })
+                      );
                     }}
                   >
                     Logout
@@ -220,18 +217,6 @@ const Header = () => {
           )}
         </div>
       </div>
-      {isLoggingOut && (
-        <ConfirmModal
-          isOpen={isLoggingOut}
-          setIsOpen={setIsLoggingOut}
-          handleConfirm={() => {
-            setIsLoggingOut(false);
-            handleLogout();
-          }}
-          action="Logout"
-          description={"Are you sure you want to logout?"}
-        />
-      )}
     </header>
   );
 };
