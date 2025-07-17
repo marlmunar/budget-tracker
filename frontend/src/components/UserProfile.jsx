@@ -1,6 +1,5 @@
 import { TbSettings, TbEdit } from "react-icons/tb";
 import { useState } from "react";
-import RenameModal from "./RenameModal";
 import { useUpdateMutation } from "../slices/userApiSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { setCredentials } from "../slices/authSlice";
@@ -41,7 +40,7 @@ const UserProfile = ({ userLogs }) => {
         </div>
       </div>
 
-      {isRenaming && (
+      {/* {isRenaming && (
         <RenameModal
           isRenaming={isRenaming}
           setIsRenaming={setIsRenaming}
@@ -54,7 +53,7 @@ const UserProfile = ({ userLogs }) => {
           title="Edit User Name"
           description="Update your user name"
         />
-      )}
+      )} */}
 
       <div className="grid grid-row-4 grid-cols-2 gap-x-5 gap-y-1">
         <span className="font-semibold">Logs:</span>

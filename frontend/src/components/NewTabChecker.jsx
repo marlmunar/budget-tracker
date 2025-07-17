@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import { Outlet, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setActiveLogTabs } from "../slices/logSlice";
-import Modal from "./Modal";
 
 const channel = new BroadcastChannel("budgetarian");
 
@@ -137,7 +136,7 @@ const NewTabChecker = () => {
   return (
     <>
       <Outlet />
-      {isNotActive && (
+      {/* {isNotActive && (
         <Modal
           isOpen={isNotActive}
           onClose={() => navigate("/profile")}
@@ -154,7 +153,7 @@ const NewTabChecker = () => {
             </div>
           </div>
         </Modal>
-      )}
+      )} */}
     </>
   );
 };
