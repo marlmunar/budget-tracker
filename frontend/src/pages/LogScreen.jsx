@@ -63,7 +63,7 @@ const LogScreen = () => {
       } catch (error) {
         console.error("Error fetching data:", error);
         if (error.status === 400 || error.status === 404) {
-          navigate("/not-found");
+          navigate("/logs");
         }
       } finally {
       }

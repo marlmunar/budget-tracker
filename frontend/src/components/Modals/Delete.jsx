@@ -2,32 +2,26 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { useDeleteLogMutation } from "../../slices/logsApiSlice";
 import { setLastAction } from "../../slices/appSlice";
-import { useLocation, useNavigate } from "react-router-dom";
+import { setIsNotSaved } from "../../slices/logSlice";
 
 const Delete = ({ resource, closeModal }) => {
-  const location = useLocation();
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [deleteLog] = useDeleteLogMutation();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    dispatch(setIsNotSaved(false));
     try {
-      if (location.pathname !== "/logs") {
-        navigate("/logs");
-      }
-
       const res = await deleteLog({
         id: resource.id,
       }).unwrap();
 
       closeModal();
-
       dispatch(setLastAction(Date.now()));
+     
     } catch (error) {
       console.log(error?.data?.message || error.message);
-    }
+    } 
   };
 
   return (
