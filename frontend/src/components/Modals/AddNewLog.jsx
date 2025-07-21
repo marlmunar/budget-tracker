@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { TbArrowNarrowLeft, TbCheck, TbChevronLeft, TbX } from "react-icons/tb";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useCreateLogMutation } from "../../slices/logsApiSlice";
-import { setLastAction } from "../../slices/appSlice";
+import { useNavigate } from "react-router-dom";
 
 const AddNewLog = ({ closeModal }) => {
-  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { defaultCategories } = useSelector((state) => state.logs);
   const [createLog] = useCreateLogMutation();
   const [logType, setLogType] = useState("");
@@ -116,8 +116,9 @@ const AddNewLog = ({ closeModal }) => {
 
     try {
       const res = await createLog(newLog).unwrap();
+
       closeModal();
-      dispatch(setLastAction(Date.now()));
+      navigate(`log/${res?.data?._id}`);
     } catch (error) {
       console.log(error?.data?.message || error.message);
     }
