@@ -55,7 +55,6 @@ const LogScreen = () => {
           dispatch(setTempCategories([...res.data.categories]));
         }
       } catch (error) {
-        console.error("Error fetching data:", error);
         if (error.status === 400 || error.status === 404) {
           navigate("/logs");
         }
