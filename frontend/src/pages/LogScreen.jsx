@@ -3,10 +3,8 @@ import { useNavigate, useParams, Link } from "react-router-dom";
 import ExpenseList from "../components/ExpenseList";
 import ExpenseSummary from "../components/ExpenseSummary";
 import {
-  useDeleteLogMutation,
   useDownloadLogMutation,
   useLazyGetLogQuery,
-  useUpdateLogMutation,
 } from "../slices/logsApiSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { startLoading, stopLoading } from "../slices/appSlice";
@@ -35,7 +33,6 @@ const LogScreen = () => {
   }, []);
 
   const [logData, setLogData] = useState({});
-  const [categories, setCategories] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const { lastAction } = useSelector((state) => state.app);
 
@@ -43,8 +40,7 @@ const LogScreen = () => {
 
   const [getLog, { data }] = useLazyGetLogQuery();
   const [downloadLog] = useDownloadLogMutation();
-  const [deleteLog] = useDeleteLogMutation();
-  const [updateLog] = useUpdateLogMutation();
+
   const { tempEntries } = useSelector((state) => state.logs);
   const { isNotSaved } = useSelector((state) => state.logs);
   const { logId } = useParams();
@@ -54,8 +50,6 @@ const LogScreen = () => {
       try {
         const res = await getLog(logId).unwrap();
         setLogData(res.data);
-        setCategories(res.data.categories);
-
         if (!isNotSaved) {
           dispatch(setTempEntries([...res.data.entries]));
           dispatch(setTempCategories([...res.data.categories]));
@@ -105,6 +99,7 @@ const LogScreen = () => {
             props={{
               selectedCategories,
               setSelectedCategories,
+              logType: logData?.logData?.type,
             }}
           />
         </div>

@@ -4,19 +4,12 @@ import NoRecords from "./NoRecords";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
-const ExpenseSummary = ({ props }) => {
-  const { selectedCategories, setSelectedCategories, logType } = props;
+const GeneralTracker = ({ props }) => {
+  const { selectedCategories, setSelectedCategories } = props;
   const { tempCategories } = useSelector((state) => state.logs);
   const { tempEntries } = useSelector((state) => state.logs);
 
   const [displayReload, setDisplayReload] = useState(false);
-
-  const summaries = {
-    1: "Genaral Tracker",
-    2: "Savings Goal",
-    3: "Budget with Deadline",
-  };
-  const getSummary = () => summaries[logType] || null;
 
   const entriesCount = tempEntries.reduce(
     (sum, entry) =>
@@ -86,7 +79,7 @@ const ExpenseSummary = ({ props }) => {
     <section className="log-section-container">
       <div className="log-section-header">
         <h2 className="h-10 flex items-center">Expense Summary</h2>
-        {/* {displayReload && (
+        {displayReload && (
           <button
             className="log-tool-button h-10 w-10 bg-slate-200"
             onClick={() => {
@@ -96,11 +89,10 @@ const ExpenseSummary = ({ props }) => {
           >
             <TbReload />
           </button>
-        )} */}
+        )}
       </div>
-      <p>{getSummary()}</p>
 
-      {/* {tempEntries.length > 0 ? (
+      {tempEntries.length > 0 ? (
         <div className="flex text-xs md:text-sm flex-col gap-2 p-2">
           <div className="flex bg-slate-200 p-2 rounded text-gray-800 justify-between font-semibold">
             <h3>Category</h3>
@@ -145,9 +137,9 @@ const ExpenseSummary = ({ props }) => {
         </div>
       ) : (
         <NoRecords />
-      )} */}
+      )}
     </section>
   );
 };
 
-export default ExpenseSummary;
+export default GeneralTracker;
