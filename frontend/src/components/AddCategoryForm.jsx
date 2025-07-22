@@ -5,7 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { addTempCategories, setIsNotSaved } from "../slices/logSlice";
 import { retry } from "@reduxjs/toolkit/query";
 
-const AddCategoryForm = ({ closeUI }) => {
+const AddCategoryForm = ({ closeUI, props }) => {
+  const { logType } = props;
   const dispatch = useDispatch();
   const { tempCategories } = useSelector((state) => state.logs);
   const categoryNames = tempCategories.map((cat) => cat.name.toLowerCase());
@@ -114,44 +115,46 @@ const AddCategoryForm = ({ closeUI }) => {
                 required
               />
             </div>
-            <div className="category-input-column row-start-2">
-              <p>Expense Type:</p>
-              <div className="radio flex gap-6">
-                <label htmlFor="expense" className="radio-input">
-                  <input
-                    className="hidden"
-                    type="radio"
-                    id="expense"
-                    name="expenseType"
-                    value="Expense"
-                    onClick={(e) => {
-                      setType(e.target.value);
-                    }}
-                  />
-                  <div className="custom-radio">
-                    <div></div>
-                  </div>
-                  Expense
-                </label>
+            {logType === 1 && (
+              <div className="category-input-column row-start-2">
+                <p>Expense Type:</p>
+                <div className="radio flex gap-6">
+                  <label htmlFor="expense" className="radio-input">
+                    <input
+                      className="hidden"
+                      type="radio"
+                      id="expense"
+                      name="expenseType"
+                      value="Expense"
+                      onClick={(e) => {
+                        setType(e.target.value);
+                      }}
+                    />
+                    <div className="custom-radio">
+                      <div></div>
+                    </div>
+                    Expense
+                  </label>
 
-                <label htmlFor="income" className="radio-input">
-                  <input
-                    className="hidden"
-                    type="radio"
-                    id="income"
-                    name="expenseType"
-                    value="Income"
-                    onClick={(e) => {
-                      setType(e.target.value);
-                    }}
-                  />
-                  <div className="custom-radio">
-                    <div></div>
-                  </div>
-                  Income
-                </label>
+                  <label htmlFor="income" className="radio-input">
+                    <input
+                      className="hidden"
+                      type="radio"
+                      id="income"
+                      name="expenseType"
+                      value="Income"
+                      onClick={(e) => {
+                        setType(e.target.value);
+                      }}
+                    />
+                    <div className="custom-radio">
+                      <div></div>
+                    </div>
+                    Income
+                  </label>
+                </div>
               </div>
-            </div>
+            )}
           </div>
           <div className="category-input-column flex flex-col relative md:max-w-[95%]">
             <p>Color:</p>

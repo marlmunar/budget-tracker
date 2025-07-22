@@ -15,7 +15,8 @@ import {
   setTempEntries,
 } from "../slices/logSlice";
 
-const EditCategoryForm = ({ closeUI }) => {
+const EditCategoryForm = ({ closeUI, props }) => {
+  const { logType } = props;
   const dispatch = useDispatch();
   const { tempCategories } = useSelector((state) => state.logs);
   const { tempEntries } = useSelector((state) => state.logs);
@@ -230,48 +231,50 @@ const EditCategoryForm = ({ closeUI }) => {
                 required
               />
             </div>
-            <div className="category-input-column">
-              <p>Expense Type:</p>
-              <div className="radio flex gap-6">
-                <label htmlFor="expense" className="radio-input">
-                  <input
-                    className="hidden"
-                    type="radio"
-                    id="expense"
-                    name="expenseType"
-                    value="Expense"
-                    checked={type === "Expense"}
-                    onClick={(e) => {
-                      setType(e.target.value);
-                    }}
-                    onChange={() => {}}
-                  />
-                  <div className="custom-radio">
-                    <div></div>
-                  </div>
-                  Expense
-                </label>
+            {logType === 1 && (
+              <div className="category-input-column">
+                <p>Expense Type:</p>
+                <div className="radio flex gap-6">
+                  <label htmlFor="expense" className="radio-input">
+                    <input
+                      className="hidden"
+                      type="radio"
+                      id="expense"
+                      name="expenseType"
+                      value="Expense"
+                      checked={type === "Expense"}
+                      onClick={(e) => {
+                        setType(e.target.value);
+                      }}
+                      onChange={() => {}}
+                    />
+                    <div className="custom-radio">
+                      <div></div>
+                    </div>
+                    Expense
+                  </label>
 
-                <label className="radio-input">
-                  <input
-                    className="hidden"
-                    type="radio"
-                    id="income"
-                    name="expenseType"
-                    value="Income"
-                    checked={type === "Income"}
-                    onClick={(e) => {
-                      setType(e.target.value);
-                    }}
-                    onChange={() => {}}
-                  />
-                  <div className="custom-radio">
-                    <div></div>
-                  </div>
-                  Income
-                </label>
+                  <label className="radio-input">
+                    <input
+                      className="hidden"
+                      type="radio"
+                      id="income"
+                      name="expenseType"
+                      value="Income"
+                      checked={type === "Income"}
+                      onClick={(e) => {
+                        setType(e.target.value);
+                      }}
+                      onChange={() => {}}
+                    />
+                    <div className="custom-radio">
+                      <div></div>
+                    </div>
+                    Income
+                  </label>
+                </div>
               </div>
-            </div>
+            )}
           </div>
 
           <div className="category-input-column flex flex-col relative md:max-w-[95%]">

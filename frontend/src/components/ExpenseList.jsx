@@ -28,10 +28,6 @@ const ExpenseList = ({ props }) => {
     selectedCategories.includes(entry.category.name)
   );
 
-  // useEffect(() => {
-  //   console.log(tempEntries);
-  // }, [selectedCategories, tempEntries]);
-
   const [entry, setEntry] = useState({
     expense: "",
     amount: "",
@@ -43,7 +39,7 @@ const ExpenseList = ({ props }) => {
       <ExpenseListUIHandler
         activeUI={activeUI}
         setActiveUi={setActiveUI}
-        props={{ entry, selectedCategories, setSelectedCategories }}
+        props={{ entry, ...props }}
       />
 
       <div className="log-section-header flex justify-between items-center">
