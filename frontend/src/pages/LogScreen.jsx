@@ -42,6 +42,7 @@ const LogScreen = () => {
   const [downloadLog] = useDownloadLogMutation();
 
   const { tempEntries } = useSelector((state) => state.logs);
+  const { tempCategories } = useSelector((state) => state.logs);
   const { isNotSaved } = useSelector((state) => state.logs);
   const { logId } = useParams();
 
@@ -64,6 +65,16 @@ const LogScreen = () => {
 
     fetchData();
   }, [isNotSaved, lastAction]);
+
+  useEffect(() => {
+    if (logData?.logData?.type === 2) {
+      const newTempCategories = tempCategories.filter(
+        (cat) => cat.type === "Income"
+      );
+      console.log(newTempCategories);
+      dispatch(setTempCategories(newTempCategories));
+    }
+  }, [logData]);
 
   const handleDownload = async () => {
     try {
