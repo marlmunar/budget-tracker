@@ -20,6 +20,15 @@ const AddCategoryForm = ({ closeUI, props }) => {
     setError("");
   }, [name, type, color]);
 
+  useEffect(() => {
+    if (logType === 2) {
+      setType("Income");
+    }
+    if (logType === 3) {
+      setType("Expense");
+    }
+  }, [logType]);
+
   const colors = [
     "#FF7F50",
     "#FF8DA1",
