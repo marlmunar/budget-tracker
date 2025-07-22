@@ -46,6 +46,14 @@ const LogScreen = () => {
   const { isNotSaved } = useSelector((state) => state.logs);
   const { logId } = useParams();
 
+  const getCategories = (type) => {
+    if (type === 2) {
+      return tempCategories.filter((cat) => cat.type === "Income");
+    } else if (logData?.logData?.type === 3) {
+      return tempCategories.filter((cat) => cat.type === "Expense");
+    }
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -70,6 +78,14 @@ const LogScreen = () => {
     if (logData?.logData?.type === 2) {
       const newTempCategories = tempCategories.filter(
         (cat) => cat.type === "Income"
+      );
+      console.log(newTempCategories);
+      dispatch(setTempCategories(newTempCategories));
+    }
+
+    if (logData?.logData?.type === 3) {
+      const newTempCategories = tempCategories.filter(
+        (cat) => cat.type === "Expense"
       );
       console.log(newTempCategories);
       dispatch(setTempCategories(newTempCategories));
