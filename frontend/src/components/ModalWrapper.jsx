@@ -34,9 +34,6 @@ const ModalWrapper = () => {
   );
 
   const closeModal = () => {
-    if (blocker.state === "blocked") {
-      cancel();
-    }
     dispatch(
       setModalState({
         showModal: false,
@@ -46,9 +43,15 @@ const ModalWrapper = () => {
     );
   };
 
-  const confirmNavigation = async () => {
+  const confirmNavigation = () => {
     dispatch(setIsNotSaved(false));
     confirm();
+    closeModal();
+  };
+
+  const cancelNavigation = () => {
+    cancel();
+    closeModal();
   };
 
   const modals = {
@@ -59,8 +62,8 @@ const ModalWrapper = () => {
     delete: <Delete resource={modalData} closeModal={closeModal} />,
     confirmExit: (
       <ConfirmExit
-        closeModal={closeModal}
         confirmNavigation={confirmNavigation}
+        cancelNavigation={cancelNavigation}
       />
     ),
     confirmLogout: <ConfirmLogout closeModal={closeModal} />,

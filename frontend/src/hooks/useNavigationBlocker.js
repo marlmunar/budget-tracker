@@ -20,9 +20,14 @@ export default function useNavigationBlocker(when) {
 
   const blocker = useBlocker(shouldBlock);
 
+  useEffect(() => {
+    console.log("Blocker state:", blocker?.state);
+  }, [blocker?.state]);
+
   const confirm = useCallback(() => {
-    blocker?.proceed?.();
-    blocker?.reset?.();
+    if (blocker?.state === "blocked") {
+      blocker.proceed();
+    }
   }, [blocker]);
 
   const cancel = useCallback(() => {

@@ -1,6 +1,6 @@
 import React from "react";
 
-const ConfirmExit = ({ closeModal, confirmNavigation }) => {
+const ConfirmExit = ({ confirmNavigation, cancelNavigation }) => {
   return (
     <form className="modal-form">
       <div className="modal-input-container">
@@ -11,7 +11,6 @@ const ConfirmExit = ({ closeModal, confirmNavigation }) => {
           type="button"
           className="modal-delete-button"
           onClick={() => {
-            closeModal();
             confirmNavigation();
           }}
         >
@@ -21,7 +20,7 @@ const ConfirmExit = ({ closeModal, confirmNavigation }) => {
           type="button"
           className="modal-action-button"
           onClick={() => {
-            closeModal();
+            cancelNavigation();
           }}
         >
           Cancel
