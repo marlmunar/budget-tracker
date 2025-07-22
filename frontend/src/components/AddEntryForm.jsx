@@ -246,14 +246,14 @@ const AddEntryForm = ({ closeUI, setActiveUi }) => {
             </div>
             <div className="flex flex-col md:flex-row md:gap-2">
               <div className="log-input-column">
-                <label htmlFor="expense">Expense Name</label>
+                <label htmlFor="expense">Entry Name</label>
                 <input
                   type="text"
                   id="expense"
                   maxLength="25"
                   value={expense}
                   onChange={(e) => setExpense(e.target.value)}
-                  placeholder="My Expense"
+                  placeholder="My Entry"
                   autoComplete="off"
                   required
                 />

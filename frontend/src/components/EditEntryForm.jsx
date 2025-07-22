@@ -158,14 +158,14 @@ const EditEntryForm = ({ closeUI, props }) => {
         </div>
         <div className="flex flex-col md:flex-row gap-2">
           <div className="log-input-column">
-            <label htmlFor="newExpense">Expense Name</label>
+            <label htmlFor="newExpense">Entry Name</label>
             <input
               type="text"
               id="newExpense"
               maxLength="25"
               value={expense}
               onChange={(e) => setExpense(e.target.value)}
-              placeholder="New Expense Name"
+              placeholder="New Entry Name"
               autoComplete="off"
               required
             />
