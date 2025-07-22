@@ -41,16 +41,16 @@ const LogScreen = () => {
   const [getLog, { data }] = useLazyGetLogQuery();
   const [downloadLog] = useDownloadLogMutation();
 
-  const { tempEntries } = useSelector((state) => state.logs);
-  const { tempCategories } = useSelector((state) => state.logs);
   const { isNotSaved } = useSelector((state) => state.logs);
   const { logId } = useParams();
 
-  const getCategories = (type) => {
+  const getCategories = (type, categories) => {
     if (type === 2) {
-      return tempCategories.filter((cat) => cat.type === "Income");
-    } else if (logData?.logData?.type === 3) {
-      return tempCategories.filter((cat) => cat.type === "Expense");
+      return categories.filter((cat) => cat.type === "Income");
+    } else if (type === 3) {
+      return categories.filter((cat) => cat.type === "Expense");
+    } else {
+      return categories;
     }
   };
 
@@ -61,7 +61,11 @@ const LogScreen = () => {
         setLogData(res.data);
         if (!isNotSaved) {
           dispatch(setTempEntries([...res.data.entries]));
-          dispatch(setTempCategories([...res.data.categories]));
+          dispatch(
+            setTempCategories(
+              getCategories(res.data.logData.type, [...res.data.categories])
+            )
+          );
         }
       } catch (error) {
         if (error.status === 400 || error.status === 404) {
@@ -73,24 +77,6 @@ const LogScreen = () => {
 
     fetchData();
   }, [isNotSaved, lastAction]);
-
-  useEffect(() => {
-    if (logData?.logData?.type === 2) {
-      const newTempCategories = tempCategories.filter(
-        (cat) => cat.type === "Income"
-      );
-      console.log(newTempCategories);
-      dispatch(setTempCategories(newTempCategories));
-    }
-
-    if (logData?.logData?.type === 3) {
-      const newTempCategories = tempCategories.filter(
-        (cat) => cat.type === "Expense"
-      );
-      console.log(newTempCategories);
-      dispatch(setTempCategories(newTempCategories));
-    }
-  }, [logData]);
 
   const handleDownload = async () => {
     try {
