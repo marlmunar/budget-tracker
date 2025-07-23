@@ -8,8 +8,22 @@ const SavingsTracker = ({ props }) => {
     displayReload,
     setDisplayReload,
     setSelectedCategories,
+    logData,
   } = props;
+
   const { tempCategories } = useSelector((state) => state.logs);
+
+  const getDaysToGo = () => {
+    console.log(logData.endDate);
+    const timeInMs = new Date(logData.endDate) - Date.now();
+    const days = Math.round(timeInMs / 1000 / 60 / 60 / 24);
+    return `${days} day${days !== 1 ? "s" : ""}`;
+  };
+
+  function formatDate(date) {
+    const options = { day: "numeric", month: "short", year: "numeric" };
+    return date.toLocaleDateString("en-GB", options).replace(/\s/, " ");
+  }
 
   const entriesCount = filteredList.reduce((sum, entry) => sum + 1, 0);
 
@@ -82,11 +96,19 @@ const SavingsTracker = ({ props }) => {
             <div className="bg-white text-sm md:text-base flex flex-col p-2">
               <div className="flex justify-between">
                 <p className="text-xs md:text-sm">Amount</p>
-                <p className="font-semibold">{formatNumber(total)}</p>
+                <p className="font-semibold">
+                  {formatNumber(logData.threshold)}
+                </p>
+              </div>
+              <div className="flex justify-between">
+                <p className="text-xs md:text-sm">Date</p>
+                <p className="font-semibold">
+                  {formatDate(new Date(logData.endDate))}
+                </p>
               </div>
               <div className="flex justify-between">
                 <p className="text-xs md:text-sm">Days To Go</p>
-                <p className="font-semibold">{formatNumber(total)}</p>
+                <p className="font-semibold">{getDaysToGo()}</p>
               </div>
             </div>
           </div>

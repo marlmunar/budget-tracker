@@ -7,7 +7,7 @@ import GeneralTracker from "./Summaries/GeneralTracker";
 import SavingsTracker from "./Summaries/SavingsTracker";
 
 const ExpenseSummary = ({ props }) => {
-  const { selectedCategories, setSelectedCategories, logType } = props;
+  const { selectedCategories, setSelectedCategories, logData } = props;
   const { tempCategories } = useSelector((state) => state.logs);
   const { tempEntries } = useSelector((state) => state.logs);
 
@@ -55,13 +55,14 @@ const ExpenseSummary = ({ props }) => {
           displayReload,
           setDisplayReload,
           setSelectedCategories,
+          logData,
         }}
       />
     ),
     3: "Budget with Deadline",
   };
 
-  const getSummary = () => summaries[logType] || null;
+  const getSummary = () => summaries[logData?.type] || null;
 
   return (
     <section className="log-section-container">

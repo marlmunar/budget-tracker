@@ -117,7 +117,7 @@ const LogScreen = () => {
             props={{
               selectedCategories,
               setSelectedCategories,
-              logType: logData?.logData?.type,
+              logData: logData?.logData,
             }}
           />
         </div>
