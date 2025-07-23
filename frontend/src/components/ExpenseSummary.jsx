@@ -4,6 +4,7 @@ import NoRecords from "./NoRecords";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import GeneralTracker from "./Summaries/GeneralTracker";
+import SavingsTracker from "./Summaries/SavingsTracker";
 
 const ExpenseSummary = ({ props }) => {
   const { selectedCategories, setSelectedCategories, logType } = props;
@@ -46,7 +47,17 @@ const ExpenseSummary = ({ props }) => {
         }}
       />
     ),
-    2: "Savings Goal",
+    2: (
+      <SavingsTracker
+        props={{
+          filteredList,
+          formatNumber,
+          displayReload,
+          setDisplayReload,
+          setSelectedCategories,
+        }}
+      />
+    ),
     3: "Budget with Deadline",
   };
 

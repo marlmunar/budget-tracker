@@ -1,0 +1,99 @@
+import { useSelector } from "react-redux";
+import ExpenseSummaryItem from "../ExpenseSummaryItem";
+
+const SavingsTracker = ({ props }) => {
+  const {
+    filteredList,
+    formatNumber,
+    displayReload,
+    setDisplayReload,
+    setSelectedCategories,
+  } = props;
+  const { tempCategories } = useSelector((state) => state.logs);
+
+  const entriesCount = filteredList.reduce((sum, entry) => sum + 1, 0);
+
+  const total = filteredList.reduce((sum, entry) => sum + +entry.amount, 0);
+
+  const getCount = (name) => {
+    return filteredList.reduce(
+      (sum, entry) => sum + (entry.category.name === name ? 1 : 0),
+      0
+    );
+  };
+
+  const getAmount = (name) => {
+    return filteredList.reduce(
+      (sum, entry) => sum + (entry.category.name === name ? +entry.amount : 0),
+      0
+    );
+  };
+
+  const sumPerCategory = tempCategories
+    .map((cat) => ({
+      category: cat,
+      count: getCount(cat.name),
+      amount: getAmount(cat.name),
+    }))
+    .filter((entry) => entry.amount > 0)
+    .sort((a, b) => b.amount - a.amount);
+
+  return (
+    <>
+      <div className="flex bg-slate-200 p-2 rounded text-gray-800 justify-between font-semibold">
+        <h3>Category</h3>
+        <h3>Subtotal</h3>
+      </div>
+      {sumPerCategory.map((entry, index) => (
+        <ExpenseSummaryItem
+          key={index}
+          category={entry.category}
+          count={formatNumber(entry.count)}
+          amount={formatNumber(entry.amount)}
+          setSelectedCategories={setSelectedCategories}
+          setDisplayReload={setDisplayReload}
+        />
+      ))}
+      {!displayReload && (
+        <>
+          <div className="rounded shadow bg-slate-200">
+            <div className="flex text-base md:text-lg p-2 text-gray-800 justify-between font-semibold">
+              <h3>Progress</h3>
+            </div>
+            <div className="bg-white text-sm md:text-base flex items-center justify-between font-semibold p-2">
+              <div className="w-full border-5 rounded-full"></div>
+            </div>
+          </div>
+          <div className="rounded shadow bg-slate-200">
+            <div className="flex text-base md:text-lg p-2 text-gray-800 justify-between font-semibold">
+              <h3>Total</h3>
+            </div>
+            <div className="bg-white text-sm md:text-base flex items-center justify-between font-semibold p-2">
+              <p className="text-xs md:text-sm">{`${entriesCount} ${
+                entriesCount > 1 ? "entries" : "entry"
+              }`}</p>
+              <p>{formatNumber(total)}</p>
+            </div>
+          </div>
+          <div className="rounded shadow bg-slate-200">
+            <div className="flex text-base md:text-lg p-2 text-gray-800 justify-between ">
+              <h3 className="font-semibold">Target</h3>
+            </div>
+            <div className="bg-white text-sm md:text-base flex flex-col p-2">
+              <div className="flex justify-between">
+                <p className="text-xs md:text-sm">Amount</p>
+                <p className="font-semibold">{formatNumber(total)}</p>
+              </div>
+              <div className="flex justify-between">
+                <p className="text-xs md:text-sm">Days To Go</p>
+                <p className="font-semibold">{formatNumber(total)}</p>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
+    </>
+  );
+};
+
+export default SavingsTracker;
