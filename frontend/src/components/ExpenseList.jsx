@@ -43,7 +43,7 @@ const ExpenseList = ({ props }) => {
       />
 
       <div className="log-section-header flex justify-between items-center">
-        <h2 className="h-10 flex items-center">Expense List</h2>
+        <h2 className="h-10 flex items-center">Entry List</h2>
 
         {!activeUI && (
           <div className="flex gap-2">

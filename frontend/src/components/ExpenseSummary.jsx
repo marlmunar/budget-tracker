@@ -67,7 +67,7 @@ const ExpenseSummary = ({ props }) => {
   return (
     <section className="log-section-container">
       <div className="log-section-header">
-        <h2 className="h-10 flex items-center">Expense Summary</h2>
+        <h2 className="h-10 flex items-center">Log Summary</h2>
         {displayReload && (
           <button
             className="log-tool-button h-10 w-10 bg-slate-200"
