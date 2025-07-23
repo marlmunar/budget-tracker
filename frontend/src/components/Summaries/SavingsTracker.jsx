@@ -14,6 +14,7 @@ const SavingsTracker = ({ props }) => {
 
   const { tempCategories } = useSelector((state) => state.logs);
   const [progress, setProgress] = useState(0);
+  const [percentageData, setPercentageData] = useState(0);
 
   const getDaysToGo = () => {
     const timeInMs = new Date(logData.endDate) - Date.now();
@@ -31,14 +32,16 @@ const SavingsTracker = ({ props }) => {
   const total = filteredList.reduce((sum, entry) => sum + +entry.amount, 0);
 
   useEffect(() => {
-    console.log(total);
-    console.log(logData.threshold);
-    console.log(total / logData.threshold);
     const percentage = total / logData.threshold;
-    if (percentage >= 1) return setProgress("100%");
+    if (percentage >= 1) {
+      setProgress("100%");
+      setPercentageData("100%");
+      return;
+    }
 
-    const percentageString = `${percentage * 100}%`;
+    const percentageString = `${Math.round(percentage * 100)}%`;
     setProgress(percentageString);
+    setPercentageData(percentageString);
   }, [filteredList]);
 
   const getCount = (name) => {
@@ -86,8 +89,14 @@ const SavingsTracker = ({ props }) => {
             <div className="flex text-base md:text-lg p-2 text-gray-800 justify-between font-semibold">
               <h3>Progress</h3>
             </div>
-            <div className="bg-white text-sm md:text-base flex items-center justify-between font-semibold p-2">
-              <div className="w-full border-2 border-gray-500 rounded-full min-h-4 flex overflow-hidden">
+            <div className="bg-white text-sm md:text-base flex flex-col items-center justify-between p-2">
+              <div className="flex justify-between items-center w-full">
+                <p className="text-[0.6rem] md:text-[0.8rem] text-gray-800">{`${formatNumber(
+                  total
+                )} / ${formatNumber(logData.threshold)}`}</p>
+                <p className="text-xs md:text-sm">{percentageData}</p>
+              </div>
+              <div className="w-full border-2 border-gray-500 rounded-full flex overflow-hidden">
                 <div
                   className="bg-green-500 min-h-4 rounded-full"
                   style={{ width: progress }}
