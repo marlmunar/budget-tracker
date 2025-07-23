@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import ExpenseSummaryItem from "../ExpenseSummaryItem";
+import { useEffect, useState } from "react";
 
 const SavingsTracker = ({ props }) => {
   const {
@@ -12,9 +13,9 @@ const SavingsTracker = ({ props }) => {
   } = props;
 
   const { tempCategories } = useSelector((state) => state.logs);
+  const [progress, setProgress] = useState(0);
 
   const getDaysToGo = () => {
-    console.log(logData.endDate);
     const timeInMs = new Date(logData.endDate) - Date.now();
     const days = Math.round(timeInMs / 1000 / 60 / 60 / 24);
     return `${days} day${days !== 1 ? "s" : ""}`;
@@ -28,6 +29,17 @@ const SavingsTracker = ({ props }) => {
   const entriesCount = filteredList.reduce((sum, entry) => sum + 1, 0);
 
   const total = filteredList.reduce((sum, entry) => sum + +entry.amount, 0);
+
+  useEffect(() => {
+    console.log(total);
+    console.log(logData.threshold);
+    console.log(total / logData.threshold);
+    const percentage = total / logData.threshold;
+    if (percentage >= 1) return setProgress("100%");
+
+    const percentageString = `${percentage * 100}%`;
+    setProgress(percentageString);
+  }, [filteredList]);
 
   const getCount = (name) => {
     return filteredList.reduce(
@@ -75,7 +87,13 @@ const SavingsTracker = ({ props }) => {
               <h3>Progress</h3>
             </div>
             <div className="bg-white text-sm md:text-base flex items-center justify-between font-semibold p-2">
-              <div className="w-full border-5 rounded-full"></div>
+              <div className="w-full border-2 border-gray-500 rounded-full min-h-4 flex overflow-hidden">
+                <div
+                  className="bg-green-500 min-h-4 rounded-full"
+                  style={{ width: progress }}
+                ></div>
+                <div></div>
+              </div>
             </div>
           </div>
           <div className="rounded shadow bg-slate-200">
