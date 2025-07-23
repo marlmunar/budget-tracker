@@ -86,15 +86,17 @@ const SavingsTracker = ({ props }) => {
       {!displayReload && (
         <>
           <div className="rounded shadow bg-slate-200">
-            <div className="flex text-base md:text-lg p-2 text-gray-800 justify-between font-semibold">
+            <div className="flex p-2 text-gray-800 justify-between font-semibold">
               <h3>Progress</h3>
             </div>
-            <div className="bg-white text-sm md:text-base flex flex-col items-center justify-between p-2">
+            <div className="bg-white flex flex-col items-center justify-between p-2">
               <div className="flex justify-between items-center w-full">
                 <p className="text-[0.6rem] md:text-[0.8rem] text-gray-800">{`${formatNumber(
                   total
                 )} / ${formatNumber(logData.threshold)}`}</p>
-                <p className="text-xs md:text-sm">{percentageData}</p>
+                <p className="text-xs md:text-sm font-semibold">
+                  {percentageData}
+                </p>
               </div>
               <div className="w-full border-2 border-gray-500 rounded-full flex overflow-hidden">
                 <div
@@ -106,35 +108,35 @@ const SavingsTracker = ({ props }) => {
             </div>
           </div>
           <div className="rounded shadow bg-slate-200">
-            <div className="flex text-base md:text-lg p-2 text-gray-800 justify-between font-semibold">
+            <div className="flex p-2 text-gray-800 justify-between font-semibold">
               <h3>Total</h3>
             </div>
-            <div className="bg-white text-sm md:text-base flex items-center justify-between font-semibold p-2">
-              <p className="text-xs md:text-sm">{`${entriesCount} ${
+            <div className="bg-white text-xs md:text-sm flex items-center justify-between font-semibold p-2">
+              <p>{`${entriesCount} ${
                 entriesCount > 1 ? "entries" : "entry"
               }`}</p>
               <p>{formatNumber(total)}</p>
             </div>
           </div>
           <div className="rounded shadow bg-slate-200">
-            <div className="flex text-base md:text-lg p-2 text-gray-800 justify-between ">
+            <div className="flex p-2 text-gray-800 justify-between ">
               <h3 className="font-semibold">Target</h3>
             </div>
-            <div className="bg-white text-sm md:text-base flex flex-col p-2">
+            <div className="bg-white text-xs md:text-sm flex flex-col p-2">
               <div className="flex justify-between">
-                <p className="text-xs md:text-sm">Amount</p>
+                <p>Amount</p>
                 <p className="font-semibold">
                   {formatNumber(logData.threshold)}
                 </p>
               </div>
               <div className="flex justify-between">
-                <p className="text-xs md:text-sm">Date</p>
+                <p>Date</p>
                 <p className="font-semibold">
                   {formatDate(new Date(logData.endDate))}
                 </p>
               </div>
               <div className="flex justify-between">
-                <p className="text-xs md:text-sm">Days To Go</p>
+                <p>Days To Go</p>
                 <p className="font-semibold">{getDaysToGo()}</p>
               </div>
             </div>
