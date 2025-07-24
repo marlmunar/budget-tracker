@@ -111,6 +111,7 @@ const LogScreen = () => {
               selectedCategories,
               setSelectedCategories,
               logType: logData?.logData?.type,
+              logData: logData?.logData,
             }}
           />
           <ExpenseSummary

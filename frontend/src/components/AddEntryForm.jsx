@@ -19,7 +19,7 @@ import {
 import { useParams } from "react-router-dom";
 
 const AddEntryForm = ({ closeUI, setActiveUi, props }) => {
-  const { logType } = props;
+  const { logType, logData } = props;
   const dispatch = useDispatch();
   const { logId } = useParams();
   const [importLog] = useImportLogMutation();
@@ -59,10 +59,12 @@ const AddEntryForm = ({ closeUI, setActiveUi, props }) => {
   };
 
   const isValidDate = (date) => {
-    const today = new Date();
+    const start = new Date(logData.startDate);
+    const end = new Date(logData.endDate);
     date.setHours(0, 0, 0, 0);
-    today.setHours(0, 0, 0, 0);
-    return date >= today;
+    start.setHours(0, 0, 0, 0);
+    end.setHours(0, 0, 0, 0);
+    return date >= start && date <= end;
   };
 
   const cleanNumberInput = (value) => {
@@ -163,7 +165,7 @@ const AddEntryForm = ({ closeUI, setActiveUi, props }) => {
     if (logType === 3) {
       if (!date) return setError("Please select a date");
       if (!isValidDate(new Date(date)))
-        return setError("Please enter a more recent date");
+        return setError("Please select a date within the log's duration");
     }
 
     const newLog = {
@@ -259,6 +261,21 @@ const AddEntryForm = ({ closeUI, setActiveUi, props }) => {
                 required
               />
             </div>
+            {logType === 3 && (
+              <div className="log-input-column">
+                <label htmlFor="entryDate">Date</label>
+                <input
+                  type="date"
+                  id="entryDate"
+                  maxLength="25"
+                  value={date}
+                  onChange={(e) => setDate(e.target.value)}
+                  placeholder="My Entry"
+                  autoComplete="off"
+                  required
+                />
+              </div>
+            )}
             <div className="flex flex-col md:flex-row md:gap-2">
               <div className="log-input-column">
                 <label htmlFor="expense">Entry Name</label>
@@ -345,21 +362,6 @@ const AddEntryForm = ({ closeUI, setActiveUi, props }) => {
                   )}
                 </div>
               </div>
-              {logType === 3 && (
-                <div className="log-input-column">
-                  <label htmlFor="entryDate">Date</label>
-                  <input
-                    type="date"
-                    id="entryDate"
-                    maxLength="25"
-                    value={date}
-                    onChange={(e) => setDate(e.target.value)}
-                    placeholder="My Entry"
-                    autoComplete="off"
-                    required
-                  />
-                </div>
-              )}
             </div>
 
             <button
