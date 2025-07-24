@@ -30,6 +30,7 @@ const AddEntryForm = ({ closeUI, setActiveUi }) => {
   const [expense, setExpense] = useState("");
   const [amount, setAmount] = useState("");
   const [category, setCategory] = useState({});
+  const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
   const [selectedCategory, setSelectedCategory] = useState({});
   const [error, setError] = useState("");
   const [file, setFile] = useState(null);
@@ -45,7 +46,7 @@ const AddEntryForm = ({ closeUI, setActiveUi }) => {
 
   useEffect(() => {
     setError("");
-  }, [expense, amount, selectedCategory]);
+  }, [expense, amount, selectedCategory, date]);
 
   const isValidNumber = (value) => {
     return (
@@ -330,6 +331,19 @@ const AddEntryForm = ({ closeUI, setActiveUi }) => {
                   )}
                 </div>
               </div>
+              <div className="log-input-column">
+                <label htmlFor="entryDate">Date</label>
+                <input
+                  type="date"
+                  id="entryDate"
+                  maxLength="25"
+                  value={date}
+                  onChange={(e) => setDate(e.target.value)}
+                  placeholder="My Entry"
+                  autoComplete="off"
+                  required
+                />
+              </div>
             </div>
 
             <button
@@ -340,6 +354,7 @@ const AddEntryForm = ({ closeUI, setActiveUi }) => {
                 setAmount("");
                 setSelectedCategory({});
                 setError("");
+                setDate("");
               }}
             >
               Clear Values

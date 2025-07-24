@@ -17,7 +17,7 @@ const SavingsTracker = ({ props }) => {
   const [percentageData, setPercentageData] = useState(0);
 
   const getDaysToGo = () => {
-    const timeInMs = new Date(logData.endDate) - Date.now();
+    const timeInMs = new Date(logData.endDate) - new Date();
     const days = Math.round(timeInMs / 1000 / 60 / 60 / 24);
     return `${days} day${days !== 1 ? "s" : ""}`;
   };
