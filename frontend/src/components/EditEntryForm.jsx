@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setIsNotSaved, setTempEntries } from "../slices/logSlice";
 
 const EditEntryForm = ({ closeUI, props }) => {
-  const { entry } = props;
+  const { entry, logType, logData } = props;
   const refEntry = entry;
   const dispatch = useDispatch();
   const { tempEntries } = useSelector((state) => state.logs);
@@ -18,6 +18,9 @@ const EditEntryForm = ({ closeUI, props }) => {
   const [isSelecting, setIsSelecting] = useState(false);
   const [expense, setExpense] = useState(entry.expense);
   const [amount, setAmount] = useState(entry.amount);
+  const [date, setDate] = useState(
+    new Date(entry?.date).toISOString().split("T")[0]
+  );
   const [category, setCategory] = useState(entry.category);
   const [selectedCategory, setSelectedCategory] = useState({
     ...entry.category,
@@ -26,7 +29,7 @@ const EditEntryForm = ({ closeUI, props }) => {
 
   useEffect(() => {
     setError("");
-  }, [expense, amount, selectedCategory]);
+  }, [expense, amount, selectedCategory, date]);
 
   const isValidNumber = (value) => {
     return (
@@ -35,6 +38,15 @@ const EditEntryForm = ({ closeUI, props }) => {
       value > 0 &&
       !value.toString().includes("e")
     );
+  };
+
+  const isValidDate = (date) => {
+    const start = new Date(logData.startDate);
+    const end = new Date(logData.endDate);
+    date.setHours(0, 0, 0, 0);
+    start.setHours(0, 0, 0, 0);
+    end.setHours(0, 0, 0, 0);
+    return date >= start && date <= end;
   };
 
   const cleanNumberInput = (value) => {
@@ -94,10 +106,17 @@ const EditEntryForm = ({ closeUI, props }) => {
     if (!selectedCategory.name) return setError("Please select a category");
     if (!isValidNumber(+amount)) return setError("Please enter a valid amount");
 
+    if (logType === 3) {
+      if (!date) return setError("Please select a date");
+      if (!isValidDate(new Date(date)))
+        return setError("Please select a date within the log's duration");
+    }
+
     const newEntry = {
       expense,
       amount,
       category,
+      date: logType === 3 ? new Date(date).toISOString() : "",
     };
 
     if (isEqual(newEntry, refEntry)) return closeUI();
@@ -109,6 +128,7 @@ const EditEntryForm = ({ closeUI, props }) => {
             expense: newEntry.expense,
             amount: newEntry.amount,
             category: newEntry.category,
+            date: newEntry.date ? newEntry.date : tempEntry.date,
           }
         : tempEntry
     );
@@ -156,6 +176,21 @@ const EditEntryForm = ({ closeUI, props }) => {
             required
           />
         </div>
+        {logType === 3 && (
+          <div className="log-input-column">
+            <label htmlFor="entryDate">Date</label>
+            <input
+              type="date"
+              id="entryDate"
+              maxLength="25"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              placeholder="My Entry"
+              autoComplete="off"
+              required
+            />
+          </div>
+        )}
         <div className="flex flex-col md:flex-row gap-2">
           <div className="log-input-column">
             <label htmlFor="newExpense">Entry Name</label>
@@ -239,6 +274,7 @@ const EditEntryForm = ({ closeUI, props }) => {
             setAmount("");
             setSelectedCategory({});
             setError("");
+            setDate("");
           }}
         >
           Clear Values

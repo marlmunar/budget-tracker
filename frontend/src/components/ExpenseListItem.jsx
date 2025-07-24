@@ -52,6 +52,7 @@ const ExpenseListItem = ({
             setEntry({
               expense,
               amount,
+              date: timeStamps,
               category,
             });
             setActiveUI("editEntry");
