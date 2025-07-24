@@ -175,7 +175,7 @@ button > * {
 
 .log-input-column {
   @apply flex flex-col min-h-8 gap-1
-  w-full border
+  w-full
   md:w-auto;
 }
 

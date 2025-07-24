@@ -170,7 +170,8 @@ const AddEntryForm = ({ closeUI, setActiveUi, props }) => {
       expense,
       amount: +amount,
       category,
-      date: new Date().toISOString(),
+      date:
+        logType === 3 ? new Date(date).toISOString() : new Date().toISOString(),
     };
     dispatch(addTempEntry(newLog));
     dispatch(setIsNotSaved(true));
