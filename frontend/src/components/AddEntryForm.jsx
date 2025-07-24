@@ -58,6 +58,13 @@ const AddEntryForm = ({ closeUI, setActiveUi, props }) => {
     );
   };
 
+  const isValidDate = (date) => {
+    const today = new Date();
+    date.setHours(0, 0, 0, 0);
+    today.setHours(0, 0, 0, 0);
+    return date >= today;
+  };
+
   const cleanNumberInput = (value) => {
     if (!value) return value;
     if (value === "0") return "0";
@@ -153,6 +160,11 @@ const AddEntryForm = ({ closeUI, setActiveUi, props }) => {
     if (!selectedCategory.name) return setError("Please select a category");
 
     if (!isValidNumber(+amount)) return setError("Please enter a valid amount");
+    if (logType === 3) {
+      if (!date) return setError("Please select a date");
+      if (!isValidDate(new Date(date)))
+        return setError("Please enter a more recent date");
+    }
 
     const newLog = {
       expense,
