@@ -17,8 +17,27 @@ const BugdetTracker = ({ props }) => {
   const [percentageData, setPercentageData] = useState(0);
 
   const getDaysToGo = () => {
-    const timeInMs = new Date(logData.endDate) - Date.now();
-    const days = Math.round(timeInMs / 1000 / 60 / 60 / 24);
+    const start = new Date(logData.startDate);
+    const end = new Date(logData.endDate);
+    const today = new Date();
+
+    start.setHours(0, 0, 0, 0);
+    end.setHours(0, 0, 0, 0);
+    today.setHours(0, 0, 0, 0);
+
+    let days;
+
+    if (today <= start) {
+      // Show total days in range
+      days = Math.round((end - start) / (1000 * 60 * 60 * 24)) + 1;
+    } else if (today <= end) {
+      // Show remaining days from today to endDate
+      days = Math.round((end - today) / (1000 * 60 * 60 * 24)) + 1;
+    } else {
+      // End date has passed
+      days = 0;
+    }
+
     return `${days} day${days !== 1 ? "s" : ""}`;
   };
 
@@ -132,9 +151,10 @@ const BugdetTracker = ({ props }) => {
                 </p>
               </div>
               <div className="flex justify-between">
-                <p>Date</p>
+                <p>Duration</p>
                 <p className="font-semibold">
-                  {formatDate(new Date(logData.endDate))}
+                  {`${formatDate(new Date(logData.startDate))} to 
+                  ${formatDate(new Date(logData.endDate))}`}
                 </p>
               </div>
               <div className="flex justify-between">
