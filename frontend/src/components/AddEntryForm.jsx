@@ -18,7 +18,8 @@ import {
 } from "../slices/logsApiSlice";
 import { useParams } from "react-router-dom";
 
-const AddEntryForm = ({ closeUI, setActiveUi }) => {
+const AddEntryForm = ({ closeUI, setActiveUi, props }) => {
+  const { logType } = props;
   const dispatch = useDispatch();
   const { logId } = useParams();
   const [importLog] = useImportLogMutation();
@@ -331,19 +332,21 @@ const AddEntryForm = ({ closeUI, setActiveUi }) => {
                   )}
                 </div>
               </div>
-              <div className="log-input-column">
-                <label htmlFor="entryDate">Date</label>
-                <input
-                  type="date"
-                  id="entryDate"
-                  maxLength="25"
-                  value={date}
-                  onChange={(e) => setDate(e.target.value)}
-                  placeholder="My Entry"
-                  autoComplete="off"
-                  required
-                />
-              </div>
+              {logType === 3 && (
+                <div className="log-input-column">
+                  <label htmlFor="entryDate">Date</label>
+                  <input
+                    type="date"
+                    id="entryDate"
+                    maxLength="25"
+                    value={date}
+                    onChange={(e) => setDate(e.target.value)}
+                    placeholder="My Entry"
+                    autoComplete="off"
+                    required
+                  />
+                </div>
+              )}
             </div>
 
             <button
