@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import GeneralTracker from "./Summaries/GeneralTracker";
 import SavingsTracker from "./Summaries/SavingsTracker";
+import BugdetTracker from "./Summaries/BudgetTracker";
 
 const ExpenseSummary = ({ props }) => {
   const { selectedCategories, setSelectedCategories, logData } = props;
@@ -59,7 +60,18 @@ const ExpenseSummary = ({ props }) => {
         }}
       />
     ),
-    3: "Budget with Deadline",
+    3: (
+      <BugdetTracker
+        props={{
+          filteredList,
+          formatNumber,
+          displayReload,
+          setDisplayReload,
+          setSelectedCategories,
+          logData,
+        }}
+      />
+    ),
   };
 
   const getSummary = () => summaries[logData?.type] || null;
