@@ -100,7 +100,9 @@ const BugdetTracker = ({ props }) => {
               </div>
               <div className="w-full border-2 border-gray-500 rounded-full flex overflow-hidden">
                 <div
-                  className="bg-green-500 min-h-4 rounded-full"
+                  className={`${
+                    progress === "100%" ? "bg-red-500" : "bg-green-500"
+                  } min-h-4 rounded-full`}
                   style={{ width: progress }}
                 ></div>
                 <div></div>
