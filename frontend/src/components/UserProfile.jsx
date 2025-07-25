@@ -58,22 +58,6 @@ const UserProfile = ({ userLogs }) => {
       <div className="grid grid-row-4 grid-cols-2 gap-x-5 gap-y-1">
         <span className="font-semibold">Logs:</span>
         <span> {userLogs}</span>
-        <span className="font-semibold">Monthly Income:</span>
-        <span>
-          {userInfo.stats
-            ? userInfo.stats.monthlyIncome === "blank"
-              ? "---"
-              : userInfo.stats.monthlyIncome
-            : "---"}
-        </span>
-        <span className="font-semibold">Saving Goals:</span>
-        <span>
-          {userInfo.stats
-            ? userInfo.stats.savingGoals === "blank"
-              ? "---"
-              : userInfo.stats.savingGoals
-            : "---"}
-        </span>
         <span className="font-semibold">Budgetarian Grade:</span>
         <span>{grade}</span>
       </div>

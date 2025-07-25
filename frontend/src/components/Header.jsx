@@ -93,15 +93,6 @@ const Header = () => {
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink
-                    to="/settings"
-                    className={({ isActive }) => (isActive ? "nav-active" : "")}
-                    onClick={() => setIsClicked(false)}
-                  >
-                    Settings
-                  </NavLink>
-                </li>
-                <li>
                   <span
                     onClick={() => {
                       setIsClicked(false);
