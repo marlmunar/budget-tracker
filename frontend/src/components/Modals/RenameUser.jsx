@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import { useUpdateLogMutation } from "../../slices/logsApiSlice";
 import { useDispatch } from "react-redux";
 import { setLastAction } from "../../slices/appSlice";
+import { useUpdateMutation } from "../../slices/userApiSlice";
+import { setCredentials } from "../../slices/authSlice";
 
 const Rename = ({ name, closeModal }) => {
   const dispatch = useDispatch();
   const [newName, setNewName] = useState(name);
-  const [updateLog] = useUpdateLogMutation();
+  const [updateProfile, { isLoading }] = useUpdateMutation();
   const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
@@ -20,17 +21,17 @@ const Rename = ({ name, closeModal }) => {
       return closeModal();
     }
 
-    // try {
-    //   const res = await updateLog({
-    //     id,
-    //     data: { name: newName },
-    //   }).unwrap();
-    //   closeModal();
-    //   dispatch(setLastAction(Date.now()));
-    // } catch (error) {
-    //   const errorMsg = error?.data?.message || error.message;
-    //   setError(errorMsg);
-    // }
+    try {
+      const res = await updateProfile({
+        name: newName,
+      }).unwrap();
+
+      dispatch(setCredentials({ ...res }));
+      closeModal();
+    } catch (error) {
+      const errorMsg = error?.data?.message || error.message;
+      setError(errorMsg);
+    }
   };
 
   return (

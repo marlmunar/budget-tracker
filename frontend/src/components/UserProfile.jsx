@@ -34,7 +34,6 @@ const UserProfile = ({ userLogs }) => {
         <button
           className="group min-h-8 min-w-8 rounded flex justify-center items-center"
           onClick={() => {
-            console.log("hello");
             dispatch(
               setModalState({
                 showModal: true,
