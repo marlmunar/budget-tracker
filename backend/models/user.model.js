@@ -16,19 +16,6 @@ const userSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    stats: {
-      type: {
-        monthlyIncome: {
-          type: String,
-          required: true,
-        },
-        savingGoals: {
-          type: String,
-          required: true,
-        },
-        _id: false,
-      },
-    },
   },
   {
     timestamps: true,

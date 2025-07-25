@@ -27,9 +27,7 @@ const verifyEmail = asyncHandler(async (req, res) => {
 // @access PUBLIC
 const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body;
-  const stats = { monthlyIncome: "blank", savingGoals: "blank" };
-
-  const user = await User.create({ name, email, password, stats });
+  const user = await User.create({ name, email, password });
 
   if (!user) {
     res.status(400);
@@ -41,7 +39,6 @@ const registerUser = asyncHandler(async (req, res) => {
     _id: user._id,
     name: user.name,
     email: user.email,
-    stats: user.stats,
   });
 });
 
@@ -63,7 +60,6 @@ const loginUser = asyncHandler(async (req, res) => {
     _id: user._id,
     name: user.name,
     email: user.email,
-    stats: user.stats,
   });
 });
 
@@ -86,7 +82,6 @@ const getProfile = asyncHandler(async (req, res) => {
     _id: req.user._id,
     name: req.user.name,
     email: req.user.email,
-    stats: req.user.stats,
   };
 
   res.status(200).json(user);
@@ -105,7 +100,6 @@ const updateProfile = asyncHandler(async (req, res) => {
 
   user.name = req.body.name || user.name;
   user.email = req.body.email || user.email;
-  user.stats = req.body.stats || user.stats;
 
   if (req.body.password) {
     user.password = req.body.password;
@@ -126,7 +120,6 @@ const updateProfile = asyncHandler(async (req, res) => {
     _id: updatedUser._id,
     name: updatedUser.name,
     email: updatedUser.email,
-    stats: updatedUser.stats,
   });
 });
 
