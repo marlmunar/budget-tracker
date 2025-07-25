@@ -11,8 +11,7 @@ const UserSettings = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPasword] = useState("");
-  const [income, setIncome] = useState("");
-  const [goals, setGoals] = useState("");
+
   const [activeSettings, setActiveSettings] = useState("");
   const [error, setError] = useState("");
 
@@ -21,8 +20,6 @@ const UserSettings = () => {
     setEmail("");
     setPassword("");
     setConfirmPasword("");
-    setIncome("");
-    setGoals("");
   }, [activeSettings]);
 
   const savePassword = async (e) => {
@@ -61,40 +58,40 @@ const UserSettings = () => {
     }
   };
 
-  const saveStats = async (e) => {
-    e.preventDefault();
-    if (!income && activeSettings === "income") {
-      return setError("This field cannot be empty");
-    }
-    if (!goals && activeSettings === "goals") {
-      return setError("This field cannot be empty");
-    }
-    let newIncome = income || (userInfo?.stats?.monthlyIncome ?? "blank");
-    let newGoals = goals || (userInfo?.stats?.savingGoals ?? "blank");
+  // const saveStats = async (e) => {
+  //   e.preventDefault();
+  //   if (!income && activeSettings === "income") {
+  //     return setError("This field cannot be empty");
+  //   }
+  //   if (!goals && activeSettings === "goals") {
+  //     return setError("This field cannot be empty");
+  //   }
+  //   let newIncome = income || (userInfo?.stats?.monthlyIncome ?? "blank");
+  //   let newGoals = goals || (userInfo?.stats?.savingGoals ?? "blank");
 
-    try {
-      if (newGoals === "blank" || newIncome === "blank") {
-        if (newIncome > 0) newGoals = Math.round(+newIncome * 0.8);
-        else {
-          throw new Error("Save a monthly income value first");
-        }
-      }
-      if (newIncome <= 0 || newGoals <= 0) {
-        throw new Error("Value should be greater than zero");
-      }
+  //   try {
+  //     if (newGoals === "blank" || newIncome === "blank") {
+  //       if (newIncome > 0) newGoals = Math.round(+newIncome * 0.8);
+  //       else {
+  //         throw new Error("Save a monthly income value first");
+  //       }
+  //     }
+  //     if (newIncome <= 0 || newGoals <= 0) {
+  //       throw new Error("Value should be greater than zero");
+  //     }
 
-      const res = await updateProfile({
-        stats: { monthlyIncome: newIncome, savingGoals: newGoals },
-      }).unwrap();
-      dispatch(setCredentials(res));
-      setIncome("");
-      setGoals("");
-      setActiveSettings("");
-    } catch (error) {
-      console.log(error);
-      setError(error.message);
-    }
-  };
+  //     const res = await updateProfile({
+  //       stats: { monthlyIncome: newIncome, savingGoals: newGoals },
+  //     }).unwrap();
+  //     dispatch(setCredentials(res));
+  //     setIncome("");
+  //     setGoals("");
+  //     setActiveSettings("");
+  //   } catch (error) {
+  //     console.log(error);
+  //     setError(error.message);
+  //   }
+  // };
   return (
     <>
       <motion.div
@@ -105,7 +102,7 @@ const UserSettings = () => {
       >
         <section className="rounded shadow-lg">
           <div className="flex flex-col gap-2 p-2">
-            <section>
+            <div>
               <h3 className="shadow bg-slate-300 rounded text-xl font-semibold p-2">
                 Profile Settings
               </h3>
@@ -203,87 +200,36 @@ const UserSettings = () => {
                   </form>
                 )}
               </ul>
-            </section>
-
-            <section>
+            </div>
+            <div>
               <h3 className="shadow bg-slate-300 rounded text-xl font-semibold p-2">
-                Financial Settings
+                Log Preferences
               </h3>
-              <ul className="p-2  flex flex-col gap-2 *:p-1">
+              <ul className="p-2 flex flex-col gap-2 *:p-1">
                 <li>
-                  <button
-                    type="button"
-                    onClick={() => setActiveSettings("income")}
-                  >
-                    Update Monthly Income
+                  <button type="button" onClick={() => setActiveSettings("")}>
+                    Select Currency
                   </button>
                 </li>
-                {activeSettings === "income" && (
-                  <form method="POST">
-                    <div className="flex p-4 flex-col gap-2 justify-center shadow rounded">
-                      <div className="flex flex-col justify-center md:w-[50%]">
-                        <label htmlFor="income">Enter monthly income:</label>
-                        <input
-                          name="income"
-                          type="number"
-                          value={income}
-                          onChange={(e) => setIncome(e.target.value)}
-                          className=" rounded px-2 p-1 border-2"
-                          autoComplete="off"
-                          required
-                        />
-                      </div>
-                      <div className="pl-1 text-red-500 text-sm">{error}</div>
-                      <div className="button-row justify-self-end">
-                        <button onClick={(e) => saveStats(e)}>Update</button>
-                        <button
-                          type="button"
-                          onClick={() => setActiveSettings("")}
-                        >
-                          Cancel
-                        </button>
-                      </div>
-                    </div>
-                  </form>
-                )}
                 <li>
-                  <button
-                    type="button"
-                    onClick={() => setActiveSettings("goals")}
-                  >
-                    Set Monthly Savings Goal
+                  <button type="button" onClick={() => setActiveSettings("")}>
+                    Manage Default Categories
                   </button>
                 </li>
-                {activeSettings === "goals" && (
-                  <form method="POST">
-                    <div className="flex p-4 flex-col gap-2 justify-center shadow rounded">
-                      <div className="flex flex-col justify-center md:w-[50%]">
-                        <label htmlFor="savingGoals">Enter new goal:</label>
-                        <input
-                          name="savingGoals"
-                          type="number"
-                          value={goals}
-                          onChange={(e) => setGoals(e.target.value)}
-                          className=" rounded px-2 p-1 border-2"
-                          autoComplete="off"
-                          required
-                        />
-                      </div>
-                      <div className="pl-1 text-red-500 text-sm">{error}</div>
-                      <div className="button-row justify-self-end">
-                        <button onClick={(e) => saveStats(e)}>Update</button>
-                        <button
-                          type="button"
-                          onClick={() => setActiveSettings("")}
-                        >
-                          Cancel
-                        </button>
-                      </div>
-                    </div>
-                  </form>
-                )}
               </ul>
-            </section>
+            </div>
+            <div>
+              <h3 className="shadow bg-slate-300 rounded text-xl font-semibold p-2">
+                Appearance
+              </h3>
+              <ul className="p-2 flex flex-col gap-2 *:p-1">
+                <li>
+                  <button type="button" onClick={() => setActiveSettings("")}>
+                    Dark Theme
+                  </button>
+                </li>
+              </ul>
+            </div>
           </div>
         </section>
       </motion.div>
