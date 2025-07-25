@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import UserProfile from "../components/UserProfile";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import UserSettings from "../components/UserSettings";
 
 const Profile = () => {
   const { userInfo } = useSelector((state) => state.auth);
@@ -23,11 +24,12 @@ const Profile = () => {
         transition={{ duration: 0.5 }}
         className="overflow-hidden"
       >
-        <main className="my-5 flex flex-col justify-between gap-10 lg:grid lg:grid-cols-[34%_64%] xl:grid-cols-[29%_69%]">
+        <main className="flex flex-col md:max-w-[50%] mx-auto">
           <title>
             {`Budgetarians' Log - ${userInfo ? userInfo.name : "User Name"}`}
           </title>
           <UserProfile userLogs={userLogs} />
+          <UserSettings userLogs={userLogs} />
         </main>
       </motion.div>
     )

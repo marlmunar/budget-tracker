@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import { TbArrowBackUp } from "react-icons/tb";
-import { Link } from "react-router-dom";
 import { useUpdateMutation } from "../slices/userApiSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { setCredentials } from "../slices/authSlice";
@@ -99,21 +97,13 @@ const UserSettings = () => {
   };
   return (
     <>
-      <title>Budgetarians' Log - User Settings</title>
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
         className="overflow-hidden"
       >
-        <main className="my-5 lg:w-[50%] mx-auto mt-2 rounded p-1 md:p-2 shadow-lg">
-          <div className="flex gap-2 text-2xl items-center p-2">
-            <Link className="log-button" to="/profile">
-              <TbArrowBackUp />
-            </Link>
-
-            <h2 className="text-2xl font-semibold underline">User Settings</h2>
-          </div>
+        <section className="rounded shadow-lg">
           <div className="flex flex-col gap-2 p-2">
             <section>
               <h3 className="shadow bg-slate-300 rounded text-xl font-semibold p-2">
@@ -295,7 +285,7 @@ const UserSettings = () => {
               </ul>
             </section>
           </div>
-        </main>
+        </section>
       </motion.div>
     </>
   );

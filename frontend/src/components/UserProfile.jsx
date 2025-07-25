@@ -27,34 +27,13 @@ const UserProfile = ({ userLogs }) => {
   };
 
   return (
-    <section className="flex flex-col border-2 border-slate-400 gap-4 items-start shadow-lg rounded p-4 lg:max-h-[12rem]">
+    <section className="flex flex-col border-2 border-slate-400 gap-4 items-start shadow-lg rounded p-4 max-h-[min-content]">
       <div className="flex justify-between w-full">
         <h2 className="text-2xl font-semibold underline">{userName}</h2>
-        <div className="flex gap-2 text-2xl items-center">
-          <button className="group" onClick={() => setIsRenaming(true)}>
-            <TbEdit className="transition-all duration-300 group-hover:text-amber-500" />
-          </button>
-          <Link to="/settings">
-            <TbSettings className="transition-all duration-300 group-hover:text-amber-500" />
-          </Link>
-        </div>
+        <button className="group" onClick={() => setIsRenaming(true)}>
+          <TbEdit className="text-xl transition-all duration-300 group-hover:text-amber-500" />
+        </button>
       </div>
-
-      {/* {isRenaming && (
-        <RenameModal
-          isRenaming={isRenaming}
-          setIsRenaming={setIsRenaming}
-          displayName={userName}
-          handleSubmit={(tempName) => {
-            setIsRenaming(false);
-            setUserName(tempName);
-            editHandler(tempName);
-          }}
-          title="Edit User Name"
-          description="Update your user name"
-        />
-      )} */}
-
       <div className="grid grid-row-4 grid-cols-2 gap-x-5 gap-y-1">
         <span className="font-semibold">Logs:</span>
         <span> {userLogs}</span>
