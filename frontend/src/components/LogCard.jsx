@@ -58,7 +58,7 @@ const LogCard = ({ logName, logStats, logId, logData }) => {
                         dispatch(
                           setModalState({
                             showModal: true,
-                            activeModal: "rename",
+                            activeModal: "renameLog",
                             modalData: { name: logName, id: logId },
                           })
                         )

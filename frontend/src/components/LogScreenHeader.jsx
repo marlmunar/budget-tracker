@@ -150,7 +150,7 @@ const LogScreenHeader = ({ logData }) => {
                     dispatch(
                       setModalState({
                         showModal: true,
-                        activeModal: "rename",
+                        activeModal: "renameLog",
                         modalData: { name, id },
                       })
                     );
