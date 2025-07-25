@@ -5,7 +5,8 @@ import { Outlet } from "react-router-dom";
 import { setModalState } from "../slices/appSlice";
 import AddNewLog from "./Modals/AddNewLog";
 import { AnimatePresence, flushKeyframeResolvers, motion } from "framer-motion";
-import Rename from "./Modals/Rename";
+import RenameLog from "./Modals/RenameLog";
+import RenameUser from "./Modals/RenameUser";
 import Delete from "./Modals/Delete";
 import OutsideClick from "./OutsideClick";
 import ConfirmExit from "./Modals/ConfirmExit";
@@ -56,8 +57,19 @@ const ModalWrapper = () => {
 
   const modals = {
     addLog: <AddNewLog closeModal={closeModal} />,
-    rename: (
-      <Rename name={modalData.name} id={modalData.id} closeModal={closeModal} />
+    renameLog: (
+      <RenameLog
+        name={modalData.name}
+        id={modalData.id}
+        closeModal={closeModal}
+      />
+    ),
+    renameUser: (
+      <RenameUser
+        name={modalData.name}
+        id={modalData.id}
+        closeModal={closeModal}
+      />
     ),
     delete: <Delete resource={modalData} closeModal={closeModal} />,
     confirmExit: (
@@ -73,7 +85,8 @@ const ModalWrapper = () => {
 
   const titles = {
     addLog: "Add New Log",
-    rename: "Rename Log",
+    renameLog: "Rename Log",
+    renameUser: "Rename User",
     delete: "Delete Log",
     confirmExit: "Leave Log",
     confirmLogout: "Confirm Logout",

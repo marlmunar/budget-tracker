@@ -4,6 +4,7 @@ import { useUpdateMutation } from "../slices/userApiSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { setCredentials } from "../slices/authSlice";
 import { Link } from "react-router-dom";
+import { setModalState } from "../slices/appSlice";
 
 const UserProfile = ({ userLogs }) => {
   const dispatch = useDispatch();
@@ -13,25 +14,37 @@ const UserProfile = ({ userLogs }) => {
   const [isRenaming, setIsRenaming] = useState(false);
   const [userName, setUserName] = useState(userInfo.name);
 
-  const editHandler = async (tempName) => {
-    let name = tempName;
-    try {
-      const res = await updateProfile({
-        name,
-      }).unwrap();
-      dispatch(setCredentials({ ...res }));
-      console.log(res);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const editHandler = async (tempName) => {
+  //   let name = tempName;
+  //   try {
+  //     const res = await updateProfile({
+  //       name,
+  //     }).unwrap();
+  //     dispatch(setCredentials({ ...res }));
+  //     console.log(res);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   return (
     <section className="flex flex-col border-2 border-slate-400 gap-4 items-start shadow-lg rounded p-4 max-h-[min-content]">
-      <div className="flex justify-between w-full">
+      <div className="flex w-full gap-1">
         <h2 className="text-2xl font-semibold underline">{userName}</h2>
-        <button className="group" onClick={() => setIsRenaming(true)}>
-          <TbEdit className="text-xl transition-all duration-300 group-hover:text-amber-500" />
+        <button
+          className="group min-h-8 min-w-8 rounded flex justify-center items-center"
+          onClick={() => {
+            console.log("hello");
+            dispatch(
+              setModalState({
+                showModal: true,
+                activeModal: "renameUser",
+                modalData: { name: userName },
+              })
+            );
+          }}
+        >
+          <TbEdit className=" text-xl transition-all duration-300 group-hover:text-amber-500" />
         </button>
       </div>
       <div className="grid grid-row-4 grid-cols-2 gap-x-5 gap-y-1">
