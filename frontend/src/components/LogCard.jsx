@@ -16,7 +16,7 @@ const LogCard = ({ logName, logStats, logId, logData }) => {
 
   return (
     <div
-      className="relative md:mx-auto flex md:w-[98%] mb-1 mx-1
+      className="relative md:mx-auto flex md:w-[98%] mb-1
         trasition-all duration-100 
       bg-white hover:shadow-slate-700 shadow-sm rounded 
         hover:shadow hover:translate-y-[-2px]"
