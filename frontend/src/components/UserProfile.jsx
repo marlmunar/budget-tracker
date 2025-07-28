@@ -28,7 +28,7 @@ const UserProfile = ({ userLogs }) => {
   // };
 
   return (
-    <section className="flex flex-col border-2 border-slate-400 gap-4 items-start shadow-lg rounded p-4 max-h-[min-content]">
+    <section className="flex flex-col border-2 mx-2 border-slate-300 gap-1 items-start rounded p-4 max-h-[min-content]">
       <div className="flex w-full gap-1">
         <h2 className="text-2xl font-semibold underline">{userName}</h2>
         <button
@@ -46,7 +46,7 @@ const UserProfile = ({ userLogs }) => {
           <TbEdit className=" text-xl transition-all duration-300 group-hover:text-amber-500" />
         </button>
       </div>
-      <div className="grid grid-row-4 grid-cols-2 gap-x-5 gap-y-1">
+      <div className="grid grid-row-4 grid-cols-2 gap-x-5 gap-y-1 text-sm md:text-base">
         <span className="font-semibold">Logs:</span>
         <span> {userLogs}</span>
         <span className="font-semibold">Budgetarian Grade:</span>

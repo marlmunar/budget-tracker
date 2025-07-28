@@ -101,12 +101,12 @@ const UserSettings = () => {
         className="overflow-hidden"
       >
         <section className="rounded shadow-lg">
-          <div className="flex flex-col gap-2 p-2">
+          <div className="flex flex-col gap-2 p-2 text-base md:text-lg">
             <div>
-              <h3 className="shadow bg-slate-300 rounded text-lg font-semibold p-1 px-2">
+              <h3 className="shadow bg-slate-300 rounded font-semibold p-1 px-2">
                 Profile Settings
               </h3>
-              <ul className="p-2 flex flex-col gap-1 *:p-1">
+              <ul className="p-2 flex flex-col gap-1 *:p-1 text-sm md:text-base">
                 <li>
                   <button
                     type="button"
@@ -202,10 +202,10 @@ const UserSettings = () => {
               </ul>
             </div>
             <div>
-              <h3 className="shadow bg-slate-300 rounded text-lg font-semibold p-1 px-2">
+              <h3 className="shadow bg-slate-300 rounded font-semibold p-1 px-2">
                 Log Preferences
               </h3>
-              <ul className="p-2 flex flex-col gap-1 *:p-1">
+              <ul className="p-2 flex flex-col gap-1 *:p-1 text-sm md:text-base">
                 <li>
                   <button type="button" onClick={() => setActiveSettings("")}>
                     Select Currency
@@ -219,10 +219,10 @@ const UserSettings = () => {
               </ul>
             </div>
             <div>
-              <h3 className="shadow bg-slate-300 rounded text-lg font-semibold p-1 px-2">
+              <h3 className="shadow bg-slate-200 rounded font-semibold p-1 px-2">
                 Appearance
               </h3>
-              <ul className="p-2 flex flex-col gap-1 *:p-1">
+              <ul className="p-2 flex flex-col gap-1 *:p-1 text-sm md:text-base">
                 <li>
                   <button type="button" onClick={() => setActiveSettings("")}>
                     Dark Theme
