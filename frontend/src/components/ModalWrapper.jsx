@@ -4,12 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
 import { setModalState } from "../slices/appSlice";
 import AddNewLog from "./Modals/AddNewLog";
-import { AnimatePresence, flushKeyframeResolvers, motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import RenameLog from "./Modals/RenameLog";
 import RenameUser from "./Modals/RenameUser";
 import Delete from "./Modals/Delete";
 import OutsideClick from "./OutsideClick";
 import ConfirmExit from "./Modals/ConfirmExit";
+import UpdateEmail from "./Modals/UpdateEmail";
 import useNavigationBlocker from "../hooks/useNavigationBlocker";
 import { setIsNotSaved } from "../slices/logSlice";
 import ConfirmLogout from "./Modals/ConfirmLogout";
@@ -79,6 +80,7 @@ const ModalWrapper = () => {
       />
     ),
     confirmLogout: <ConfirmLogout closeModal={closeModal} />,
+    updateEmail: <UpdateEmail closeModal={closeModal} />,
   };
 
   const getModal = () => modals[activeModal] || null;
@@ -90,6 +92,7 @@ const ModalWrapper = () => {
     delete: "Delete Log",
     confirmExit: "Leave Log",
     confirmLogout: "Confirm Logout",
+    updateEmail: "Update Email",
   };
 
   const getModalTitle = () => titles[activeModal] || null;

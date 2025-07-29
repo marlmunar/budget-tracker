@@ -4,7 +4,7 @@ import { setLastAction } from "../../slices/appSlice";
 import { useUpdateMutation } from "../../slices/userApiSlice";
 import { setCredentials } from "../../slices/authSlice";
 
-const Rename = ({ name, closeModal }) => {
+const RenameUser = ({ name, closeModal }) => {
   const dispatch = useDispatch();
   const [newName, setNewName] = useState(name);
   const [updateProfile, { isLoading }] = useUpdateMutation();
@@ -56,4 +56,4 @@ const Rename = ({ name, closeModal }) => {
   );
 };
 
-export default Rename;
+export default RenameUser;

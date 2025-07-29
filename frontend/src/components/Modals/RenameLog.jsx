@@ -3,7 +3,7 @@ import { useUpdateLogMutation } from "../../slices/logsApiSlice";
 import { useDispatch } from "react-redux";
 import { setLastAction } from "../../slices/appSlice";
 
-const Rename = ({ name, id, closeModal }) => {
+const RenameLog = ({ name, id, closeModal }) => {
   const dispatch = useDispatch();
   const [newName, setNewName] = useState(name);
   const [updateLog] = useUpdateLogMutation();
@@ -57,4 +57,4 @@ const Rename = ({ name, id, closeModal }) => {
   );
 };
 
-export default Rename;
+export default RenameLog;

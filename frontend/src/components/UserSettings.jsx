@@ -3,6 +3,7 @@ import { useUpdateMutation } from "../slices/userApiSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { setCredentials } from "../slices/authSlice";
 import { motion } from "framer-motion";
+import { setModalState } from "../slices/appSlice";
 
 const UserSettings = () => {
   const dispatch = useDispatch();
@@ -110,41 +111,19 @@ const UserSettings = () => {
                 <li>
                   <button
                     type="button"
-                    onClick={() => setActiveSettings("email")}
+                    onClick={() => {
+                      dispatch(
+                        setModalState({
+                          showModal: true,
+                          activeModal: "updateEmail",
+                        })
+                      );
+                    }}
                   >
                     Update Email
                   </button>
                 </li>
-                {activeSettings === "email" && (
-                  <form method="POST">
-                    <div className="flex p-4 flex-col gap-2 justify-center shadow rounded">
-                      <div className="flex flex-col justify-center md:w-[50%]">
-                        <label htmlFor="email">Enter new email:</label>
-                        <input
-                          name="email"
-                          type="email"
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                          className=" rounded px-2 p-1 border-2"
-                          autoComplete="off"
-                          required
-                        />
-                      </div>
-                      <div className="pl-1 text-red-500 text-sm">{error}</div>
-                      <div className="button-row justify-self-end">
-                        <button formNoValidate onClick={(e) => saveEmail(e)}>
-                          Update
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => setActiveSettings("")}
-                        >
-                          Cancel
-                        </button>
-                      </div>
-                    </div>
-                  </form>
-                )}
+
                 <li>
                   <button
                     type="button"
