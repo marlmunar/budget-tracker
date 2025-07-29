@@ -127,57 +127,18 @@ const UserSettings = () => {
                 <li>
                   <button
                     type="button"
-                    onClick={() => setActiveSettings("password")}
+                    onClick={() => {
+                      dispatch(
+                        setModalState({
+                          showModal: true,
+                          activeModal: "updatePassword",
+                        })
+                      );
+                    }}
                   >
                     Change Password
                   </button>
                 </li>
-                {activeSettings === "password" && (
-                  <form method="POST">
-                    <div className="flex p-4 flex-col gap-2 justify-center shadow rounded">
-                      <div className="flex flex-col gap-2">
-                        <div className="flex flex-col justify-center md:w-[50%]">
-                          <label htmlFor="password">Enter new password:</label>
-                          <input
-                            name="password"
-                            type="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            className="rounded px-2 p-1 border-2"
-                            autoComplete="off"
-                            required
-                          />
-                        </div>
-                        <div className="flex flex-col justify-center md:w-[50%]">
-                          <label htmlFor="newPassword">
-                            Confirm new password:
-                          </label>
-                          <input
-                            name="newPassword"
-                            type="password"
-                            value={confirmPassword}
-                            onChange={(e) => setConfirmPasword(e.target.value)}
-                            className=" rounded px-2 p-1 border-2"
-                            autoComplete="off"
-                            required
-                          />
-                        </div>
-                      </div>
-                      <div className="pl-1 text-red-500 text-sm">{error}</div>
-                      <div className="button-row justify-self-end">
-                        <button formNoValidate onClick={(e) => savePassword(e)}>
-                          Update
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => setActiveSettings("")}
-                        >
-                          Cancel
-                        </button>
-                      </div>
-                    </div>
-                  </form>
-                )}
               </ul>
             </div>
             <div>

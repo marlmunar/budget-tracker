@@ -14,6 +14,7 @@ import UpdateEmail from "./Modals/UpdateEmail";
 import useNavigationBlocker from "../hooks/useNavigationBlocker";
 import { setIsNotSaved } from "../slices/logSlice";
 import ConfirmLogout from "./Modals/ConfirmLogout";
+import UpdatePassword from "./Modals/UpdatePassword";
 
 const ModalWrapper = () => {
   const dispatch = useDispatch();
@@ -81,6 +82,7 @@ const ModalWrapper = () => {
     ),
     confirmLogout: <ConfirmLogout closeModal={closeModal} />,
     updateEmail: <UpdateEmail closeModal={closeModal} />,
+    updatePassword: <UpdatePassword closeModal={closeModal} />,
   };
 
   const getModal = () => modals[activeModal] || null;
@@ -93,6 +95,7 @@ const ModalWrapper = () => {
     confirmExit: "Leave Log",
     confirmLogout: "Confirm Logout",
     updateEmail: "Update Email",
+    updatePassword: "Update Password",
   };
 
   const getModalTitle = () => titles[activeModal] || null;
