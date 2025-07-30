@@ -10,33 +10,37 @@ const UpdateEmail = ({ name, closeModal }) => {
   const [updateProfile, { isLoading }] = useUpdateMutation();
   const [error, setError] = useState("");
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
+  const validateEmail = (testEmail) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(testEmail);
+  };
 
-  //   if (!newName) {
-  //     return setError("Please provide a name");
-  //   }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  //   if (name === newName) {
-  //     return closeModal();
-  //   }
+    if (!newEmail) {
+      return setError("Please provide an email");
+    }
 
-  //   try {
-  //     const res = await updateProfile({
-  //       name: newName,
-  //     }).unwrap();
+    if (!validateEmail(email)) {
+      return setError("Invalid email");
+    }
 
-  //     dispatch(setCredentials({ ...res }));
-  //     closeModal();
-  //   } catch (error) {
-  //     const errorMsg = error?.data?.message || error.message;
-  //     setError(errorMsg);
-  //   }
-  // };
+    // try {
+    //   const res = await updateProfile({
+    //     name: newName,
+    //   }).unwrap();
 
-  // onSubmit={handleSubmit}
+    //   dispatch(setCredentials({ ...res }));
+    //   closeModal();
+    // } catch (error) {
+    //   const errorMsg = error?.data?.message || error.message;
+    //   setError(errorMsg);
+    // }
+  };
+
   return (
-    <form className="modal-form">
+    <form className="modal-form" onSubmit={handleSubmit}>
       <div className="modal-input-container">
         <label htmlFor="newName">Provide your updated email</label>
         <input
