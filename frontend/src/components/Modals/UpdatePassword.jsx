@@ -12,33 +12,36 @@ const UpdatePassword = ({ name, closeModal }) => {
   const [updateProfile, { isLoading }] = useUpdateMutation();
   const [error, setError] = useState("");
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  //   if (!newName) {
-  //     return setError("Please provide a name");
-  //   }
+    if (!password) {
+      return setError("Please enter your password");
+    }
 
-  //   if (name === newName) {
-  //     return closeModal();
-  //   }
+    if (!newPassword) {
+      return setError("Please enter your new password");
+    }
 
-  //   try {
-  //     const res = await updateProfile({
-  //       name: newName,
-  //     }).unwrap();
+    if (!confirmNewPassword) {
+      return setError("Please confirm your new password");
+    }
 
-  //     dispatch(setCredentials({ ...res }));
-  //     closeModal();
-  //   } catch (error) {
-  //     const errorMsg = error?.data?.message || error.message;
-  //     setError(errorMsg);
-  //   }
-  // };
+    // try {
+    //   const res = await updateProfile({
+    //     name: newName,
+    //   }).unwrap();
 
-  // onSubmit={handleSubmit}
+    //   dispatch(setCredentials({ ...res }));
+    //   closeModal();
+    // } catch (error) {
+    //   const errorMsg = error?.data?.message || error.message;
+    //   setError(errorMsg);
+    // }
+  };
+
   return (
-    <form className="modal-form">
+    <form className="modal-form" onSubmit={handleSubmit}>
       <div className="flex flex-col gap-2">
         <div className="modal-input-container">
           <label htmlFor="password">Enter your password:</label>
