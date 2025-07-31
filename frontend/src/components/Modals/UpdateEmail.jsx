@@ -6,7 +6,7 @@ import { setCredentials } from "../../slices/authSlice";
 
 const UpdateEmail = ({ name, closeModal }) => {
   const dispatch = useDispatch();
-  const [newEmail, setNewEMail] = useState(name);
+  const [newEmail, setNewEmail] = useState(name);
   const [updateProfile, { isLoading }] = useUpdateMutation();
   const [error, setError] = useState("");
 
@@ -22,21 +22,19 @@ const UpdateEmail = ({ name, closeModal }) => {
       return setError("Please provide an email");
     }
 
-    if (!validateEmail(email)) {
+    if (!validateEmail(newEmail)) {
       return setError("Invalid email");
     }
 
-    // try {
-    //   const res = await updateProfile({
-    //     name: newName,
-    //   }).unwrap();
-
-    //   dispatch(setCredentials({ ...res }));
-    //   closeModal();
-    // } catch (error) {
-    //   const errorMsg = error?.data?.message || error.message;
-    //   setError(errorMsg);
-    // }
+    try {
+      const res = await updateProfile({ email: newEmail }).unwrap();
+      dispatch(setCredentials(res));
+      setError("");
+      closeModal();
+    } catch (error) {
+      const errorMsg = error?.data?.message || error.message;
+      setError(errorMsg);
+    }
   };
 
   return (
@@ -49,7 +47,7 @@ const UpdateEmail = ({ name, closeModal }) => {
           type="email"
           placeholder="New Email"
           maxLength="25"
-          onChange={(e) => setNewName(e.target.value)}
+          onChange={(e) => setNewEmail(e.target.value)}
           autoComplete="off"
           required
         />

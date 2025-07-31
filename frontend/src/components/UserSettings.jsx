@@ -40,25 +40,6 @@ const UserSettings = () => {
     }
   };
 
-  const saveEmail = async (e) => {
-    e.preventDefault();
-
-    try {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(email)) {
-        throw new Error("Invalid email");
-      }
-
-      const res = await updateProfile({ email }).unwrap();
-      dispatch(setCredentials(res));
-      setEmail("");
-      setActiveSettings("");
-    } catch (error) {
-      const errorMsg = error?.data?.message || error.message;
-      setError(errorMsg);
-    }
-  };
-
   // const saveStats = async (e) => {
   //   e.preventDefault();
   //   if (!income && activeSettings === "income") {
