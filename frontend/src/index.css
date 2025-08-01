@@ -438,7 +438,7 @@ menu li {
 }
 
 .modal-input-container > input {
-  @apply border-2 rounded block min-w-full border-gray-800 px-2 p-1 text-sm md:text-base;
+  @apply border-2 rounded block min-w-full border-gray-200 px-2 p-1 text-sm md:text-base;
 }
 
 .modal-button {
