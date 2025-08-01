@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useUpdateMutation } from "../slices/userApiSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { setCredentials } from "../slices/authSlice";
@@ -38,6 +38,15 @@ const UserSettings = () => {
       setActiveSettings("");
     } catch (error) {
       setError(error.message);
+    }
+  };
+
+  const selectRef = useRef(null);
+
+  const openSelect = () => {
+    console.log("Should open");
+    if (selectRef.current) {
+      selectRef.current.focus();
     }
   };
 
@@ -129,12 +138,17 @@ const UserSettings = () => {
               </h3>
               <ul className="p-2 flex flex-col gap-1 *:p-1 text-sm md:text-base">
                 <li className="space-x-2">
-                  <label type="button">Select Currency:</label>
+                  <label type="button" htmlFor="currency">
+                    Select Currency:
+                  </label>
                   <div className="relative w-55">
-                    <TbCaretDownFilled className="absolute top-2 right-1" />
+                    <TbCaretDownFilled
+                      className="absolute top-2 right-1 border"
+                      onClick={openSelect}
+                    />
                     <select
-                      name="fruits"
-                      id="fruits"
+                      ref={selectRef}
+                      name="currency"
                       className="bg-gray-200 p-1 rounded appearance-none border-0 w-full"
                     >
                       <option value="PHP">PHP</option>
