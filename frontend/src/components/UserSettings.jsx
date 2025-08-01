@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setCredentials } from "../slices/authSlice";
 import { motion } from "framer-motion";
 import { setModalState } from "../slices/appSlice";
+import { TbCaretDownFilled } from "react-icons/tb";
 
 const UserSettings = () => {
   const dispatch = useDispatch();
@@ -127,10 +128,22 @@ const UserSettings = () => {
                 Log Preferences
               </h3>
               <ul className="p-2 flex flex-col gap-1 *:p-1 text-sm md:text-base">
-                <li>
-                  <button type="button" onClick={() => setActiveSettings("")}>
-                    Select Currency
-                  </button>
+                <li className="space-x-2">
+                  <label type="button">Select Currency:</label>
+                  <div className="relative w-55">
+                    <TbCaretDownFilled className="absolute top-2 right-1" />
+                    <select
+                      name="fruits"
+                      id="fruits"
+                      className="bg-gray-200 p-1 rounded appearance-none border-0 w-full"
+                    >
+                      <option value="PHP">PHP</option>
+                      <option value="USD">USD</option>
+                      <option value="EUR">EUR</option>
+                      <option value="INR">INR</option>
+                      <option value="JPY">JPY</option>
+                    </select>
+                  </div>
                 </li>
                 <li>
                   <button type="button" onClick={() => setActiveSettings("")}>
