@@ -138,26 +138,19 @@ const UserSettings = () => {
               </h3>
               <ul className="p-2 flex flex-col gap-1 *:p-1 text-sm md:text-base">
                 <li className="space-x-2">
-                  <label type="button" htmlFor="currency">
-                    Select Currency:
-                  </label>
-                  <div className="relative w-55">
-                    <TbCaretDownFilled
-                      className="absolute top-2 right-1 border"
-                      onClick={openSelect}
-                    />
-                    <select
-                      ref={selectRef}
-                      name="currency"
-                      className="bg-gray-200 p-1 rounded appearance-none border-0 w-full"
-                    >
-                      <option value="PHP">PHP</option>
-                      <option value="USD">USD</option>
-                      <option value="EUR">EUR</option>
-                      <option value="INR">INR</option>
-                      <option value="JPY">JPY</option>
-                    </select>
-                  </div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      dispatch(
+                        setModalState({
+                          showModal: true,
+                          activeModal: "selectCurrency",
+                        })
+                      );
+                    }}
+                  >
+                    Select Currency
+                  </button>
                 </li>
                 <li>
                   <button type="button" onClick={() => setActiveSettings("")}>

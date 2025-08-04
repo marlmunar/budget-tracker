@@ -15,6 +15,7 @@ import useNavigationBlocker from "../hooks/useNavigationBlocker";
 import { setIsNotSaved } from "../slices/logSlice";
 import ConfirmLogout from "./Modals/ConfirmLogout";
 import UpdatePassword from "./Modals/UpdatePassword";
+import SelectCurrency from "./Modals/SelectCurrency";
 
 const ModalWrapper = () => {
   const dispatch = useDispatch();
@@ -83,6 +84,7 @@ const ModalWrapper = () => {
     confirmLogout: <ConfirmLogout closeModal={closeModal} />,
     updateEmail: <UpdateEmail closeModal={closeModal} />,
     updatePassword: <UpdatePassword closeModal={closeModal} />,
+    selectCurrency: <SelectCurrency closeModal={closeModal} />,
   };
 
   const getModal = () => modals[activeModal] || null;
@@ -96,6 +98,7 @@ const ModalWrapper = () => {
     confirmLogout: "Confirm Logout",
     updateEmail: "Update Email",
     updatePassword: "Update Password",
+    selectCurrency: "Select Currency",
   };
 
   const getModalTitle = () => titles[activeModal] || null;

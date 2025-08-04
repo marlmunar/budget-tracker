@@ -4,11 +4,11 @@ import { setLastAction } from "../../slices/appSlice";
 import { useUpdateMutation } from "../../slices/userApiSlice";
 import { setCredentials } from "../../slices/authSlice";
 
-const UpdatePassword = ({ name, closeModal }) => {
+const UpdatePassword = ({ closeModal }) => {
   const dispatch = useDispatch();
-  const [password, setPassword] = useState(name);
-  const [newPassword, setNewPassword] = useState(name);
-  const [confirmNewPassword, setConfrimNewPassword] = useState(name);
+  const [password, setPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmNewPassword, setConfrimNewPassword] = useState("");
   const [updateProfile, { isLoading }] = useUpdateMutation();
   const [error, setError] = useState("");
 

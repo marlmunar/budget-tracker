@@ -4,9 +4,9 @@ import { setLastAction } from "../../slices/appSlice";
 import { useUpdateMutation } from "../../slices/userApiSlice";
 import { setCredentials } from "../../slices/authSlice";
 
-const UpdateEmail = ({ name, closeModal }) => {
+const UpdateEmail = ({ closeModal }) => {
   const dispatch = useDispatch();
-  const [newEmail, setNewEmail] = useState(name);
+  const [newEmail, setNewEmail] = useState();
   const [updateProfile, { isLoading }] = useUpdateMutation();
   const [error, setError] = useState("");
 
