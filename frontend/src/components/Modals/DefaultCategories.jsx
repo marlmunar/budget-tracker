@@ -36,13 +36,7 @@ const DefaultCategories = ({ closeModal }) => {
     >
       <menu className="rounded text-center text-base flex flex-col gap-1">
         {tempList.map((cat, index) => (
-          <li
-            key={index}
-            className="flex 
-            justify-start 
-            items-center gap-1
-            min-h-8"
-          >
+          <li key={index} className="modal-input-container">
             <div
               className="flex items-center justify-between p-1 px-2 rounded w-full min-h-10 text-sm md:text-base"
               style={{ backgroundColor: cat.color }}
