@@ -6,7 +6,7 @@ import { setCredentials } from "../../slices/authSlice";
 
 const UpdateEmail = ({ closeModal }) => {
   const dispatch = useDispatch();
-  const [newEmail, setNewEmail] = useState();
+  const [newEmail, setNewEmail] = useState("");
   const [updateProfile, { isLoading }] = useUpdateMutation();
   const [error, setError] = useState("");
 
