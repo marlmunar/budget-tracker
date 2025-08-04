@@ -153,7 +153,17 @@ const UserSettings = () => {
                   </button>
                 </li>
                 <li>
-                  <button type="button" onClick={() => setActiveSettings("")}>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      dispatch(
+                        setModalState({
+                          showModal: true,
+                          activeModal: "defaultCategories",
+                        })
+                      );
+                    }}
+                  >
                     Manage Default Categories
                   </button>
                 </li>

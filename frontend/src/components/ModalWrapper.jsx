@@ -16,6 +16,7 @@ import { setIsNotSaved } from "../slices/logSlice";
 import ConfirmLogout from "./Modals/ConfirmLogout";
 import UpdatePassword from "./Modals/UpdatePassword";
 import SelectCurrency from "./Modals/SelectCurrency";
+import DefaultCategories from "./Modals/DefaultCategories";
 
 const ModalWrapper = () => {
   const dispatch = useDispatch();
@@ -85,6 +86,7 @@ const ModalWrapper = () => {
     updateEmail: <UpdateEmail closeModal={closeModal} />,
     updatePassword: <UpdatePassword closeModal={closeModal} />,
     selectCurrency: <SelectCurrency closeModal={closeModal} />,
+    defaultCategories: <DefaultCategories closeModal={closeModal} />,
   };
 
   const getModal = () => modals[activeModal] || null;
@@ -99,6 +101,7 @@ const ModalWrapper = () => {
     updateEmail: "Update Email",
     updatePassword: "Update Password",
     selectCurrency: "Select Currency",
+    defaultCategories: "Manage Default Categories",
   };
 
   const getModalTitle = () => titles[activeModal] || null;
