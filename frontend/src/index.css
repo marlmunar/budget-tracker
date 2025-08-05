@@ -385,7 +385,7 @@ menu li {
 }
 
 .modal-clear-button {
-  @apply absolute top-0 right-2 text-blue-400 md:text-sm text-xs;
+  @apply absolute top-2 right-2 text-blue-400 md:text-sm text-xs;
 }
 
 .error-message {
@@ -461,6 +461,17 @@ menu li {
    active:bg-amber-700
    bg-amber-300
    hover:bg-amber-400
+    hover:shadow-md hover:border-transparent hover:translate-y-[-2px]
+    transition-all duration-300;
+}
+
+.modal-clean-button {
+  @apply shadow rounded w-18 py-2 self-end
+    text-sm md:text-base
+    active:scale-95
+   active:bg-gray-400
+   bg-gray-200
+   hover:bg-gray-300
     hover:shadow-md hover:border-transparent hover:translate-y-[-2px]
     transition-all duration-300;
 }

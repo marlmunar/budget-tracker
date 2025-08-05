@@ -26,6 +26,12 @@ const DefaultCategories = ({ closeModal }) => {
     return;
   };
 
+  const close = () => {
+    setIsManaging(false);
+    setCategory(null);
+    setAction("");
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     closeModal();
@@ -39,7 +45,7 @@ const DefaultCategories = ({ closeModal }) => {
       className="flex flex-col relative gap-1"
     >
       {isManaging ? (
-        <ManageCategory action={action} category={category} />
+        <ManageCategory close={close} action={action} category={category} />
       ) : (
         <menu className="rounded text-center text-base flex flex-col gap-1">
           <li className="modal-input-container">

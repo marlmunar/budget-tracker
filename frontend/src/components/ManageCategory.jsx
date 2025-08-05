@@ -50,8 +50,8 @@ const ManageCategory = ({ close, action, category }) => {
       return setError("Category already exists");
 
     const newCategory = { name, color, type };
-    dispatch(addTempCategories(newCategory));
-    dispatch(setIsNotSaved(true));
+    // dispatch(addTempCategories(newCategory));
+    // dispatch(setIsNotSaved(true));
     close();
   };
 
@@ -202,11 +202,11 @@ const ManageCategory = ({ close, action, category }) => {
       >
         Clear Values
       </button>
-      <div className="flex gap-1 justify-end">
+      <div className="flex gap-2 justify-end">
         <button className="modal-action-button" formNoValidate>
           Save
         </button>
-        <button type="button" className="modal-action-button">
+        <button type="button" onClick={close} className="modal-clean-button">
           Cancel
         </button>
       </div>
