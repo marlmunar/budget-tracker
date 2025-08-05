@@ -35,6 +35,23 @@ const DefaultCategories = ({ closeModal }) => {
       className="flex flex-col relative gap-1"
     >
       <menu className="rounded text-center text-base flex flex-col gap-1">
+        <li className="modal-input-container">
+          <div className="flex w-full rounded gap-1 text-sm md:text-base">
+            <button
+              type="button"
+              className="bg-gray-200 rounded w-full min-h-10 p-1"
+            >
+              Add New
+            </button>
+            <button
+              type="button"
+              className="bg-gray-200 rounded w-full min-h-10 p-1"
+            >
+              Reset Values
+            </button>
+          </div>
+        </li>
+
         {tempList.map((cat, index) => (
           <li key={index} className="modal-input-container">
             <div
