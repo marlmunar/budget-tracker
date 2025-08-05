@@ -56,7 +56,7 @@ const UpdatePassword = ({ closeModal }) => {
           />
         </div>
         <div className="modal-input-container">
-          <label htmlFor="newPassword">New password:</label>
+          <label htmlFor="newPassword">Enter new password:</label>
           <input
             name="newPassword"
             type="password"
