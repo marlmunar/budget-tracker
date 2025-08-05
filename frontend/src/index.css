@@ -384,6 +384,10 @@ menu li {
   @apply absolute top-4 right-4 text-blue-400 md:text-sm text-xs;
 }
 
+.modal-clear-button {
+  @apply absolute top-0 right-2 text-blue-400 md:text-sm text-xs;
+}
+
 .error-message {
   @apply text-left my-2 mr-5 text-red-500 md:text-sm text-xs;
 }

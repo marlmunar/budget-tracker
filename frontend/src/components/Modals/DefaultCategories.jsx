@@ -1,11 +1,13 @@
 import { TbCheck, TbPencil, TbX } from "react-icons/tb";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import ManageCategory from "../ManageCategory";
 
 const DefaultCategories = ({ closeModal }) => {
   const dispatch = useDispatch();
   const { defaultCategories } = useSelector((state) => state.logs);
   const [tempList, setTempList] = useState(defaultCategories);
+  const [isManaging, setIsManaging] = useState(false);
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -34,68 +36,75 @@ const DefaultCategories = ({ closeModal }) => {
       onSubmit={handleSubmit}
       className="flex flex-col relative gap-1"
     >
-      <menu className="rounded text-center text-base flex flex-col gap-1">
-        <li className="modal-input-container">
-          <div className="flex w-full rounded gap-1 text-sm md:text-base">
-            <button
-              type="button"
-              className="bg-gray-200 rounded w-full min-h-10 p-1"
-            >
-              Add New
-            </button>
-            <button
-              type="button"
-              className="bg-gray-200 rounded w-full min-h-10 p-1"
-            >
-              Reset Values
-            </button>
-          </div>
-        </li>
+      {isManaging ? (
+        <ManageCategory />
+      ) : (
+        <menu className="rounded text-center text-base flex flex-col gap-1">
+          <li className="modal-input-container">
+            <div className="flex w-full rounded gap-1 text-sm md:text-base">
+              <button
+                type="button"
+                className="bg-gray-200 rounded w-full min-h-10 p-1"
+                onClick={() => setIsManaging(true)}
+              >
+                Add New
+              </button>
+              <button
+                type="button"
+                className="bg-gray-200 rounded w-full min-h-10 p-1"
+              >
+                Reset Values
+              </button>
+            </div>
+          </li>
 
-        {tempList.map((cat, index) => (
-          <li key={index} className="modal-input-container">
-            <div
-              className="flex items-center justify-between p-1 px-2 rounded w-full min-h-10 text-sm md:text-base"
-              style={{ backgroundColor: cat.color }}
-            >
-              {cat.name}
-              <div className="space-x-1 flex items-center">
-                <button
-                  type="button"
-                  className="text-xl p-1 rounded
+          {tempList.map((cat, index) => (
+            <li key={index} className="modal-input-container">
+              <div
+                className="flex items-center justify-between p-1 px-2 rounded w-full min-h-10 text-sm md:text-base"
+                style={{ backgroundColor: cat.color }}
+              >
+                {cat.name}
+                <div className="space-x-1 flex items-center">
+                  <button
+                    type="button"
+                    className="text-xl p-1 rounded
                    text-blue-400
                    bg-white
                    hover:border-transparent hover:shadow shadow-gray-700/50 
                    transition-all duration-300"
-                >
-                  <TbPencil />
-                </button>
-                <button
-                  type="button"
-                  className="text-xl p-1 rounded
+                  >
+                    <TbPencil />
+                  </button>
+                  <button
+                    type="button"
+                    className="text-xl p-1 rounded
                    text-red-400
                    bg-white
                    hover:border-transparent hover:shadow shadow-gray-700/50 
                    transition-all duration-300"
-                  onClick={() => {
-                    handleClick(cat);
-                  }}
-                >
-                  <TbX />
-                </button>
+                    onClick={() => {
+                      handleClick(cat);
+                    }}
+                  >
+                    <TbX />
+                  </button>
+                </div>
               </div>
-            </div>
-          </li>
-        ))}
-      </menu>
+            </li>
+          ))}
+        </menu>
+      )}
       {error && (
         <div className="mx-1 text-left text-red-500 md:text-sm text-xs">
           {error}
         </div>
       )}
-      <button className="modal-action-button" formNoValidate>
-        Save
-      </button>
+      {!isManaging && (
+        <button className="modal-action-button" formNoValidate>
+          Save
+        </button>
+      )}
     </form>
   );
 };
