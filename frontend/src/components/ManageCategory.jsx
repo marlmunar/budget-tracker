@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { HexColorPicker } from "react-colorful";
 import { useDispatch, useSelector } from "react-redux";
 
-const ManageCategory = ({ closeUI, action, category }) => {
+const ManageCategory = ({ close, action, category }) => {
   const dispatch = useDispatch();
   const { defaultCategories } = useSelector((state) => state.logs);
   const categoryNames = defaultCategories.map((cat) => cat.name.toLowerCase());
@@ -16,6 +16,14 @@ const ManageCategory = ({ closeUI, action, category }) => {
   useEffect(() => {
     setError("");
   }, [name, type, color]);
+
+  useEffect(() => {
+    if (action === "edit") {
+      setName(category.name);
+      setColor(category.color);
+      setType(category.type);
+    }
+  }, [action]);
 
   const colors = [
     "#FF7F50",
@@ -44,7 +52,7 @@ const ManageCategory = ({ closeUI, action, category }) => {
     const newCategory = { name, color, type };
     dispatch(addTempCategories(newCategory));
     dispatch(setIsNotSaved(true));
-    closeUI();
+    close();
   };
 
   const handleChange = (newColor) => {
@@ -95,6 +103,7 @@ const ManageCategory = ({ closeUI, action, category }) => {
                   id="expense"
                   name="expenseType"
                   value="Expense"
+                  checked={type === "Expense"}
                   onClick={(e) => {
                     setType(e.target.value);
                   }}
@@ -112,6 +121,7 @@ const ManageCategory = ({ closeUI, action, category }) => {
                   id="income"
                   name="expenseType"
                   value="Income"
+                  checked={type === "Income"}
                   onClick={(e) => {
                     setType(e.target.value);
                   }}
@@ -192,9 +202,14 @@ const ManageCategory = ({ closeUI, action, category }) => {
       >
         Clear Values
       </button>
-      <button className="modal-action-button justify-self-end" formNoValidate>
-        Save
-      </button>
+      <div className="flex gap-1 justify-end">
+        <button className="modal-action-button" formNoValidate>
+          Save
+        </button>
+        <button type="button" className="modal-action-button">
+          Cancel
+        </button>
+      </div>
     </form>
   );
 };

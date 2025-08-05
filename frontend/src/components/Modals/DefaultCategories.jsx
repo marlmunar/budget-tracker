@@ -7,6 +7,8 @@ const DefaultCategories = ({ closeModal }) => {
   const dispatch = useDispatch();
   const { defaultCategories } = useSelector((state) => state.logs);
   const [tempList, setTempList] = useState(defaultCategories);
+  const [category, setCategory] = useState(null);
+  const [action, setAction] = useState("");
   const [isManaging, setIsManaging] = useState(false);
   const [error, setError] = useState("");
 
@@ -37,7 +39,7 @@ const DefaultCategories = ({ closeModal }) => {
       className="flex flex-col relative gap-1"
     >
       {isManaging ? (
-        <ManageCategory />
+        <ManageCategory action={action} category={category} />
       ) : (
         <menu className="rounded text-center text-base flex flex-col gap-1">
           <li className="modal-input-container">
@@ -73,6 +75,15 @@ const DefaultCategories = ({ closeModal }) => {
                    bg-white
                    hover:border-transparent hover:shadow shadow-gray-700/50 
                    transition-all duration-300"
+                    onClick={() => {
+                      setIsManaging(true);
+                      setAction("edit");
+                      setCategory({
+                        name: cat.name,
+                        color: cat.color,
+                        type: cat.type,
+                      });
+                    }}
                   >
                     <TbPencil />
                   </button>
