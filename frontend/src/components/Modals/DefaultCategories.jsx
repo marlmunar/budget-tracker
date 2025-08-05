@@ -60,6 +60,7 @@ const DefaultCategories = ({ closeModal }) => {
               <button
                 type="button"
                 className="bg-gray-200 rounded w-full min-h-10 p-1"
+                onClick={() => setTempList(defaultCategories)}
               >
                 Reset Values
               </button>
