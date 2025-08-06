@@ -49,6 +49,9 @@ const logSlice = createSlice({
     setDefaultCategories(state, action) {
       state.defaultCategories = action.payload;
     },
+    addDefaultCategory(state, action) {
+      state.defaultCategories.push(action.payload);
+    },
     setTempEntries(state, action) {
       state.tempEntries = action.payload;
     },
@@ -58,7 +61,7 @@ const logSlice = createSlice({
     setTempCategories(state, action) {
       state.tempCategories = action.payload;
     },
-    addTempCategories(state, action) {
+    addTempCategory(state, action) {
       state.tempCategories.push(action.payload);
     },
     setIsNotSaved(state, action) {
@@ -73,10 +76,11 @@ const logSlice = createSlice({
 export default logSlice.reducer;
 export const {
   setDefaultCategories,
+  addDefaultCategory,
   setTempEntries,
   addTempEntry,
   setTempCategories,
-  addTempCategories,
+  addTempCategory,
   setIsNotSaved,
   setActiveLogTabs,
 } = logSlice.actions;

@@ -2,7 +2,7 @@ import { TbCheck, TbPlus, TbX } from "react-icons/tb";
 import { useEffect, useState } from "react";
 import { HexColorPicker } from "react-colorful";
 import { useDispatch, useSelector } from "react-redux";
-import { addTempCategories, setIsNotSaved } from "../slices/logSlice";
+import { addTempCategory, setIsNotSaved } from "../slices/logSlice";
 import { retry } from "@reduxjs/toolkit/query";
 
 const AddCategoryForm = ({ closeUI, props }) => {
@@ -54,7 +54,7 @@ const AddCategoryForm = ({ closeUI, props }) => {
       return setError("Category already exists");
 
     const newCategory = { name, color, type };
-    dispatch(addTempCategories(newCategory));
+    dispatch(addTempCategory(newCategory));
     dispatch(setIsNotSaved(true));
     closeUI();
   };

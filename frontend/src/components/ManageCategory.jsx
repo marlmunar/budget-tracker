@@ -2,11 +2,14 @@ import { TbCheck, TbPlus, TbX } from "react-icons/tb";
 import { useEffect, useState } from "react";
 import { HexColorPicker } from "react-colorful";
 import { useDispatch, useSelector } from "react-redux";
+import { addDefaultCategory, setDefaultCategories } from "../slices/logSlice";
 
 const ManageCategory = ({ close, action, category }) => {
   const dispatch = useDispatch();
   const { defaultCategories } = useSelector((state) => state.logs);
-  const categoryNames = defaultCategories.map((cat) => cat.name.toLowerCase());
+  const categoryNames = defaultCategories
+    .filter((cat) => cat.name !== category?.name)
+    .map((cat) => cat.name.toLowerCase());
   const [name, setName] = useState("");
   const [color, setColor] = useState("");
   const [isSelecting, setIsSelecting] = useState(false);
@@ -40,18 +43,49 @@ const ManageCategory = ({ close, action, category }) => {
     "#C39BD3",
   ];
 
+  const isEqual = (a, b) => {
+    if (a === b) return true;
+
+    if (
+      typeof a !== "object" ||
+      a === null ||
+      typeof b !== "object" ||
+      b === null
+    )
+      return false;
+
+    const keysA = Object.keys(a);
+    const keysB = Object.keys(b);
+
+    if (keysA.length !== keysB.length) return false;
+
+    for (let key of keysA) {
+      if (!keysB.includes(key) || !isEqual(a[key], b[key])) return false;
+    }
+
+    return true;
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!name) return setError("Please fill out the name field");
     if (!type) return setError("Please select a type");
     if (!color) return setError("Please select a color");
     if (color.length < 7) return setError("Please complete the color code");
+
+    const newCategory = { name, color, type };
+
+    if (isEqual(newCategory, category)) return close();
     if (categoryNames.includes(name.toLowerCase()))
       return setError("Category already exists");
 
-    const newCategory = { name, color, type };
-    // dispatch(addTempCategories(newCategory));
-    // dispatch(setIsNotSaved(true));
+    if (action === "add") dispatch(addDefaultCategory(newCategory));
+    if (action === "edit") {
+      const newCategories = defaultCategories.map((cat) =>
+        cat.name === category.name ? newCategory : cat
+      );
+      dispatch(setDefaultCategories(newCategories));
+    }
     close();
   };
 

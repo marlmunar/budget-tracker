@@ -16,6 +16,10 @@ const DefaultCategories = ({ closeModal }) => {
     setError("");
   }, [tempList]);
 
+  useEffect(() => {
+    setTempList(defaultCategories);
+  }, [defaultCategories]);
+
   const handleClick = (selectedCategory) => {
     if (tempList.length === 1) {
       return setError("Categories cannot be empty");
@@ -52,7 +56,10 @@ const DefaultCategories = ({ closeModal }) => {
             <button
               type="button"
               className="bg-gray-200 rounded w-full min-h-10 p-1"
-              onClick={() => setIsManaging(true)}
+              onClick={() => {
+                setAction("add");
+                setIsManaging(true);
+              }}
             >
               Add New
             </button>
