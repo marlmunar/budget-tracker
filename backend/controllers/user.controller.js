@@ -24,16 +24,16 @@ const verifyEmail = asyncHandler(async (req, res) => {
 
 // @desc Authenticate Password
 // @route POST /api/users/authenticate
-// @access PUBLIC
+// @access PRIVATE
 const authenticate = asyncHandler(async (req, res) => {
-  const { email, password } = req.body;
+  const { password } = req.body;
 
   if (!password) {
     res.status(400);
     throw new Error("Password is required");
   }
 
-  const user = await User.findOne({ email });
+  const user = await User.findById(req.user._id);
 
   if (!user) {
     res.status(404);
