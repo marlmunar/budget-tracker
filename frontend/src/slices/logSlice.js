@@ -1,36 +1,38 @@
 import { createSlice } from "@reduxjs/toolkit";
-const defaultCategories = [
-  {
-    name: "Food",
-    color: "#82E0AA",
-    type: "Expense",
-  },
-  {
-    name: "Savings",
-    color: "#F7DC6F",
-    type: "Income",
-  },
-  {
-    name: "Health",
-    color: "#A569BD",
-    type: "Expense",
-  },
-  {
-    name: "Housing",
-    color: "#5DADE2",
-    type: "Expense",
-  },
-  {
-    name: "Bills",
-    color: "#FF7F50",
-    type: "Expense",
-  },
-  {
-    name: "Transportation",
-    color: "#40E0D0",
-    type: "Expense",
-  },
-];
+const defaultCategories = localStorage.getItem("logPreferences")
+  ? JSON.parse(localStorage.getItem("logPreferences")).defaultCategories
+  : [
+      {
+        name: "Food",
+        color: "#82E0AA",
+        type: "Expense",
+      },
+      {
+        name: "Savings",
+        color: "#F7DC6F",
+        type: "Income",
+      },
+      {
+        name: "Health",
+        color: "#A569BD",
+        type: "Expense",
+      },
+      {
+        name: "Housing",
+        color: "#5DADE2",
+        type: "Expense",
+      },
+      {
+        name: "Bills",
+        color: "#FF7F50",
+        type: "Expense",
+      },
+      {
+        name: "Transportation",
+        color: "#40E0D0",
+        type: "Expense",
+      },
+    ];
 
 const initialState = {
   defaultCategories,

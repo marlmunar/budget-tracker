@@ -1,11 +1,16 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import UserProfile from "../components/UserProfile";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import UserSettings from "../components/UserSettings";
+import { useLazyGetProfileQuery } from "../slices/userApiSlice";
+import { setPreferences } from "../slices/userSlice";
 
 const Profile = () => {
   const { userInfo } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const [getProfile, { data }] = useLazyGetProfileQuery();
+
   const [userLogs, setUserLogs] = useState("0");
   const [isVisible, setIsVisible] = useState(true);
 
@@ -15,6 +20,18 @@ const Profile = () => {
       setIsVisible(true);
     }, 50);
   }, [userInfo]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await getProfile().unwrap();
+        dispatch(setPreferences(res.logPreferences));
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetchData();
+  }, []);
 
   return (
     isVisible && (

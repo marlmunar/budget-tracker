@@ -3,6 +3,9 @@ const USER_URL = "/user";
 
 export const usersApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
+    getProfile: builder.query({
+      query: (id) => `${USER_URL}/profile`,
+    }),
     login: builder.mutation({
       query: (data) => ({
         url: `${USER_URL}/login`,
@@ -48,6 +51,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
 });
 
 export const {
+  useLazyGetProfileQuery,
   useLoginMutation,
   useRegisterMutation,
   useLogoutMutation,

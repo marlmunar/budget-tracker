@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ManageCategory from "../ManageCategory";
 import { setDefaultCategories } from "../../slices/logSlice";
 import { useUpdateMutation } from "../../slices/userApiSlice";
+import { setPreferences } from "../../slices/userSlice";
 
 const DefaultCategories = ({ closeModal }) => {
   const dispatch = useDispatch();
@@ -46,7 +47,8 @@ const DefaultCategories = ({ closeModal }) => {
       const res = await updateProfile({
         logPreferences: { defaultCategories: tempList },
       }).unwrap();
-      console.log(res);
+      dispatch(setPreferences(res.logPreferences));
+      closeModal();
     } catch (error) {
       const errorMsg = error?.data?.message || error.message;
       setError(errorMsg);
