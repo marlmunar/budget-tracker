@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { startLoading, stopLoading } from "../../slices/appSlice";
 import { useLogoutMutation } from "../../slices/userApiSlice";
 import { clearCredentials } from "../../slices/authSlice";
+import { clearPreferences } from "../../slices/userSlice";
 const logoutChannel = new BroadcastChannel("logout_channel");
 
 const ConfirmLogout = ({ closeModal }) => {
@@ -16,6 +17,7 @@ const ConfirmLogout = ({ closeModal }) => {
       dispatch(startLoading());
       const res = await logout().unwrap();
       dispatch(clearCredentials());
+      dispatch(clearPreferences());
       logoutChannel.postMessage("logout");
 
       navigate("/");

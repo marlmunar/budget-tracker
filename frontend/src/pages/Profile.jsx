@@ -8,6 +8,8 @@ import { setPreferences } from "../slices/userSlice";
 
 const Profile = () => {
   const { userInfo } = useSelector((state) => state.auth);
+  const { lastAction } = useSelector((state) => state.app);
+
   const dispatch = useDispatch();
   const [getProfile, { data }] = useLazyGetProfileQuery();
 
@@ -25,13 +27,15 @@ const Profile = () => {
     const fetchData = async () => {
       try {
         const res = await getProfile().unwrap();
-        dispatch(setPreferences(res.logPreferences));
+        if (res?.logPreferences?.defaultCategories.length > 0) {
+          dispatch(setPreferences(res.logPreferences));
+        }
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
     fetchData();
-  }, []);
+  }, [lastAction]);
 
   return (
     isVisible && (

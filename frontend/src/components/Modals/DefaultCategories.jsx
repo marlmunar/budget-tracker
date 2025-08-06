@@ -5,6 +5,7 @@ import ManageCategory from "../ManageCategory";
 import { setDefaultCategories } from "../../slices/logSlice";
 import { useUpdateMutation } from "../../slices/userApiSlice";
 import { setPreferences } from "../../slices/userSlice";
+import { setLastAction } from "../../slices/appSlice";
 
 const DefaultCategories = ({ closeModal }) => {
   const dispatch = useDispatch();
@@ -48,6 +49,7 @@ const DefaultCategories = ({ closeModal }) => {
         logPreferences: { defaultCategories: tempList },
       }).unwrap();
       dispatch(setPreferences(res.logPreferences));
+      dispatch(setLastAction(Date.now()));
       closeModal();
     } catch (error) {
       const errorMsg = error?.data?.message || error.message;
