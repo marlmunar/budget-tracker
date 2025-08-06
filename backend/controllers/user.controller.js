@@ -22,6 +22,32 @@ const verifyEmail = asyncHandler(async (req, res) => {
   return res.status(200).json({ available: true });
 });
 
+// @desc Authenticate Password
+// @route POST /api/users/authenticate
+// @access PUBLIC
+const authenticate = asyncHandler(async (req, res) => {
+  const { email, password } = req.body;
+
+  if (!password) {
+    res.status(400);
+    throw new Error("Password is required");
+  }
+
+  const user = await User.findOne({ email });
+
+  if (!user) {
+    res.status(404);
+    throw new Error("User not found");
+  }
+
+  if (!(await user.matchPasswords(password))) {
+    res.status(401);
+    throw new Error("You have entered the wrong password");
+  }
+
+  return res.status(200).json({ message: "User authenticated" });
+});
+
 // @desc Register User
 // @route POST /api/users
 // @access PUBLIC
@@ -125,6 +151,7 @@ const updateProfile = asyncHandler(async (req, res) => {
 
 export {
   verifyEmail,
+  authenticate,
   registerUser,
   loginUser,
   logoutUser,
