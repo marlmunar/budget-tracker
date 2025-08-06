@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { setLastAction } from "../../slices/appSlice";
 import { useUpdateMutation } from "../../slices/userApiSlice";
 import { setCredentials } from "../../slices/authSlice";
 

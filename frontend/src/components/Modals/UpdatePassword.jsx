@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { setLastAction } from "../../slices/appSlice";
-import { useUpdateMutation } from "../../slices/userApiSlice";
+import {
+  useAuthenticateMutation,
+  useUpdateMutation,
+} from "../../slices/userApiSlice";
 import { setCredentials } from "../../slices/authSlice";
 
 const UpdatePassword = ({ closeModal }) => {
@@ -9,8 +11,13 @@ const UpdatePassword = ({ closeModal }) => {
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfrimNewPassword] = useState("");
-  const [updateProfile, { isLoading }] = useUpdateMutation();
+  const [updateProfile] = useUpdateMutation();
+  const [authenticate] = useAuthenticateMutation();
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    setError("");
+  }, [password, newPassword, confirmNewPassword]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,17 +34,30 @@ const UpdatePassword = ({ closeModal }) => {
       return setError("Please confirm your new password");
     }
 
-    // try {
-    //   const res = await updateProfile({
-    //     name: newName,
-    //   }).unwrap();
+    if (newPassword !== confirmNewPassword) {
+      return setError("Please enter matching passwords");
+    }
 
-    //   dispatch(setCredentials({ ...res }));
-    //   closeModal();
-    // } catch (error) {
-    //   const errorMsg = error?.data?.message || error.message;
-    //   setError(errorMsg);
-    // }
+    try {
+      const res = await authenticate({
+        password,
+      }).unwrap();
+    } catch (error) {
+      const errorMsg = error?.data?.message || error.message;
+      setError(errorMsg);
+    }
+
+    if (password === newPassword && password === confirmNewPassword) {
+      return setError("Please do not use your old password");
+    }
+
+    try {
+      const res = await updateProfile({ password: newPassword }).unwrap();
+      closeModal();
+    } catch (error) {
+      const errorMsg = error?.data?.message || error.message;
+      setError(errorMsg);
+    }
   };
 
   return (
@@ -80,7 +100,9 @@ const UpdatePassword = ({ closeModal }) => {
           />
         </div>
       </div>
-
+      {error && (
+        <div className="ml-1 text-left mt-1 text-red-500 text-sm">{error}</div>
+      )}
       <button className="modal-action-button" formNoValidate>
         Save
       </button>
