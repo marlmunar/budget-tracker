@@ -3,10 +3,12 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ManageCategory from "../ManageCategory";
 import { setDefaultCategories } from "../../slices/logSlice";
+import { useUpdateMutation } from "../../slices/userApiSlice";
 
 const DefaultCategories = ({ closeModal }) => {
   const dispatch = useDispatch();
   const { defaultCategories } = useSelector((state) => state.logs);
+  const [updateProfile, { isLoading }] = useUpdateMutation();
   const [tempList, setTempList] = useState(defaultCategories);
   const [category, setCategory] = useState(null);
   const [action, setAction] = useState("");
@@ -37,10 +39,18 @@ const DefaultCategories = ({ closeModal }) => {
     setAction("");
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     dispatch(setDefaultCategories(tempList));
-    closeModal();
+    try {
+      const res = await updateProfile({
+        logPreferences: { defaultCategories: tempList },
+      }).unwrap();
+      console.log(res);
+    } catch (error) {
+      const errorMsg = error?.data?.message || error.message;
+      setError(errorMsg);
+    }
   };
 
   return isManaging ? (

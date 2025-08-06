@@ -39,7 +39,6 @@ const Login = () => {
 
     try {
       const res = await login({ email, password }).unwrap();
-
       dispatch(setCredentials({ ...res }));
       loginChannel.postMessage("login");
       navigate("/");
