@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useUpdateMutation } from "../../slices/userApiSlice";
+import { setPreferences } from "../../slices/userSlice";
 
 const SelectCurrency = ({ closeModal }) => {
   const dispatch = useDispatch();
-  const [currency, setCurrency] = useState("");
+  const { logPreferences } = useSelector((state) => state.user);
+  const [currency, setCurrency] = useState(logPreferences.currency);
   const [updateProfile, { isLoading }] = useUpdateMutation();
   const [error, setError] = useState("");
 
@@ -18,7 +20,8 @@ const SelectCurrency = ({ closeModal }) => {
       const res = await updateProfile({
         logPreferences: { currency },
       }).unwrap();
-      console.log(res);
+      dispatch(setPreferences(res.logPreferences));
+      closeModal();
     } catch (error) {
       const errorMsg = error?.data?.message || error.message;
       setError(errorMsg);
