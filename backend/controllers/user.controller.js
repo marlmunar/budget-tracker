@@ -128,7 +128,11 @@ const updateProfile = asyncHandler(async (req, res) => {
 
   user.name = req.body.name || user.name;
   user.email = req.body.email || user.email;
-  user.logPreferences = req.body.logPreferences || user.logPreferences;
+  user.logPreferences.currency =
+    req.body.logPreferences.currency || user.logPreferences.currency;
+  user.logPreferences.defaultCategories =
+    req.body.logPreferences.defaultCategories ||
+    user.logPreferences.defaultCategories;
 
   if (req.body.password) {
     user.password = req.body.password;
