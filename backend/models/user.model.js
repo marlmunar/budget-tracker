@@ -16,6 +16,18 @@ const userSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    logPreferences: {
+      defaultCategories: {
+        type: [
+          {
+            name: { type: String, required: true },
+            color: { type: String, required: true },
+            type: { type: String, required: true },
+          },
+        ],
+      },
+      currency: { type: String },
+    },
   },
   {
     timestamps: true,
