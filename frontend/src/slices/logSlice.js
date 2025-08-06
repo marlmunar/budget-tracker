@@ -36,6 +36,7 @@ const initialState = {
   defaultCategories,
   tempEntries: [],
   tempCategories: [],
+  preferredCurrency: "",
   isNotSaved: false,
   activeLogTabs: localStorage.getItem("activeTabIds")
     ? JSON.parse(localStorage.getItem("activeTabIds"))
@@ -64,6 +65,9 @@ const logSlice = createSlice({
     addTempCategory(state, action) {
       state.tempCategories.push(action.payload);
     },
+    setPreferredCurrency(state, action) {
+      state.preferredCurrency = action.payload;
+    },
     setIsNotSaved(state, action) {
       state.isNotSaved = action.payload;
     },
@@ -81,6 +85,7 @@ export const {
   addTempEntry,
   setTempCategories,
   addTempCategory,
+  setPreferredCurrency,
   setIsNotSaved,
   setActiveLogTabs,
 } = logSlice.actions;

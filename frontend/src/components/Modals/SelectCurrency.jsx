@@ -13,17 +13,16 @@ const SelectCurrency = ({ closeModal }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // try {
-    //   const res = await updateProfile({
-    //     name: newName,
-    //   }).unwrap();
-
-    //   dispatch(setCredentials({ ...res }));
-    //   closeModal();
-    // } catch (error) {
-    //   const errorMsg = error?.data?.message || error.message;
-    //   setError(errorMsg);
-    // }
+    if (!currency) return setError("Please select a currency");
+    try {
+      const res = await updateProfile({
+        logPreferences: { currency },
+      }).unwrap();
+      console.log(res);
+    } catch (error) {
+      const errorMsg = error?.data?.message || error.message;
+      setError(errorMsg);
+    }
   };
 
   return (
@@ -48,7 +47,11 @@ const SelectCurrency = ({ closeModal }) => {
           </div>
         </div>
       </div>
-
+      {error && (
+        <div className="mx-1 text-left text-red-500 md:text-sm text-xs">
+          {error}
+        </div>
+      )}
       <button className="modal-action-button" formNoValidate>
         Save
       </button>
