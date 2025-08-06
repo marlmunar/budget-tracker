@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
 import {
   useAuthenticateMutation,
   useUpdateMutation,
 } from "../../slices/userApiSlice";
-import { setCredentials } from "../../slices/authSlice";
 
 const UpdatePassword = ({ closeModal }) => {
-  const dispatch = useDispatch();
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfrimNewPassword] = useState("");

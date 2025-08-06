@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useUpdateMutation } from "../../slices/userApiSlice";
 import { setCredentials } from "../../slices/authSlice";
@@ -8,6 +8,10 @@ const UpdateEmail = ({ closeModal }) => {
   const [newEmail, setNewEmail] = useState("");
   const [updateProfile, { isLoading }] = useUpdateMutation();
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    setError("");
+  }, [newEmail]);
 
   const validateEmail = (testEmail) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
