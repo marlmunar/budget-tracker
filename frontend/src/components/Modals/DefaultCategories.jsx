@@ -37,82 +37,81 @@ const DefaultCategories = ({ closeModal }) => {
     closeModal();
   };
 
-  return (
+  return isManaging ? (
+    <ManageCategory close={close} action={action} category={category} />
+  ) : (
     <form
       method="POST"
       id="manageCategories"
       onSubmit={handleSubmit}
       className="flex flex-col relative gap-1"
     >
-      {isManaging ? (
-        <ManageCategory close={close} action={action} category={category} />
-      ) : (
-        <menu className="rounded text-center text-base flex flex-col gap-1">
-          <li className="modal-input-container">
-            <div className="flex w-full rounded gap-1 text-sm md:text-base">
-              <button
-                type="button"
-                className="bg-gray-200 rounded w-full min-h-10 p-1"
-                onClick={() => setIsManaging(true)}
-              >
-                Add New
-              </button>
-              <button
-                type="button"
-                className="bg-gray-200 rounded w-full min-h-10 p-1"
-                onClick={() => setTempList(defaultCategories)}
-              >
-                Reset Values
-              </button>
-            </div>
-          </li>
+      <menu className="rounded text-center text-base flex flex-col gap-1">
+        <li className="modal-input-container">
+          <div className="flex w-full rounded gap-1 text-sm md:text-base">
+            <button
+              type="button"
+              className="bg-gray-200 rounded w-full min-h-10 p-1"
+              onClick={() => setIsManaging(true)}
+            >
+              Add New
+            </button>
+            <button
+              type="button"
+              className="bg-gray-200 rounded w-full min-h-10 p-1"
+              onClick={() => setTempList(defaultCategories)}
+            >
+              Reset Values
+            </button>
+          </div>
+        </li>
 
-          {tempList.map((cat, index) => (
-            <li key={index} className="modal-input-container">
-              <div
-                className="flex items-center justify-between p-1 px-2 rounded w-full min-h-10 text-sm md:text-base"
-                style={{ backgroundColor: cat.color }}
-              >
-                {cat.name}
-                <div className="space-x-1 flex items-center">
-                  <button
-                    type="button"
-                    className="text-xl p-1 rounded
+        {tempList.map((cat, index) => (
+          <li key={index} className="modal-input-container">
+            <div
+              className="flex items-center justify-between p-1 px-2 rounded w-full min-h-10 text-sm md:text-base"
+              style={{ backgroundColor: cat.color }}
+            >
+              {cat.name}
+              <div className="space-x-1 flex items-center">
+                <button
+                  type="button"
+                  className="text-xl p-1 rounded
                    text-blue-400
                    bg-white
                    hover:border-transparent hover:shadow shadow-gray-700/50 
                    transition-all duration-300"
-                    onClick={() => {
-                      setIsManaging(true);
-                      setAction("edit");
-                      setCategory({
-                        name: cat.name,
-                        color: cat.color,
-                        type: cat.type,
-                      });
-                    }}
-                  >
-                    <TbPencil />
-                  </button>
-                  <button
-                    type="button"
-                    className="text-xl p-1 rounded
+                  onClick={() => {
+                    setIsManaging(true);
+                    setAction("edit");
+                    setCategory({
+                      name: cat.name,
+                      color: cat.color,
+                      type: cat.type,
+                    });
+                  }}
+                >
+                  <TbPencil />
+                </button>
+                <button
+                  type="button"
+                  className="text-xl p-1 rounded
                    text-red-400
                    bg-white
                    hover:border-transparent hover:shadow shadow-gray-700/50 
                    transition-all duration-300"
-                    onClick={() => {
-                      handleClick(cat);
-                    }}
-                  >
-                    <TbX />
-                  </button>
-                </div>
+                  onClick={() => {
+                    handleClick(cat);
+                  }}
+                >
+                  <TbX />
+                </button>
               </div>
-            </li>
-          ))}
-        </menu>
-      )}
+            </div>
+          </li>
+        ))}
+      </menu>
+
       {error && (
         <div className="mx-1 text-left text-red-500 md:text-sm text-xs">
           {error}

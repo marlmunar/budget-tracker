@@ -77,7 +77,7 @@ const ManageCategory = ({ close, action, category }) => {
       id="newCategory"
       className="relative rounded flex flex-col"
     >
-      <div className="p-1 pb-2 flex flex-col gap-2">
+      <div className="pb-2 flex flex-col gap-2">
         <div className="flex flex-col gap-2">
           <div className="modal-input-container">
             <label htmlFor="name">Name:</label>
@@ -107,6 +107,7 @@ const ManageCategory = ({ close, action, category }) => {
                   onClick={(e) => {
                     setType(e.target.value);
                   }}
+                  onChange={() => {}}
                 />
                 <div className="custom-radio">
                   <div></div>
@@ -125,6 +126,7 @@ const ManageCategory = ({ close, action, category }) => {
                   onClick={(e) => {
                     setType(e.target.value);
                   }}
+                  onChange={() => {}}
                 />
                 <div className="custom-radio">
                   <div></div>

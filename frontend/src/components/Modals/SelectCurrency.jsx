@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { setLastAction } from "../../slices/appSlice";
 import { useUpdateMutation } from "../../slices/userApiSlice";
-import { setCredentials } from "../../slices/authSlice";
 
 const SelectCurrency = ({ closeModal }) => {
   const dispatch = useDispatch();
@@ -14,10 +12,6 @@ const SelectCurrency = ({ closeModal }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (!password) {
-      return setError("Please enter your password");
-    }
 
     // try {
     //   const res = await updateProfile({
