@@ -16,8 +16,8 @@ const ConfirmLogout = ({ closeModal }) => {
     try {
       dispatch(startLoading());
       const res = await logout().unwrap();
-      dispatch(clearCredentials());
       dispatch(clearPreferences());
+      dispatch(clearCredentials());
       logoutChannel.postMessage("logout");
 
       navigate("/");

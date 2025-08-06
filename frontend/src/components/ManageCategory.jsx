@@ -1,13 +1,9 @@
-import { TbCheck, TbPlus, TbX } from "react-icons/tb";
+import { TbPlus, TbX } from "react-icons/tb";
 import { useEffect, useState } from "react";
 import { HexColorPicker } from "react-colorful";
-import { useDispatch, useSelector } from "react-redux";
-import { addDefaultCategory, setDefaultCategories } from "../slices/logSlice";
 
-const ManageCategory = ({ close, action, category }) => {
-  const dispatch = useDispatch();
-  const { defaultCategories } = useSelector((state) => state.logs);
-  const categoryNames = defaultCategories
+const ManageCategory = ({ close, action, category, tempList, setTempList }) => {
+  const categoryNames = tempList
     .filter((cat) => cat.name !== category?.name)
     .map((cat) => cat.name.toLowerCase());
   const [name, setName] = useState("");
@@ -79,12 +75,14 @@ const ManageCategory = ({ close, action, category }) => {
     if (categoryNames.includes(name.toLowerCase()))
       return setError("Category already exists");
 
-    if (action === "add") dispatch(addDefaultCategory(newCategory));
+    if (action === "add") {
+      setTempList([...tempList, newCategory]);
+    }
     if (action === "edit") {
-      const newCategories = defaultCategories.map((cat) =>
+      const newCategories = tempList.map((cat) =>
         cat.name === category.name ? newCategory : cat
       );
-      dispatch(setDefaultCategories(newCategories));
+      setTempList(newCategories);
     }
     close();
   };

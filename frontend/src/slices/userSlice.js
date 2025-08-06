@@ -58,7 +58,7 @@ const userSlice = createSlice({
     },
     clearPreferences: (state, action) => {
       state.logPreferences = null;
-      localStorage.removeItem("userInfo");
+      localStorage.removeItem("logPreferences");
     },
   },
 });

@@ -1,41 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-const defaultCategories = localStorage.getItem("logPreferences")
-  ? JSON.parse(localStorage.getItem("logPreferences")).defaultCategories
-  : [
-      {
-        name: "Food",
-        color: "#82E0AA",
-        type: "Expense",
-      },
-      {
-        name: "Savings",
-        color: "#F7DC6F",
-        type: "Income",
-      },
-      {
-        name: "Health",
-        color: "#A569BD",
-        type: "Expense",
-      },
-      {
-        name: "Housing",
-        color: "#5DADE2",
-        type: "Expense",
-      },
-      {
-        name: "Bills",
-        color: "#FF7F50",
-        type: "Expense",
-      },
-      {
-        name: "Transportation",
-        color: "#40E0D0",
-        type: "Expense",
-      },
-    ];
 
 const initialState = {
-  defaultCategories,
   tempEntries: [],
   tempCategories: [],
   preferredCurrency: "",
@@ -49,12 +14,6 @@ const logSlice = createSlice({
   name: "logs",
   initialState,
   reducers: {
-    setDefaultCategories(state, action) {
-      state.defaultCategories = action.payload;
-    },
-    addDefaultCategory(state, action) {
-      state.defaultCategories.push(action.payload);
-    },
     setTempEntries(state, action) {
       state.tempEntries = action.payload;
     },
@@ -81,8 +40,6 @@ const logSlice = createSlice({
 
 export default logSlice.reducer;
 export const {
-  setDefaultCategories,
-  addDefaultCategory,
   setTempEntries,
   addTempEntry,
   setTempCategories,

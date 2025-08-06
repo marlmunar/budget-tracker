@@ -2,16 +2,15 @@ import { TbCheck, TbPencil, TbX } from "react-icons/tb";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ManageCategory from "../ManageCategory";
-import { setDefaultCategories } from "../../slices/logSlice";
 import { useUpdateMutation } from "../../slices/userApiSlice";
 import { setPreferences } from "../../slices/userSlice";
 import { setLastAction } from "../../slices/appSlice";
 
 const DefaultCategories = ({ closeModal }) => {
   const dispatch = useDispatch();
-  const { defaultCategories } = useSelector((state) => state.logs);
+  const { logPreferences } = useSelector((state) => state.user);
   const [updateProfile, { isLoading }] = useUpdateMutation();
-  const [tempList, setTempList] = useState(defaultCategories);
+  const [tempList, setTempList] = useState(logPreferences.defaultCategories);
   const [category, setCategory] = useState(null);
   const [action, setAction] = useState("");
   const [isManaging, setIsManaging] = useState(false);
@@ -22,8 +21,8 @@ const DefaultCategories = ({ closeModal }) => {
   }, [tempList]);
 
   useEffect(() => {
-    setTempList(defaultCategories);
-  }, [defaultCategories]);
+    setTempList(logPreferences.defaultCategories);
+  }, [logPreferences]);
 
   const handleClick = (selectedCategory) => {
     if (tempList.length === 1) {
@@ -43,7 +42,6 @@ const DefaultCategories = ({ closeModal }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(setDefaultCategories(tempList));
     try {
       const res = await updateProfile({
         logPreferences: { defaultCategories: tempList },
@@ -58,7 +56,13 @@ const DefaultCategories = ({ closeModal }) => {
   };
 
   return isManaging ? (
-    <ManageCategory close={close} action={action} category={category} />
+    <ManageCategory
+      close={close}
+      action={action}
+      category={category}
+      tempList={tempList}
+      setTempList={setTempList}
+    />
   ) : (
     <form
       method="POST"
@@ -82,7 +86,7 @@ const DefaultCategories = ({ closeModal }) => {
             <button
               type="button"
               className="bg-gray-200 rounded w-full min-h-10 p-1"
-              onClick={() => setTempList(defaultCategories)}
+              onClick={() => setTempList(logPreferences.defaultCategories)}
             >
               Reset Values
             </button>

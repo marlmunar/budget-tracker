@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 const AddNewLog = ({ closeModal }) => {
   const navigate = useNavigate();
-  const { defaultCategories } = useSelector((state) => state.logs);
+  const { logPreferences } = useSelector((state) => state.user);
   const [createLog] = useCreateLogMutation();
   const [logType, setLogType] = useState("");
   const [logName, setLogName] = useState("");
@@ -111,7 +111,7 @@ const AddNewLog = ({ closeModal }) => {
         startDate,
         endDate,
       },
-      categories: defaultCategories,
+      categories: logPreferences.defaultCategories,
     };
 
     try {
