@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useUpdateMutation } from "../../slices/userApiSlice";
 import { setPreferences } from "../../slices/userSlice";
-import { setLastAction } from "../../slices/appSlice";
 
 const SelectCurrency = ({ closeModal }) => {
   const dispatch = useDispatch();
@@ -22,7 +21,7 @@ const SelectCurrency = ({ closeModal }) => {
         logPreferences: { currency },
       }).unwrap();
       dispatch(setPreferences(res.logPreferences));
-      dispatch(setLastAction(Date.now()));
+
       closeModal();
     } catch (error) {
       const errorMsg = error?.data?.message || error.message;

@@ -66,6 +66,7 @@ const registerUser = asyncHandler(async (req, res) => {
     _id: user._id,
     name: user.name,
     email: user.email,
+    logPreferences: user.logPreferences,
   });
 });
 
@@ -87,6 +88,7 @@ const loginUser = asyncHandler(async (req, res) => {
     _id: user._id,
     name: user.name,
     email: user.email,
+    logPreferences: user.logPreferences,
   });
 });
 

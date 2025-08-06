@@ -23,20 +23,6 @@ const Profile = () => {
     }, 50);
   }, [userInfo]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await getProfile().unwrap();
-        if (res?.logPreferences?.defaultCategories.length > 0) {
-          dispatch(setPreferences(res.logPreferences));
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-    fetchData();
-  }, [lastAction]);
-
   return (
     isVisible && (
       <motion.div

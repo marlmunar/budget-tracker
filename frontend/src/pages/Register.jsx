@@ -102,8 +102,9 @@ const Register = () => {
       }
 
       const res = await register({ name, email, password }).unwrap();
-
-      dispatch(setCredentials({ ...res }));
+      const { logPreferences, ...credentials } = res;
+      dispatch(setCredentials({ ...credentials }));
+      dispatch(setPreferences(logPreferences));
       loginChannel.postMessage("login");
       navigate("/");
     } catch (error) {

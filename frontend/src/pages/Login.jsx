@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import FormContainer from "../components/FormContainer";
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setIsLoggingIn } from "../slices/userSlice";
+import { setIsLoggingIn, setPreferences } from "../slices/userSlice";
 import { useLoginMutation } from "../slices/userApiSlice";
 import { setCredentials } from "../slices/authSlice";
 const loginChannel = new BroadcastChannel("login_channel");
@@ -39,7 +39,9 @@ const Login = () => {
 
     try {
       const res = await login({ email, password }).unwrap();
-      dispatch(setCredentials({ ...res }));
+      const { logPreferences, ...credentials } = res;
+      dispatch(setCredentials({ ...credentials }));
+      dispatch(setPreferences(logPreferences));
       loginChannel.postMessage("login");
       navigate("/");
     } catch (error) {
