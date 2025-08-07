@@ -177,6 +177,8 @@ button > * {
 
 .log-section-header {
   @apply rounded bg-gray-100 p-2 pl-4 text-base 
+           dark:bg-[#3a3a3a] dark:text-[#f0f0f0]
+           dark:shadow-slate-800
             md:text-lg font-semibold
             shadow shadow-slate-300
             flex flex-row justify-between items-center gap-2 
@@ -353,6 +355,9 @@ button > * {
   @apply p-2 md:p-4 flex md:flex-col justify-between shadow shadow-slate-300 w-full
   min-h-20 md:min-h-0 rounded
   hover:*:border-slate-800
+  dark:bg-[#3a3a3a]
+  dark:hover:bg-[#3a3a3a]
+  dark:shadow-slate-800
   hover:shadow-lg
   hover:mt-2 md:hover:mt-0
   hover:translate-y-[-8px]
@@ -393,11 +398,11 @@ menu li {
 }
 
 .error-message {
-  @apply text-left my-2 mr-5 text-red-500 md:text-sm text-xs;
+  @apply text-left my-2 mr-5 text-red-500 dark:text-red-100 md:text-sm text-xs;
 }
 
 .color-picker .react-colorful {
-  @apply w-full bg-gray-50 shadow shadow-slate-400 p-2 rounded space-y-2;
+  @apply w-full bg-gray-50 dark:bg-[#4a4e53] dark:shadow-slate-800 shadow shadow-slate-400 p-2 rounded space-y-2;
 }
 
 .color-picker .react-colorful__hue,
@@ -437,7 +442,7 @@ menu li {
 }
 
 .modal-input-container {
-  @apply lg:min-w-[25vw] min-w-[60vw] space-y-2;
+  @apply lg:min-w-[25vw] min-w-[60vw] space-y-2 dark:text-[#fefefe];
 }
 
 .modal-input-container > label,
@@ -446,12 +451,13 @@ menu li {
 }
 
 .modal-input-container > input {
-  @apply border-2 rounded block min-w-full border-gray-200 px-2 p-1 text-sm md:text-base;
+  @apply border-2 rounded block min-w-full border-gray-200 dark:border-gray-500 px-2 p-1 text-sm md:text-base
+  focus:outline-none dark:bg-[#3a3a3a] dark:hover:bg-[#3a3a3a];
 }
 
 .modal-button {
   @apply p-1 flex items-center justify-center rounded cursor-pointer text-2xl
-  bg-slate-200
+  bg-slate-200 dark:bg-gray-800
   text-amber-600
     active:scale-95
     hover:shadow-md hover:border-transparent hover:translate-y-[-2px];
@@ -464,6 +470,7 @@ menu li {
    active:bg-amber-700
    bg-amber-300
    hover:bg-amber-400
+    dark:bg-gray-800 dark:active:bg-gray-950 dark:hover:bg-indigo-950 dark:hover:text-white
     hover:shadow-md hover:border-transparent hover:translate-y-[-2px];
 }
 
@@ -474,6 +481,7 @@ menu li {
    active:bg-gray-400
    bg-gray-200
    hover:bg-gray-300
+    dark:bg-gray-800 dark:active:bg-gray-950 dark:hover:bg-indigo-950 dark:hover:text-white
     hover:shadow-md hover:border-transparent hover:translate-y-[-2px];
 }
 

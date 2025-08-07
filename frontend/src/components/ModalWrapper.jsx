@@ -143,7 +143,8 @@ const ModalWrapper = () => {
       {showModal && (
         <OutsideClick onOutsideClick={closeModal}>
           <div
-            className="mt-[-5px] z-20 absolute h-[calc(100%+5px)] w-full bg-gray-300/75 outline-none"
+            className="mt-[-5px] z-20 absolute h-[calc(100%+5px)] w-full bg-gray-300/75
+            dark:bg-gray-800/75 dark:text-[#f0f0f0] outline-none"
             onClick={closeModal}
             ref={scrollToRef}
             tabIndex={-1}
@@ -155,14 +156,15 @@ const ModalWrapper = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 100 }}
                   transition={{ duration: 0.3 }}
-                  className="sticky rounded top-[20%] bg-white"
+                  className="sticky rounded top-[20%] bg-white dark:bg-[#4a4e53]"
                   onClick={(e) => e.stopPropagation()}
                 >
                   <div className="log-section-header">
                     <h3>{getModalTitle()}</h3>
                     <div className="flex gap-2">
                       <button
-                        className="ml-auto log-tool-button h-10 w-10 bg-slate-200"
+                        className="ml-auto log-tool-button h-10 w-10 bg-slate-200
+                         dark:bg-gray-800 dark:active:bg-gray-950 dark:hover:bg-indigo-950 dark:hover:text-white"
                         onClick={closeModal}
                       >
                         <TbX />

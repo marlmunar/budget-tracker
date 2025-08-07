@@ -38,11 +38,13 @@ const SelectCurrency = ({ closeModal }) => {
               <button
                 key={item}
                 type="button"
-                className={`p-1 rounded bg-gray-200 ${
-                  item === currency
-                    ? "border-2 border-amber-400"
-                    : "border-2 border-transparent"
-                }`}
+                className={`p-1 rounded bg-gray-200 
+                  dark:bg-[#3a3a3a]
+                  dark:hover:bg-[#3a3a3a] ${
+                    item === currency
+                      ? "border-2 border-amber-400"
+                      : "border-2 border-transparent"
+                  }`}
                 onClick={() => setCurrency(item)}
               >
                 {item}
@@ -52,7 +54,7 @@ const SelectCurrency = ({ closeModal }) => {
         </div>
       </div>
       {error && (
-        <div className="mx-1 text-left text-red-500 md:text-sm text-xs">
+        <div className="mx-1 text-left text-red-500 dark:text-red-400 md:text-sm text-xs">
           {error}
         </div>
       )}

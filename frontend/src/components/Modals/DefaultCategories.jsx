@@ -73,7 +73,10 @@ const DefaultCategories = ({ closeModal }) => {
           <div className="flex w-full rounded gap-1 text-sm md:text-base">
             <button
               type="button"
-              className="bg-gray-200 rounded w-full min-h-10 p-1"
+              className="bg-gray-200 rounded w-full min-h-10 p-1
+                   dark:bg-[#3a3a3a]
+                   dark:hover:bg-[#3a3a3a]
+                   dark:text-[#f0f0f0]"
               onClick={() => {
                 setAction("add");
                 setIsManaging(true);
@@ -83,7 +86,10 @@ const DefaultCategories = ({ closeModal }) => {
             </button>
             <button
               type="button"
-              className="bg-gray-200 rounded w-full min-h-10 p-1"
+              className="bg-gray-200 rounded w-full min-h-10 p-1 
+                   dark:bg-[#3a3a3a]
+                   dark:hover:bg-[#3a3a3a]
+                   dark:text-[#f0f0f0]"
               onClick={() => setTempList(logPreferences.defaultCategories)}
             >
               Reset Values
@@ -105,6 +111,9 @@ const DefaultCategories = ({ closeModal }) => {
                    text-blue-400
                    bg-white
                    hover:border-transparent hover:shadow shadow-gray-700/50 
+                   dark:bg-[#3a3a3a]
+                   dark:hover:bg-[#3a3a3a]
+                   dark:text-[#f0f0f0]
                  "
                   onClick={() => {
                     setIsManaging(true);
@@ -124,6 +133,9 @@ const DefaultCategories = ({ closeModal }) => {
                    text-red-400
                    bg-white
                    hover:border-transparent hover:shadow shadow-gray-700/50 
+                   dark:bg-[#3a3a3a]
+                   dark:hover:bg-[#3a3a3a]
+                   dark:text-[#f0f0f0]
                    "
                   onClick={() => {
                     handleClick(cat);
@@ -138,7 +150,7 @@ const DefaultCategories = ({ closeModal }) => {
       </menu>
 
       {error && (
-        <div className="mx-1 text-left text-red-500 md:text-sm text-xs">
+        <div className="mx-1 text-left text-red-500 dark:text-red-400 md:text-sm text-xs">
           {error}
         </div>
       )}

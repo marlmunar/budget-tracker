@@ -245,7 +245,9 @@ const AddNewLog = ({ closeModal }) => {
               </>
             )}
             {error && (
-              <div className="text-left text-red-500 text-sm">{error}</div>
+              <div className="text-left text-red-500 dark:text-red-400 text-sm">
+                {error}
+              </div>
             )}
             <button className="modal-action-button" formNoValidate>
               Save
