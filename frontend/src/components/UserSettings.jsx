@@ -79,10 +79,10 @@ const UserSettings = () => {
         transition={{ duration: 0.5 }}
         className="overflow-hidden"
       >
-        <section className="rounded shadow-lg dark:bg-slate-900  dark:text-[#eaf5fb]">
+        <section className="rounded shadow-lg">
           <div className="flex flex-col gap-2 p-2 text-base md:text-lg">
             <div>
-              <h3 className="shadow bg-slate-300 dark:bg-[#28292a] rounded font-semibold p-1 px-2">
+              <h3 className="shadow bg-slate-300 dark:bg-[#4a4e53] rounded font-semibold p-1 px-2">
                 Profile Settings
               </h3>
               <ul className="p-2 flex flex-col gap-1 *:p-1 text-sm md:text-base">
@@ -120,7 +120,7 @@ const UserSettings = () => {
               </ul>
             </div>
             <div>
-              <h3 className="shadow bg-slate-300 dark:bg-[#28292a] rounded font-semibold p-1 px-2">
+              <h3 className="shadow bg-slate-300 dark:bg-[#4a4e53] rounded font-semibold p-1 px-2">
                 Log Preferences
               </h3>
               <ul className="p-2 flex flex-col gap-1 *:p-1 text-sm md:text-base">
@@ -157,14 +157,14 @@ const UserSettings = () => {
               </ul>
             </div>
             <div>
-              <h3 className="shadow bg-slate-300  dark:bg-[#28292a] rounded font-semibold p-1 px-2">
+              <h3 className="shadow bg-slate-300  dark:bg-[#4a4e53] rounded font-semibold p-1 px-2">
                 Appearance
               </h3>
               <ul className="p-2 flex flex-col gap-1 *:p-1 text-sm md:text-base">
                 <li className="flex justify-between">
                   <p>Dark Theme</p>
                   <div
-                    className={`flex h-4 w-[1.75rem] bg-gray-300 dark:bg-[#28292a] rounded-full ${
+                    className={`flex h-4 w-[1.75rem] bg-gray-300 dark:bg-[#4a4e53] rounded-full ${
                       isOn ? "justify-end" : "justify-start"
                     }`}
                     onClick={() => {
