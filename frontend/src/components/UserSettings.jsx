@@ -10,7 +10,6 @@ const UserSettings = () => {
   const dispatch = useDispatch();
   const [updateProfile, { isLoading }] = useUpdateMutation();
   const { userInfo } = useSelector((state) => state.auth);
-  const [isOn, setIsOn] = useState(false);
 
   const [activeSettings, setActiveSettings] = useState("");
   const [error, setError] = useState("");
@@ -18,6 +17,7 @@ const UserSettings = () => {
   const [darkMode, setDarkMode] = useState(
     () => localStorage.getItem("theme") === "dark"
   );
+  const [isOn, setIsOn] = useState(darkMode);
 
   useEffect(() => {
     const root = window.document.getElementById("root");
@@ -164,7 +164,7 @@ const UserSettings = () => {
                 <li className="flex justify-between">
                   <p>Dark Theme</p>
                   <div
-                    className={`flex h-4 w-[1.75rem] bg-gray-300 rounded-full ${
+                    className={`flex h-4 w-[1.75rem] bg-gray-300 dark:bg-[#28292a] rounded-full ${
                       isOn ? "justify-end" : "justify-start"
                     }`}
                     onClick={() => {
@@ -172,7 +172,7 @@ const UserSettings = () => {
                       setDarkMode(!darkMode);
                     }}
                   >
-                    <div className="h-4 w-4 rounded-full bg-gray-400"></div>
+                    <div className="h-4 w-4 rounded-full bg-gray-400 dark:bg-gray-200"></div>
                   </div>
                 </li>
               </ul>
