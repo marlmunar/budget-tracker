@@ -7,8 +7,10 @@ const Benefits = () => {
     <HomeCard title={"Why use this log?"}>
       <div className="px-2 flex flex-col md:grid grid-rows-2 grid-cols-2 gap-10">
         <motion.div
+          data-motion
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
           <div className="item">
@@ -22,8 +24,10 @@ const Benefits = () => {
         </motion.div>
 
         <motion.div
+          data-motion
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
           <div className="item">
@@ -37,8 +41,10 @@ const Benefits = () => {
         </motion.div>
 
         <motion.div
+          data-motion
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
           <div className="item">
@@ -52,8 +58,10 @@ const Benefits = () => {
         </motion.div>
 
         <motion.div
+          data-motion
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
           <div className="item">

@@ -181,6 +181,7 @@ const Visualize = () => {
         logData.name ? `- ${logData.name}` : ""
       }`}</title>
       <motion.div
+        data-motion
         key={month}
         initial={{ opacity: 0, x: startX }}
         animate={{ opacity: 1, x: 0 }}

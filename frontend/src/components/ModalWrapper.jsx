@@ -152,8 +152,10 @@ const ModalWrapper = () => {
             <div className="relative w-full h-full flex justify-center items-start">
               <AnimatePresence mode="wait">
                 <motion.div
+                  data-motion
                   initial={{ opacity: 0, y: 100 }}
                   whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
                   exit={{ opacity: 0, y: 100 }}
                   transition={{ duration: 0.3 }}
                   className="sticky rounded top-[20%] bg-white dark:bg-[#4a4e53]"

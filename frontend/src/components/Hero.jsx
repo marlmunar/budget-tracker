@@ -108,6 +108,7 @@ const Hero = () => {
           </div>
 
           <motion.div
+            data-motion
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}

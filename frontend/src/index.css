@@ -3,14 +3,14 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-* {
-  @apply transition-all duration-300;
-}
-
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+*:not([data-motion]) {
+  @apply transition-all duration-300;
 }
 
 .scrollbar-hide::-webkit-scrollbar {

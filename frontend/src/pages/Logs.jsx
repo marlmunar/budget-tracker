@@ -87,6 +87,7 @@ const Logs = ({}) => {
               {isVisible &&
                 results.map((log) => (
                   <motion.div
+                    data-motion
                     key={log._id}
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}

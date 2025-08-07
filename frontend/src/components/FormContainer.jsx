@@ -16,6 +16,7 @@ const FormContainer = forwardRef(
       <div className="h-full w-full bg-yellow-100">
         <div className="p-4 relative h-full flex flex-col justify-start items-center">
           <motion.div
+            data-motion
             key={page}
             ref={scope}
             initial={initialState}
