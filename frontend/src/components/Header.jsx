@@ -54,7 +54,7 @@ const Header = () => {
               src={favicon}
               alt="Website logo"
             />
-            <h1 className="header-h1 text-amber-950">Budgetarians' Log</h1>
+            <h1 className="header-h1 ">Budgetarians' Log</h1>
           </div>
         </Link>
 
@@ -112,7 +112,7 @@ const Header = () => {
           </OutsideClick>
         )}
 
-        <div className="flex gap-4 items-center text-amber-950 *:md:p-2">
+        <div className="flex gap-4 items-center  *:md:p-2">
           {!!userInfo ? (
             <>
               <NavLink

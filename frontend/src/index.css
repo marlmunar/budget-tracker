@@ -32,7 +32,8 @@ button > * {
 
 .header {
   @apply py-3 z-25
-  bg-[#FFE779] text-[#040F0F]
+  bg-[#FFE779] text-amber-950
+  dark:bg-[#2b2d2f] dark:text-[#fef7d7]
   rounded-b-lg w-full px-2 md:px-10;
 }
 
@@ -49,7 +50,8 @@ button > * {
 
 .header-button {
   @apply hidden md:block transition-all border-transparent
-  duration-200 ease-in underline-offset-8 decoration-amber-600 hover:decoration-[1.5px]
+  duration-200 ease-in underline-offset-8 decoration-amber-600 
+  dark:decoration-[#fef7d7] hover:decoration-[1.5px]
   hover:translate-y-[-1px] active:scale-90;
 }
 
@@ -84,6 +86,7 @@ button > * {
 
 .nav-bar {
   @apply bg-gray-50 right-[0.25rem] md:right-2 top-[calc(100%+0.05rem)] md:top-[80%]
+  dark:dark:bg-[#4a4e53] dark:shadow-slate-800
   absolute shadow shadow-slate-400 rounded 
   p-1 min-w-[8ch] z-10 text-base lg:text-lg;
 }
@@ -95,7 +98,9 @@ button > * {
     items-center gap-1 rounded cursor-pointer 
     shadow shadow-transparent
     bg-white w-[8.75rem] md:w-[8.5rem]
-   hover:shadow-slate-300;
+    dark:bg-gray-800
+   hover:shadow-slate-300
+   dark:hover:shadow-slate-800;
 }
 
 .nav-bar ul .sm-button {
@@ -103,7 +108,9 @@ button > * {
 }
 
 .nav-active {
-  @apply underline rounded decoration-amber-500 decoration-2 rounded-b-none hover:no-underline hover:text-black text-amber-500;
+  @apply underline rounded decoration-amber-500 dark:decoration-amber-200 decoration-2 
+  rounded-b-none hover:no-underline hover:text-black dark:hover:text-amber-200 text-amber-500
+  dark:text-amber-200;
 }
 
 .icon {
