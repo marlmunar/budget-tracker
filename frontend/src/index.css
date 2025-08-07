@@ -1,6 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Outfit&display=swap");
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;

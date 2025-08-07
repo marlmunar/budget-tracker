@@ -10,45 +10,32 @@ const UserSettings = () => {
   const dispatch = useDispatch();
   const [updateProfile, { isLoading }] = useUpdateMutation();
   const { userInfo } = useSelector((state) => state.auth);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPasword] = useState("");
+  const [isOn, setIsOn] = useState(false);
 
   const [activeSettings, setActiveSettings] = useState("");
   const [error, setError] = useState("");
 
+  const [darkMode, setDarkMode] = useState(
+    () => localStorage.getItem("theme") === "dark"
+  );
+
+  useEffect(() => {
+    const root = window.document.getElementById("root");
+    if (darkMode) {
+      root.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      root.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    }
+  }, [darkMode]);
+
   useEffect(() => {
     setError("");
-    setEmail("");
-    setPassword("");
-    setConfirmPasword("");
+    // setEmail("");
+    // setPassword("");
+    // setConfirmPasword("");
   }, [activeSettings]);
-
-  const savePassword = async (e) => {
-    e.preventDefault();
-
-    try {
-      if (password !== confirmPassword) {
-        throw new Error("Passwords do not match");
-      }
-
-      const res = await updateProfile({ password }).unwrap();
-      setPassword("");
-      setConfirmPasword("");
-      setActiveSettings("");
-    } catch (error) {
-      setError(error.message);
-    }
-  };
-
-  const selectRef = useRef(null);
-
-  const openSelect = () => {
-    console.log("Should open");
-    if (selectRef.current) {
-      selectRef.current.focus();
-    }
-  };
 
   // const saveStats = async (e) => {
   //   e.preventDefault();
@@ -92,10 +79,10 @@ const UserSettings = () => {
         transition={{ duration: 0.5 }}
         className="overflow-hidden"
       >
-        <section className="rounded shadow-lg">
+        <section className="rounded shadow-lg dark:bg-slate-900  dark:text-[#eaf5fb]">
           <div className="flex flex-col gap-2 p-2 text-base md:text-lg">
             <div>
-              <h3 className="shadow bg-slate-300 rounded font-semibold p-1 px-2">
+              <h3 className="shadow bg-slate-300 dark:bg-[#28292a] rounded font-semibold p-1 px-2">
                 Profile Settings
               </h3>
               <ul className="p-2 flex flex-col gap-1 *:p-1 text-sm md:text-base">
@@ -133,7 +120,7 @@ const UserSettings = () => {
               </ul>
             </div>
             <div>
-              <h3 className="shadow bg-slate-300 rounded font-semibold p-1 px-2">
+              <h3 className="shadow bg-slate-300 dark:bg-[#28292a] rounded font-semibold p-1 px-2">
                 Log Preferences
               </h3>
               <ul className="p-2 flex flex-col gap-1 *:p-1 text-sm md:text-base">
@@ -170,14 +157,23 @@ const UserSettings = () => {
               </ul>
             </div>
             <div>
-              <h3 className="shadow bg-slate-200 rounded font-semibold p-1 px-2">
+              <h3 className="shadow bg-slate-300  dark:bg-[#28292a] rounded font-semibold p-1 px-2">
                 Appearance
               </h3>
               <ul className="p-2 flex flex-col gap-1 *:p-1 text-sm md:text-base">
-                <li>
-                  <button type="button" onClick={() => setActiveSettings("")}>
-                    Dark Theme
-                  </button>
+                <li className="flex justify-between">
+                  <p>Dark Theme</p>
+                  <div
+                    className={`flex h-4 w-[1.75rem] bg-gray-300 rounded-full ${
+                      isOn ? "justify-end" : "justify-start"
+                    }`}
+                    onClick={() => {
+                      setIsOn((prev) => !prev);
+                      setDarkMode(!darkMode);
+                    }}
+                  >
+                    <div className="h-4 w-4 rounded-full bg-gray-400"></div>
+                  </div>
                 </li>
               </ul>
             </div>
