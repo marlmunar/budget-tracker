@@ -52,17 +52,14 @@ const DeleteCategoryForm = ({ closeUI }) => {
         <h3>Delete Categories</h3>
         <div className="flex gap-2">
           <button
-            className="log-tool-button h-10 w-10 bg-slate-200"
+            className="log-tool-button-2"
             type="submit"
             form="deleteCat"
             formNoValidate
           >
             <TbCheck />
           </button>
-          <button
-            className="log-tool-button h-10 w-10 bg-slate-200"
-            onClick={closeUI}
-          >
+          <button className="log-tool-button-2" onClick={closeUI}>
             <TbX />
           </button>
         </div>
@@ -93,6 +90,7 @@ const DeleteCategoryForm = ({ closeUI }) => {
                 type="button"
                 className="text-xl border-2 rounded
                    text-red-400
+                   dark:text-[#f0f0f0]
                    hover:bg-red-300 
                    hover:border-transparent hover:shadow shadow-gray-700/50 
                  "
@@ -106,7 +104,10 @@ const DeleteCategoryForm = ({ closeUI }) => {
           ))}
         </menu>
         {error && (
-          <div className="mx-1 text-left text-red-500 md:text-sm text-xs">
+          <div
+            className="mx-1 text-left text-red-500 dark:text-red-400
+           md:text-sm text-xs"
+          >
             {error}
           </div>
         )}

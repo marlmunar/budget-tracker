@@ -143,7 +143,7 @@ const EditEntryForm = ({ closeUI, props }) => {
         <h3>Edit Entry</h3>
         <div className="flex gap-2">
           <button
-            className="log-tool-button h-10 w-10 bg-slate-200"
+            className="log-tool-button-2"
             type="submit"
             form="editForm"
             formNoValidate
@@ -151,10 +151,7 @@ const EditEntryForm = ({ closeUI, props }) => {
           >
             <TbCheck />
           </button>
-          <button
-            className="log-tool-button h-10 w-10 bg-slate-200"
-            onClick={closeUI}
-          >
+          <button className="log-tool-button-2" onClick={closeUI}>
             <TbX />
           </button>
         </div>
@@ -222,8 +219,8 @@ const EditEntryForm = ({ closeUI, props }) => {
                 <span
                   className={
                     Object.keys(selectedCategory).length > 0
-                      ? ""
-                      : "text-gray-500"
+                      ? "dark:text-[#282828]"
+                      : "text-gray-500 dark:text-[#a4a4a4]"
                   }
                 >
                   {Object.keys(selectedCategory).length > 0
@@ -231,7 +228,7 @@ const EditEntryForm = ({ closeUI, props }) => {
                     : "Select a category"}
                 </span>
                 <button
-                  className="flex rounded justify-between items-center"
+                  className="flex rounded justify-between items-center dark:text-[#282828]"
                   type="button"
                 >
                   {isSelecting ? <TbCaretUpFilled /> : <TbCaretDownFilled />}

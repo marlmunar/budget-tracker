@@ -28,22 +28,17 @@ const ExpenseListFilter = ({ closeUI, props }) => {
     <div
       className="absolute bg-white md:m-2
       shadow shadow-slate-400 rounded 
+     dark:bg-[#404040] dark:shadow-none
       flex flex-col right-0 top-0 w-full 
       max-w-[80%] md:max-w-[15rem]"
     >
       <div className="log-section-header">
         <h3>Apply Filter</h3>
         <div className="flex gap-2">
-          <button
-            className="log-tool-button h-10 w-10 bg-slate-200"
-            onClick={handleConfirm}
-          >
+          <button className="log-tool-button-2" onClick={handleConfirm}>
             <TbCheck />
           </button>
-          <button
-            className="log-tool-button h-10 w-10 bg-slate-200"
-            onClick={closeUI}
-          >
+          <button className="log-tool-button-2" onClick={closeUI}>
             <TbX />
           </button>
         </div>
@@ -63,7 +58,7 @@ const ExpenseListFilter = ({ closeUI, props }) => {
           >
             <button className="text-3xl hover:translate-y-[-2px]">
               {selected.includes(cat.name) ? (
-                <TbSquareCheck className="text-blue-800" />
+                <TbSquareCheck className="text-blue-800 dark:text-[#f0f0f0]" />
               ) : (
                 <TbSquare className="text-slate-300" />
               )}

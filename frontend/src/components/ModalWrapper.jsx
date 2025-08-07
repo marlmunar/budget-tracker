@@ -163,8 +163,7 @@ const ModalWrapper = () => {
                     <h3>{getModalTitle()}</h3>
                     <div className="flex gap-2">
                       <button
-                        className="ml-auto log-tool-button h-10 w-10 bg-slate-200
-                         dark:bg-gray-800 dark:active:bg-gray-950 dark:hover:bg-indigo-950 dark:hover:text-white"
+                        className="ml-auto log-tool-button-2"
                         onClick={closeModal}
                       >
                         <TbX />

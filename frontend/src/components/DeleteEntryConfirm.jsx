@@ -38,22 +38,19 @@ const DeleteEntryConfirm = ({ closeUI, props }) => {
         <h3 className="text-nowrap mr-5">Confirm Delete</h3>
         <div className="flex gap-2">
           <button
-            className="log-tool-button h-10 w-10 bg-slate-200 text-red-600"
+            className="log-tool-button-2 text-red-600"
             onClick={handleConfirm}
           >
             <TbCheck />
           </button>
-          <button
-            className="log-tool-button h-10 w-10 bg-slate-200"
-            onClick={closeUI}
-          >
+          <button className="log-tool-button-2" onClick={closeUI}>
             <TbX />
           </button>
         </div>
       </div>
       <div className="p-4 ">
         <p className="px-1">This will delete this entry:</p>
-        <div className="flex flex-col shadow rounded p-2 mt-1 shadow-slate-300">
+        <div className="flex flex-col shadow dark:shadow-slate-800 rounded p-2 mt-1 shadow-slate-300">
           <p className="font-semibold text-xl">
             PHP {formatNumber(entry.amount)}
           </p>

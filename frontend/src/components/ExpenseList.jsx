@@ -35,7 +35,7 @@ const ExpenseList = ({ props }) => {
   });
 
   return (
-    <section className="log-section-container md:relative">
+    <section className="log-section-container md:relative dark:bg-[#28292a]">
       <ExpenseListUIHandler
         activeUI={activeUI}
         setActiveUi={setActiveUI}
@@ -48,13 +48,13 @@ const ExpenseList = ({ props }) => {
         {!activeUI && (
           <div className="flex gap-2">
             <button
-              className="log-tool-button h-10 w-10 bg-slate-200"
+              className="log-tool-button-2 "
               onClick={() => setActiveUI("addEntry")}
             >
               <TbPlus />
             </button>
             <button
-              className="log-tool-button h-10 w-10 bg-slate-200"
+              className="log-tool-button-2"
               onClick={() => setActiveUI("filterEntries")}
             >
               {tempCategories.length > selectedCategories.length ? (
@@ -70,7 +70,7 @@ const ExpenseList = ({ props }) => {
       {filteredList.length < 1 ? (
         <NoRecords />
       ) : (
-        <div className="relative mt-1">
+        <div className="relative mt-1 dark:bg-[#28292a]">
           {filteredList
             .sort((a, b) => new Date(b.date) - new Date(a.date))
             .map((entry, index) => (

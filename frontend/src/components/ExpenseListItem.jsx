@@ -24,9 +24,10 @@ const ExpenseListItem = ({
     <div
       className="
       bg-white w-[98%] mx-auto shadow rounded 
-      pl-4 pr-2 pb-4 mb-1 
+      pl-4 pr-2 pb-4 mb-1 dark:bg-[#4a4e53]
       grid grid-rows-[repeat(2,min-content)] grid-cols-2 
       hover:shadow-lg hover:shadow-slate-200 hover:mb-2
+      dark:hover:shadow-none
       "
     >
       <div className="mb-1 my-2">
@@ -38,7 +39,7 @@ const ExpenseListItem = ({
       <div className="text-xs md:text-base flex items-start gap-2 col-span-2">
         <p className="max-w-50">{expense}</p>
         <p
-          className="max-w-[min-content] text-center rounded overflow-hidden whitespace-nowrap px-2"
+          className="max-w-[min-content] text-center rounded overflow-hidden whitespace-nowrap px-2 dark:text-[#282828]"
           style={{ backgroundColor: category.color }}
         >
           {category.name}

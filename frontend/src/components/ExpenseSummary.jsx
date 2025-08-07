@@ -82,7 +82,7 @@ const ExpenseSummary = ({ props }) => {
         <h2 className="h-10 flex items-center">Log Summary</h2>
         {displayReload && (
           <button
-            className="log-tool-button h-10 w-10 bg-slate-200"
+            className="log-tool-button-2"
             onClick={() => {
               setSelectedCategories(tempCategories.map((cat) => cat.name));
               setDisplayReload(false);

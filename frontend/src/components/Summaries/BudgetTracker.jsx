@@ -88,7 +88,7 @@ const BugdetTracker = ({ props }) => {
 
   return (
     <>
-      <div className="flex bg-slate-200 p-2 rounded text-gray-800 justify-between font-semibold">
+      <div className="flex bg-slate-200 dark:bg-[#3a3a3a] dark:text-[#f0f0f0] p-2 rounded text-gray-800 justify-between font-semibold">
         <h3>Category</h3>
         <h3>Subtotal</h3>
       </div>
@@ -104,23 +104,25 @@ const BugdetTracker = ({ props }) => {
       ))}
       {!displayReload && (
         <>
-          <div className="rounded shadow bg-slate-200">
-            <div className="flex p-2 text-gray-800 justify-between font-semibold">
+          <div className="rounded shadow bg-slate-200 dark:bg-[#3a3a3a] dark:text-[#f0f0f0]">
+            <div className="flex p-2 dark:text-[#f0f0f0] text-gray-800 justify-between font-semibold">
               <h3>Consumption</h3>
             </div>
-            <div className="bg-white flex flex-col items-center justify-between p-2">
+            <div className="bg-white dark:bg-[#4a4e53] flex flex-col items-center justify-between p-2 rounded-b">
               <div className="flex justify-between items-center w-full">
-                <p className="text-[0.6rem] md:text-[0.8rem] text-gray-800">{`${formatNumber(
+                <p className="text-[0.6rem] md:text-[0.8rem] dark:text-[#f0f0f0] text-gray-800">{`${formatNumber(
                   total
                 )} / ${formatNumber(logData.threshold)}`}</p>
                 <p className="text-xs md:text-sm font-semibold">
                   {percentageData}
                 </p>
               </div>
-              <div className="w-full border-2 border-gray-500 rounded-full flex overflow-hidden">
+              <div className="w-full border-2 border-gray-500 dark:border-gray-200 rounded-full flex overflow-hidden">
                 <div
                   className={`${
-                    progress === "100%" ? "bg-red-500" : "bg-green-500"
+                    progress === "100%"
+                      ? "bg-red-500 dark:bg-red-400"
+                      : "bg-green-500 dark:bg-green-400"
                   } min-h-4 rounded-full`}
                   style={{ width: progress }}
                 ></div>
@@ -128,22 +130,22 @@ const BugdetTracker = ({ props }) => {
               </div>
             </div>
           </div>
-          <div className="rounded shadow bg-slate-200">
-            <div className="flex p-2 text-gray-800 justify-between font-semibold">
+          <div className="rounded shadow bg-slate-200 dark:bg-[#3a3a3a] dark:text-[#f0f0f0]">
+            <div className="flex p-2 text-gray-800 justify-between font-semibold dark:text-[#f0f0f0]">
               <h3>Total</h3>
             </div>
-            <div className="bg-white text-xs md:text-sm flex items-center justify-between font-semibold p-2">
+            <div className="bg-white dark:bg-[#4a4e53] rounded-b text-xs md:text-sm flex items-center justify-between font-semibold p-2">
               <p>{`${entriesCount} ${
                 entriesCount > 1 ? "entries" : "entry"
               }`}</p>
               <p>{formatNumber(total)}</p>
             </div>
           </div>
-          <div className="rounded shadow bg-slate-200">
-            <div className="flex p-2 text-gray-800 justify-between ">
+          <div className="rounded shadow bg-slate-200 dark:bg-[#3a3a3a] dark:text-[#f0f0f0]">
+            <div className="flex p-2 text-gray-800 justify-between dark:text-[#f0f0f0]">
               <h3 className="font-semibold">Budget</h3>
             </div>
-            <div className="bg-white text-xs md:text-sm flex flex-col p-2">
+            <div className="bg-white dark:bg-[#4a4e53] rounded-b text-xs md:text-sm flex flex-col p-2">
               <div className="flex justify-between">
                 <p>Amount</p>
                 <p className="font-semibold">

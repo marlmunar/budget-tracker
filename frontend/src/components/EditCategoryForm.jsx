@@ -137,17 +137,14 @@ const EditCategoryForm = ({ closeUI, props }) => {
         <h3>Edit Category</h3>
         <div className="flex gap-2">
           <button
-            className="ml-auto log-tool-button h-10 w-10 bg-slate-200"
+            className="ml-auto log-tool-button-2"
             type="submit"
             form="newCategoryForm"
             formNoValidate
           >
             <TbCheck />
           </button>
-          <button
-            className="ml-auto log-tool-button h-10 w-10 bg-slate-200"
-            onClick={closeUI}
-          >
+          <button className="ml-auto log-tool-button-2" onClick={closeUI}>
             <TbX />
           </button>
         </div>
@@ -175,8 +172,8 @@ const EditCategoryForm = ({ closeUI, props }) => {
               <span
                 className={
                   Object.keys(selectedCategory).length > 0
-                    ? ""
-                    : "text-gray-500"
+                    ? "dark:text-white"
+                    : "text-gray-500 dark:text-[#a4a4a4]"
                 }
               >
                 {Object.keys(selectedCategory).length > 0

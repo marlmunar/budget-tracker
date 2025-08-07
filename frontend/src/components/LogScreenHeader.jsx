@@ -72,7 +72,7 @@ const LogScreenHeader = ({ logData }) => {
   }
 
   return (
-    <div className="bg-gray-100 mx-auto rounded-b shadow w-full flex">
+    <div className="bg-gray-100 mx-auto rounded-b shadow w-full flex dark:bg-[#2b2d2f] dark:text-[#f0f0f0]">
       <div
         className="mx-auto px-2 md:px-0 text-lg lg:text-xl
                   w-full relative
@@ -86,7 +86,9 @@ const LogScreenHeader = ({ logData }) => {
             <h2 className="font-semibold text-base md:text-xl">{name}</h2>
             <span className="text-gray-500 text-[0.7rem] md:text-xs italic">
               {isNotSaved ? (
-                <span className="text-red-500">Log has unsaved changes</span>
+                <span className="text-red-500 dark:text-red-400">
+                  Log has unsaved changes
+                </span>
               ) : (
                 `Log was updated ${elapsedTime}`
               )}
@@ -128,7 +130,8 @@ const LogScreenHeader = ({ logData }) => {
                 rounded
                 w-32 text-base 
                 p-1 md:px-1 flex flex-col items-center gap-1 
-                shadow shadow-slate-500 bg-white"
+                shadow shadow-slate-500 bg-white 
+                dark:bg-[#4a4e53] dark:text-[#f0f0f0] dark:shadow-slate-800"
             >
               <li className="md:hidden">
                 <button
@@ -183,7 +186,7 @@ const LogScreenHeader = ({ logData }) => {
               </li>
               <li>
                 <button
-                  className="log-options text-red-500"
+                  className="log-options text-red-500 dark:text-red-400"
                   onClick={() => {
                     setIsSelecting(false);
                     dispatch(

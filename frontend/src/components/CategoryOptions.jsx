@@ -3,19 +3,15 @@ import { TbPencil, TbPlus, TbTrash, TbX } from "react-icons/tb";
 const CategoryOptions = ({ closeUI, setActiveUi }) => {
   return (
     <section
-      className="bg-white md:m-2
-          log-form-container w-full 
-          absolute top-0 right-[10%] md:right-0
-          shadow shadow-slate-400
-          max-w-[80%]
-          md:max-w-[15rem]"
+      className="absolute bg-white md:m-2
+      shadow shadow-slate-400 rounded 
+     dark:bg-[#404040] dark:shadow-none
+      flex flex-col right-0 top-0 w-full 
+      max-w-[80%] md:max-w-[15rem]"
     >
       <div className="log-section-header">
         <h3>Manage Categories</h3>
-        <button
-          className="ml-auto log-tool-button h-8 w-8 md:h-10 md:w-10 bg-slate-200"
-          onClick={closeUI}
-        >
+        <button className="ml-auto log-tool-button-2" onClick={closeUI}>
           <TbX />
         </button>
       </div>

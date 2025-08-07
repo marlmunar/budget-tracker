@@ -52,7 +52,7 @@ const GeneralTracker = ({ props }) => {
 
   return (
     <>
-      <div className="flex bg-slate-200 p-2 rounded text-gray-800 justify-between font-semibold">
+      <div className="flex bg-slate-200 dark:bg-[#3a3a3a] dark:text-[#f0f0f0] p-2 rounded text-gray-800 justify-between font-semibold">
         <h3>Category</h3>
         <h3>Subtotal</h3>
       </div>
@@ -67,15 +67,15 @@ const GeneralTracker = ({ props }) => {
         />
       ))}
       {!displayReload && (
-        <div className="rounded shadow bg-slate-200">
-          <div className="flex text-base md:text-lg p-2 text-gray-800 justify-between font-semibold">
+        <div className="rounded shadow bg-slate-200 dark:bg-[#3a3a3a] dark:text-[#f0f0f0]">
+          <div className="flex text-base md:text-lg p-2 text-gray-800 dark:text-[#f0f0f0] justify-between font-semibold">
             <h3>Total</h3>
           </div>
-          <div className="text-xs md:text-sm flex justify-between p-2 bg-white">
+          <div className="text-xs md:text-sm flex justify-between p-2 bg-white dark:bg-[#4a4e53]">
             <p>Income</p>
             <p>{formatNumber(totalIncome)}</p>
           </div>
-          <div className="text-xs md:text-sm flex justify-between p-2 bg-white">
+          <div className="text-xs md:text-sm flex justify-between p-2 bg-white dark:bg-[#4a4e53]">
             <p>Expense</p>
             <p>{formatNumber(totalExpense)}</p>
           </div>

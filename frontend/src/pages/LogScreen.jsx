@@ -93,7 +93,7 @@ const LogScreen = () => {
   return (
     <main
       ref={scrollToRef}
-      className="container mx-auto h-full flex flex-col bg-gray-300"
+      className="container mx-auto h-full flex flex-col bg-gray-300 dark:bg-[#232323] dark:text-[#f0f0f0]"
     >
       <title>{`Budgetarians' Log ${
         logData.name ? `- ${logData.name}` : ""
