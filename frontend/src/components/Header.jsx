@@ -44,10 +44,7 @@ const Header = () => {
   return (
     <header className="header">
       <div className="header-container relative">
-        <Link
-          to="/"
-          className="active:scale-95 transition-all duration-200 pl-2 md:pl-0"
-        >
+        <Link to="/" className="active:scale-95 pl-2 md:pl-0">
           <div className="flex items-center gap-2">
             <img
               className="h-10 w-10 md:h-10 md:w-10"

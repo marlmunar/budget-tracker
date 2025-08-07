@@ -12,7 +12,7 @@ const ExpenseSummaryItem = ({
       hover:shadow-gray-400 
       hover:translate-y-[-2px]
       active:scale-95
-      transition-all duration-300"
+     "
       style={{ backgroundColor: category.color }}
       onClick={() => {
         setSelectedCategories([category.name]);

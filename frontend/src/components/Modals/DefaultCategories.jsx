@@ -105,7 +105,7 @@ const DefaultCategories = ({ closeModal }) => {
                    text-blue-400
                    bg-white
                    hover:border-transparent hover:shadow shadow-gray-700/50 
-                   transition-all duration-300"
+                 "
                   onClick={() => {
                     setIsManaging(true);
                     setAction("edit");
@@ -124,7 +124,7 @@ const DefaultCategories = ({ closeModal }) => {
                    text-red-400
                    bg-white
                    hover:border-transparent hover:shadow shadow-gray-700/50 
-                   transition-all duration-300"
+                   "
                   onClick={() => {
                     handleClick(cat);
                   }}

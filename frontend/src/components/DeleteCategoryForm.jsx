@@ -95,7 +95,7 @@ const DeleteCategoryForm = ({ closeUI }) => {
                    text-red-400
                    hover:bg-red-300 
                    hover:border-transparent hover:shadow shadow-gray-700/50 
-                   transition-all duration-300"
+                 "
                 onClick={() => {
                   handleClick(cat);
                 }}

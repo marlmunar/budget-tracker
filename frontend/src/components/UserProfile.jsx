@@ -43,7 +43,7 @@ const UserProfile = ({ userLogs }) => {
             );
           }}
         >
-          <TbEdit className=" text-xl transition-all duration-300 group-hover:text-amber-500" />
+          <TbEdit className=" text-xl group-hover:text-amber-500" />
         </button>
       </div>
       <div className="grid grid-row-4 grid-cols-2 gap-x-5 gap-y-1 text-sm md:text-base">

@@ -19,14 +19,18 @@ const LogTools = ({ searchState, setSearchState }) => {
 
   return (
     <>
-      {/* <div className="flex gap-2 items-center relative"> */}
       {showSearch ? (
         <>
-          <div className="md:absolute top-3 right-3 flex md:justify-end mx-auto gap-2 bg-gray-300 md:bg-transparent p-1 px-2 md:rounded">
+          <div
+            className="md:absolute top-3 right-3 flex md:justify-end mx-auto gap-2 
+            dark:bg-[#1e1e1e] dark:text-white dark:md:bg-transparent
+           bg-gray-300 md:bg-transparent p-1 px-2 md:rounded"
+          >
             <form
               method="POST"
               className="z-1 relative bg-gray-100 w-full text-black 
                 rounded-xl px-2 pr-8 min-h-8 lg:w-[16.5rem] 
+               dark:bg-[#282828] dark:text-white
                 lg:max-w-none flex items-center justify-between"
             >
               <input
@@ -49,7 +53,7 @@ const LogTools = ({ searchState, setSearchState }) => {
                   }}
                   className="right-2 absolute rounded-xl 
                     h-[min-content] w-[min-content] 
-                    text-base md:text-xl
+                    text-base md:text-xl  dark:text-white
                     border text-gray-500 border-gray-500 
                     hover:shadow hover:shadow-gray-700 hover:border-transparent"
                 >

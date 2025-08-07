@@ -17,9 +17,9 @@ const LogCard = ({ logName, logStats, logId, logData }) => {
   return (
     <div
       className="relative md:mx-auto flex md:w-[98%] mb-1
-        trasition-all duration-100 
-      bg-white hover:shadow-slate-700 shadow-sm rounded 
-        hover:shadow hover:translate-y-[-2px]"
+        trasition-all duration-100 dark:bg-[#3f3f3f]
+      bg-white hover:shadow-slate-700 dark:hover:shadow-none shadow-sm rounded 
+        hover:shadow hover:translate-y-[-2px] dark:text-[#e7e7e7]"
     >
       <div className="p-2 w-full rounded">
         <div className="flex flex-col gap-1 ">
@@ -27,10 +27,10 @@ const LogCard = ({ logName, logStats, logId, logData }) => {
             <div className="grow flex flex-col gap-2">
               <Link
                 to={`/log/${logId}`}
-                className="block text-sm px-1 mx-h-[min-content] md:text-xl "
+                className="block text-sm px-1 mx-h-[min-content] md:text-xl"
               >
                 <p className="font-semibold mb-1">{logName}</p>
-                <div className="flex flex-col text-[0.75rem] md:text-sm text-gray-800">
+                <div className="flex flex-col text-[0.75rem] md:text-sm text-gray-800 dark:text-[#e7e7e7]">
                   <p className="text-[0.65rem] md:text-[0.70rem]">
                     {logStats.lastEdited}
                   </p>
@@ -48,7 +48,7 @@ const LogCard = ({ logName, logStats, logId, logData }) => {
               onOutsideClick={() => setIsSelecting(false)}
               id={logId}
             >
-              <div onClick={(e) => e.stopPropagation()} className="flex gap-2">
+              <div onClick={(e) => e.stopPropagation()} className="flex gap-2 ">
                 {isSelecting && (
                   <>
                     <button

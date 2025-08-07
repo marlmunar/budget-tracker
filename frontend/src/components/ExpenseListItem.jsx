@@ -26,7 +26,6 @@ const ExpenseListItem = ({
       bg-white w-[98%] mx-auto shadow rounded 
       pl-4 pr-2 pb-4 mb-1 
       grid grid-rows-[repeat(2,min-content)] grid-cols-2 
-      transition-all duration-300
       hover:shadow-lg hover:shadow-slate-200 hover:mb-2
       "
     >
