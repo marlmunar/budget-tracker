@@ -52,7 +52,7 @@ const Hero = () => {
 
   return (
     <section className="hero">
-      <div className="relative border-2 border-dotted m-2 p-5 flex flex-col gap-2 justify-center order-1 lg:order-none shadow-lg">
+      <div className="relative dark:bg-[#28292a] dark:border-gray-500 border-2 border-dotted m-2 p-5 flex flex-col gap-2 justify-center order-1 lg:order-none shadow-lg">
         <div className="absolute m-4 top-0 right-0 flex flex-col items-end gap-2">
           <button
             className="rounded text-2xl p-2 hover:shadow hover:shadow-slate-400"
@@ -114,7 +114,7 @@ const Hero = () => {
             transition={{ duration: 0.8 }}
             className="z-10"
           >
-            <div className=" bg-amber-50/70 p-4 lg:max-w-[min-content] rounded shadow-lg flex flex-col">
+            <div className=" bg-amber-50/70 dark:bg-[#4a4e53] p-4 lg:max-w-[min-content] rounded shadow-lg flex flex-col">
               {!!userInfo ? (
                 <>
                   <p className="text-2xl font-semibold">Welcome Back!</p>
