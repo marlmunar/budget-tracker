@@ -57,6 +57,7 @@ const LogScreen = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        dispatch(startLoading());
         const res = await getLog(logId).unwrap();
         setLogData(res.data);
         if (!isNotSaved) {
@@ -72,6 +73,7 @@ const LogScreen = () => {
           navigate("/logs");
         }
       } finally {
+        dispatch(stopLoading());
       }
     };
 
