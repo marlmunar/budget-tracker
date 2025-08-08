@@ -134,7 +134,7 @@ const Register = () => {
           ref={passwordRef}
           duration={0.35}
         >
-          <h1 className="text-2xl lg:text-3xl font-semibold h-[min-content] ">
+          <h1 className="text-2xl lg:text-3xl font-semibold h-[min-content] dark:text-[#fff2b9]">
             Set Password
           </h1>
 
@@ -164,14 +164,23 @@ const Register = () => {
               />
             </div>
 
-            <div className="pl-1 text-red-500 text-sm">{error}</div>
+            {error && (
+              <div className="pl-1 text-red-500 dark:text-red-400 text-sm">
+                {error}
+              </div>
+            )}
 
             <button type="submit" formNoValidate className="form-button">
               Save Password
             </button>
           </form>
 
-          <div className="p-1 rounded h-full row-span-2 md:flex flex-col justify-end md:bg-amber-300/75 md:absolute right-0 top-0 md:w-[30%] lg:py-6 md:p-4 md:shadow-[2px_0_6px_rgba(0,0,0,0.1)]">
+          <div
+            className="p-1 rounded h-full row-span-2 md:flex flex-col justify-end 
+          md:bg-amber-300/75 md:absolute right-0 top-0 md:w-[30%] 
+          lg:py-6 md:p-4 md:shadow-[2px_0_6px_rgba(0,0,0,0.1)]
+          dark:bg-[#ffe368] dark:text-[#282828]"
+          >
             <p>Need to change name or email?</p>
             <a
               href="#"
@@ -207,7 +216,7 @@ const Register = () => {
           ref={registerRef}
           duration={0.85}
         >
-          <h1 className="text-2xl lg:text-3xl font-semibold h-[min-content] relative md:left-[32%] ">
+          <h1 className="text-2xl lg:text-3xl font-semibold h-[min-content] relative md:left-[32%] dark:text-[#fff2b9]">
             Sign Up
           </h1>
 
@@ -240,14 +249,23 @@ const Register = () => {
               />
             </div>
 
-            <div className="pl-1 text-red-500 text-sm">{error}</div>
+            {error && (
+              <div className="pl-1 text-red-500 dark:text-red-400 text-sm">
+                {error}
+              </div>
+            )}
 
             <button type="submit" formNoValidate className="form-button">
               Sign Up
             </button>
           </form>
 
-          <div className="p-1 rounded h-full row-span-2 md:flex flex-col justify-end md:bg-amber-300/75 md:absolute left-0 top-0 md:w-[30%] lg:py-6 md:p-4 md:shadow-[2px_0_6px_rgba(0,0,0,0.1)]">
+          <div
+            className="p-1 rounded h-full row-span-2 md:flex flex-col justify-end 
+          md:bg-amber-300/75 md:absolute left-0 top-0 md:w-[30%] 
+          lg:py-6 md:p-4 md:shadow-[2px_0_6px_rgba(0,0,0,0.1)]
+          dark:bg-[#ffe368] dark:text-[#282828]"
+          >
             <p>Already a user?</p>
             <a
               href="#"

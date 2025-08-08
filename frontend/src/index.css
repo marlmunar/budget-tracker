@@ -158,7 +158,9 @@ button > * {
 
 .form-button {
   @apply mt-3 border-2 h-10 rounded min-w-[22] px-4 font-semibold bg-amber-400
-  hover:bg-amber-300 hover:border-transparent hover:shadow shadow-slate-800;
+  hover:bg-amber-300 hover:border-transparent hover:shadow shadow-slate-800
+  dark:border-transparent dark:bg-[#ffe368] dark:text-[#282828]
+ dark:active:bg-gray-950 dark:hover:bg-indigo-950 dark:hover:text-white;
 }
 
 .form-input-container {
@@ -166,7 +168,11 @@ button > * {
 }
 
 .form-input {
-  @apply bg-white rounded h-8 px-2 border-2 w-full;
+  @apply bg-white dark:rounded h-8 px-2 border-2 w-full
+  focus:outline-none
+  dark:border-gray-500
+  dark:bg-[#3a3a3a] dark:hover:bg-[#3a3a3a]
+  dark:text-[#f0f0f0];
 }
 
 .tool-button {
