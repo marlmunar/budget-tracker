@@ -97,9 +97,9 @@ const Hero = () => {
         </div>
       </div>
 
-      <div className="p-2 lg:min-h-[80vh] md:min-h-[50vh] min-h-[45vh] grid md:p-4 bg-amber-200  row-span-2 rounded shadow-lg">
+      <div className="p-2 lg:min-h-[80vh] md:min-h-[50vh] min-h-[45vh] grid md:p-4 bg-amber-200  row-span-2 rounded shadow-lg dark:bg-yellow-200">
         <div className="relative p-2 md:p-10 bg-slate-50 flex flex-col justify-end gap-2 h-[100%] rounded shadow">
-          <div className="absolute z-0 w-full h-full top-0 right-0">
+          <div className="absolute z-0 w-full h-full top-0 right-0 rounded">
             <img
               className="object-cover w-full h-full"
               src="https://images.unsplash.com/photo-1544377193-33dcf4d68fb5?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -114,7 +114,7 @@ const Hero = () => {
             transition={{ duration: 0.8 }}
             className="z-10"
           >
-            <div className=" bg-amber-50/70 dark:bg-[#4a4e53] p-4 lg:max-w-[min-content] rounded shadow-lg flex flex-col">
+            <div className=" bg-amber-50/70 dark:bg-[#2b2d30] p-4 lg:max-w-[min-content] rounded shadow-lg flex flex-col">
               {!!userInfo ? (
                 <>
                   <p className="text-2xl font-semibold">Welcome Back!</p>

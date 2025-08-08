@@ -79,6 +79,10 @@ button > * {
 .login-button {
   @apply border-2 rounded
   px-4 border-slate-900
+  dark:border-[#8b8b8b] dark:text-[#f0f0f0]
+  dark:hover:shadow-gray-800
+  dark:hover:bg-[#FFE779]
+  dark:hover:text-gray-800
   md:px-4 md:py-1 md:min-w-[6rem]
   min-h-10 min-w-10
   md:min-h-0
@@ -87,7 +91,7 @@ button > * {
 
 .nav-bar {
   @apply bg-gray-50 right-[0.25rem] md:right-2 top-[calc(100%+0.05rem)] md:top-[80%]
-  dark:dark:bg-[#4a4e53] dark:shadow-slate-800
+  dark:bg-[#4a4e53] dark:shadow-slate-800
   absolute shadow shadow-slate-400 rounded 
   p-1 min-w-[8ch] z-10 text-base lg:text-lg;
 }
@@ -130,7 +134,10 @@ button > * {
 }
 
 .hero-button {
-  @apply border-2 h-10 text-lg flex justify-center items-center rounded py-1 text-center min-w-[6rem] sm:min-w-[8rem] hover:bg-amber-300 hover:shadow hover:border-transparent;
+  @apply border-2 h-10 text-lg flex justify-center items-center rounded py-1 text-center min-w-[6rem] sm:min-w-[8rem] 
+  hover:bg-amber-300 hover:shadow hover:border-transparent
+  dark:hover:bg-[#FFE779]
+  dark:hover:text-gray-800;
 }
 
 .homecard-title {
