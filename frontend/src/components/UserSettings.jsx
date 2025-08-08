@@ -1,76 +1,17 @@
-import { useEffect, useRef, useState } from "react";
-import { useUpdateMutation } from "../slices/userApiSlice";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setCredentials } from "../slices/authSlice";
 import { motion } from "framer-motion";
-import { setModalState } from "../slices/appSlice";
-import { TbCaretDownFilled } from "react-icons/tb";
+import { setDarkMode, setModalState } from "../slices/appSlice";
 
 const UserSettings = () => {
   const dispatch = useDispatch();
-  const [updateProfile, { isLoading }] = useUpdateMutation();
-  const { userInfo } = useSelector((state) => state.auth);
+  const { darkMode } = useSelector((state) => state.app);
 
   const [activeSettings, setActiveSettings] = useState("");
   const [error, setError] = useState("");
 
-  const [darkMode, setDarkMode] = useState(
-    () => localStorage.getItem("theme") === "dark"
-  );
   const [isOn, setIsOn] = useState(darkMode);
 
-  useEffect(() => {
-    const root = window.document.getElementById("root");
-    if (darkMode) {
-      root.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-    } else {
-      root.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-    }
-  }, [darkMode]);
-
-  useEffect(() => {
-    setError("");
-    // setEmail("");
-    // setPassword("");
-    // setConfirmPasword("");
-  }, [activeSettings]);
-
-  // const saveStats = async (e) => {
-  //   e.preventDefault();
-  //   if (!income && activeSettings === "income") {
-  //     return setError("This field cannot be empty");
-  //   }
-  //   if (!goals && activeSettings === "goals") {
-  //     return setError("This field cannot be empty");
-  //   }
-  //   let newIncome = income || (userInfo?.stats?.monthlyIncome ?? "blank");
-  //   let newGoals = goals || (userInfo?.stats?.savingGoals ?? "blank");
-
-  //   try {
-  //     if (newGoals === "blank" || newIncome === "blank") {
-  //       if (newIncome > 0) newGoals = Math.round(+newIncome * 0.8);
-  //       else {
-  //         throw new Error("Save a monthly income value first");
-  //       }
-  //     }
-  //     if (newIncome <= 0 || newGoals <= 0) {
-  //       throw new Error("Value should be greater than zero");
-  //     }
-
-  //     const res = await updateProfile({
-  //       stats: { monthlyIncome: newIncome, savingGoals: newGoals },
-  //     }).unwrap();
-  //     dispatch(setCredentials(res));
-  //     setIncome("");
-  //     setGoals("");
-  //     setActiveSettings("");
-  //   } catch (error) {
-  //     console.log(error);
-  //     setError(error.message);
-  //   }
-  // };
   return (
     <>
       <motion.div
@@ -170,7 +111,7 @@ const UserSettings = () => {
                     }`}
                     onClick={() => {
                       setIsOn((prev) => !prev);
-                      setDarkMode(!darkMode);
+                      dispatch(setDarkMode(!darkMode));
                     }}
                   >
                     <div className="h-4 w-4 rounded-full bg-gray-400 dark:bg-gray-200"></div>

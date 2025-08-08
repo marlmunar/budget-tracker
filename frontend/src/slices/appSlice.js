@@ -6,6 +6,7 @@ const initialState = {
   activeModal: "",
   modalData: {},
   lastAction: null,
+  darkMode: localStorage.getItem("theme") === "dark",
 };
 
 const appSlice = createSlice({
@@ -32,9 +33,17 @@ const appSlice = createSlice({
     setLastAction: (state, action) => {
       state.lastAction = action.payload;
     },
+    setDarkMode: (state, action) => {
+      state.darkMode = action.payload;
+    },
   },
 });
 
-export const { startLoading, stopLoading, setModalState, setLastAction } =
-  appSlice.actions;
+export const {
+  startLoading,
+  stopLoading,
+  setModalState,
+  setLastAction,
+  setDarkMode,
+} = appSlice.actions;
 export default appSlice.reducer;
