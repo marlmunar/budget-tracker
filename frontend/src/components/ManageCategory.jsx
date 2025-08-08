@@ -187,7 +187,8 @@ const ManageCategory = ({ close, action, category, tempList, setTempList }) => {
                 />
                 <button
                   type="button"
-                  className="block color-button bg-gray-200 text-xl dark:bg-gray-800 dark:active:bg-gray-950 dark:hover:bg-indigo-950 dark:hover:text-white "
+                  className="block color-button bg-gray-200 text-xl 
+                  dark:bg-[#4a4e53] dark:active:bg-gray-950 dark:hover:bg-gray-500 dark:hover:text-white"
                   onClick={() => setIsSelecting((prev) => !prev)}
                 >
                   <TbX />
@@ -214,7 +215,8 @@ const ManageCategory = ({ close, action, category, tempList, setTempList }) => {
               <li>
                 <button
                   type="button"
-                  className="bg-gray-200  dark:bg-gray-800 dark:active:bg-gray-950 dark:hover:bg-indigo-950 dark:hover:text-white"
+                  className="bg-gray-200
+                  dark:bg-[#4a4e53] dark:active:bg-gray-950 dark:hover:bg-gray-500 dark:hover:text-white"
                   onClick={() => setIsSelecting((prev) => !prev)}
                 >
                   <TbPlus />

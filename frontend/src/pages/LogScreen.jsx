@@ -57,10 +57,10 @@ const LogScreen = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        dispatch(startLoading());
         const res = await getLog(logId).unwrap();
         setLogData(res.data);
         if (!isNotSaved) {
+          dispatch(startLoading());
           dispatch(setTempEntries([...res.data.entries]));
           dispatch(
             setTempCategories(

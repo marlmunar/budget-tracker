@@ -81,7 +81,8 @@ const EditCategoryForm = ({ closeUI, props }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (Object.keys(selectedCategory).length === 0) return;
+    if (Object.keys(selectedCategory).length === 0)
+      return setError("Please select a category");
     if (!name) return setError("Please fill out the name field");
     if (!type) return setError("Please select a type");
     if (!color) return setError("Please select a color");
@@ -139,7 +140,7 @@ const EditCategoryForm = ({ closeUI, props }) => {
           <button
             className="ml-auto log-tool-button-2"
             type="submit"
-            form="newCategoryForm"
+            form="editCategoryForm"
             formNoValidate
           >
             <TbCheck />
@@ -152,7 +153,7 @@ const EditCategoryForm = ({ closeUI, props }) => {
       <form
         method="POST"
         onSubmit={handleSubmit}
-        id="newCategoryForm"
+        id="editCategoryForm"
         className="relative p-2 rounded space-y-2"
       >
         <div className="p-2 pb-1 log-input-column md:max-w-[50%]">
@@ -302,7 +303,8 @@ const EditCategoryForm = ({ closeUI, props }) => {
                   />
                   <button
                     type="button"
-                    className="color-button bg-gray-200 text-xl"
+                    className="color-button bg-gray-200 text-xl 
+                    dark:bg-[#4a4e53] dark:active:bg-gray-950 dark:hover:bg-gray-500 dark:hover:text-white"
                     onClick={() => setIsSelectingColor((prev) => !prev)}
                   >
                     <TbX />
@@ -329,7 +331,8 @@ const EditCategoryForm = ({ closeUI, props }) => {
                 <li>
                   <button
                     type="button"
-                    className="bg-gray-200"
+                    className="bg-gray-200 
+                    dark:bg-[#4a4e53] dark:active:bg-gray-950 dark:hover:bg-gray-500 dark:hover:text-white"
                     onClick={() => setIsSelectingColor((prev) => !prev)}
                   >
                     <TbPlus />
