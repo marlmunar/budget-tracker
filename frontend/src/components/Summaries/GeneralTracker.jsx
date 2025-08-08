@@ -71,11 +71,11 @@ const GeneralTracker = ({ props }) => {
           <div className="flex text-base md:text-lg p-2 text-gray-800 dark:text-[#f0f0f0] justify-between font-semibold">
             <h3>Total</h3>
           </div>
-          <div className="text-xs md:text-sm flex justify-between p-2 bg-white dark:bg-[#4a4e53]">
+          <div className="text-xs md:text-sm flex justify-between p-2 bg-white dark:bg-[#3f3f3f]">
             <p>Income</p>
             <p>{formatNumber(totalIncome)}</p>
           </div>
-          <div className="text-xs md:text-sm flex justify-between p-2 bg-white dark:bg-[#4a4e53]">
+          <div className="text-xs md:text-sm flex justify-between p-2 bg-white dark:bg-[#3f3f3f]">
             <p>Expense</p>
             <p>{formatNumber(totalExpense)}</p>
           </div>

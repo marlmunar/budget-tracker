@@ -347,7 +347,10 @@ const AddEntryForm = ({ closeUI, setActiveUi, props }) => {
                           </li>
                         ))}
                         <li
-                          className="log-options-2 bg-white dark:bg-gray-800"
+                          className="log-options-2 bg-white 
+                          dark:bg-[#4a4e53] dark:active:bg-gray-950 
+                          dark:hover:bg-gray-500 dark:hover:text-white
+"
                           onClick={() => {
                             setActiveUi("manageCategories");
                           }}

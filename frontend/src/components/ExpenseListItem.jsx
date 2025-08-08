@@ -24,7 +24,7 @@ const ExpenseListItem = ({
     <div
       className="
       bg-white w-[98%] mx-auto shadow rounded 
-      pl-4 pr-2 pb-4 mb-1 dark:bg-[#4a4e53]
+      pl-4 pr-2 pb-4 mb-1 dark:bg-[#3f3f3f]
       grid grid-rows-[repeat(2,min-content)] grid-cols-2 
       hover:shadow-lg hover:shadow-slate-200 hover:mb-2
       dark:hover:shadow-none

@@ -108,7 +108,7 @@ const BugdetTracker = ({ props }) => {
             <div className="flex p-2 dark:text-[#f0f0f0] text-gray-800 justify-between font-semibold">
               <h3>Consumption</h3>
             </div>
-            <div className="bg-white dark:bg-[#4a4e53] flex flex-col items-center justify-between p-2 rounded-b">
+            <div className="bg-white dark:bg-[#3f3f3f] flex flex-col items-center justify-between p-2 rounded-b">
               <div className="flex justify-between items-center w-full">
                 <p className="text-[0.6rem] md:text-[0.8rem] dark:text-[#f0f0f0] text-gray-800">{`${formatNumber(
                   total
@@ -134,7 +134,7 @@ const BugdetTracker = ({ props }) => {
             <div className="flex p-2 text-gray-800 justify-between font-semibold dark:text-[#f0f0f0]">
               <h3>Total</h3>
             </div>
-            <div className="bg-white dark:bg-[#4a4e53] rounded-b text-xs md:text-sm flex items-center justify-between font-semibold p-2">
+            <div className="bg-white dark:bg-[#3f3f3f] rounded-b text-xs md:text-sm flex items-center justify-between font-semibold p-2">
               <p>{`${entriesCount} ${
                 entriesCount > 1 ? "entries" : "entry"
               }`}</p>
@@ -145,7 +145,7 @@ const BugdetTracker = ({ props }) => {
             <div className="flex p-2 text-gray-800 justify-between dark:text-[#f0f0f0]">
               <h3 className="font-semibold">Budget</h3>
             </div>
-            <div className="bg-white dark:bg-[#4a4e53] rounded-b text-xs md:text-sm flex flex-col p-2">
+            <div className="bg-white dark:bg-[#3f3f3f] rounded-b text-xs md:text-sm flex flex-col p-2">
               <div className="flex justify-between">
                 <p>Amount</p>
                 <p className="font-semibold">

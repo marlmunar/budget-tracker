@@ -26,7 +26,7 @@ const ExpenseSummaryItem = ({
       >
         {category.name}
       </p>
-      <div className="flex text-xs md:text-sm justify-between w-full bg-white dark:bg-[#4a4e53] dark:text-[#f0f0f0] rounded p-1">
+      <div className="flex text-xs md:text-sm justify-between w-full bg-white dark:bg-[#3f3f3f] dark:text-[#f0f0f0] rounded p-1">
         <p>{`${count} ${count > 1 ? "entries" : "entry"}`}</p>
         <p>{amount}</p>
       </div>

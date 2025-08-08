@@ -89,7 +89,7 @@ const SavingsTracker = ({ props }) => {
             <div className="flex p-2 dark:text-[#f0f0f0] text-gray-800 justify-between font-semibold">
               <h3>Progress</h3>
             </div>
-            <div className="bg-white dark:bg-[#4a4e53] rounded-b flex flex-col items-center justify-between p-2">
+            <div className="bg-white dark:bg-[#3f3f3f] rounded-b flex flex-col items-center justify-between p-2">
               <div className="flex justify-between items-center w-full">
                 <p className="text-[0.6rem] md:text-[0.8rem] dark:text-[#f0f0f0] text-gray-800">{`${formatNumber(
                   total
@@ -111,7 +111,7 @@ const SavingsTracker = ({ props }) => {
             <div className="flex p-2 dark:text-[#f0f0f0] text-gray-800 justify-between font-semibold">
               <h3>Total</h3>
             </div>
-            <div className="bg-white dark:bg-[#4a4e53] rounded-b text-xs md:text-sm flex items-center justify-between font-semibold p-2">
+            <div className="bg-white dark:bg-[#3f3f3f] rounded-b text-xs md:text-sm flex items-center justify-between font-semibold p-2">
               <p>{`${entriesCount} ${
                 entriesCount > 1 ? "entries" : "entry"
               }`}</p>
@@ -122,7 +122,7 @@ const SavingsTracker = ({ props }) => {
             <div className="flex p-2 dark:text-[#f0f0f0] text-gray-800 justify-between ">
               <h3 className="font-semibold">Target</h3>
             </div>
-            <div className="bg-white dark:bg-[#4a4e53] rounded-b text-xs md:text-sm flex flex-col p-2">
+            <div className="bg-white dark:bg-[#3f3f3f] rounded-b text-xs md:text-sm flex flex-col p-2">
               <div className="flex justify-between">
                 <p>Amount</p>
                 <p className="font-semibold">

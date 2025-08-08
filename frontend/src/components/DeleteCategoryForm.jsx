@@ -81,7 +81,7 @@ const DeleteCategoryForm = ({ closeUI }) => {
             min-h-8"
             >
               <div
-                className="flex items-center p-1 px-2 rounded w-full min-h-8 text-sm md:text-base"
+                className="flex items-center p-1 px-2 rounded w-full min-h-8 text-sm md:text-base dark:text-[#282828]"
                 style={{ backgroundColor: cat.color }}
               >
                 {cat.name}
