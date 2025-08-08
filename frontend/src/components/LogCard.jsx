@@ -19,7 +19,7 @@ const LogCard = ({ logName, logStats, logId, logData }) => {
       className="relative md:mx-auto flex md:w-[98%] mb-1
         trasition-all duration-100 dark:bg-[#3f3f3f]
       bg-white hover:shadow-slate-700 dark:hover:shadow-none shadow-sm rounded 
-        hover:shadow hover:translate-y-[-2px] dark:text-[#e7e7e7]"
+        hover:shadow hover:translate-y-[-2px] dark:text-[#f0f0f0]"
     >
       <div className="p-2 w-full rounded">
         <div className="flex flex-col gap-1 ">
@@ -30,7 +30,7 @@ const LogCard = ({ logName, logStats, logId, logData }) => {
                 className="block text-sm px-1 mx-h-[min-content] md:text-xl"
               >
                 <p className="font-semibold mb-1">{logName}</p>
-                <div className="flex flex-col text-[0.75rem] md:text-sm text-gray-800 dark:text-[#e7e7e7]">
+                <div className="flex flex-col text-[0.75rem] md:text-sm text-gray-800 dark:text-[#f0f0f0]">
                   <p className="text-[0.65rem] md:text-[0.70rem]">
                     {logStats.lastEdited}
                   </p>
