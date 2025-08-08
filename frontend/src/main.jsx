@@ -28,26 +28,26 @@ import ModalWrapper from "./components/ModalWrapper.jsx";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
-      <Route path="login" element={<Login />} />
-      <Route path="register/*" element={<Register />} />
-      <Route element={<ModalWrapper />}>
-        <Route element={<PrivateRoute />}>
-          <Route element={<Loading />}>
+      <Route element={<Loading />}>
+        <Route path="login" element={<Login />} />
+        <Route path="register/*" element={<Register />} />
+        <Route element={<ModalWrapper />}>
+          <Route element={<PrivateRoute />}>
             <Route element={<NewTabChecker />}>
               <Route path="visualize/:logId" element={<Visualize />} />
               <Route path="log/:logId" element={<LogScreen />} />
             </Route>
           </Route>
-        </Route>
-        <Route element={<PageWrapper />}>
-          <Route index element={<Home />} />
-          <Route element={<Loading />}>
+          <Route element={<PageWrapper />}>
+            <Route index element={<Home />} />
+
             <Route element={<PrivateRoute />}>
               <Route path="profile" element={<Profile />} />
               <Route path="logs" element={<Logs />} />
             </Route>
+
+            <Route path="*" element={<NotFound />} />
           </Route>
-          <Route path="*" element={<NotFound />} />
         </Route>
       </Route>
     </Route>

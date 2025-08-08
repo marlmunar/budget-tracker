@@ -24,9 +24,8 @@ const ConfirmLogout = ({ closeModal }) => {
     } catch (error) {
       console.log(error);
     } finally {
-      dispatch(stopLoading());
-
       closeModal();
+      dispatch(stopLoading());
     }
   };
 
