@@ -24,6 +24,7 @@ import NewTabChecker from "./components/NewTabChecker.jsx";
 import Logs from "./pages/Logs.jsx";
 import PageWrapper from "./components/PageWrapper.jsx";
 import ModalWrapper from "./components/ModalWrapper.jsx";
+import Dashboard from "./pages/Dashboard.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -40,12 +41,11 @@ const router = createBrowserRouter(
           </Route>
           <Route element={<PageWrapper />}>
             <Route index element={<Home />} />
-
             <Route element={<PrivateRoute />}>
+              <Route path="dashboard" element={<Dashboard />} />
               <Route path="profile" element={<Profile />} />
               <Route path="logs" element={<Logs />} />
             </Route>
-
             <Route path="*" element={<NotFound />} />
           </Route>
         </Route>
