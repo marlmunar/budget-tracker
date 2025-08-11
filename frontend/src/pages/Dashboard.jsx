@@ -61,10 +61,10 @@ const Dashboard = () => {
       <title>Budgetarians' Log - Dashboard</title>
       <main className="h-full flex gap-2">
         <section
-          className="w-full h-full rounded
+          className="w-full h-full rounded flex flex-col gap-1
          bg-gray-200 shadow shadow-slate-300"
         >
-          <div className="flex justify-between p-1 py-2 shadow rounded bg-white shadow-slate-300">
+          <div className="flex justify-between p-2 shadow rounded bg-white">
             <div className="max-h-8 flex gap-1 w-[11.5rem] p-1 bg-slate-100 rounded">
               <p>Month:</p>
               <div className="bg-slate-300 w-full px-1 rounded relative">
@@ -176,12 +176,95 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-          <div className=""></div>
+          <div className="bg-white p-4 h-full w-full rounded flex justify-center items-center">
+            <div className="bg-[conic-gradient(#4caf50_0%_40%,#2196f3_40%_70%,#ff9800_70%_100%)] w-[20rem] h-[20rem] rounded-full flex justify-center items-center">
+              <div className="bg-white w-[16rem] h-[16rem] rounded-full"></div>
+            </div>
+          </div>
+          <div className="bg-white h-24 w-full rounded p-2 grid grid-rows-2 grid-cols-4">
+            <div className="flex gap-2">
+              <div className="h-6 w-6 rounded bg-[#4caf50]"></div>
+              <span>Category 1</span>
+              <span className="text-sm text-gray-500">33%</span>
+            </div>
+            <div className="flex gap-2">
+              <div className="h-6 w-6 rounded bg-[#2196f3]"></div>
+              <span>Category 2</span>
+              <span className="text-sm text-gray-500">33%</span>
+            </div>
+            <div className="flex gap-2">
+              <div className="h-6 w-6 rounded bg-[#ff9800]"></div>
+              <span>Category 3</span>
+              <span className="text-sm text-gray-500">33%</span>
+            </div>
+          </div>
         </section>
         <section
-          className="w-full h-full flex justify-between p-2 rounded
-         bg-white shadow shadow-slate-300"
-        ></section>
+          className="w-full h-full rounded flex flex-col gap-1
+         bg-gray-200 shadow shadow-slate-300"
+        >
+          <div className="bg-white h-full w-full rounded p-2 flex flex-col gap-2">
+            <h3 className="text-lg font-semibold">Breakdown</h3>
+            <div className="bg-gray-100 rounded p-2">
+              <div>
+                <p className="font-semibold">Total Spent</p>
+                <p className="text-4xl text-right text-gray-800">PHP 0.00</p>
+              </div>
+
+              <div className="bg-gray-100 rounded p-1">
+                <p className="text-sm">You spent most on these categories:</p>
+                <div className="flex *:bg-slate-200 *:p-2 gap-2 *:w-full *:rounded">
+                  <div className="flex flex-col">
+                    <span>Category 1</span>
+                    <span className="text-sm">PHP 0.00</span>
+                  </div>
+                  <div className="flex flex-col">
+                    <span>Category 2</span>
+                    <span className="text-sm">PHP 0.00</span>
+                  </div>
+                  <div className="flex flex-col">
+                    <span>Category 3</span>
+                    <span className="text-sm">PHP 0.00</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-gray-100 rounded p-2">
+              <div>
+                <p className="font-semibold">Total Saved</p>
+                <p className="text-4xl text-right text-gray-800">PHP 0.00</p>
+              </div>
+
+              <div className="bg-gray-100 rounded p-1">
+                <p className="text-sm">Top contributor of your savings:</p>
+                <div className="flex *:bg-slate-200 *:p-2 gap-2 *:w-full *:rounded">
+                  <div className="flex flex-col">
+                    <span>Category 1</span>
+                    <span className="text-sm">PHP 0.00</span>
+                  </div>
+                  <div className="flex flex-col">
+                    <span>Category 2</span>
+                    <span className="text-sm">PHP 0.00</span>
+                  </div>
+                  <div className="flex flex-col">
+                    <span>Category 3</span>
+                    <span className="text-sm">PHP 0.00</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-gray-100 rounded p-2">
+              <p className="font-semibold">Total Entries</p>
+              <p className="text-2xl text-right text-gray-800">0 entry</p>
+            </div>
+          </div>
+          <div className="bg-white h-24 w-full rounded p-4 flex flex-col justify-between">
+            <h3 className="text-lg font-semibold">Your Bugdetarian Grade</h3>
+            <p className="text-4xl self-end text-gray-800">Grade</p>
+          </div>
+        </section>
       </main>
     </>
   );
