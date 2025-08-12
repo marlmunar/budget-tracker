@@ -51,7 +51,7 @@ const Dashboard = () => {
          bg-gray-200 shadow shadow-slate-300"
         >
           <Breakdown totalData={totalData} distribution={distribution} />
-          <Grade />
+          <Grade totalData={totalData} />
         </div>
       </main>
     </>
