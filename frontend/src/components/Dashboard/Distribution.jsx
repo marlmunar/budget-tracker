@@ -155,7 +155,7 @@ const Distribution = ({
       </div>
 
       {isFiltering && (
-        <div className="absolute flex flex-col p-2 rounded top-10 right-2 bg-gray-50">
+        <div className="absolute flex flex-col p-2 rounded top-12 right-4 bg-gray-50">
           <h3 className="font-semibold">Apply Filters</h3>
           <div className="flex justify-between gap-1">
             <div className="max-h-8 flex gap-1 w-[11.5rem] p-1 bg-slate-200 rounded">

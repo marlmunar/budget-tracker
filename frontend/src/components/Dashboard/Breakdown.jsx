@@ -48,10 +48,14 @@ const Breakdown = ({ distribution, totalData }) => {
 
   const getFillers = (count) => {
     return (
-      <div className="bg-gray-200 flex gap-1 items-center">
-        <div className="flex-col flex-1 rounded p-[0.15rem] px-1"></div>
-        <div className="bg-gray-100 h-full min-w-20 p-2 rounded flex justify-center items-center"></div>
-      </div>
+      <>
+        {Array.from({ length: count }).map((_, i) => (
+          <div key={i} className="bg-gray-200 flex gap-1 items-center">
+            <div className="flex-col flex-1 rounded p-[0.15rem] px-1"></div>
+            <div className="bg-gray-100 h-full min-w-20 p-2 rounded flex justify-center items-center"></div>
+          </div>
+        ))}
+      </>
     );
   };
 
@@ -76,9 +80,9 @@ const Breakdown = ({ distribution, totalData }) => {
       <div className="flex justify-between rounded space-y-1 *:p-1">
         <div className="p-1 w-full">
           <p className="text-sm">You spent most on these categories:</p>
-          <div className="grid grid-rows-4 gap-1 *:bg-gray-100 *:p-1 *:w-full *:rounded">
+          <div className="grid grid-rows-4 gap-1 *:p-1 *:w-full *:rounded">
             {getTopExpenses().map((entry, index) => (
-              <div className="flex gap-1 items-center">
+              <div className="bg-gray-100 flex gap-1 items-center">
                 <div className="bg-white flex flex-col flex-1 rounded p-[0.15rem] px-1">
                   <div className="flex items-center gap-1">
                     <div
@@ -96,6 +100,7 @@ const Breakdown = ({ distribution, totalData }) => {
                 </div>
               </div>
             ))}
+            {getFillers(4 - getTopExpenses().length)}
           </div>
         </div>
 
@@ -121,7 +126,7 @@ const Breakdown = ({ distribution, totalData }) => {
                 </div>
               </div>
             ))}
-            {getFillers()}
+            {getFillers(4 - getTopIncomes().length)}
           </div>
         </div>
       </div>
