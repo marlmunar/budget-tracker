@@ -66,19 +66,20 @@ const Distribution = ({ data }) => {
     );
   };
 
-  const getGradient = () => {
+  const getBg = () => {
+    if (allEntries.length < 1) return "#f0f0f0";
     let cumulative = 0;
     const stops = getDistribution()
       .map((item) => {
         const start = cumulative;
         const end = cumulative + item.percent;
         cumulative = end;
-        return `${item.category.color}_${start}%_${end}%`;
+        return `${item.category.color} ${start}% ${end}%`;
       })
       .join(",");
 
-    const gradientClass = `bg-[conic-gradient(${stops})]`;
-    return gradientClass;
+    const bg = `conic-gradient(${stops})`;
+    return bg;
   };
 
   const getDistribution = () => {
@@ -246,7 +247,8 @@ const Distribution = ({ data }) => {
 
       <div className="h-full p-2 flex justify-center items-center">
         <div
-          className={`${getGradient()} w-[20rem] h-[20rem] rounded-full flex justify-center items-center`}
+          style={{ background: getBg() }}
+          className="w-[20rem] h-[20rem] rounded-full flex justify-center items-center"
         >
           <div className="bg-white w-[16rem] h-[16rem] rounded-full flex flex-col justify-center items-center">
             <span className="text-4xl">{month}</span>
