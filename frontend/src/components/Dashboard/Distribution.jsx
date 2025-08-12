@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import OutsideClick from "../OutsideClick";
 import {
   TbCaretDownFilled,
@@ -27,6 +27,7 @@ const months = [
 
 const Distribution = ({ data }) => {
   const logs = data.map((log) => log.name);
+
   const [isSelectingMonth, setIsSelectingMonth] = useState(false);
   const [month, setMonth] = useState(
     new Date().toLocaleString("en-US", { month: "long" })
@@ -35,6 +36,19 @@ const Distribution = ({ data }) => {
   const [isSelectingLogs, setIsSelectingLogs] = useState(false);
   const [filter, setFilter] = useState([]);
   const [selectedLogs, setSelectedLogs] = useState([]);
+  const [allEntries, setAllEntries] = useState([]);
+
+  useEffect(() => {
+    const entries = data
+      .filter((log) => selectedLogs.includes(log.name))
+      .reduce((acc, log) => acc.concat(log.entries), [])
+      .filter(
+        (entry) =>
+          new Date(entry.date).toLocaleString("en-US", { month: "long" }) ===
+          month
+      );
+    setAllEntries(entries);
+  }, [month, selectedLogs]);
 
   const getSelectedLogs = () => {
     if (logs?.length === selectedLogs.length) return "All active logs";
@@ -44,11 +58,30 @@ const Distribution = ({ data }) => {
     return `${count} active logs`;
   };
 
+  const getDistribution = () => {
+    console.log(allEntries);
+    const categories = allEntries
+      .map((entry) => entry.category)
+      .filter(
+        (value, index, self) =>
+          index ===
+          self.findIndex(
+            (obj) =>
+              obj.name === value.name &&
+              obj.color === value.color &&
+              obj.type === value.type
+          )
+      );
+    console.log(categories);
+  };
+
   const handleClick = (value) => {
     if (filter.includes(value))
       return setFilter(filter.filter((log) => log !== value));
     setFilter([...filter, value]);
   };
+
+  getDistribution();
 
   return (
     <section className="bg-white p-2 h-full w-full rounded relative">
