@@ -58,21 +58,52 @@ const Distribution = ({ data }) => {
     return `${count} active logs`;
   };
 
+  const isEqual = (ref, value) => {
+    return (
+      ref.name === value.name &&
+      ref.color === value.color &&
+      ref.type === value.type
+    );
+  };
+
+  const getGradient = () => {
+    let cumulative = 0;
+    const stops = getDistribution()
+      .map((item) => {
+        const start = cumulative;
+        const end = cumulative + item.percent;
+        cumulative = end;
+        return `${item.category.color}_${start}%_${end}%`;
+      })
+      .join(",");
+
+    const gradientClass = `bg-[conic-gradient(${stops})]`;
+    return gradientClass;
+  };
+
   const getDistribution = () => {
-    console.log(allEntries);
+    const total = allEntries.reduce((sum, entry) => sum + +entry.amount, 0);
     const categories = allEntries
       .map((entry) => entry.category)
       .filter(
         (value, index, self) =>
-          index ===
-          self.findIndex(
-            (obj) =>
-              obj.name === value.name &&
-              obj.color === value.color &&
-              obj.type === value.type
-          )
+          index === self.findIndex((obj) => isEqual(obj, value))
       );
-    console.log(categories);
+
+    const sumPerCategory = categories.map((cat) => ({
+      category: cat,
+      total: allEntries
+        .filter((entry) => isEqual(cat, entry.category))
+        .reduce((sum, entry) => sum + +entry.amount, 0),
+    }));
+
+    const distibution = sumPerCategory.map((entry) => ({
+      category: entry.category,
+      total: entry.total,
+      percent: Math.round((entry.total / total) * 100 * 100) / 100,
+    }));
+
+    return distibution;
   };
 
   const handleClick = (value) => {
@@ -214,7 +245,9 @@ const Distribution = ({ data }) => {
       )}
 
       <div className="h-full p-2 flex justify-center items-center">
-        <div className="bg-[conic-gradient(#4caf50_0%_40%,#2196f3_40%_70%,#ff9800_70%_100%)] w-[20rem] h-[20rem] rounded-full flex justify-center items-center">
+        <div
+          className={`${getGradient()} w-[20rem] h-[20rem] rounded-full flex justify-center items-center`}
+        >
           <div className="bg-white w-[16rem] h-[16rem] rounded-full flex flex-col justify-center items-center">
             <span className="text-4xl">{month}</span>
             <div className="space-x-1 text-gray-800">
