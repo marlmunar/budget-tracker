@@ -25,17 +25,16 @@ const months = [
   "December",
 ];
 
-const Distribution = ({ data }) => {
-  const logs = data.map((log) => log.name);
-
+const Distribution = ({ data, distribution, setDistribution }) => {
   const [isSelectingMonth, setIsSelectingMonth] = useState(false);
   const [month, setMonth] = useState(
     new Date().toLocaleString("en-US", { month: "long" })
   );
   const [isFiltering, setIsFiltering] = useState(false);
   const [isSelectingLogs, setIsSelectingLogs] = useState(false);
-  const [filter, setFilter] = useState(logs);
-  const [selectedLogs, setSelectedLogs] = useState(logs);
+  const [filter, setFilter] = useState([]);
+  const [logs, setLogs] = useState([]);
+  const [selectedLogs, setSelectedLogs] = useState([]);
   const [allEntries, setAllEntries] = useState([]);
 
   useEffect(() => {
@@ -50,8 +49,19 @@ const Distribution = ({ data }) => {
     setAllEntries(entries);
   }, [month, selectedLogs]);
 
+  useEffect(() => {
+    getDistribution();
+  }, [allEntries]);
+
+  useEffect(() => {
+    const logNames = data.map((log) => log.name);
+    setLogs(logNames);
+    setFilter(logNames);
+    setSelectedLogs(logNames);
+  }, [data]);
+
   const getSelectedLogs = () => {
-    if (logs?.length === selectedLogs.length) return "All active logs";
+    if (logs.length === selectedLogs.length) return "All active logs";
     const count = selectedLogs.length;
     if (count < 1) return "No logs selected";
     if (count === 1) return selectedLogs[0];
@@ -69,7 +79,7 @@ const Distribution = ({ data }) => {
   const getBg = () => {
     if (allEntries.length < 1) return "#f0f0f0";
     let cumulative = 0;
-    const stops = getDistribution()
+    const stops = distribution
       .map((item) => {
         const start = cumulative;
         const end = cumulative + item.percent;
@@ -98,13 +108,12 @@ const Distribution = ({ data }) => {
         .reduce((sum, entry) => sum + +entry.amount, 0),
     }));
 
-    const distibution = sumPerCategory.map((entry) => ({
+    const data = sumPerCategory.map((entry) => ({
       category: entry.category,
       total: entry.total,
       percent: Math.round((entry.total / total) * 100 * 100) / 100,
     }));
-
-    return distibution;
+    setDistribution(data);
   };
 
   const handleClick = (value) => {
@@ -112,8 +121,6 @@ const Distribution = ({ data }) => {
       return setFilter(filter.filter((log) => log !== value));
     setFilter([...filter, value]);
   };
-
-  getDistribution();
 
   return (
     <section className="bg-white p-2 h-full w-full rounded relative">
@@ -213,7 +220,7 @@ const Distribution = ({ data }) => {
                         </div>
                         <li>Select All</li>
                       </div>
-                      {logs?.map((log, index) => (
+                      {logs.map((log, index) => (
                         <div
                           className="flex justify-between items-center gap-1"
                           key={index}

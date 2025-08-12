@@ -11,6 +11,8 @@ const Dashboard = () => {
   const dispatch = useDispatch();
   const [getLogs] = useLazyGetLogsQuery();
   const [data, setData] = useState([]);
+  const [distribution, setDistribution] = useState([]);
+  const [totalData, setTotalData] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -36,8 +38,12 @@ const Dashboard = () => {
           className="w-full h-full rounded flex flex-col gap-1
          bg-gray-200 shadow shadow-slate-300"
         >
-          <Distribution data={data} />
-          <Categories />
+          <Distribution
+            data={data}
+            distribution={distribution}
+            setDistribution={setDistribution}
+          />
+          <Categories distribution={distribution} />
         </div>
         <div
           className="w-full h-full rounded flex flex-col gap-1
