@@ -12,7 +12,7 @@ const Dashboard = () => {
   const [getLogs] = useLazyGetLogsQuery();
   const [data, setData] = useState([]);
   const [distribution, setDistribution] = useState([]);
-  const [totalData, setTotalData] = useState([]);
+  const [totalData, setTotalData] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -42,6 +42,7 @@ const Dashboard = () => {
             data={data}
             distribution={distribution}
             setDistribution={setDistribution}
+            setTotalData={setTotalData}
           />
           <Categories distribution={distribution} />
         </div>
@@ -49,7 +50,7 @@ const Dashboard = () => {
           className="w-full h-full rounded flex flex-col gap-1
          bg-gray-200 shadow shadow-slate-300"
         >
-          <Breakdown />
+          <Breakdown totalData={(distribution, totalData)} />
           <Grade />
         </div>
       </main>

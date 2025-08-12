@@ -25,7 +25,12 @@ const months = [
   "December",
 ];
 
-const Distribution = ({ data, distribution, setDistribution }) => {
+const Distribution = ({
+  data,
+  distribution,
+  setDistribution,
+  setTotalData,
+}) => {
   const [isSelectingMonth, setIsSelectingMonth] = useState(false);
   const [month, setMonth] = useState(
     new Date().toLocaleString("en-US", { month: "long" })
@@ -51,6 +56,7 @@ const Distribution = ({ data, distribution, setDistribution }) => {
 
   useEffect(() => {
     getDistribution();
+    getTotalData();
   }, [allEntries]);
 
   useEffect(() => {
@@ -120,6 +126,20 @@ const Distribution = ({ data, distribution, setDistribution }) => {
     if (filter.includes(value))
       return setFilter(filter.filter((log) => log !== value));
     setFilter([...filter, value]);
+  };
+
+  const getTotalData = () => {
+    const spent = allEntries
+      .filter((entry) => entry.category.type === "Expense")
+      .reduce((sum, entry) => sum + entry.amount, 0);
+
+    const earned = allEntries
+      .filter((entry) => entry.category.type === "Income")
+      .reduce((sum, entry) => sum + entry.amount, 0);
+
+    const entries = allEntries.length;
+
+    setTotalData({ spent, earned, entries });
   };
 
   return (
