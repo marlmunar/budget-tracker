@@ -77,13 +77,13 @@ const Breakdown = ({ distribution, totalData }) => {
         </div>
       </div>
 
-      <div className="flex justify-between rounded space-y-1 *:p-1">
-        <div className="p-1 w-full">
+      <div className="flex justify-between rounded *:p-1">
+        <div className="p-1 w-full space-y-1">
           <p className="text-sm">You spent most on these categories:</p>
-          <div className="grid grid-rows-4 gap-1 *:p-1 *:w-full *:rounded">
+          <div className="grid grid-rows-4 gap-1 *:min-h-[3.45rem] *:p-1 *:w-full *:rounded">
             {getTopExpenses().map((entry, index) => (
               <div className="bg-gray-100 flex gap-1 items-center">
-                <div className="bg-white flex flex-col flex-1 rounded p-[0.15rem] px-1">
+                <div className="bg-white flex flex-col flex-1 rounded px-1">
                   <div className="flex items-center gap-1">
                     <div
                       style={{ background: entry.category.color }}
@@ -104,12 +104,12 @@ const Breakdown = ({ distribution, totalData }) => {
           </div>
         </div>
 
-        <div className="p-1 w-full">
+        <div className="p-1 w-full space-y-1">
           <p className="text-sm">Top contributors of your earnings:</p>
-          <div className="grid grid-rows-4 gap-1  *:p-1 *:w-full *:rounded">
+          <div className="grid grid-rows-4 gap-1  *:min-h-[3.45rem] *:p-1 *:w-full *:rounded">
             {getTopIncomes().map((entry, index) => (
               <div className="bg-gray-100 flex gap-1 items-center">
-                <div className="bg-white flex flex-col flex-1 rounded p-[0.15rem] px-1">
+                <div className="bg-white flex flex-col flex-1 rounded px-1">
                   <div className="flex items-center gap-1">
                     <div
                       style={{ background: entry.category.color }}

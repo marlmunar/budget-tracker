@@ -2,7 +2,7 @@ import React from "react";
 
 const Categories = ({ distribution }) => {
   return (
-    <section className="bg-white h-28 w-full rounded p-4">
+    <section className="bg-white h-32 w-full rounded p-4">
       <h3 className="text-lg font-semibold">Categories</h3>
       <div className="flex *:w-full gap-1">
         {distribution.length > 0 ? (
