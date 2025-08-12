@@ -25,18 +25,8 @@ const months = [
   "December",
 ];
 
-const logs = [
-  "abcdefghijklmnopqrstuvwxy",
-  "tracker 2",
-  "tracker 3",
-  "tracker 4",
-  "tracker 5",
-  "tracker 6",
-  "tracker 7",
-  "tracker 8",
-];
-
-const Distribution = () => {
+const Distribution = ({ data }) => {
+  const logs = data.map((log) => log.name);
   const [isSelectingMonth, setIsSelectingMonth] = useState(false);
   const [month, setMonth] = useState(
     new Date().toLocaleString("en-US", { month: "long" })
@@ -47,7 +37,7 @@ const Distribution = () => {
   const [selectedLogs, setSelectedLogs] = useState([]);
 
   const getSelectedLogs = () => {
-    if (logs.length === selectedLogs.length) return "All active logs";
+    if (logs?.length === selectedLogs.length) return "All active logs";
     const count = selectedLogs.length;
     if (count < 1) return "No logs selected";
     if (count === 1) return selectedLogs[0];
@@ -146,7 +136,7 @@ const Distribution = () => {
                   shadow shadow-slate-300 bg-white 
                   space-y-1 p-1 rounded"
                     >
-                      {logs.map((log, index) => (
+                      {logs?.map((log, index) => (
                         <div
                           className="flex justify-between items-center gap-1"
                           key={index}
@@ -195,7 +185,7 @@ const Distribution = () => {
           <div className="bg-white w-[16rem] h-[16rem] rounded-full flex flex-col justify-center items-center">
             <span className="text-4xl">{month}</span>
             <div className="space-x-1 text-gray-800">
-              <span>2 Active Logs</span>
+              <span>{getSelectedLogs()}</span>
             </div>
           </div>
         </div>
