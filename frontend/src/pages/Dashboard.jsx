@@ -50,7 +50,7 @@ const Dashboard = () => {
           className="w-full h-full rounded flex flex-col gap-1
          bg-gray-200 shadow shadow-slate-300"
         >
-          <Breakdown totalData={(distribution, totalData)} />
+          <Breakdown totalData={totalData} distribution={distribution} />
           <Grade />
         </div>
       </main>

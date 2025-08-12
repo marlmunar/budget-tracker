@@ -143,7 +143,7 @@ const Distribution = ({
   };
 
   return (
-    <section className="bg-white p-2 h-full w-full rounded relative">
+    <section className="bg-white p-4 h-full w-full rounded relative">
       <div className="flex justify-between">
         <h3 className="text-lg font-semibold">Entries Distribution</h3>
         <button
