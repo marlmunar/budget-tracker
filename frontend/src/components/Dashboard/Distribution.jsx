@@ -3,8 +3,8 @@ import OutsideClick from "../OutsideClick";
 import {
   TbCaretDownFilled,
   TbCaretUpFilled,
-  TbCheck,
   TbDotsVertical,
+  TbListCheck,
   TbSquare,
   TbSquareCheck,
   TbX,
@@ -34,8 +34,8 @@ const Distribution = ({ data }) => {
   );
   const [isFiltering, setIsFiltering] = useState(false);
   const [isSelectingLogs, setIsSelectingLogs] = useState(false);
-  const [filter, setFilter] = useState([]);
-  const [selectedLogs, setSelectedLogs] = useState([]);
+  const [filter, setFilter] = useState(logs);
+  const [selectedLogs, setSelectedLogs] = useState(logs);
   const [allEntries, setAllEntries] = useState([]);
 
   useEffect(() => {
@@ -193,7 +193,10 @@ const Distribution = ({ data }) => {
                 </div>
                 {isSelectingLogs && (
                   <OutsideClick
-                    onOutsideClick={() => setIsSelectingLogs(false)}
+                    onOutsideClick={() => {
+                      setIsSelectingLogs(false);
+                      setFilter(selectedLogs);
+                    }}
                     id="filterLogs"
                   >
                     <menu
@@ -201,6 +204,15 @@ const Distribution = ({ data }) => {
                   shadow shadow-slate-300 bg-white 
                   space-y-1 p-1 rounded"
                     >
+                      <div
+                        className="flex justify-between items-center gap-1"
+                        onClick={() => setFilter(logs)}
+                      >
+                        <div className="text-xl">
+                          <TbListCheck className="text-blue-800 dark:text-[#f0f0f0]" />
+                        </div>
+                        <li>Select All</li>
+                      </div>
                       {logs?.map((log, index) => (
                         <div
                           className="flex justify-between items-center gap-1"
@@ -219,6 +231,7 @@ const Distribution = ({ data }) => {
                           <li className="truncate">{log}</li>
                         </div>
                       ))}
+
                       <div className="w-full flex gap-1">
                         <button
                           className="w-full text-center bg-gray-300 rounded"
