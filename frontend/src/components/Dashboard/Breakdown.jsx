@@ -27,7 +27,7 @@ const Breakdown = ({ distribution, totalData }) => {
         }%`,
       }));
 
-    return topExpenses;
+    return topExpenses.filter((entry) => +entry.percentage.slice(0, -1) > 0);
   };
 
   const getTopIncomes = () => {
@@ -43,7 +43,8 @@ const Breakdown = ({ distribution, totalData }) => {
           Math.floor((entry.total / totalData.earned) * 100 * 100) / 100
         }%`,
       }));
-    return topIncomes;
+
+    return topIncomes.filter((entry) => +entry.percentage.slice(0, -1) > 0);
   };
 
   const getFillers = (count) => {
