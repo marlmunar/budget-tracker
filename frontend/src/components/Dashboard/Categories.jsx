@@ -3,7 +3,7 @@ import React from "react";
 const Categories = ({ distribution }) => {
   return (
     <section className="bg-white h-32 w-full rounded p-4">
-      <h3 className="text-lg font-semibold">Categories</h3>
+      <h3 className="text-lg font-semibold ">Categories</h3>
       <div className="grid grid-cols-4 *:w-full gap-1">
         {distribution.length > 0 ? (
           distribution
@@ -16,7 +16,7 @@ const Categories = ({ distribution }) => {
                 ></div>
                 <div className="flex flex-col">
                   <span className="text-sm">{entry.category.name}</span>
-                  <div className="text-xs text-gray-500 space-x-1">
+                  <div className="text-xs text-gray-500 dark:text-gray-200 space-x-1">
                     <span>{entry.category.type}</span>
                     <span>
                       {entry.percent > 0.05 ? entry.percent : "< 0.05"}%
@@ -27,10 +27,10 @@ const Categories = ({ distribution }) => {
             ))
         ) : (
           <div className="flex gap-2 items-center">
-            <div className="bg-gray-300 h-8 w-8 rounded"></div>
+            <div className="bg-gray-300 dark:bg-[#1f1f1f] h-8 w-8 rounded"></div>
             <div className="flex flex-col">
               <span>No Data</span>
-              <div className="text-xs text-gray-500 space-x-1">
+              <div className="text-xs text-gray-500 dark:text-gray-200 space-x-1">
                 <span>0.00%</span>
                 <span>No data</span>
               </div>

@@ -83,7 +83,7 @@ const Distribution = ({
   };
 
   const getBg = () => {
-    if (allEntries.length < 1) return "#f0f0f0";
+    if (allEntries.length < 1) return "var(--graph-bg)";
     let cumulative = 0;
     const stops = distribution
       .map((item) => {
@@ -147,7 +147,9 @@ const Distribution = ({
       <div className="flex justify-between">
         <h3 className="text-lg font-semibold">Entries Distribution</h3>
         <button
-          className="log-tool-button bg-gray-200"
+          className="log-tool-button bg-gray-200
+          dark:bg-[#222222] dark:active:bg-gray-800
+          dark:hover:bg-gray-900 dark:hover:text-white"
           onClick={() => setIsFiltering((prev) => !prev)}
         >
           {isFiltering ? <TbX /> : <TbDotsVertical />}
@@ -155,12 +157,12 @@ const Distribution = ({
       </div>
 
       {isFiltering && (
-        <div className="absolute flex flex-col p-2 rounded top-12 right-4 bg-gray-50">
+        <div className="absolute flex flex-col p-2 rounded top-12 right-4 bg-gray-50 dark:bg-[#222222]">
           <h3 className="font-semibold">Apply Filters</h3>
           <div className="flex justify-between gap-1">
-            <div className="max-h-8 flex gap-1 w-[11.5rem] p-1 bg-slate-200 rounded">
+            <div className="max-h-8 flex gap-1 w-[11.5rem] p-1 bg-slate-200 rounded dark:bg-[#474747]">
               <p>Month:</p>
-              <div className="bg-slate-100 w-full px-1 rounded relative">
+              <div className="bg-slate-100 w-full px-1 rounded relative dark:bg-[#313131]">
                 <div
                   className="flex justify-between gap-1 *:pointer-events-none"
                   onClick={() => setIsSelectingMonth((prev) => !prev)}
@@ -181,8 +183,9 @@ const Distribution = ({
                     id="selectMonth"
                   >
                     <menu
-                      className="absolute top-7 right-0 w-full 
+                      className="absolute top-8 right-0 w-full 
                   shadow shadow-slate-300 bg-white 
+                  dark:bg-[#313131] dark:shadow-slate-950 dark:shadow-xs
                   space-y-1 p-1 rounded"
                     >
                       {months.map((mon) => (
@@ -201,9 +204,9 @@ const Distribution = ({
                 )}
               </div>
             </div>
-            <div className="max-h-8 flex gap-1 w-[18rem] p-1 bg-slate-200 rounded">
+            <div className="max-h-8 flex gap-1 w-[18rem] p-1 bg-slate-200 rounded dark:bg-[#474747]">
               <p className="text-nowrap">Selected Logs:</p>
-              <div className="bg-slate-100 w-full px-1 rounded relative">
+              <div className="bg-slate-100 w-full px-1 rounded relative dark:bg-[#313131]">
                 <div
                   className="flex justify-between gap-1 *:pointer-events-none"
                   onClick={() => setIsSelectingLogs((prev) => !prev)}
@@ -227,8 +230,9 @@ const Distribution = ({
                     id="filterLogs"
                   >
                     <menu
-                      className="absolute top-7 right-0 w-full 
+                      className="absolute top-8 right-0 w-full 
                   shadow shadow-slate-300 bg-white 
+                  dark:bg-[#313131] dark:shadow-slate-950 dark:shadow-xs
                   space-y-1 p-1 rounded"
                     >
                       <div
@@ -261,7 +265,9 @@ const Distribution = ({
 
                       <div className="w-full flex gap-1">
                         <button
-                          className="w-full text-center bg-gray-300 rounded"
+                          className="w-full text-center bg-gray-300 rounded
+                          dark:bg-[#222222] dark:active:bg-gray-800
+                          dark:hover:bg-gray-900 dark:hover:text-white"
                           onClick={() => {
                             setSelectedLogs(filter);
                             setIsSelectingLogs(false);
@@ -270,7 +276,9 @@ const Distribution = ({
                           Save
                         </button>
                         <button
-                          className="w-full text-center bg-gray-300 rounded"
+                          className="w-full text-center bg-gray-300 rounded
+                          dark:bg-[#222222] dark:active:bg-gray-800
+                          dark:hover:bg-gray-900 dark:hover:text-white"
                           onClick={() => setFilter([])}
                         >
                           Clear
@@ -290,9 +298,13 @@ const Distribution = ({
           style={{ background: getBg() }}
           className="w-[20rem] h-[20rem] rounded-full flex justify-center items-center"
         >
-          <div className="bg-white w-[16rem] h-[16rem] rounded-full flex flex-col justify-center items-center">
+          <div
+            className="bg-white w-[16rem] h-[16rem] rounded-full 
+            flex flex-col justify-center items-center
+            dark:bg-[#2f2f2f]"
+          >
             <span className="text-4xl">{month}</span>
-            <div className="space-x-1 text-gray-800">
+            <div className="space-x-1 text-gray-800 dark:text-[#bababa]">
               <span>{getSelectedLogs()}</span>
             </div>
           </div>

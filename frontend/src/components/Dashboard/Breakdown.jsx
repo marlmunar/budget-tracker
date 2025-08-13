@@ -51,9 +51,12 @@ const Breakdown = ({ distribution, totalData }) => {
     return (
       <>
         {Array.from({ length: count }).map((_, i) => (
-          <div key={i} className="bg-gray-200 flex gap-1 items-center">
+          <div
+            key={i}
+            className="bg-gray-200 dark:bg-[#272727] flex gap-1 items-center"
+          >
             <div className="flex-col flex-1 rounded p-[0.15rem] px-1"></div>
-            <div className="bg-gray-100 h-full min-w-20 p-2 rounded flex justify-center items-center"></div>
+            <div className="bg-gray-100 dark:bg-[#2d2d2d] h-full min-w-20 p-2 rounded flex justify-center items-center"></div>
           </div>
         ))}
       </>
@@ -65,13 +68,13 @@ const Breakdown = ({ distribution, totalData }) => {
       <h3 className="text-lg font-semibold">Breakdown</h3>
       <div className="flex justify-between rounded space-y-1 *:p-1">
         <div className="mr-2 text-left">
-          <p className="text-4xl text-gray-800">
+          <p className="text-4xl text-gray-800 dark:text-[#f3f3f3]">
             {formatNumber(totalData?.spent)}
           </p>
           <p>Total Spent</p>
         </div>
         <div className="mr-2 text-right">
-          <p className="text-4xl text-gray-800">
+          <p className="text-4xl text-gray-800 dark:text-[#f3f3f3]">
             {formatNumber(totalData?.earned)}
           </p>
           <p>Total Earned</p>
@@ -83,8 +86,8 @@ const Breakdown = ({ distribution, totalData }) => {
           <p className="text-sm">You spent most on these categories:</p>
           <div className="grid grid-rows-4 gap-1 *:min-h-[3.45rem] *:p-1 *:w-full *:rounded">
             {getTopExpenses().map((entry, index) => (
-              <div className="bg-gray-100 flex gap-1 items-center">
-                <div className="bg-white flex flex-col flex-1 rounded px-1">
+              <div className="bg-gray-100 dark:bg-[#222222] flex gap-1 items-center">
+                <div className="bg-white dark:bg-[#3a3a3a] flex flex-col flex-1 rounded px-1">
                   <div className="flex items-center gap-1">
                     <div
                       style={{ background: entry.category.color }}
@@ -92,11 +95,11 @@ const Breakdown = ({ distribution, totalData }) => {
                     ></div>
                     <span className="font-semibold">{entry.category.name}</span>
                   </div>
-                  <span className="text-sm text-gray-500">
+                  <span className="text-sm text-gray-500 dark:text-[#bfbfbfbf]">
                     {formatNumber(entry.total)}
                   </span>
                 </div>
-                <div className="bg-gray-50 h-full min-w-20 p-2 rounded flex justify-center items-center">
+                <div className="bg-gray-50 dark:bg-[#323232]  h-full min-w-20 p-2 rounded flex justify-center items-center">
                   <span className="text-xl">{entry.percentage}</span>
                 </div>
               </div>
@@ -109,8 +112,8 @@ const Breakdown = ({ distribution, totalData }) => {
           <p className="text-sm">Top contributors of your earnings:</p>
           <div className="grid grid-rows-4 gap-1  *:min-h-[3.45rem] *:p-1 *:w-full *:rounded">
             {getTopIncomes().map((entry, index) => (
-              <div className="bg-gray-100 flex gap-1 items-center">
-                <div className="bg-white flex flex-col flex-1 rounded px-1">
+              <div className="bg-gray-100 dark:bg-[#222222] flex gap-1 items-center">
+                <div className="bg-white dark:bg-[#3a3a3a] flex flex-col flex-1 rounded px-1">
                   <div className="flex items-center gap-1">
                     <div
                       style={{ background: entry.category.color }}
@@ -118,11 +121,11 @@ const Breakdown = ({ distribution, totalData }) => {
                     ></div>
                     <span className="font-semibold">{entry.category.name}</span>
                   </div>
-                  <span className="text-sm text-gray-500">
+                  <span className="text-sm text-gray-500 dark:text-[#bfbfbfbf]">
                     {formatNumber(entry.total)}
                   </span>
                 </div>
-                <div className="bg-gray-50 h-full min-w-20 p-2 rounded flex justify-center items-center">
+                <div className="bg-gray-50 dark:bg-[#323232] h-full min-w-20 p-2 rounded flex justify-center items-center">
                   <span className="text-xl">{entry.percentage}</span>
                 </div>
               </div>
@@ -133,7 +136,7 @@ const Breakdown = ({ distribution, totalData }) => {
       </div>
 
       <div className="mr-2 text-right">
-        <p className="text-4xl text-gray-800">
+        <p className="text-4xl text-gray-800 dark:text-[#f3f3f3]">
           {`${totalData?.entries} ${
             totalData?.entries > 1 ? "entries" : "entry"
           }`}

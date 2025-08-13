@@ -36,7 +36,9 @@ const Dashboard = () => {
       <main className="h-full flex gap-2">
         <div
           className="w-full h-full rounded flex flex-col gap-1
-         bg-gray-200 shadow shadow-slate-300"
+         bg-gray-200 shadow shadow-slate-300 
+         dark:bg-[#28292a] *:dark:bg-[#2f2f2f]
+         dark:shadow-none"
         >
           <Distribution
             data={data}
@@ -48,7 +50,9 @@ const Dashboard = () => {
         </div>
         <div
           className="w-full h-full rounded flex flex-col gap-1
-         bg-gray-200 shadow shadow-slate-300"
+         bg-gray-200 shadow shadow-slate-300 
+         dark:bg-[#28292a] *:dark:bg-[#2f2f2f]
+         dark:shadow-none"
         >
           <Breakdown totalData={totalData} distribution={distribution} />
           <Grade totalData={totalData} />

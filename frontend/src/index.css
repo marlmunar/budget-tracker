@@ -9,6 +9,14 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
+:root {
+  --graph-bg: #f0f0f0;
+}
+
+.dark {
+  --graph-bg: #1f1f1f;
+}
+
 *:not([data-motion]) {
   @apply transition-all duration-300;
 }
@@ -116,6 +124,10 @@ button > * {
   @apply underline rounded decoration-amber-500 dark:decoration-amber-200 decoration-2 
   rounded-b-none hover:no-underline hover:text-black dark:hover:text-amber-200 text-amber-500
   dark:text-amber-200;
+}
+
+h3 {
+  @apply dark:text-[#eeeeee];
 }
 
 .icon {
