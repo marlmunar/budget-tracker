@@ -95,7 +95,7 @@ const LogScreen = () => {
   return (
     <main
       ref={scrollToRef}
-      className="container mx-auto h-full flex flex-col bg-gray-300 dark:bg-[#232323] dark:text-[#f0f0f0]"
+      className="@container mx-auto h-full flex flex-col bg-gray-300 dark:bg-[#232323] dark:text-[#f0f0f0]"
     >
       <title>{`Budgetarians' Log ${
         logData.name ? `- ${logData.name}` : ""
@@ -104,7 +104,7 @@ const LogScreen = () => {
       <LogScreenHeader logData={logData} />
       <div className="h-full relative">
         <div
-          className="container m-2 grid md:grid-cols-[75%_auto] 
+          className="@container m-2 grid md:grid-cols-[75%_auto] 
             grid-rows-[minmax(1fr,min-content)] gap-2
             w-[95%] md:w-[90%] mx-auto items-start"
         >

@@ -52,7 +52,7 @@ button > * {
 .header-container {
   @apply mx-auto
   min-h-10 md:min-h-14
-  container
+  @container
   flex items-center justify-between;
 }
 
@@ -136,7 +136,16 @@ h3 {
 
 @theme {
   --font-outfit: "Outfit", sans-serif;
-  --breakpoint-bsm: 500px;
+  --breakpoint-bsm: 425px;
+  --container-bsm: 425px;
+}
+
+@layer components {
+  @media (min-width: 1600px) {
+    .container {
+      max-width: 1600px; /* ✅ Your custom breakpoint width */
+    }
+  }
 }
 
 .hero {
@@ -162,20 +171,26 @@ h3 {
 }
 
 .item {
-  @apply text-sm lg:text-base relative 
-  flex flex-col gap-2 justify-center 
+  @apply text-sm lg:text-base
   h-50 md:h-55 lg:h-60
-  p-2 pl-[5rem] bsm:pl-[3rem]
-  lg:p-5 lg:pl-[5rem] rounded shadow 
-  shadow-slate-800 dark:bg-[#2f2f2f] dark:shadow-slate-950 dark:shadow-xs;
+  p-4 lg:p-6 rounded shadow 
+  flex items-center gap-1
+  shadow-slate-800 
+  dark:bg-[#2f2f2f] 
+  dark:shadow-slate-950 
+  dark:shadow-xs;
 }
 
-.item p {
-  @apply max-w-[30ch] lg:max-w-none;
+.text-div {
+  @apply w-full text-center;
+}
+
+.text-div p {
+  @apply p-2 px-2 md:px-4 lg:px-6;
 }
 
 .item-title {
-  @apply text-base md:text-lg lg:text-xl font-semibold self-center;
+  @apply text-base md:text-lg lg:text-xl font-semibold;
 }
 
 .form-body {
