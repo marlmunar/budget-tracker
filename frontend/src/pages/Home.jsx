@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 const Home = () => {
   return (
-    <main>
+    <main className="mx-2 md:m-0">
       <title>Budgetarians' Log - Home</title>
       <motion.div
         data-motion

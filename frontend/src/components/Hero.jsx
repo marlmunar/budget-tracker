@@ -51,8 +51,13 @@ const Hero = () => {
   }, [getLogs]);
 
   return (
-    <section className="hero">
-      <div className="relative dark:bg-[#2f2f2f]  dark:border-gray-500 border-2 border-dotted m-2 p-5 flex flex-col gap-2 justify-center order-1 lg:order-none shadow-lg">
+    <section className="hero text-sm md:text-base">
+      <div
+        className="relative dark:bg-[#2f2f2f] 
+      dark:border-gray-500 border-2 border-dotted 
+        m-2 p-5 flex flex-col gap-2 justify-center 
+        order-1 lg:order-none shadow-lg"
+      >
         <div className="absolute m-4 top-0 right-0 flex flex-col items-end gap-2">
           <button
             className="rounded text-2xl p-2 hover:shadow hover:shadow-slate-400"
@@ -68,7 +73,9 @@ const Hero = () => {
           )}
         </div>
 
-        <h2 className="text-2xl font-semibold">Budgetarian</h2>
+        <h2 className="text-lg md:text-xl lg:text-2xl font-semibold">
+          Budgetarian
+        </h2>
         <p className="pl-1 font-semibold">noun</p>
         <p ref={textRef} className="pl-1 max-w-[50ch]">
           A term used by Filipinos to describe someone who is smart about
@@ -83,7 +90,7 @@ const Hero = () => {
 
       <div className="flex flex-col gap-2 justify-center order-1 lg:order-none">
         <h2 className="homecard-title">What is this log?</h2>
-        <div className="px-6">
+        <div className="px-4 lg:px-6">
           <p>
             A web-based tool to help you become a
             <i>
@@ -97,7 +104,7 @@ const Hero = () => {
         </div>
       </div>
 
-      <div className="p-2 lg:min-h-[80vh] md:min-h-[50vh] min-h-[45vh] grid md:p-4 bg-amber-200 row-span-2 rounded shadow-lg dark:bg-yellow-200">
+      <div className="p-2 lg:min-h-[30rem] md:min-h-[50vh] min-h-[45vh] grid md:p-4 bg-amber-200 row-span-2 rounded shadow-lg dark:bg-yellow-200">
         <div className="relative p-2 md:p-10 bg-slate-50 flex flex-col justify-end gap-2 h-[100%] rounded shadow">
           <div className="absolute z-0 w-full h-full top-0 right-0 rounded">
             <img
@@ -114,11 +121,15 @@ const Hero = () => {
             transition={{ duration: 0.8 }}
             className="z-10"
           >
-            <div className=" bg-amber-50/70 dark:bg-[#2f2f2f] p-4 lg:max-w-[min-content] rounded shadow-lg flex flex-col">
+            <div className="bg-amber-50/70 dark:bg-[#2f2f2f] p-4 lg:max-w-[min-content] rounded shadow-lg flex flex-col">
               {!!userInfo ? (
                 <>
-                  <p className="text-2xl font-semibold">Welcome Back!</p>
-                  <p>What do you want to visit?</p>
+                  <p className="text-lg md:text-xl lg:text-2xl font-semibold">
+                    Welcome Back!
+                  </p>
+                  <p className="text-xs md:text-sm lg:text-base">
+                    What do you want to visit?
+                  </p>
                   <div className="flex gap-2 mt-4">
                     <Link className="hero-button" to={`/log/${lastLog?._id}`}>
                       Last log
@@ -130,7 +141,7 @@ const Hero = () => {
                 </>
               ) : (
                 <>
-                  <p className="text-2xl font-semibold ">
+                  <p className="text-lg md:text-xl lg:text-2xl font-semibold">
                     Become a Budgetarian
                   </p>
                   <p>Start your journey!</p>

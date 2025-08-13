@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 const Benefits = () => {
   return (
     <HomeCard title={"Why use this log?"}>
-      <div className="px-2 flex flex-col md:grid grid-rows-2 grid-cols-2 gap-10">
+      <div className="px-2 flex flex-col bsm:grid grid-rows-2 grid-cols-2 gap-2 lg:gap-4">
         <motion.div
           data-motion
           initial={{ opacity: 0, y: 50 }}
@@ -14,7 +14,7 @@ const Benefits = () => {
           transition={{ duration: 0.5 }}
         >
           <div className="item">
-            <h3 className="item-title ">Access Anywhere</h3>
+            <h3 className="item-title">Access Anywhere</h3>
             <p className="text-center">
               All you need is an account, and you can track your budget from
               anywhere.

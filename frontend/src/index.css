@@ -141,29 +141,41 @@ h3 {
 
 .hero {
   @apply flex flex-col
-  lg:grid [grid-template-rows:repeat(2,min-content)] grid-cols-2 grid-flow-col
+  lg:grid [grid-template-rows:repeat(2,min-content)] 
+  grid-cols-2 grid-flow-col
   gap-5 md:gap-2 
-  md:min-h-[60vh];
+  md:min-h-[60vh]
+  lg:min-h-[30rem];
 }
 
 .hero-button {
-  @apply border-2 h-10 text-lg flex justify-center items-center rounded py-1 text-center min-w-[6rem] sm:min-w-[8rem] 
+  @apply border-2 h-8 lg:h-10 flex justify-center items-center rounded py-1 text-center 
+  min-w-[6rem] lg:min-w-[10rem]
   hover:bg-amber-300 hover:shadow hover:border-transparent
   dark:hover:bg-[#FFE779]
-  dark:hover:text-gray-800;
+  dark:hover:text-gray-800
+  text-sm md:text-base lg:text-lg;
 }
 
 .homecard-title {
-  @apply px-4 text-2xl font-semibold mb-4 underline;
+  @apply px-1 md:px-2 lg:px-4 text-lg md:text-xl lg:text-2xl font-semibold mb-4 underline;
 }
 
 .item {
-  @apply relative flex flex-col gap-2 justify-center h-50 md:h-75 p-5 pl-[5rem] rounded shadow 
+  @apply text-sm lg:text-base relative 
+  flex flex-col gap-2 justify-center 
+  h-50 md:h-55 lg:h-60
+  p-2 pl-[5rem] bsm:pl-[3rem]
+  lg:p-5 lg:pl-[5rem] rounded shadow 
   shadow-slate-800 dark:bg-[#2f2f2f] dark:shadow-slate-950 dark:shadow-xs;
 }
 
+.item p {
+  @apply max-w-[30ch] lg:max-w-none;
+}
+
 .item-title {
-  @apply text-xl font-semibold self-center;
+  @apply text-base md:text-lg lg:text-xl font-semibold self-center;
 }
 
 .form-body {
