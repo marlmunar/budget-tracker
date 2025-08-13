@@ -143,13 +143,13 @@ const Distribution = ({
   };
 
   return (
-    <section className="bg-white p-4 h-full w-full rounded relative">
+    <section className="bg-white p-2 flex flex-col w-full h-full max-h-[min-content] md:p-3 lg:p-4 rounded relative">
       <div className="flex justify-between">
-        <h3 className="text-lg font-semibold">Entries Distribution</h3>
+        <h3 className="text-base md:text-lg font-semibold">
+          Entries Distribution
+        </h3>
         <button
-          className="log-tool-button bg-gray-200
-          dark:bg-[#222222] dark:active:bg-gray-800
-          dark:hover:bg-gray-900 dark:hover:text-white"
+          className="dashboard-button"
           onClick={() => setIsFiltering((prev) => !prev)}
         >
           {isFiltering ? <TbX /> : <TbDotsVertical />}
@@ -157,14 +157,22 @@ const Distribution = ({
       </div>
 
       {isFiltering && (
-        <div className="absolute flex flex-col p-2 rounded top-12 right-4 bg-gray-50 dark:bg-[#222222]">
-          <h3 className="font-semibold">Apply Filters</h3>
-          <div className="flex justify-between gap-1">
-            <div className="max-h-8 flex gap-1 w-[11.5rem] p-1 bg-slate-200 rounded dark:bg-[#474747]">
+        <div
+          className="text-xs md:text-sm m-2
+        absolute flex flex-col p-1 md:p-2 rounded 
+        top-7 right-0 md:top-12 md:right-4 gap-1
+        bg-gray-50 dark:bg-[#222222] w-[calc(100%-1rem)]"
+        >
+          <h3 className="font-semibold text-sm md:text-base">Apply Filters</h3>
+          <div className="flex flex-col md:flex-row justify-between gap-1">
+            <div
+              className="max-h-8 flex justify-between gap-1 min-w-[10rem] md:min-w-[8.5rem] p-1
+             bg-slate-200 rounded dark:bg-[#474747]"
+            >
               <p>Month:</p>
-              <div className="bg-slate-100 w-full px-1 rounded relative dark:bg-[#313131]">
+              <div className="bg-slate-100 max-w-45 md:max-w-none w-full px-1 rounded relative dark:bg-[#313131]">
                 <div
-                  className="flex justify-between gap-1 *:pointer-events-none"
+                  className="flex justify-between gap-1 *:pointer-events-none relative"
                   onClick={() => setIsSelectingMonth((prev) => !prev)}
                   data-id="selectMonth"
                 >
@@ -183,10 +191,10 @@ const Distribution = ({
                     id="selectMonth"
                   >
                     <menu
-                      className="absolute top-8 right-0 w-full 
-                  shadow shadow-slate-300 bg-white 
-                  dark:bg-[#313131] dark:shadow-slate-950 dark:shadow-xs
-                  space-y-1 p-1 rounded"
+                      className="absolute top-5 md:top-6 right-0 w-full z-10
+                      shadow shadow-slate-300 bg-white 
+                      dark:bg-[#313131] dark:shadow-slate-950 dark:shadow-xs
+                      space-y-1 p-1 rounded"
                     >
                       {months.map((mon) => (
                         <li
@@ -204,15 +212,15 @@ const Distribution = ({
                 )}
               </div>
             </div>
-            <div className="max-h-8 flex gap-1 w-[18rem] p-1 bg-slate-200 rounded dark:bg-[#474747]">
+            <div className="max-h-8 flex justify-between gap-1 md:min-w-[18rem] p-1 bg-slate-200 rounded dark:bg-[#474747]">
               <p className="text-nowrap">Selected Logs:</p>
-              <div className="bg-slate-100 w-full px-1 rounded relative dark:bg-[#313131]">
+              <div className="bg-slate-100 max-w-45 md:max-w-none w-full px-1 rounded relative dark:bg-[#313131]">
                 <div
-                  className="flex justify-between gap-1 *:pointer-events-none"
+                  className="flex justify-between gap-1 *:pointer-events-none relative"
                   onClick={() => setIsSelectingLogs((prev) => !prev)}
                   data-id="filterLogs"
                 >
-                  <p className="max-w-[14ch] truncate">{getSelectedLogs()}</p>
+                  <p className="max-w-[14ch]">{getSelectedLogs()}</p>
                   <button>
                     {isSelectingLogs ? (
                       <TbCaretUpFilled />
@@ -230,10 +238,10 @@ const Distribution = ({
                     id="filterLogs"
                   >
                     <menu
-                      className="absolute top-8 right-0 w-full 
-                  shadow shadow-slate-300 bg-white 
-                  dark:bg-[#313131] dark:shadow-slate-950 dark:shadow-xs
-                  space-y-1 p-1 rounded"
+                      className="absolute top-5 md:top-6 right-0 w-full z-10
+                      shadow shadow-slate-300 bg-white 
+                      dark:bg-[#313131] dark:shadow-slate-950 dark:shadow-xs
+                      space-y-1 p-1 rounded"
                     >
                       <div
                         className="flex justify-between items-center gap-1"
@@ -259,7 +267,7 @@ const Distribution = ({
                               <TbSquare className="text-slate-300" />
                             )}
                           </div>
-                          <li className="truncate">{log}</li>
+                          <li>{log}</li>
                         </div>
                       ))}
 
@@ -293,18 +301,18 @@ const Distribution = ({
         </div>
       )}
 
-      <div className="h-full p-2 flex justify-center items-center">
+      <div className="h-full p-4 flex justify-center items-center">
         <div
           style={{ background: getBg() }}
-          className="w-[20rem] h-[20rem] rounded-full flex justify-center items-center"
+          className="min-w-[12rem] min-h-[12rem] md:w-[20rem] md:h-[20rem] rounded-full flex justify-center items-center"
         >
           <div
-            className="bg-white w-[16rem] h-[16rem] rounded-full 
+            className="bg-white w-[10rem] h-[10rem] md:w-[16rem] md:h-[16rem] rounded-full 
             flex flex-col justify-center items-center
             dark:bg-[#2f2f2f]"
           >
-            <span className="text-4xl">{month}</span>
-            <div className="space-x-1 text-gray-800 dark:text-[#bababa]">
+            <span className="text-lg md:text-4xl">{month}</span>
+            <div className="text-xs md:text-sm space-x-1 text-gray-800 dark:text-[#bababa]">
               <span>{getSelectedLogs()}</span>
             </div>
           </div>

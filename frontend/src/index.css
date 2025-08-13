@@ -136,6 +136,7 @@ h3 {
 
 @theme {
   --font-outfit: "Outfit", sans-serif;
+  --breakpoint-bsm: 425px;
 }
 
 .hero {
@@ -359,6 +360,15 @@ h3 {
   @apply p-1 flex items-center justify-center rounded cursor-pointer text-xl
     active:scale-95 dark:text-[#e7e7e7]
     hover:shadow-md hover:border-transparent hover:translate-y-[-2px];
+}
+
+.dashboard-button {
+  @apply p-1 flex items-center justify-center rounded cursor-pointer text-xl
+    h-6 w-6
+    active:scale-95 dark:text-[#e7e7e7]
+    hover:shadow-md hover:border-transparent hover:translate-y-[-2px]
+  bg-gray-200 dark:bg-[#222222] dark:active:bg-gray-800
+  dark:hover:bg-gray-900 dark:hover:text-white;
 }
 
 .log-tool-button-2 {

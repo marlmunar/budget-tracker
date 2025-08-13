@@ -2,21 +2,21 @@ import React from "react";
 
 const Categories = ({ distribution }) => {
   return (
-    <section className="bg-white h-32 w-full rounded p-4">
-      <h3 className="text-lg font-semibold ">Categories</h3>
-      <div className="grid grid-cols-4 *:w-full gap-1">
+    <section className="bg-white h-full w-full max-h-[min-content] rounded p-2 md:p-3 lg:p-4">
+      <h3 className="text-base md:text-lg font-semibold ">Categories</h3>
+      <div className="p-1 grid grid-cols-2 bsm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 *:w-full gap-1">
         {distribution.length > 0 ? (
           distribution
             .sort((a, b) => b.total - a.total)
             .map((entry, index) => (
-              <div className="flex gap-2 items-center" key={index}>
+              <div className="flex gap-1 items-center" key={index}>
                 <div
                   style={{ background: entry.category.color }}
-                  className="h-8 w-8 rounded"
+                  className="h-6 w-6 md:h-8 md:w-8 rounded"
                 ></div>
                 <div className="flex flex-col">
-                  <span className="text-sm">{entry.category.name}</span>
-                  <div className="text-xs text-gray-500 dark:text-gray-200 space-x-1">
+                  <span className="text-xs">{entry.category.name}</span>
+                  <div className="text-[0.65rem] text-sm:text-xs text-gray-500 dark:text-gray-200 space-x-1">
                     <span>{entry.category.type}</span>
                     <span>
                       {entry.percent > 0.05 ? entry.percent : "< 0.05"}%

@@ -33,9 +33,9 @@ const Dashboard = () => {
   return (
     <>
       <title>Budgetarians' Log - Dashboard</title>
-      <main className="h-full flex gap-2">
+      <main className="mx-2 md:m-0 h-full flex flex-col md:flex-row gap-1 md:gap-2">
         <div
-          className="w-full h-full rounded flex flex-col gap-1
+          className="w-full h-full max-h-[min-content] rounded flex flex-col gap-1
          bg-gray-200 shadow shadow-slate-300 
          dark:bg-[#28292a] *:dark:bg-[#2f2f2f]
          dark:shadow-none"
@@ -49,7 +49,7 @@ const Dashboard = () => {
           <Categories distribution={distribution} />
         </div>
         <div
-          className="w-full h-full rounded flex flex-col gap-1
+          className="w-full h-full  max-h-[min-content] rounded flex flex-col gap-1
          bg-gray-200 shadow shadow-slate-300 
          dark:bg-[#28292a] *:dark:bg-[#2f2f2f]
          dark:shadow-none"
