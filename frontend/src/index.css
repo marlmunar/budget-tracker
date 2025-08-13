@@ -45,7 +45,7 @@ button > * {
 .header {
   @apply py-3 z-25
   bg-[#FFE779] text-amber-950
-  dark:bg-[#2b2d2f] dark:text-[#fff2b9]
+  dark:bg-[#2b2d2f] dark:text-[#FFFDD0]
   rounded-b-lg w-full px-2 md:px-10;
 }
 
@@ -157,7 +157,8 @@ h3 {
 }
 
 .item {
-  @apply relative flex flex-col gap-2 justify-center h-50 md:h-75 p-5 pl-[5rem] rounded shadow shadow-slate-800 dark:bg-[#28292a];
+  @apply relative flex flex-col gap-2 justify-center h-50 md:h-75 p-5 pl-[5rem] rounded shadow 
+  shadow-slate-800 dark:bg-[#2f2f2f] dark:shadow-slate-950 dark:shadow-xs;
 }
 
 .item-title {
@@ -193,16 +194,19 @@ h3 {
 }
 
 .log-section-container {
-  @apply shadow rounded bg-white dark:bg-[#28292a];
+  @apply shadow rounded bg-white dark:bg-[#1f1f1f];
 }
 
 .log-form-container {
-  @apply shadow rounded max-h-[min-content] bg-white dark:bg-[#313132] dark:shadow-none dark:border dark:border-[#282828];
+  @apply shadow rounded max-h-[min-content] bg-white 
+  dark:bg-[#252525]
+  dark:shadow-sm dark:shadow-slate-950 
+  dark:border dark:border-[#282828];
 }
 
 .log-section-header {
   @apply rounded bg-gray-100 p-2 pl-4 text-base 
-           dark:bg-[#3a3a3a] dark:text-[#f0f0f0]
+           dark:bg-[#2f2f2f]  dark:text-[#f0f0f0]
            dark:shadow-none
             md:text-lg font-semibold
             shadow shadow-slate-300
@@ -224,7 +228,7 @@ h3 {
 .log-input-column .custom-select {
   @apply p-1 focus:outline-none 
   min-h-8 border-2 border-gray-200
-  dark:border-gray-500
+  dark:border-[#3f3f3f]
   dark:bg-[#3a3a3a] dark:hover:bg-[#3a3a3a]
   dark:text-[#f0f0f0]
   w-full
@@ -244,16 +248,12 @@ h3 {
 
 .category-input-column input:not([type="radio"]),
 .category-input-column .radio,
-.category-input-column .color-menu {
-  @apply px-1 focus:outline-none 
-  min-h-8 md:text-lg text-sm
-  md:min-w-45
-  rounded h-full;
-}
-
-.category-input-column input:not([type="radio"]),
-.category-input-column .radio {
-  @apply dark:border-gray-500
+.category-input-column .custom-select {
+  @apply p-1 focus:outline-none 
+  md:min-h-10 md:text-base text-sm
+  md:min-w-45 border-gray-200 border-2
+  rounded h-full
+  dark:border-gray-500
   dark:bg-[#3a3a3a] dark:hover:bg-[#3a3a3a]
   dark:text-[#f0f0f0];
 }
@@ -263,7 +263,7 @@ h3 {
 }
 
 .radio-input {
-  @apply flex items-center gap-1 px-2;
+  @apply flex items-center gap-1 px-1 md:text-base text-sm;
 }
 
 .radio-input input[type="radio"]:checked + .custom-radio > div {
@@ -271,22 +271,30 @@ h3 {
 }
 
 .custom-radio {
-  @apply min-h-[0.9rem] min-w-[0.9rem] border border-gray-800
+  @apply min-h-[0.9rem] min-w-[0.9rem] border 
+  border-gray-800
+  dark:border-[#f0f0f0]
    relative flex items-center justify-center rounded-lg;
 }
 
 .color-menu {
-  @apply flex items-center px-2 gap-1 max-w-[min-content];
-}
-
-.color-menu > li {
-  @apply h-8 w-8;
+  @apply min-w-full max-w-[16rem] overflow-auto flex items-center p-1 gap-1 md:max-w-[min-content]
+  dark:border-gray-500 border-2 rounded
+  dark:bg-[#3a3a3a] dark:hover:bg-[#3a3a3a]
+  dark:text-[#f0f0f0];
 }
 
 .color-menu > li > button,
 .color-button {
-  @apply min-h-6 min-w-6 md:min-h-8 md:min-w-8 rounded hover:translate-y-[-2px]
-  inline-flex items-center justify-center;
+  @apply min-h-6 min-w-6 md:min-h-7 md:min-w-7
+  rounded hover:translate-y-[-2px] p-0
+  flex items-center justify-center;
+}
+
+.color-button-2 {
+  @apply min-h-7 min-w-7 md:min-h-10 md:min-w-10
+  rounded hover:translate-y-[-2px] p-0
+  flex items-center justify-center;
 }
 
 .category-options {
@@ -333,7 +341,7 @@ h3 {
 .log-button-2 {
   @apply p-1 z-5 px-2 items-center justify-center rounded cursor-pointer gap-1 bg-blue-600 
     text-base text-white 
-    dark:bg-gray-800 dark:active:bg-gray-950 dark:hover:bg-indigo-950 dark:hover:text-white
+    dark:bg-[#141c39] dark:active:bg-gray-950 dark:hover:bg-slate-950 dark:hover:text-white
     active:scale-95 active:bg-blue-800 active:text-white
   hover:bg-indigo-400 hover:shadow-md hover:text-gray-700 hover:border-transparent hover:translate-y-[-2px];
 }
@@ -343,7 +351,7 @@ h3 {
     text-4xl text-white sticky
     ml-auto bottom-5 shadow w-16 h-16 flex
     active:scale-95 active:bg-blue-800 active:text-white
-    dark:bg-gray-800 dark:active:bg-gray-950 dark:hover:bg-indigo-950 dark:hover:text-white
+    dark:bg-[#141c39] dark:active:bg-gray-950 dark:hover:bg-slate-950 dark:hover:text-white
   hover:bg-indigo-400 hover:shadow-md hover:text-gray-700 hover:border-transparent hover:translate-y-[-2px];
 }
 
@@ -385,9 +393,24 @@ h3 {
     items-center gap-1 rounded cursor-pointer 
     shadow shadow-transparent
     text-sm md:text-base
-    dark:text-white
    hover:shadow-slate-300
-    dark:hover:shadow-slate-800;
+    dark:hover:shadow-slate-800
+    dark:text-[#565656];
+}
+
+.log-options-3 {
+  @apply w-full px-1 flex justify-start 
+    min-h-6 md:min-h-8
+    hover:translate-y-[-2px]
+    items-center gap-1 rounded cursor-pointer 
+    shadow shadow-transparent
+    text-sm md:text-base
+    hover:shadow-slate-300
+    dark:hover:shadow-slate-800
+    bg-white 
+    dark:text-[#f0f0f0]
+    dark:bg-[#4a4e53] dark:active:bg-gray-950 
+    dark:hover:bg-gray-500 dark:hover:text-white;
 }
 
 .log-options > span {

@@ -17,7 +17,7 @@ const LogCard = ({ logName, logStats, logId, logData }) => {
   return (
     <div
       className="relative md:mx-auto flex md:w-[98%] mb-1
-        trasition-all duration-100 dark:bg-[#3f3f3f]
+        trasition-all duration-100 dark:bg-[#2f2f2f]
       bg-white hover:shadow-slate-700 dark:hover:shadow-none shadow-sm rounded 
         hover:shadow hover:translate-y-[-2px] dark:text-[#f0f0f0]"
     >

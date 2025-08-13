@@ -9,6 +9,7 @@ const ExpenseSummaryItem = ({
     <div
       className="p-1 justify-between
       shadow rounded text-[#282828]
+      dark:text-[#565656]
       hover:shadow-gray-400 
       hover:translate-y-[-2px]
       active:scale-95
@@ -26,7 +27,7 @@ const ExpenseSummaryItem = ({
       >
         {category.name}
       </p>
-      <div className="flex text-xs md:text-sm justify-between w-full bg-white dark:bg-[#3f3f3f] dark:text-[#f0f0f0] rounded p-1">
+      <div className="flex text-xs md:text-sm justify-between w-full bg-white dark:bg-[#2f2f2f] dark:text-[#f0f0f0] rounded p-1">
         <p>{`${count} ${count > 1 ? "entries" : "entry"}`}</p>
         <p>{amount}</p>
       </div>

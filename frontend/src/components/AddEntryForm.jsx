@@ -183,9 +183,9 @@ const AddEntryForm = ({ closeUI, setActiveUi, props }) => {
   return (
     <div
       className="
-     bg-white log-form-container w-full 
-     absolute top-0 
-     shadow shadow-slate-400"
+     bg-white log-form-container 
+     m-2 w-[calc(100%-1rem)]
+     absolute shadow shadow-slate-400"
     >
       <div className="log-section-header">
         <h3>New Entry</h3>
@@ -304,7 +304,7 @@ const AddEntryForm = ({ closeUI, setActiveUi, props }) => {
                     <span
                       className={
                         Object.keys(selectedCategory).length > 0
-                          ? "dark:text-[#282828]"
+                          ? "dark:text-[#565656]"
                           : "text-gray-500 dark:text-[#a4a4a4]"
                       }
                     >
@@ -313,7 +313,7 @@ const AddEntryForm = ({ closeUI, setActiveUi, props }) => {
                         : "Select a category"}
                     </span>
                     <button
-                      className="flex rounded justify-between items-center dark:text-[#282828]"
+                      className="flex rounded justify-between items-center dark:text-[#565656]"
                       type="button"
                     >
                       {isSelecting ? (
@@ -347,10 +347,7 @@ const AddEntryForm = ({ closeUI, setActiveUi, props }) => {
                           </li>
                         ))}
                         <li
-                          className="log-options-2 bg-white 
-                          dark:bg-[#4a4e53] dark:active:bg-gray-950 
-                          dark:hover:bg-gray-500 dark:hover:text-white
-"
+                          className="log-options-3"
                           onClick={() => {
                             setActiveUi("manageCategories");
                           }}

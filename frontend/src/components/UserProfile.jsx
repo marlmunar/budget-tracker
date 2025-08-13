@@ -28,7 +28,7 @@ const UserProfile = ({ userLogs }) => {
   // };
 
   return (
-    <section className="mt-2 flex flex-col border-2 mx-2 dark:bg-[#4a4e53] dark:border-slate-900 border-slate-300 gap-1 items-start rounded p-4 max-h-[min-content]">
+    <section className="mt-2 flex flex-col bg-gray-50 border-2 mx-2 dark:bg-[#2f2f2f] dark:border-[#4a4e53] border-slate-300 gap-1 items-start rounded p-4 max-h-[min-content]">
       <div className="flex w-full gap-1">
         <h2 className="text-2xl font-semibold underline">{userName}</h2>
         <button

@@ -28,8 +28,9 @@ const ExpenseListFilter = ({ closeUI, props }) => {
     <div
       className="absolute bg-white md:m-2
       shadow shadow-slate-400 rounded 
-     dark:bg-[#313132] dark:shadow-none
+    dark:bg-[#252525]
       dark:border dark:border-[#282828]
+      dark:shadow-sm dark:shadow-slate-950 
       flex flex-col right-0 top-0 w-full 
       max-w-[80%] md:max-w-[15rem]"
     >

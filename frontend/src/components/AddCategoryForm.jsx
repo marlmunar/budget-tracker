@@ -76,10 +76,10 @@ const AddCategoryForm = ({ closeUI, props }) => {
 
   return (
     <section
-      className="bg-white
-      log-form-container w-full 
-      absolute top-0
-      shadow shadow-slate-400"
+      className="
+     bg-white log-form-container 
+     m-2 w-[calc(100%-1rem)]
+     absolute shadow shadow-slate-400"
     >
       <div className="log-section-header">
         <h3>New Category</h3>
@@ -101,7 +101,7 @@ const AddCategoryForm = ({ closeUI, props }) => {
         method="POST"
         onSubmit={handleSubmit}
         id="newCategoryForm"
-        className="relative p-2 rounded"
+        className="relative md:p-2 rounded"
       >
         <div
           className="p-2 grid md:grid-cols-2 grid-cols-1
@@ -162,14 +162,18 @@ const AddCategoryForm = ({ closeUI, props }) => {
               </div>
             )}
           </div>
-          <div className="category-input-column flex flex-col relative md:max-w-[95%]">
+          <div className="category-input-column flex flex-col relative">
             <p>Color:</p>
 
             {isSelecting ? (
-              <div className="flex flex-col gap-2">
-                <div className=" flex gap-1 items-center justify-between">
+              <div className="px-1 flex flex-col gap-2">
+                <div className="flex gap-1 items-center justify-between">
                   <div
-                    className="min-w-6 min-h-6 md:min-h-7 md:min-w-7 border-2 border-gray-200 rounded"
+                    className="
+                    min-h-7 min-w-7
+                    md:min-w-10 md:min-h-10 border-2
+                     border-gray-200 
+                    dark:border-gray-500 rounded"
                     style={{ backgroundColor: color }}
                   ></div>
                   <input
@@ -181,7 +185,7 @@ const AddCategoryForm = ({ closeUI, props }) => {
                   />
                   <button
                     type="button"
-                    className=" block color-button bg-gray-200 text-xl 
+                    className="color-button-2 bg-gray-200 text-xl 
                     dark:bg-[#4a4e53] dark:active:bg-gray-950 dark:hover:bg-gray-500 dark:hover:text-white"
                     onClick={() => setIsSelecting((prev) => !prev)}
                   >
@@ -193,12 +197,14 @@ const AddCategoryForm = ({ closeUI, props }) => {
                 </div>
               </div>
             ) : (
-              <menu className="color-menu py-1 overflow-x-auto md:py-0 md:overflow-x-visible">
+              <menu className="color-menu scrollbar-hide">
                 {colors.map((item, index) => (
                   <li key={item}>
                     <button
                       className={
-                        item === color ? "border-2 border-amber-800" : ""
+                        item === color
+                          ? "border-2 border-amber-800 dark:border-gray-500"
+                          : "border-transparent border-2"
                       }
                       type="button"
                       style={{ backgroundColor: item }}

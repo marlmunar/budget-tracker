@@ -129,10 +129,10 @@ const EditCategoryForm = ({ closeUI, props }) => {
 
   return (
     <section
-      className="bg-white
-      log-form-container w-full 
-      absolute top-0
-      shadow shadow-slate-400"
+      className="
+     bg-white log-form-container 
+     m-2 w-[calc(100%-1rem)]
+     absolute shadow shadow-slate-400"
     >
       <div className="log-section-header">
         <h3>Edit Category</h3>
@@ -154,12 +154,12 @@ const EditCategoryForm = ({ closeUI, props }) => {
         method="POST"
         onSubmit={handleSubmit}
         id="editCategoryForm"
-        className="relative p-2 rounded space-y-2"
+        className="relative md:p-2 rounded space-y-2"
       >
-        <div className="p-2 pb-1 log-input-column md:max-w-[50%]">
+        <div className="p-2 pb-1 category-input-column">
           <label htmlFor="newCategory">Category</label>
           <div
-            className="relative custom-select focus:bg-gray-100/95 focus:shadow-lg"
+            className="md:max-w-[50%] relative custom-select focus:bg-gray-100/95 focus:shadow-lg"
             style={{ backgroundColor: selectedCategory?.color }}
             tabIndex={0}
           >
@@ -173,7 +173,7 @@ const EditCategoryForm = ({ closeUI, props }) => {
               <span
                 className={
                   Object.keys(selectedCategory).length > 0
-                    ? "dark:text-white"
+                    ? "dark:text-[#565656]"
                     : "text-gray-500 dark:text-[#a4a4a4]"
                 }
               >
@@ -182,7 +182,7 @@ const EditCategoryForm = ({ closeUI, props }) => {
                   : "Select a category"}
               </span>
               <button
-                className="flex rounded justify-between items-center"
+                className="flex rounded justify-between items-center dark:text-[#565656]"
                 type="button"
               >
                 {isSelecting ? <TbCaretUpFilled /> : <TbCaretDownFilled />}
@@ -193,10 +193,7 @@ const EditCategoryForm = ({ closeUI, props }) => {
                 onOutsideClick={() => setIsSelecting(false)}
                 id="addEntry"
               >
-                <menu
-                  className="absolute right-0 top-9 rounded p-1 bg-slate-100
-                        shadow shadow-slate-400 w-full flex flex-col gap-1 z-10"
-                >
+                <menu className="category-menu scrollbar-hide">
                   {tempCategories.map((cat, index) => (
                     <li
                       className="log-options-2"
@@ -223,9 +220,9 @@ const EditCategoryForm = ({ closeUI, props }) => {
           </div>
         </div>
         <div className="mx-2 border-2 border-slate-300"></div>
-        <div className="p-2 py-1 grid md:grid-cols-2 grid-cols-1 items-start">
-          <div className="flex flex-col md:flex-row md:items-center gap-2">
-            <div className="category-input-column">
+        <div className="p-2 py-1 grid md:grid-cols-2 grid-cols-1 items-start gap-2">
+          <div className="flex flex-col md:flex-col gap-2">
+            <div className="category-input-column w-full">
               <label htmlFor="name">New Name:</label>
               <input
                 type="text"
@@ -284,14 +281,18 @@ const EditCategoryForm = ({ closeUI, props }) => {
             )}
           </div>
 
-          <div className="category-input-column flex flex-col relative md:max-w-[95%]">
+          <div className="category-input-column flex flex-col relative">
             <p>Color:</p>
 
             {isSelectingColor ? (
-              <div className="flex flex-col gap-2">
+              <div className="px-1 flex flex-col gap-2">
                 <div className=" flex gap-1 items-center justify-between">
                   <div
-                    className="min-w-6 min-h-6 md:min-h-7 md:min-w-7 border-2 border-gray-200 rounded"
+                    className="
+                    min-h-7 min-w-7
+                    md:min-w-10 md:min-h-10 border-2
+                     border-gray-200 
+                    dark:border-gray-500 rounded"
                     style={{ backgroundColor: color }}
                   ></div>
                   <input
@@ -303,7 +304,7 @@ const EditCategoryForm = ({ closeUI, props }) => {
                   />
                   <button
                     type="button"
-                    className="color-button bg-gray-200 text-xl 
+                    className="color-button-2 bg-gray-200 text-xl 
                     dark:bg-[#4a4e53] dark:active:bg-gray-950 dark:hover:bg-gray-500 dark:hover:text-white"
                     onClick={() => setIsSelectingColor((prev) => !prev)}
                   >
@@ -315,12 +316,14 @@ const EditCategoryForm = ({ closeUI, props }) => {
                 </div>
               </div>
             ) : (
-              <menu className="color-menu py-1 overflow-x-auto md:py-0 md:overflow-x-visible">
+              <menu className="color-menu scrollbar-hide">
                 {colors.map((item, index) => (
                   <li key={item}>
                     <button
                       className={
-                        item === color ? "border-2 border-amber-800" : ""
+                        item === color
+                          ? "border-2 border-amber-800 dark:border-gray-500"
+                          : "border-transparent border-2"
                       }
                       type="button"
                       style={{ backgroundColor: item }}

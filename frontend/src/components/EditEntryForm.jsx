@@ -138,7 +138,12 @@ const EditEntryForm = ({ closeUI, props }) => {
   };
 
   return (
-    <div className="z-25 bg-white log-form-container w-full absolute right-0 top-0 shadow shadow-slate-400">
+    <div
+      className="
+     bg-white log-form-container 
+     m-2 w-[calc(100%-1rem)]
+     absolute shadow shadow-slate-400"
+    >
       <div className="log-section-header">
         <h3>Edit Entry</h3>
         <div className="flex gap-2">
@@ -219,7 +224,7 @@ const EditEntryForm = ({ closeUI, props }) => {
                 <span
                   className={
                     Object.keys(selectedCategory).length > 0
-                      ? "dark:text-[#282828]"
+                      ? "dark:text-[#565656]"
                       : "text-gray-500 dark:text-[#a4a4a4]"
                   }
                 >
@@ -228,7 +233,7 @@ const EditEntryForm = ({ closeUI, props }) => {
                     : "Select a category"}
                 </span>
                 <button
-                  className="flex rounded justify-between items-center dark:text-[#282828]"
+                  className="flex rounded justify-between items-center dark:text-[#565656]"
                   type="button"
                 >
                   {isSelecting ? <TbCaretUpFilled /> : <TbCaretDownFilled />}

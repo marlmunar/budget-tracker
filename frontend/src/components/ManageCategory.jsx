@@ -175,20 +175,25 @@ const ManageCategory = ({ close, action, category, tempList, setTempList }) => {
             <div className="flex flex-col gap-2">
               <div className="flex gap-1 items-center justify-between">
                 <div
-                  className="min-w-6 min-h-6 md:min-h-7 md:min-w-7 border-2 border-gray-200 rounded"
+                  className="min-w-7 min-h-7 md:min-h-8 md:min-w-8 border-2 
+                  dark:border-gray-500 border-gray-200 rounded"
                   style={{ backgroundColor: color }}
                 ></div>
                 <input
                   type="text"
-                  className="w-full flex-1"
+                  className="border-2 rounded block w-full
+                   border-gray-200 dark:border-gray-500 px-2 p-1 
+                   text-sm md:text-base
+                  focus:outline-none 
+                  dark:bg-[#3a3a3a] dark:hover:bg-[#3a3a3a]"
                   value={color}
                   placeholder="#000000"
                   onChange={(e) => handleChange(e.target.value)}
                 />
                 <button
                   type="button"
-                  className="block color-button bg-gray-200 text-xl 
-                  dark:bg-[#4a4e53] dark:active:bg-gray-950 dark:hover:bg-gray-500 dark:hover:text-white"
+                  className="color-button bg-gray-200 text-xl 
+                  dark:bg-[#3f3f3f] dark:active:bg-gray-950 dark:hover:bg-gray-500 dark:hover:text-white"
                   onClick={() => setIsSelecting((prev) => !prev)}
                 >
                   <TbX />
@@ -199,12 +204,14 @@ const ManageCategory = ({ close, action, category, tempList, setTempList }) => {
               </div>
             </div>
           ) : (
-            <menu className="color-menu py-1 overflow-x-auto md:py-0 md:overflow-x-visible">
+            <menu className="color-menu scrollbar-hide">
               {colors.map((item, index) => (
                 <li key={item}>
                   <button
                     className={
-                      item === color ? "border-2 border-amber-800" : ""
+                      item === color
+                        ? "border-2 border-amber-800 dark:border-gray-500"
+                        : "border-transparent border-2"
                     }
                     type="button"
                     style={{ backgroundColor: item }}
@@ -216,7 +223,7 @@ const ManageCategory = ({ close, action, category, tempList, setTempList }) => {
                 <button
                   type="button"
                   className="bg-gray-200
-                  dark:bg-[#4a4e53] dark:active:bg-gray-950 dark:hover:bg-gray-500 dark:hover:text-white"
+                  dark:bg-[#3f3f3f] dark:active:bg-gray-950 dark:hover:bg-gray-500 dark:hover:text-white"
                   onClick={() => setIsSelecting((prev) => !prev)}
                 >
                   <TbPlus />

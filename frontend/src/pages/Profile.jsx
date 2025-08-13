@@ -32,7 +32,7 @@ const Profile = () => {
         transition={{ duration: 0.5 }}
         className="overflow-hidden"
       >
-        <main className="flex flex-col md:max-w-[50%] mx-auto dark:bg-[#28292a] rounded">
+        <main className="flex flex-col mx-2 md:max-w-[50%] md:mx-auto bg-gray-100 dark:bg-[#28292a] rounded">
           <title>
             {`Budgetarians' Log - ${userInfo ? userInfo.name : "User Name"}`}
           </title>

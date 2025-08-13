@@ -35,7 +35,7 @@ const ExpenseList = ({ props }) => {
   });
 
   return (
-    <section className="log-section-container md:relative dark:bg-[#28292a]">
+    <section className="log-section-container md:relative dark:bg-[#1f1f1f]">
       <ExpenseListUIHandler
         activeUI={activeUI}
         setActiveUi={setActiveUI}
@@ -70,7 +70,7 @@ const ExpenseList = ({ props }) => {
       {filteredList.length < 1 ? (
         <NoRecords />
       ) : (
-        <div className="relative mt-1 dark:bg-[#28292a]">
+        <div className="rounded relative py-2 dark:bg-[#1f1f1f]">
           {filteredList
             .sort((a, b) => new Date(b.date) - new Date(a.date))
             .map((entry, index) => (

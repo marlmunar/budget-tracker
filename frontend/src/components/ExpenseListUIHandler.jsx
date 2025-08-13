@@ -34,8 +34,16 @@ const ExpenseListUIHandler = ({ activeUI, setActiveUi, props }) => {
   return (
     <>
       {activeUI && (
-        <div className="top-0 right-0 absolute h-full w-full bg-gray-300/75 dark:bg-gray-800/75 z-10 md:sticky">
-          <div className="sticky bottom-0 md:static m-2 mx-4 md:m-0 top-[20%]">
+        <div
+          className="top-0 right-0 
+          absolute h-full w-full
+        bg-gray-300/75
+        dark:bg-gray-800/75 z-10 md:sticky"
+        >
+          <div
+            className="sticky bottom-0 md:static
+             mx-4 md:mx-auto top-[20%] bg-gray-500"
+          >
             <OutsideClick onOutsideClick={() => setActiveUi("")}>
               {getUI()}
             </OutsideClick>
