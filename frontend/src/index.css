@@ -136,7 +136,7 @@ h3 {
 
 @theme {
   --font-outfit: "Outfit", sans-serif;
-  --breakpoint-bsm: 425px;
+  --breakpoint-bsm: 500px;
 }
 
 .hero {
