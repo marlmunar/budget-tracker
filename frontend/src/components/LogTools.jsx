@@ -76,7 +76,7 @@ const LogTools = ({ searchState, setSearchState }) => {
           </div>
         </>
       ) : (
-        <div className="absolute flex gap-2 top-5 right-4 md:top-4 md:right-4">
+        <div className="absolute flex gap-2 top-5 right-10 md:top-4 md:right-4">
           <button
             className="hidden md:flex log-button-2 min-w-10 min-h-10 md:min-w-[6.5rem] max-h-10"
             onClick={() =>
