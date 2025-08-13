@@ -5,7 +5,8 @@ const grades = [
   { min: 70, max: 79, label: "Excellent" },
   { min: 60, max: 69, label: "Very Good" },
   { min: 50, max: 59, label: "Good" },
-  { min: 0, max: 49, label: "Beginner" },
+  { min: 15, max: 49, label: "Decent" },
+  { min: 0, max: 14, label: "Poor" },
 ];
 
 const Grade = ({ totalData }) => {

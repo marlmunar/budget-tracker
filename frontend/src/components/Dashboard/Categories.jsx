@@ -17,8 +17,10 @@ const Categories = ({ distribution }) => {
                 <div className="flex flex-col">
                   <span className="text-sm">{entry.category.name}</span>
                   <div className="text-xs text-gray-500 space-x-1">
-                    <span>{entry.percent}%</span>
                     <span>{entry.category.type}</span>
+                    <span>
+                      {entry.percent > 0.05 ? entry.percent : "< 0.05"}%
+                    </span>
                   </div>
                 </div>
               </div>
