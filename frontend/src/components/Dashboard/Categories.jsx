@@ -4,7 +4,7 @@ const Categories = ({ distribution }) => {
   return (
     <section className="bg-white h-32 w-full rounded p-4">
       <h3 className="text-lg font-semibold">Categories</h3>
-      <div className="flex *:w-full gap-1">
+      <div className="grid grid-cols-4 *:w-full gap-1">
         {distribution.length > 0 ? (
           distribution
             .sort((a, b) => b.total - a.total)
@@ -15,7 +15,7 @@ const Categories = ({ distribution }) => {
                   className="h-8 w-8 rounded"
                 ></div>
                 <div className="flex flex-col">
-                  <span>{entry.category.name}</span>
+                  <span className="text-sm">{entry.category.name}</span>
                   <div className="text-xs text-gray-500 space-x-1">
                     <span>{entry.percent}%</span>
                     <span>{entry.category.type}</span>
