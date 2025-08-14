@@ -100,7 +100,7 @@ const DefaultCategories = ({ closeModal }) => {
         {tempList.map((cat, index) => (
           <li key={index} className="modal-input-container">
             <div
-              className="flex items-center justify-between p-1 px-2 rounded w-full min-h-10 text-sm md:text-base"
+              className="flex items-center justify-between p-1 px-2 rounded w-full min-h-10 dark:text-[#565656] text-sm md:text-base"
               style={{ backgroundColor: cat.color }}
             >
               {cat.name}
