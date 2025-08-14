@@ -59,7 +59,7 @@ const Logs = ({}) => {
   }, [lastAction]);
 
   return (
-    <main className="px-1 md:px-6 lg:px-10 h-full lg:w-[60%] mx-auto">
+    <main className="px-1 md:px-6 lg:px-10 h-full lg:w-[95%] xl:w-[70%] mx-auto">
       <section className="flex flex-col shadow rounded h-full bg-gray-200 dark:bg-[#28292a]">
         <div className="md:relative">
           <div

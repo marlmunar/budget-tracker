@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   isLoggingIn: false,
-  grade: "Beginner",
   logPreferences: localStorage.getItem("logPreferences")
     ? JSON.parse(localStorage.getItem("logPreferences"))
     : {
@@ -49,9 +48,7 @@ const userSlice = createSlice({
     setIsLoggingIn(state, action) {
       state.isLoggingIn = action.payload;
     },
-    setGrade(state, action) {
-      state.grade = action.payload;
-    },
+
     setPreferences: (state, action) => {
       state.logPreferences = action.payload;
       localStorage.setItem("logPreferences", JSON.stringify(action.payload));
@@ -64,5 +61,5 @@ const userSlice = createSlice({
 });
 
 export default userSlice.reducer;
-export const { setIsLoggingIn, setGrade, setPreferences, clearPreferences } =
+export const { setIsLoggingIn, setPreferences, clearPreferences } =
   userSlice.actions;
