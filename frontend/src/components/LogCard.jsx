@@ -23,13 +23,12 @@ const LogCard = ({ logName, logStats, logId, logData }) => {
           activeModal: "logExpired",
           modalData: {
             endDate: logData.endDate.split("T")[0],
-            name: logName,
-            type: "log",
-            id: logId,
+            objData: { name: logName, type: "log", id: logId },
           },
         })
       );
     }
+    navigate(`/log/${logId}`);
   };
 
   return (
