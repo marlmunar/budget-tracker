@@ -158,19 +158,24 @@ const Distribution = ({
 
       {isFiltering && (
         <div
-          className="text-xs md:text-sm m-2
-        absolute flex flex-col p-1 md:p-2 rounded 
-        top-7 right-0 md:top-12 md:right-4 gap-1
-        bg-gray-50 dark:bg-[#222222] w-[calc(100%-1rem)]"
+          className="text-xs md:text-sm 
+          p-2 mx-2 md:mx-3 lg:mx-4
+          absolute rounded 
+          flex flex-col gap-1 
+          top-9 right-0 md:top-10 lg:top-11 
+          bg-gray-50 dark:bg-[#222222] 
+          w-[calc(100%-0.9rem)] 
+          md:w-[calc(100%-1.4rem)]
+          lg:w-[calc(100%-1.9rem)]"
         >
           <h3 className="font-semibold text-sm md:text-base">Apply Filters</h3>
-          <div className="flex flex-col md:flex-row justify-between gap-1">
+          <div className="flex flex-col lg:flex-row justify-between gap-1 *:w-full">
             <div
-              className="max-h-8 flex justify-between gap-1 min-w-[10rem] md:min-w-[8.5rem] p-1
+              className="max-h-8 flex justify-between gap-1 min-w-[10rem] lg:min-w-[8.5rem] p-1
              bg-slate-200 rounded dark:bg-[#474747]"
             >
               <p>Month:</p>
-              <div className="bg-slate-100 max-w-45 md:max-w-none w-full px-1 rounded relative dark:bg-[#313131]">
+              <div className="bg-slate-100 max-w-45 lg:max-w-none w-full px-1 rounded relative dark:bg-[#313131]">
                 <div
                   className="flex justify-between gap-1 *:pointer-events-none relative"
                   onClick={() => setIsSelectingMonth((prev) => !prev)}
@@ -212,15 +217,17 @@ const Distribution = ({
                 )}
               </div>
             </div>
-            <div className="max-h-8 flex justify-between gap-1 md:min-w-[18rem] p-1 bg-slate-200 rounded dark:bg-[#474747]">
+            <div className="max-h-8 flex justify-between gap-1 lg:min-w-[16rem] p-1 bg-slate-200 rounded dark:bg-[#474747]">
               <p className="text-nowrap">Selected Logs:</p>
-              <div className="bg-slate-100 max-w-45 md:max-w-none w-full px-1 rounded relative dark:bg-[#313131]">
+              <div className="bg-slate-100 max-w-45 lg:max-w-none w-full px-1 rounded relative dark:bg-[#313131]">
                 <div
                   className="flex justify-between gap-1 *:pointer-events-none relative"
                   onClick={() => setIsSelectingLogs((prev) => !prev)}
                   data-id="filterLogs"
                 >
-                  <p className="max-w-[14ch]">{getSelectedLogs()}</p>
+                  <p className="max-w-[20ch] lg:max-w-[14ch] xl:max-w-[16ch] truncate">
+                    {getSelectedLogs()}
+                  </p>
                   <button>
                     {isSelectingLogs ? (
                       <TbCaretUpFilled />
@@ -267,7 +274,11 @@ const Distribution = ({
                               <TbSquare className="text-slate-300" />
                             )}
                           </div>
-                          <li>{log}</li>
+                          <li>
+                            <p className="max-w-[18ch] md:max-w-[16ch] lg:max-w-[12ch] xl:max-w-[16ch] truncate">
+                              {log}
+                            </p>
+                          </li>
                         </div>
                       ))}
 

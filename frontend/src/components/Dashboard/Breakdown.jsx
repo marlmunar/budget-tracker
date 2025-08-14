@@ -93,7 +93,10 @@ const Breakdown = ({ distribution, totalData }) => {
           </p>
           <div className="grid bsm:grid-cols-2 md:grid-cols-1 lg:grid-rows-4 lg:grid-cols-1 gap-1 *:min-h-[3rem] *:lg:min-h-[3.45rem] *:p-1 *:w-full *:rounded">
             {getTopExpenses().map((entry, index) => (
-              <div className="bg-gray-100 dark:bg-[#222222] flex gap-1 items-center">
+              <div
+                key={index}
+                className="bg-gray-100 dark:bg-[#222222] flex gap-1 items-center"
+              >
                 <div className="bg-white dark:bg-[#3a3a3a] h-full flex flex-col flex-1 justify-center rounded px-1">
                   <div className="flex items-center gap-1">
                     <div
@@ -130,7 +133,10 @@ const Breakdown = ({ distribution, totalData }) => {
           </p>
           <div className="grid bsm:grid-cols-2 md:grid-cols-1 lg:grid-rows-4 lg:grid-cols-1 gap-1 *:min-h-[3rem] *:lg:min-h-[3.45rem] *:p-1 *:w-full *:rounded">
             {getTopIncomes().map((entry, index) => (
-              <div className="bg-gray-100 dark:bg-[#222222] flex gap-1 items-center">
+              <div
+                key={index}
+                className="bg-gray-100 dark:bg-[#222222] flex gap-1 items-center"
+              >
                 <div className="bg-white dark:bg-[#3a3a3a] h-full flex flex-col flex-1 justify-center rounded px-1">
                   <div className="flex items-center gap-1">
                     <div
