@@ -16,8 +16,11 @@ const DeleteEntryConfirm = ({ closeUI, props }) => {
     dispatch(setIsNotSaved(true));
   };
 
+  const { logPreferences } = useSelector((state) => state.user);
+
   const formatNumber = (value) => {
-    if (!value) return "0";
+    const currency = logPreferences.currency;
+    if (!value) return `${currency} 0.00`;
 
     const [integerPart, decimalPart] = value.toString().split(".");
 
@@ -25,7 +28,9 @@ const DeleteEntryConfirm = ({ closeUI, props }) => {
 
     const trimmedDecimal = decimalPart ? decimalPart.slice(0, 4) : "";
 
-    return trimmedDecimal ? `${formattedInt}.${trimmedDecimal}` : formattedInt;
+    return `${currency} ${
+      trimmedDecimal ? formattedInt.trimmedDecimal : formattedInt
+    }`;
   };
 
   return (
@@ -51,9 +56,7 @@ const DeleteEntryConfirm = ({ closeUI, props }) => {
       <div className="p-4 ">
         <p className="px-1">This will delete this entry:</p>
         <div className="flex flex-col shadow dark:shadow-slate-800 rounded p-2 mt-1 shadow-slate-300">
-          <p className="font-semibold text-xl">
-            PHP {formatNumber(entry.amount)}
-          </p>
+          <p className="font-semibold text-xl">{formatNumber(entry.amount)}</p>
           <div className="flex gap-2">
             <p> {entry.expense}</p>
             <p> {entry.category.name}</p>

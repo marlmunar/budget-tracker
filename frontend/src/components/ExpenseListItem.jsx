@@ -1,4 +1,5 @@
 import { TbTrash, TbEdit } from "react-icons/tb";
+import { useSelector } from "react-redux";
 
 const ExpenseListItem = ({
   expense,
@@ -8,8 +9,11 @@ const ExpenseListItem = ({
   setEntry,
   setActiveUI,
 }) => {
+  const { logPreferences } = useSelector((state) => state.user);
+
   const formatNumber = (value) => {
-    if (!value) return "0";
+    const currency = logPreferences.currency;
+    if (!value) return `${currency} 0.00`;
 
     const [integerPart, decimalPart] = value.toString().split(".");
 
@@ -17,7 +21,9 @@ const ExpenseListItem = ({
 
     const trimmedDecimal = decimalPart ? decimalPart.slice(0, 4) : "";
 
-    return trimmedDecimal ? `${formattedInt}.${trimmedDecimal}` : formattedInt;
+    return `${currency} ${
+      trimmedDecimal ? formattedInt.trimmedDecimal : formattedInt
+    }`;
   };
 
   return (
@@ -31,9 +37,7 @@ const ExpenseListItem = ({
       "
     >
       <div className="mb-1 my-2">
-        <p className="md:text-lg font-semibold my-1">
-          PHP {formatNumber(amount)}
-        </p>
+        <p className="md:text-lg font-semibold my-1">{formatNumber(amount)}</p>
         <p className="text-[0.625rem] md:text-[0.7rem]">{timeStamps}</p>
       </div>
       <div className="text-xs md:text-base flex items-start gap-2 col-span-2">

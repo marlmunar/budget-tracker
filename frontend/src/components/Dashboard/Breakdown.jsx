@@ -1,8 +1,12 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
 const Breakdown = ({ distribution, totalData }) => {
+  const { logPreferences } = useSelector((state) => state.user);
+
   const formatNumber = (value) => {
-    if (!value) return "PHP 0.00";
+    const currency = logPreferences.currency;
+    if (!value) return `${currency} 0.00`;
 
     const [integerPart, decimalPart] = value.toString().split(".");
 
@@ -10,7 +14,9 @@ const Breakdown = ({ distribution, totalData }) => {
 
     const trimmedDecimal = decimalPart ? decimalPart.slice(0, 4) : "";
 
-    return `PHP ${trimmedDecimal ? formattedInt.trimmedDecimal : formattedInt}`;
+    return `${currency} ${
+      trimmedDecimal ? formattedInt.trimmedDecimal : formattedInt
+    }`;
   };
 
   const getTopExpenses = () => {
