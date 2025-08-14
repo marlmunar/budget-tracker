@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { TbDotsVertical, TbPencil, TbTrash, TbX } from "react-icons/tb";
 import { useState } from "react";
 import OutsideClick from "./OutsideClick";
@@ -7,11 +7,29 @@ import { setModalState } from "../slices/appSlice";
 
 const LogCard = ({ logName, logStats, logId, logData }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [isSelecting, setIsSelecting] = useState(false);
   const logTypes = {
     1: "General Tracker",
     2: "Saving Goal",
     3: "Budget with Deadline",
+  };
+
+  const handleNavigate = () => {
+    if (logData.endDate && new Date() > new Date(logData.endDate)) {
+      return dispatch(
+        setModalState({
+          showModal: true,
+          activeModal: "logExpired",
+          modalData: {
+            endDate: logData.endDate.split("T")[0],
+            name: logName,
+            type: "log",
+            id: logId,
+          },
+        })
+      );
+    }
   };
 
   return (
@@ -25,14 +43,17 @@ const LogCard = ({ logName, logStats, logId, logData }) => {
         <div className="flex flex-col gap-1 ">
           <div className="flex p-1 justify-between">
             <div className="grow flex flex-col gap-2">
-              <Link
-                to={`/log/${logId}`}
+              <div
+                onClick={handleNavigate}
                 className="block text-sm px-1 mx-h-[min-content] md:text-xl"
               >
                 <p className="font-semibold mb-1">{logName}</p>
                 <div className="flex flex-col text-[0.75rem] md:text-sm text-gray-800 dark:text-[#f0f0f0]">
                   <p className="text-[0.65rem] md:text-[0.70rem]">
                     {logStats.lastEdited}
+                    {logData.endDate
+                      ? ` - ${logData.endDate.split("T")[0]}`
+                      : ""}
                   </p>
                   <p>{logTypes[logData.type]}</p>
                   <p>
@@ -41,7 +62,7 @@ const LogCard = ({ logName, logStats, logId, logData }) => {
                     }`}
                   </p>
                 </div>
-              </Link>
+              </div>
             </div>
 
             <OutsideClick

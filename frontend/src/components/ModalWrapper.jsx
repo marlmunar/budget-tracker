@@ -17,6 +17,7 @@ import ConfirmLogout from "./Modals/ConfirmLogout";
 import UpdatePassword from "./Modals/UpdatePassword";
 import SelectCurrency from "./Modals/SelectCurrency";
 import DefaultCategories from "./Modals/DefaultCategories";
+import LogExpired from "./Modals/LogExpired";
 
 const ModalWrapper = () => {
   const dispatch = useDispatch();
@@ -87,6 +88,7 @@ const ModalWrapper = () => {
     updatePassword: <UpdatePassword closeModal={closeModal} />,
     selectCurrency: <SelectCurrency closeModal={closeModal} />,
     defaultCategories: <DefaultCategories closeModal={closeModal} />,
+    logExpired: <LogExpired closeModal={closeModal} resource={modalData} />,
   };
 
   const getModal = () => modals[activeModal] || null;
@@ -102,6 +104,7 @@ const ModalWrapper = () => {
     updatePassword: "Update Password",
     selectCurrency: "Select Currency",
     defaultCategories: "Manage Default Categories",
+    logExpired: "Log Expired",
   };
 
   const getModalTitle = () => titles[activeModal] || null;
@@ -122,21 +125,6 @@ const ModalWrapper = () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, [showModal]);
-
-  // useEffect(() => {
-  //   const offset = 200;
-  //   const element = scrollToRef.current;
-
-  //   if (element) {
-  //     const topPosition =
-  //       element.getBoundingClientRect().top + window.scrollY - offset;
-
-  //     window.scrollTo({
-  //       top: topPosition,
-  //       behavior: "smooth",
-  //     });
-  //   }
-  // }, [showModal]);
 
   return (
     <>
