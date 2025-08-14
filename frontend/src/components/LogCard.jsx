@@ -22,7 +22,7 @@ const LogCard = ({ logName, logStats, logId, logData }) => {
           showModal: true,
           activeModal: "logExpired",
           modalData: {
-            endDate: logData.endDate.split("T")[0],
+            logData,
             objData: { name: logName, type: "log", id: logId },
           },
         })

@@ -1,20 +1,38 @@
 import React, { useState } from "react";
+import { useUpdateLogMutation } from "../../slices/logsApiSlice";
+import { setLastAction } from "../../slices/appSlice";
+import { useDispatch } from "react-redux";
 
-const UpdateExpiry = ({ closeModal, name, id }) => {
+const UpdateExpiry = ({ closeModal, name, id, logData }) => {
+  const dispatch = useDispatch();
   const [endDate, setEndDate] = useState("");
   const [error, setError] = useState("");
+  const [updateLog] = useUpdateLogMutation();
 
   const isValidDate = (value) => {
     const today = new Date();
     return value > today;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!endDate) return setError("Please select a date");
     if (!isValidDate(new Date(endDate)))
       return setError("Please use an upcoming date");
+
+    try {
+      const res = await updateLog({
+        id,
+        data: { logData: { ...logData, endDate } },
+      }).unwrap();
+
+      closeModal();
+      dispatch(setLastAction(Date.now()));
+    } catch (error) {
+      const errorMsg = error?.data?.message || error.message;
+      setError(errorMsg);
+    }
   };
 
   return (

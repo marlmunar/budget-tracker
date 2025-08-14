@@ -4,13 +4,12 @@ import { setModalState } from "../../slices/appSlice";
 
 const LogExpired = ({ closeModal, resource }) => {
   const dispatch = useDispatch();
-  const modalData = { ...resource.objData };
-  console.log(modalData);
+  const endDate = resource.logData.endDate.split("T")[0];
 
   return (
     <form className="modal-form">
       <div className="modal-input-container">
-        <p>This log has already ended on {resource.endDate}.</p>
+        <p>This log has already ended on {endDate}.</p>
         <p>Choose what to do with it:</p>
       </div>
       <div className="self-end flex gap-2">
@@ -22,7 +21,11 @@ const LogExpired = ({ closeModal, resource }) => {
               setModalState({
                 showModal: true,
                 activeModal: "updateExpiry",
-                modalData,
+                modalData: {
+                  logData: resource.logData,
+                  name: resource.objData.name,
+                  id: resource.objData.id,
+                },
               })
             );
           }}
@@ -37,7 +40,7 @@ const LogExpired = ({ closeModal, resource }) => {
               setModalState({
                 showModal: true,
                 activeModal: "delete",
-                modalData,
+                modalData: { ...resource.objData },
               })
             );
           }}

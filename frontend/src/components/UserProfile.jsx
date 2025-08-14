@@ -1,9 +1,7 @@
-import { TbSettings, TbEdit } from "react-icons/tb";
+import { TbEdit } from "react-icons/tb";
 import { useState } from "react";
 import { useUpdateMutation } from "../slices/userApiSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { setCredentials } from "../slices/authSlice";
-import { Link } from "react-router-dom";
 import { setModalState } from "../slices/appSlice";
 
 const UserProfile = ({ userLogs }) => {
@@ -13,19 +11,6 @@ const UserProfile = ({ userLogs }) => {
   const [updateProfile, { isLoading }] = useUpdateMutation();
   const [isRenaming, setIsRenaming] = useState(false);
   const [userName, setUserName] = useState(userInfo.name);
-
-  // const editHandler = async (tempName) => {
-  //   let name = tempName;
-  //   try {
-  //     const res = await updateProfile({
-  //       name,
-  //     }).unwrap();
-  //     dispatch(setCredentials({ ...res }));
-  //     console.log(res);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
 
   return (
     <section className="mt-2 flex flex-col bg-gray-50 border-2 mx-2 dark:bg-[#2f2f2f] dark:border-[#4a4e53] border-slate-300 gap-1 items-start rounded p-4 max-h-[min-content]">

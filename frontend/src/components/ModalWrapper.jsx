@@ -95,6 +95,7 @@ const ModalWrapper = () => {
         closeModal={closeModal}
         name={modalData.name}
         id={modalData.id}
+        logData={modalData.logData}
       />
     ),
   };
