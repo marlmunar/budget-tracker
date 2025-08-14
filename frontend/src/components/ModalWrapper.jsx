@@ -18,6 +18,7 @@ import UpdatePassword from "./Modals/UpdatePassword";
 import SelectCurrency from "./Modals/SelectCurrency";
 import DefaultCategories from "./Modals/DefaultCategories";
 import LogExpired from "./Modals/LogExpired";
+import UpdateExpiry from "./Modals/UpdateExpiry";
 
 const ModalWrapper = () => {
   const dispatch = useDispatch();
@@ -89,6 +90,13 @@ const ModalWrapper = () => {
     selectCurrency: <SelectCurrency closeModal={closeModal} />,
     defaultCategories: <DefaultCategories closeModal={closeModal} />,
     logExpired: <LogExpired closeModal={closeModal} resource={modalData} />,
+    updateExpiry: (
+      <UpdateExpiry
+        closeModal={closeModal}
+        name={modalData.name}
+        id={modalData.id}
+      />
+    ),
   };
 
   const getModal = () => modals[activeModal] || null;
@@ -105,6 +113,7 @@ const ModalWrapper = () => {
     selectCurrency: "Select Currency",
     defaultCategories: "Manage Default Categories",
     logExpired: "Log Expired",
+    updateExpiry: "Update End Date",
   };
 
   const getModalTitle = () => titles[activeModal] || null;

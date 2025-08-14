@@ -98,7 +98,7 @@ const UpdatePassword = ({ closeModal }) => {
         </div>
       </div>
       {error && (
-        <div className="ml-1 text-left mt-1 text-red-500 dark:text-red-400 text-sm">
+        <div className="ml-1 text-left mt-1 text-red-500 dark:text-red-300 text-sm">
           {error}
         </div>
       )}

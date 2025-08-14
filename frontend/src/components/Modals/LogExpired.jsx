@@ -17,7 +17,15 @@ const LogExpired = ({ closeModal, resource }) => {
         <button
           type="button"
           className="modal-action-button"
-          onClick={() => {}}
+          onClick={() => {
+            dispatch(
+              setModalState({
+                showModal: true,
+                activeModal: "updateExpiry",
+                modalData,
+              })
+            );
+          }}
         >
           Update
         </button>
