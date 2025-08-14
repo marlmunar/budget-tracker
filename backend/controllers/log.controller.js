@@ -69,6 +69,7 @@ const updateLog = asyncHandler(async (req, res) => {
   log.name = req.body.name ?? log.name;
   log.categories = req.body.categories ?? log.categories;
   log.entries = req.body.entries ?? log.entries;
+  log.logData = req.body.logData ?? log.logData;
 
   const updatedLog = await log.save();
 
