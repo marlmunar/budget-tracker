@@ -21,10 +21,7 @@ const ExpenseSummaryItem = ({
         setDisplayReload(true);
       }}
     >
-      <p
-        className="text-xs md:text-sm font-semibold  
-        w-[45%] p-1 rounded"
-      >
+      <p className="text-xs md:text-sm font-semibold p-1 rounded w-full">
         {category.name}
       </p>
       <div className="flex text-xs md:text-sm justify-between w-full bg-white dark:bg-[#2f2f2f] dark:text-[#f0f0f0] rounded p-1">

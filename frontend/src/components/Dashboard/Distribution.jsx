@@ -324,7 +324,9 @@ const Distribution = ({
           >
             <span className="text-lg md:text-4xl">{month}</span>
             <div className="text-xs md:text-sm space-x-1 text-gray-800 dark:text-[#bababa]">
-              <span>{getSelectedLogs()}</span>
+              <p className="max-w-[18ch] md:max-w-[16ch] lg:max-w-[12ch] xl:max-w-[16ch] truncate">
+                {getSelectedLogs()}
+              </p>
             </div>
           </div>
         </div>

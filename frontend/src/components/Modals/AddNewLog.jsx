@@ -132,7 +132,7 @@ const AddNewLog = ({ closeModal }) => {
             <div className="modal-input-container">
               <p>Choose a log type</p>
             </div>
-            <menu className="flex flex-col md:flex-row gap-2 w-[84vw] lg:w-[55vw]">
+            <menu className="flex flex-col md:flex-row gap-2 w-[84vw] lg:w-[80vw] xl:w-[50vw]">
               <button
                 className="log-type-button"
                 type="button"

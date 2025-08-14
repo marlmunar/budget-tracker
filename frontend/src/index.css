@@ -552,7 +552,7 @@ menu li {
 }
 
 .modal-input-container {
-  @apply lg:min-w-[25vw] min-w-[60vw] space-y-2 dark:text-[#fefefe];
+  @apply xl:min-w-[25vw] lg:min-w-[35vw] min-w-[60vw] space-y-2 dark:text-[#fefefe];
 }
 
 .modal-input-container > label,
