@@ -83,17 +83,18 @@ const LogScreen = () => {
   }, [isNotSaved, lastAction]);
 
   const handleDownload = async () => {
-    if (import.meta.env.MODE === "development") return setDisplayDownload(true);
+    if (logData.entries.length < 1) return;
+    // if (import.meta.env.MODE === "development") return setDisplayDownload(true);
 
-    // try {
-    //   dispatch(startLoading());
-    //   await downloadLog({ logId, fileName: logData.name }).unwrap();
-    // } catch (error) {
-    //   setError(error?.data?.message || error.message);
-    // } finally {
-    //   dispatch(stopLoading());
-    //   setTimeout(() => setError(""), 2000);
-    // }
+    try {
+      dispatch(startLoading());
+      await downloadLog({ logId, fileName: logData.name }).unwrap();
+    } catch (error) {
+      setError(error?.data?.message || error.message);
+    } finally {
+      dispatch(stopLoading());
+      setTimeout(() => setError(""), 2000);
+    }
   };
 
   return (
@@ -107,7 +108,11 @@ const LogScreen = () => {
 
       <LogScreenHeader logData={logData} handleDownload={handleDownload} />
       {displayDownload ? (
-        <ExcelViewer logId={logId} fileName={logData.name} />
+        <ExcelViewer
+          logId={logId}
+          fileName={logData.name}
+          setDisplayDownload={setDisplayDownload}
+        />
       ) : (
         <div className="h-full relative">
           <div

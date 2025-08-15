@@ -4,7 +4,7 @@ import { useDownloadLogMutation } from "../slices/logsApiSlice";
 import { useDispatch } from "react-redux";
 import { startLoading, stopLoading } from "../slices/appSlice";
 
-const ExcelViewer = ({ logId, fileName }) => {
+const ExcelViewer = ({ logId, fileName, setDisplayDownload }) => {
   const dispatch = useDispatch();
   const [downloadLog] = useDownloadLogMutation();
   const [blob, setBlob] = useState(null);
@@ -31,6 +31,7 @@ const ExcelViewer = ({ logId, fileName }) => {
         setBlob(res);
       } catch (error) {
         console.error("Error fetching data:", error);
+        setDisplayDownload(false);
       } finally {
         dispatch(stopLoading());
       }

@@ -15,28 +15,30 @@ const formatHeader = (sheet) => {
   });
 };
 
-const lockSheet = async (sheet, lockedRowCount = 1) => {
-  sheet.eachRow((row) =>
-    row.eachCell((cell) => {
+const lockSheet = async (
+  sheet,
+  lockedRowCount = 1,
+  maxRows = 1500,
+  maxCols = 30
+) => {
+  for (let i = 1; i <= maxRows; i++) {
+    const row = sheet.getRow(i);
+    for (let j = 1; j <= maxCols; j++) {
+      const cell = row.getCell(j);
       cell.protection = { locked: false };
-    })
-  );
+    }
+  }
 
   for (let i = 1; i <= lockedRowCount; i++) {
     const row = sheet.getRow(i);
-    row.eachCell((cell) => (cell.protection = { locked: true }));
+    row.eachCell({ includeEmpty: true }, (cell) => {
+      cell.protection = { locked: true };
+    });
   }
 
   await sheet.protect("", {
     selectLockedCells: true,
     selectUnlockedCells: true,
-    formatCells: false,
-    formatColumns: false,
-    formatRows: false,
-    insertColumns: false,
-    insertRows: false,
-    deleteColumns: false,
-    deleteRows: false,
   });
 };
 
@@ -144,16 +146,36 @@ const getLogData = (workbook, log) => {
   formatHeader(sheet);
 
   Object.keys(log.logData).forEach((key) => {
-    sheet.addRow({
-      key,
-      value: log.logData[key] ?? "No Data",
-    });
+    sheet
+      .addRow({
+        key,
+        value: log.logData[key] ?? "No Data",
+      })
+      .getCell("value").alignment = { horizontal: "right" };
   });
 
   const lastRow = sheet.addRow([]);
-  sheet.mergeCells(`A${lastRow.number}:D${lastRow.number}`);
-  sheet.getCell(`A${lastRow.number}`).value =
+  lastRow.height = 40;
+  sheet.mergeCells(`A${lastRow.number}:B${lastRow.number}`);
+  const cell = sheet.getCell(`A${lastRow.number}`);
+  cell.value =
     "Caution: Editing the values in this tab may lead to unwanted app behavior.";
+
+  cell.fill = {
+    type: "pattern",
+    pattern: "solid",
+    fgColor: { argb: "FFFFFF00" },
+  };
+
+  cell.font = {
+    italic: true,
+  };
+
+  cell.alignment = {
+    vertical: "middle",
+    horizontal: "center",
+    wrapText: true,
+  };
 
   return sheet;
 };

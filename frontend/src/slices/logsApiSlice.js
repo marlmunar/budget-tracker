@@ -45,32 +45,49 @@ export const logsApiSlice = apiSlice.injectEndpoints({
         _extraOptions,
         fetchWithBQ
       ) => {
-        const result = await fetchWithBQ({
-          url: `${LOGS_URL}/download/${logId}`,
-          method: "GET",
-          responseHandler: (res) => res.blob(),
-        });
+        try {
+          const result = await fetchWithBQ({
+            url: `${LOGS_URL}/download/${logId}`,
+            method: "GET",
+            responseHandler: (res) => res.blob(),
+          });
 
-        if (result.error) return { error: result.error };
+          if (result.error) {
+            return { error: result.error, data: null };
+          }
 
-        const blob = result.data;
+          const blob = result.data;
 
-        if (!renderOnly) {
-          const blobUrl = URL.createObjectURL(blob);
-          const a = document.createElement("a");
-          a.href = blobUrl;
-          a.download = `${fileName}.xlsx`;
-          document.body.appendChild(a);
-          a.click();
-          a.remove();
-          URL.revokeObjectURL(blobUrl);
-          return { data: null };
+          if (!(blob instanceof Blob) || blob.size === 0) {
+            return {
+              error: { message: "Invalid or empty file received" },
+              data: null,
+            };
+          }
+
+          if (!renderOnly) {
+            const blobUrl = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = blobUrl;
+            a.download = `${fileName}.xlsx`;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            URL.revokeObjectURL(blobUrl);
+            return { data: null };
+          }
+
+          const base64Data = await blobToBase64(blob);
+          return { data: base64Data };
+        } catch (err) {
+          return {
+            error: { message: err.message || "Unknown error occurred" },
+            data: null,
+          };
         }
-
-        const base64Data = await blobToBase64(blob);
-        return { data: base64Data };
       },
     }),
+
     importLog: builder.mutation({
       query: (formData) => ({
         url: `${LOGS_URL}/import`,
