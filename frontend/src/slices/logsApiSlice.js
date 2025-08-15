@@ -1,6 +1,15 @@
 import { apiSlice } from "./apiSlice";
 const LOGS_URL = "/logs";
 
+const blobToBase64 = (blob) => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onloadend = () => resolve(reader.result);
+    reader.onerror = reject;
+    reader.readAsDataURL(blob);
+  });
+};
+
 export const logsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getLogs: builder.query({
@@ -55,13 +64,13 @@ export const logsApiSlice = apiSlice.injectEndpoints({
           a.click();
           a.remove();
           URL.revokeObjectURL(blobUrl);
+          return { data: null };
         }
 
-        // return null to avoid storing blob in Redux
-        return { data: null };
+        const base64Data = await blobToBase64(blob);
+        return { data: base64Data };
       },
     }),
-
     importLog: builder.mutation({
       query: (formData) => ({
         url: `${LOGS_URL}/import`,

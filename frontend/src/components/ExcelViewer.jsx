@@ -9,6 +9,16 @@ const ExcelViewer = ({ logId, fileName }) => {
   const [downloadLog] = useDownloadLogMutation();
   const [blob, setBlob] = useState(null);
 
+  const base64ToArrayBuffer = (base64) => {
+    const binaryString = atob(base64.split(",")[1]);
+    const len = binaryString.length;
+    const bytes = new Uint8Array(len);
+    for (let i = 0; i < len; i++) {
+      bytes[i] = binaryString.charCodeAt(i);
+    }
+    return bytes.buffer;
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -25,36 +35,72 @@ const ExcelViewer = ({ logId, fileName }) => {
         dispatch(stopLoading());
       }
     };
-
     fetchData();
-  }, [logId, downloadLog]);
+  }, [logId, downloadLog, fileName, dispatch]);
 
-  const [tableData, setTableData] = useState([]);
+  const [sheets, setSheets] = useState({});
+  const [selectedSheet, setSelectedSheet] = useState("");
 
   useEffect(() => {
     if (!blob) return;
     (async () => {
-      const arrayBuffer = await blob.arrayBuffer();
+      const arrayBuffer = base64ToArrayBuffer(blob);
       const workbook = XLSX.read(arrayBuffer, { type: "array" });
-      const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
-      const data = XLSX.utils.sheet_to_json(firstSheet, { header: 1 });
-      setTableData(data);
+      const allSheetsData = {};
+
+      workbook.SheetNames.forEach((sheetName) => {
+        const sheet = workbook.Sheets[sheetName];
+        const data = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+        allSheetsData[sheetName] = data;
+      });
+
+      setSheets(allSheetsData);
+
+      // Set the first sheet as selected once sheets are loaded
+      if (workbook.SheetNames.length > 0) {
+        setSelectedSheet(workbook.SheetNames[0]);
+      }
     })();
   }, [blob]);
 
+  const sheetNames = Object.keys(sheets);
+  const tableData = sheets[selectedSheet];
+
   return (
-    <div style={{ overflowX: "auto" }}>
-      <table border="1" cellPadding="5" style={{ borderCollapse: "collapse" }}>
-        <tbody>
-          {tableData.map((row, i) => (
-            <tr key={i}>
-              {row.map((cell, j) => (
-                <td key={j}>{cell ?? ""}</td>
-              ))}
-            </tr>
+    <div className="p-4">
+      <div className="bg-gray-50 space-y-4 p-2 rounded">
+        <div className="flex space-x-2">
+          {sheetNames.map((name) => (
+            <button
+              key={name}
+              onClick={() => setSelectedSheet(name)}
+              className={`px-3 py-1 rounded ${
+                selectedSheet === name
+                  ? "bg-blue-500 text-white"
+                  : "bg-gray-200"
+              }`}
+            >
+              {name}
+            </button>
           ))}
-        </tbody>
-      </table>
+        </div>
+
+        <div className="overflow-x-auto rounded border">
+          <table className="border-collapse border w-full">
+            <tbody>
+              {tableData?.map((row, i) => (
+                <tr key={i} className="border">
+                  {row.map((cell, j) => (
+                    <td key={j} className="border p-2">
+                      {cell ?? ""}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   );
 };
