@@ -31,7 +31,7 @@ export const logsApiSlice = apiSlice.injectEndpoints({
     }),
     downloadLog: builder.mutation({
       queryFn: async (
-        { logId, filename },
+        { logId, fileName, renderOnly = false },
         _queryApi,
         _extraOptions,
         fetchWithBQ
@@ -45,20 +45,23 @@ export const logsApiSlice = apiSlice.injectEndpoints({
         if (result.error) return { error: result.error };
 
         const blob = result.data;
-        const blobUrl = URL.createObjectURL(blob);
 
-        const a = document.createElement("a");
-        a.href = blobUrl;
-        a.download = `${filename}.xlsx`;
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
+        if (!renderOnly) {
+          const blobUrl = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = blobUrl;
+          a.download = `${fileName}.xlsx`;
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          URL.revokeObjectURL(blobUrl);
+        }
 
-        URL.revokeObjectURL(blobUrl);
-
+        // return null to avoid storing blob in Redux
         return { data: null };
       },
     }),
+
     importLog: builder.mutation({
       query: (formData) => ({
         url: `${LOGS_URL}/import`,

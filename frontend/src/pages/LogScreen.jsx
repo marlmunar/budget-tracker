@@ -11,6 +11,7 @@ import { startLoading, stopLoading } from "../slices/appSlice";
 import LogScreenHeader from "../components/LogScreenHeader";
 import Footer from "../components/Footer";
 import { setTempCategories, setTempEntries } from "../slices/logSlice";
+import ExcelViewer from "../components/ExcelViewer";
 
 const LogScreen = () => {
   const dispatch = useDispatch();
@@ -33,6 +34,7 @@ const LogScreen = () => {
   }, []);
 
   const [logData, setLogData] = useState({});
+  const [displayDownload, setDisplayDownload] = useState(false);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const { lastAction } = useSelector((state) => state.app);
 
@@ -81,15 +83,17 @@ const LogScreen = () => {
   }, [isNotSaved, lastAction]);
 
   const handleDownload = async () => {
-    try {
-      dispatch(startLoading());
-      await downloadLog({ logId, filename: logData.name }).unwrap();
-    } catch (error) {
-      setError(error?.data?.message || error.message);
-    } finally {
-      dispatch(stopLoading());
-      setTimeout(() => setError(""), 2000);
-    }
+    if (import.meta.env.MODE === "development") return setDisplayDownload(true);
+
+    // try {
+    //   dispatch(startLoading());
+    //   await downloadLog({ logId, fileName: logData.name }).unwrap();
+    // } catch (error) {
+    //   setError(error?.data?.message || error.message);
+    // } finally {
+    //   dispatch(stopLoading());
+    //   setTimeout(() => setError(""), 2000);
+    // }
   };
 
   return (
@@ -101,30 +105,34 @@ const LogScreen = () => {
         logData.name ? `- ${logData.name}` : ""
       }`}</title>
 
-      <LogScreenHeader logData={logData} />
-      <div className="h-full relative">
-        <div
-          className="@container m-2 grid md:grid-cols-[75%_auto] 
+      <LogScreenHeader logData={logData} handleDownload={handleDownload} />
+      {displayDownload ? (
+        <ExcelViewer logId={logId} fileName={logData.name} />
+      ) : (
+        <div className="h-full relative">
+          <div
+            className="@container m-2 grid md:grid-cols-[75%_auto] 
             grid-rows-[minmax(1fr,min-content)] gap-2
             w-[95%] md:w-[90%] mx-auto items-start"
-        >
-          <ExpenseList
-            props={{
-              selectedCategories,
-              setSelectedCategories,
-              logType: logData?.logData?.type,
-              logData: logData?.logData,
-            }}
-          />
-          <ExpenseSummary
-            props={{
-              selectedCategories,
-              setSelectedCategories,
-              logData: logData?.logData,
-            }}
-          />
+          >
+            <ExpenseList
+              props={{
+                selectedCategories,
+                setSelectedCategories,
+                logType: logData?.logData?.type,
+                logData: logData?.logData,
+              }}
+            />
+            <ExpenseSummary
+              props={{
+                selectedCategories,
+                setSelectedCategories,
+                logData: logData?.logData,
+              }}
+            />
+          </div>
         </div>
-      </div>
+      )}
 
       <Footer bg="bg-gray-100" />
     </main>

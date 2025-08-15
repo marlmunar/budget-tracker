@@ -15,7 +15,7 @@ import { setIsNotSaved } from "../slices/logSlice";
 import { setModalState, startLoading, stopLoading } from "../slices/appSlice";
 import { useUpdateLogMutation } from "../slices/logsApiSlice";
 
-const LogScreenHeader = ({ logData }) => {
+const LogScreenHeader = ({ logData, handleDownload }) => {
   const dispatch = useDispatch();
   const id = logData._id;
   const { name } = logData;
@@ -167,8 +167,8 @@ const LogScreenHeader = ({ logData }) => {
                 <button
                   className="log-options"
                   onClick={() => {
-                    // handleDownload();
-                    // setIsSelecting(false);
+                    handleDownload();
+                    setIsSelecting(false);
                   }}
                 >
                   <TbFileDownload />
