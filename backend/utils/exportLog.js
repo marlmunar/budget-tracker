@@ -15,6 +15,31 @@ const formatHeader = (sheet) => {
   });
 };
 
+const lockSheet = async (sheet, lockedRowCount = 1) => {
+  sheet.eachRow((row) =>
+    row.eachCell((cell) => {
+      cell.protection = { locked: false };
+    })
+  );
+
+  for (let i = 1; i <= lockedRowCount; i++) {
+    const row = sheet.getRow(i);
+    row.eachCell((cell) => (cell.protection = { locked: true }));
+  }
+
+  await sheet.protect("", {
+    selectLockedCells: true,
+    selectUnlockedCells: true,
+    formatCells: false,
+    formatColumns: false,
+    formatRows: false,
+    insertColumns: false,
+    insertRows: false,
+    deleteColumns: false,
+    deleteRows: false,
+  });
+};
+
 const getEntries = (workbook, log) => {
   const sheet = workbook.addWorksheet("Entries");
   sheet.columns = [
@@ -139,6 +164,10 @@ const exportLog = async (log) => {
   const entriesSheet = getEntries(workbook, log);
   const summarySheet = getSummary(workbook, log);
   const logDataSheet = getLogData(workbook, log);
+
+  await lockSheet(entriesSheet, 1);
+  await lockSheet(summarySheet, 1);
+  await lockSheet(logDataSheet, logDataSheet.lastRow.number);
 
   const buffer = await workbook.xlsx.writeBuffer();
   return { fileName: log.name, buffer };
