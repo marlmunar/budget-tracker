@@ -1,28 +1,10 @@
 import ExcelJS from "exceljs";
 
-const getEntries = (workbook, log) => {
-  const entriesSheet = workbook.addWorksheet("Entries");
-  entriesSheet.columns = [
-    {
-      header: "Expense Name",
-      key: "name",
-      width: 30,
-    },
-    { header: "Amount", key: "amount", width: 30 },
-    { header: "Category", key: "category", width: 30 },
-    { header: "Date Logged", key: "date", width: 30 },
-  ];
-
-  entriesSheet.getRow(1).eachCell((cell, rowNumber) => {
+const formatHeader = (sheet) => {
+  sheet.getRow(1).eachCell((cell) => {
     if (cell.value) {
-      cell.font = {
-        size: 14,
-        bold: true,
-      };
-      cell.alignment = {
-        vertical: "middle",
-        horizontal: "center",
-      };
+      cell.font = { size: 14, bold: true };
+      cell.alignment = { vertical: "middle", horizontal: "center" };
       cell.border = {
         top: { style: "medium" },
         left: { style: "medium" },
@@ -31,9 +13,21 @@ const getEntries = (workbook, log) => {
       };
     }
   });
+};
 
-  log.entries.map((entry) => {
-    const row = entriesSheet.addRow({
+const getEntries = (workbook, log) => {
+  const sheet = workbook.addWorksheet("Entries");
+  sheet.columns = [
+    { header: "Expense Name", key: "name", width: 30 },
+    { header: "Amount", key: "amount", width: 30 },
+    { header: "Category", key: "category", width: 30 },
+    { header: "Date Logged", key: "date", width: 30 },
+  ];
+
+  formatHeader(sheet);
+
+  log.entries.forEach((entry) => {
+    const row = sheet.addRow({
       name: entry.expense,
       amount: entry.amount,
       category: entry.category.name,
@@ -44,7 +38,6 @@ const getEntries = (workbook, log) => {
     row.getCell("amount").font = { bold: true };
 
     const bg = "FF" + entry.category.color.replace("#", "");
-
     row.getCell("category").fill = {
       type: "pattern",
       pattern: "solid",
@@ -60,71 +53,48 @@ const getEntries = (workbook, log) => {
     row.getCell("date").numFmt = "mm/dd/yyyy";
     row.getCell("date").alignment = { horizontal: "right" };
   });
+
+  return sheet;
 };
 
 const getSummary = (workbook, log) => {
-  const summarySheet = workbook.addWorksheet("Summary");
-
-  summarySheet.columns = [
-    {
-      header: "Category",
-      key: "category",
-      width: 30,
-    },
+  const sheet = workbook.addWorksheet("Summary");
+  sheet.columns = [
+    { header: "Category", key: "category", width: 30 },
+    { header: "Type", key: "type", width: 30 },
     { header: "Total", key: "total", width: 30 },
   ];
 
-  summarySheet.getRow(1).eachCell((cell, rowNumber) => {
-    if (cell.value) {
-      cell.font = {
-        size: 14,
-        bold: true,
-      };
-      cell.alignment = {
-        vertical: "middle",
-        horizontal: "center",
-      };
-      cell.border = {
-        top: { style: "medium" },
-        left: { style: "medium" },
-        bottom: { style: "medium" },
-        right: { style: "medium" },
-      };
-    }
-  });
+  formatHeader(sheet);
 
-  const categories = log.categories.map((cat) => cat.name);
-  const summary = categories
+  const summary = log.categories
     .map((cat) => {
-      const sum = log.entries.reduce(
+      const total = log.entries.reduce(
         (sum, entry) =>
-          entry.category.name === cat ? sum + +entry.amount : sum,
+          entry.category.name === cat.name ? sum + +entry.amount : sum,
         0
       );
-      return {
-        category: cat,
-        total: sum,
-      };
+      return { category: cat.name, type: cat.type, total };
     })
     .sort((a, b) => b.total - a.total);
 
-  summary.map((entry) => {
-    const row = summarySheet.addRow({
+  summary.forEach((entry) => {
+    const row = sheet.addRow({
       category: entry.category,
+      type: entry.type,
       total: entry.total,
     });
 
-    const bgColor = log.categories.find(
-      (cat) => cat.name === entry.category
-    ).color;
-    const bg = "FF" + bgColor.replace("#", "");
-
+    const bg =
+      "FF" +
+      log.categories
+        .find((c) => c.name === entry.category)
+        .color.replace("#", "");
     row.getCell("category").fill = {
       type: "pattern",
       pattern: "solid",
       fgColor: { argb: bg },
     };
-
     row.getCell("category").border = {
       top: { style: "thin", color: { argb: "FFFFFFFF" } },
       left: { style: "thin", color: { argb: "FFFFFFFF" } },
@@ -135,18 +105,43 @@ const getSummary = (workbook, log) => {
     row.getCell("total").numFmt = "#,##0.00;[Red]-#,##0.00";
     row.getCell("total").font = { bold: true };
   });
+
+  return sheet;
+};
+
+const getLogData = (workbook, log) => {
+  const sheet = workbook.addWorksheet("Log Data");
+  sheet.columns = [
+    { header: "Key", key: "key", width: 30 },
+    { header: "Value", key: "value", width: 30 },
+  ];
+
+  formatHeader(sheet);
+
+  Object.keys(log.logData).forEach((key) => {
+    sheet.addRow({
+      key,
+      value: log.logData[key] ?? "No Data",
+    });
+  });
+
+  const lastRow = sheet.addRow([]);
+  sheet.mergeCells(`A${lastRow.number}:D${lastRow.number}`);
+  sheet.getCell(`A${lastRow.number}`).value =
+    "Caution: Editing the values in this tab may lead to unwanted app behavior.";
+
+  return sheet;
 };
 
 const exportLog = async (log) => {
-  const fileName = log.name;
   const workbook = new ExcelJS.Workbook();
 
-  getEntries(workbook, log);
-  getSummary(workbook, log);
+  const entriesSheet = getEntries(workbook, log);
+  const summarySheet = getSummary(workbook, log);
+  const logDataSheet = getLogData(workbook, log);
 
   const buffer = await workbook.xlsx.writeBuffer();
-
-  return { fileName, buffer };
+  return { fileName: log.name, buffer };
 };
 
 export default exportLog;
