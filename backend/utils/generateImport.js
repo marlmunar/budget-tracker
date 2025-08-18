@@ -1,26 +1,31 @@
 import ExcelJS from "exceljs";
 
-const generateImport = async () => {
-  const workbook = new ExcelJS.Workbook();
-  await workbook.xlsx.load(req.file.buffer);
+const validateSheet = (sheet, name, headers, actualHeaders) => {
+  const error = "Invalid file content";
+  if (!sheet || sheet.name !== name) {
+    throw new Error(error);
+  }
 
-  const worksheet = workbook.worksheets[0];
+  if (
+    actualHeaders.length !== headers.length ||
+    !expectedHeaders.every((val, i) => actualHeaders[i] === val)
+  ) {
+    throw new Error(error);
+  }
+};
+
+const getEntries = (workbook) => {
+  const entriesSheet = workbook.worksheets[0];
   const entries = [];
-  const headerRow = worksheet.getRow(1);
+  const headerRow = entriesSheet.getRow(1);
   const expectedHeaders = ["Expense Name", "Amount", "Category", "Date Logged"];
   const actualHeaders = headerRow.values.slice(1);
 
-  if (
-    actualHeaders.length !== expectedHeaders.length ||
-    !expectedHeaders.every((val, i) => actualHeaders[i] === val)
-  ) {
-    res.status(400);
-    throw new Error("Invalid file content");
-  }
+  validateSheet(entriesSheet, "Entries", expectedHeaders, actualHeaders);
 
   const entryKeys = ["expense", "amount", "category", "date"];
 
-  worksheet.eachRow((row, rowNumber) => {
+  entriesSheet.eachRow((row, rowNumber) => {
     if (rowNumber === 1) return;
     const entry = {};
 
@@ -37,13 +42,17 @@ const generateImport = async () => {
     entries.push(entry);
   });
 
+  return entries;
+};
+
+const getSummary = (workbook) => {
   const summarySheet = workbook.worksheets[1];
   const categories = [];
+  const headerRow = summarySheet.getRow(1);
+  const expectedHeaders = ["Category", "Type", "Total"];
+  const actualHeaders = headerRow.values.slice(1);
 
-  if (!summarySheet || summarySheet.name !== "Summary") {
-    res.status(400);
-    throw new Error("Invalid file content");
-  }
+  validateSheet(summarySheet, "Summary", expectedHeaders, actualHeaders);
 
   const categoryColumn = summarySheet.getColumn(1);
   categoryColumn.eachCell((cell, cellNumber) => {
@@ -55,6 +64,18 @@ const generateImport = async () => {
     };
     categories.push(category);
   });
+
+  return categories;
+};
+
+const generateImport = async (file) => {
+  const workbook = new ExcelJS.Workbook();
+  await workbook.xlsx.load(file.buffer);
+
+  const entries = getEntries(workbook);
+  const categories = getSummary(workbook);
+
+  return { entries, categories };
 };
 
 export default generateImport;

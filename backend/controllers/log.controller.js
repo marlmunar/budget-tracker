@@ -122,7 +122,8 @@ const downloadLog = asyncHandler(async (req, res) => {
 // @route PORT /api/logs/import
 // @access PRIVATE
 const importLog = asyncHandler(async (req, res) => {
-  if (!req.file) {
+  const file = req.file;
+  if (!file) {
     res.status(400);
     throw new Error("No file uploaded");
   }
@@ -133,7 +134,12 @@ const importLog = asyncHandler(async (req, res) => {
     }
   }, 5000);
 
-  generateImport();
+  try {
+    const { entries, categories } = await generateImport(file);
+  } catch (error) {
+    res.status(400);
+    throw new Error(error);
+  }
 
   res.status(200).json({
     message: "Successfully imported",
