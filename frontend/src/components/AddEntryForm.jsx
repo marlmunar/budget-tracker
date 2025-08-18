@@ -1,9 +1,6 @@
 import {
   TbCaretDownFilled,
   TbCaretUpFilled,
-  TbCirclePlus,
-  TbArrowLeft,
-  TbFileImport,
   TbX,
   TbCheck,
   TbTool,

@@ -6,6 +6,7 @@ import {
   TbFileDownload,
   TbFilePencil,
   TbFileX,
+  TbFileUpload,
 } from "react-icons/tb";
 import { Link } from "react-router-dom";
 import OutsideClick from "./OutsideClick";
@@ -161,6 +162,24 @@ const LogScreenHeader = ({ logData, handleDownload }) => {
                 >
                   <TbFilePencil />
                   <span>Rename</span>
+                </button>
+              </li>
+              <li className="">
+                <button
+                  className="log-options"
+                  onClick={() => {
+                    setIsSelecting(false);
+                    dispatch(
+                      setModalState({
+                        showModal: true,
+                        activeModal: "importLog",
+                        modalData: {},
+                      })
+                    );
+                  }}
+                >
+                  <TbFileUpload />
+                  <span>Import</span>
                 </button>
               </li>
               <li>

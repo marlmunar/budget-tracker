@@ -19,6 +19,7 @@ import SelectCurrency from "./Modals/SelectCurrency";
 import DefaultCategories from "./Modals/DefaultCategories";
 import LogExpired from "./Modals/LogExpired";
 import UpdateExpiry from "./Modals/UpdateExpiry";
+import ImportLog from "./Modals/ImportLog";
 
 const ModalWrapper = () => {
   const dispatch = useDispatch();
@@ -98,6 +99,7 @@ const ModalWrapper = () => {
         logData={modalData.logData}
       />
     ),
+    importLog: <ImportLog closeModal={closeModal} resource={modalData} />,
   };
 
   const getModal = () => modals[activeModal] || null;
@@ -115,6 +117,7 @@ const ModalWrapper = () => {
     defaultCategories: "Manage Default Categories",
     logExpired: "Log Expired",
     updateExpiry: "Update End Date",
+    importLog: "Import Log",
   };
 
   const getModalTitle = () => titles[activeModal] || null;
