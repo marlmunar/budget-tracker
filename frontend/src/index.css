@@ -560,7 +560,7 @@ menu li {
   @apply text-sm md:text-base;
 }
 
-.modal-input-container > input {
+.modal-input-container > input:not([type="file"]) {
   @apply border-2 rounded block min-w-full border-gray-200 dark:border-gray-500 px-2 p-1 text-sm md:text-base
   focus:outline-none dark:bg-[#3a3a3a] dark:hover:bg-[#3a3a3a];
 }
