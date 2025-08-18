@@ -143,8 +143,7 @@ const importLog = asyncHandler(async (req, res) => {
       logData,
     });
   } catch (error) {
-    res.status(400);
-    throw new Error(error);
+    return res.status(400).json({ message: error.message });
   }
 });
 
