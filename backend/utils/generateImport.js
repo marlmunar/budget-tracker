@@ -1,13 +1,13 @@
 import ExcelJS from "exceljs";
 
-const validateSheet = (sheet, name, headers, actualHeaders) => {
+const validateSheet = (sheet, name, expectedHeaders, actualHeaders) => {
   const error = "Invalid file content";
   if (!sheet || sheet.name !== name) {
     throw new Error(error);
   }
 
   if (
-    actualHeaders.length !== headers.length ||
+    actualHeaders.length !== expectedHeaders.length ||
     !expectedHeaders.every((val, i) => actualHeaders[i] === val)
   ) {
     throw new Error(error);
@@ -45,7 +45,7 @@ const getEntries = (workbook) => {
   return entries;
 };
 
-const getSummary = (workbook) => {
+const getCategories = (workbook) => {
   const summarySheet = workbook.worksheets[1];
   const categories = [];
   const headerRow = summarySheet.getRow(1);
@@ -54,28 +54,71 @@ const getSummary = (workbook) => {
 
   validateSheet(summarySheet, "Summary", expectedHeaders, actualHeaders);
 
-  const categoryColumn = summarySheet.getColumn(1);
-  categoryColumn.eachCell((cell, cellNumber) => {
-    if (cellNumber === 1) return;
+  summarySheet.eachRow((row, rowNumber) => {
+    if (rowNumber === 1) return;
+    const category = {};
 
-    const category = {
-      name: cell.value,
-      color: "#" + cell.fill.fgColor.argb.slice(2),
-    };
+    row.eachCell((cell, colNumber) => {
+      if (colNumber === 1) {
+        category["name"] = cell.value;
+        category["color"] = "#" + cell.fill.fgColor.argb.slice(2);
+        return;
+      }
+
+      if (colNumber === 2) {
+        return (category["type"] = cell.value);
+      }
+    });
     categories.push(category);
   });
 
   return categories;
 };
 
+const getLogData = (workbook) => {
+  const logDataSheet = workbook.worksheets[2];
+  const logData = {};
+  const headerRow = logDataSheet.getRow(1);
+  const expectedHeaders = ["Key", "Value"];
+  const actualHeaders = headerRow.values.slice(1);
+
+  validateSheet(logDataSheet, "Log Data", expectedHeaders, actualHeaders);
+
+  const logDataKeys = [];
+
+  logDataSheet.eachRow((row, rowNumber) => {
+    if (rowNumber === 1) return;
+    if (rowNumber === 6) return;
+
+    row.eachCell((cell, colNumber) => {
+      if (colNumber === 1) {
+        logDataKeys.push(cell.value);
+      }
+
+      if (colNumber === 2) {
+        logData[logDataKeys[rowNumber - 2]] = cell.value;
+      }
+    });
+  });
+
+  return logData;
+};
+
 const generateImport = async (file) => {
   const workbook = new ExcelJS.Workbook();
   await workbook.xlsx.load(file.buffer);
 
-  const entries = getEntries(workbook);
-  const categories = getSummary(workbook);
+  const categories = getCategories(workbook);
+  const entries = getEntries(workbook).map((entry) => ({
+    ...entry,
+    category: {
+      ...entry.category,
+      type: categories.find((cat) => cat.name === entry.category.name).type,
+    },
+  }));
+  const logData = getLogData(workbook);
 
-  return { entries, categories };
+  return { entries, categories, logData };
 };
 
 export default generateImport;

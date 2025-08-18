@@ -135,17 +135,17 @@ const importLog = asyncHandler(async (req, res) => {
   }, 5000);
 
   try {
-    const { entries, categories } = await generateImport(file);
+    const { entries, categories, logData } = await generateImport(file);
+    res.status(200).json({
+      message: "Successfully imported",
+      entries,
+      categories,
+      logData,
+    });
   } catch (error) {
     res.status(400);
     throw new Error(error);
   }
-
-  res.status(200).json({
-    message: "Successfully imported",
-    entries,
-    categories,
-  });
 });
 
 export {
