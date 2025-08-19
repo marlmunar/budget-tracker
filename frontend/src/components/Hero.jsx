@@ -55,7 +55,7 @@ const Hero = () => {
       <div
         className="relative dark:bg-[#2f2f2f] 
       dark:border-gray-500 border-2 border-dotted 
-        m-2 p-5 flex flex-col gap-2 justify-center 
+        p-5 flex flex-col gap-2 justify-center 
         order-1 lg:order-none shadow-lg"
       >
         <div className="absolute m-4 top-0 right-0 flex flex-col items-end gap-2">
@@ -88,7 +88,7 @@ const Hero = () => {
         </p>
       </div>
 
-      <div className="flex flex-col gap-2 justify-center order-1 lg:order-none">
+      <div className="mt-2 lg:mt-0 flex flex-col gap-2 justify-center order-1 lg:order-none">
         <h2 className="homecard-title">What is this log?</h2>
         <div className="px-4 lg:px-6">
           <p>
@@ -104,11 +104,17 @@ const Hero = () => {
         </div>
       </div>
 
-      <div className="p-2 lg:min-h-[30rem] md:min-h-[50vh] min-h-[45vh] grid md:p-4 bg-amber-200 row-span-2 rounded shadow-lg dark:bg-yellow-200">
-        <div className="relative p-2 md:p-10 bg-slate-50 flex flex-col justify-end gap-2 h-[100%] rounded shadow">
+      <div
+        className="p-2 lg:min-h-[30rem] md:min-h-[50vh] min-h-[45vh] grid 
+        md:p-4 bg-amber-200 row-span-2 rounded shadow-lg dark:bg-yellow-200"
+      >
+        <div
+          className="relative p-2 md:p-4 lg:p-6 xl:p-10
+        bg-slate-50 flex flex-col justify-end gap-2 h-[100%] rounded shadow"
+        >
           <div className="absolute z-0 w-full h-full top-0 right-0 rounded">
             <img
-              className="object-cover w-full h-full"
+              className="object-cover w-full h-full rounded"
               src="https://images.unsplash.com/photo-1544377193-33dcf4d68fb5?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
               alt="Image about budgeting"
             />
@@ -121,15 +127,22 @@ const Hero = () => {
             transition={{ duration: 0.8 }}
             className="z-10"
           >
-            <div className="bg-amber-50/70 dark:bg-[#2f2f2f] p-4 lg:max-w-[min-content] rounded shadow-lg flex flex-col">
+            <div
+              className="bg-amber-50/70 dark:bg-[#2f2f2f] p-4 
+            lg:max-w-[min-content] rounded shadow-lg 
+            flex flex-col md:flex-row md:justify-between
+            lg:flex-col"
+            >
               {!!userInfo ? (
                 <>
-                  <p className="text-lg md:text-xl lg:text-2xl font-semibold">
-                    Welcome Back!
-                  </p>
-                  <p className="text-xs md:text-sm lg:text-base">
-                    What do you want to visit?
-                  </p>
+                  <div>
+                    <p className="text-lg md:text-xl lg:text-2xl font-semibold">
+                      Welcome Back!
+                    </p>
+                    <p className="text-xs md:text-sm lg:text-base">
+                      What do you want to visit?
+                    </p>
+                  </div>
                   <div className="flex gap-2 mt-4">
                     <Link className="hero-button" to={`/log/${lastLog?._id}`}>
                       Last log
@@ -141,10 +154,12 @@ const Hero = () => {
                 </>
               ) : (
                 <>
-                  <p className="text-lg md:text-xl lg:text-2xl font-semibold">
-                    Become a Budgetarian
-                  </p>
-                  <p>Start your journey!</p>
+                  <div>
+                    <p className="text-lg md:text-xl lg:text-2xl font-semibold">
+                      Become a Budgetarian
+                    </p>
+                    <p>Start your journey!</p>
+                  </div>
                   <div className="flex gap-2 mt-4">
                     <Link className="hero-button" to="/login">
                       Log In

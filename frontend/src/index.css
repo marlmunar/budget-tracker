@@ -152,7 +152,7 @@ h3 {
   @apply flex flex-col
   lg:grid [grid-template-rows:repeat(2,min-content)] 
   grid-cols-2 grid-flow-col
-  gap-5 md:gap-2 
+  gap-5 md:gap-2 lg:gap-4
   md:min-h-[60vh]
   lg:min-h-[30rem];
 }
