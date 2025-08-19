@@ -75,7 +75,7 @@ const LogScreenHeader = ({ logData, handleDownload }) => {
   return (
     <div className="bg-gray-100 mx-auto rounded-b shadow w-full flex dark:bg-[#2b2d2f] dark:text-[#f0f0f0]">
       <div
-        className="mx-auto px-2 md:px-0 text-lg lg:text-xl
+        className="mx-auto px-2 md:px-4 lg:px-0  text-lg lg:text-xl
                   w-full relative
                   lg:max-w-[90%] min-h-18"
       >

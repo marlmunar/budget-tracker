@@ -194,7 +194,7 @@ const EditEntryForm = ({ closeUI, props }) => {
             />
           </div>
         )}
-        <div className="flex flex-col md:flex-row gap-2">
+        <div className="flex flex-col lg:flex-row lg:gap-2">
           <div className="log-input-column">
             <label htmlFor="newExpense">Entry Name</label>
             <input

@@ -116,9 +116,9 @@ const LogScreen = () => {
       ) : (
         <div className="h-full relative">
           <div
-            className="@container m-2 grid md:grid-cols-[75%_auto] 
+            className="@container m-2 grid md:grid-cols-[65%_auto] lg:grid-cols-[75%_auto] 
             grid-rows-[minmax(1fr,min-content)] gap-2
-            w-[95%] md:w-[90%] mx-auto items-start"
+            w-[95%] lg:w-[90%] mx-auto items-start"
           >
             <ExpenseList
               props={{

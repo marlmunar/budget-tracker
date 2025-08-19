@@ -104,7 +104,7 @@ const AddCategoryForm = ({ closeUI, props }) => {
         className="relative md:p-2 rounded"
       >
         <div
-          className="p-2 grid md:grid-cols-2 grid-cols-1
+          className="p-2 grid lg:grid-cols-2 grid-cols-1
              gap-2 items-start"
         >
           <div className="flex flex-col gap-2">

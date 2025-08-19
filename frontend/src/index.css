@@ -260,7 +260,7 @@ h3 {
   dark:bg-[#3a3a3a] dark:hover:bg-[#3a3a3a]
   dark:text-[#f0f0f0]
   w-full
-  md:w-55
+  lg:w-55
   rounded h-full;
 }
 

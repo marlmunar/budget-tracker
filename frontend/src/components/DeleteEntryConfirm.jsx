@@ -35,9 +35,10 @@ const DeleteEntryConfirm = ({ closeUI, props }) => {
 
   return (
     <div
-      className="z-25 bg-white log-form-container w-full absolute 
-      md:right-2 md:top-2 shadow shadow-slate-400 
-      md:max-w-[30rem]"
+      className="z-25 bg-white log-form-container lg:w-full absolute 
+       m-2 w-[calc(100%-1rem)]
+      lg:right-2 lg:top-2 shadow shadow-slate-400 
+      lg:max-w-[30rem]"
     >
       <div className="log-section-header">
         <h3 className="text-nowrap mr-5">Confirm Delete</h3>
@@ -53,9 +54,14 @@ const DeleteEntryConfirm = ({ closeUI, props }) => {
           </button>
         </div>
       </div>
-      <div className="p-4 ">
+      <div className="p-4 space-y-2">
         <p className="px-1">This will delete this entry:</p>
-        <div className="flex flex-col shadow dark:shadow-slate-800 rounded p-2 mt-1 shadow-slate-300">
+        <div
+          className="flex flex-col shadow 
+              dark:shadow-xs dark:shadow-slate-900
+              bg-gray-50 dark:bg-[#2f2f2f]
+              rounded p-2 shadow-slate-300"
+        >
           <p className="font-semibold text-xl">{formatNumber(entry.amount)}</p>
           <div className="flex gap-2">
             <p> {entry.expense}</p>

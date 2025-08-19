@@ -159,7 +159,7 @@ const EditCategoryForm = ({ closeUI, props }) => {
         <div className="p-2 pb-1 category-input-column">
           <label htmlFor="newCategory">Category</label>
           <div
-            className="md:max-w-[50%] relative custom-select focus:bg-gray-100/95 focus:shadow-lg"
+            className="lg:max-w-[50%] relative custom-select focus:bg-gray-100/95 focus:shadow-lg"
             style={{ backgroundColor: selectedCategory?.color }}
             tabIndex={0}
           >
@@ -220,8 +220,8 @@ const EditCategoryForm = ({ closeUI, props }) => {
           </div>
         </div>
         <div className="mx-2 border-2 border-slate-300"></div>
-        <div className="p-2 py-1 grid md:grid-cols-2 grid-cols-1 items-start gap-2">
-          <div className="flex flex-col md:flex-col gap-2">
+        <div className="p-2 py-1 grid lg:grid-cols-2 grid-cols-1 items-start gap-2">
+          <div className="flex flex-col lg:flex-col gap-2">
             <div className="category-input-column w-full">
               <label htmlFor="name">New Name:</label>
               <input
