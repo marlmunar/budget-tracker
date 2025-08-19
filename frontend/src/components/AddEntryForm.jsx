@@ -36,6 +36,19 @@ const AddEntryForm = ({ closeUI, setActiveUi, props }) => {
     );
   };
 
+  const getId = () => {
+    const timestamp = Math.floor(new Date().getTime() / 1000).toString(16);
+
+    const random = "xxxxxxxxxxxxxxxx".replace(/x/g, () =>
+      ((Math.random() * 16) | 0).toString(16)
+    );
+    const counter = (
+      "000000" + ((Math.random() * 0xffffff) | 0).toString(16)
+    ).slice(-6);
+
+    return (timestamp + random + counter).toLowerCase();
+  };
+
   const isValidDate = (date) => {
     const start = new Date(logData.startDate);
     const end = new Date(logData.endDate);
@@ -91,6 +104,7 @@ const AddEntryForm = ({ closeUI, setActiveUi, props }) => {
       category,
       date:
         logType === 3 ? new Date(date).toISOString() : new Date().toISOString(),
+      _id: getId(),
     };
     dispatch(addTempEntry(newLog));
     dispatch(setIsNotSaved(true));

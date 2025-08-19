@@ -17,6 +17,7 @@ const ExpenseList = ({ props }) => {
   const { tempEntries } = useSelector((state) => state.logs);
   const [activeUI, setActiveUI] = useState("");
   const [filteredList, setFilteredList] = useState([]);
+  console.log(tempEntries);
 
   useEffect(() => {
     if (tempCategories?.length > 0) {

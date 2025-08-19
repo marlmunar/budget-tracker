@@ -59,8 +59,6 @@ const ImportLog = ({ closeModal, resource }) => {
       (entry) => !referenceEntries.includes(JSON.stringify(entry))
     );
 
-    console.log(filteredEntries);
-
     if (resource?.type === 2) {
       return filteredEntries.filter(
         (entry) => entry.category.type === "Income"
