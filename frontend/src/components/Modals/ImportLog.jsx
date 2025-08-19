@@ -117,7 +117,6 @@ const ImportLog = ({ closeModal, resource }) => {
           ) || entry.category,
       }));
       const newTempEntries = filterEntries(entries);
-      console.log(newTempEntries);
 
       if (newTempEntries.length < 1 && newTempCategories.length < 1) {
         return;
@@ -133,7 +132,6 @@ const ImportLog = ({ closeModal, resource }) => {
 
       needUpdate = true;
     } catch (error) {
-      console.log(error);
       const errorMsg = error?.data?.message || error.message;
       hadError = true;
 
@@ -144,10 +142,6 @@ const ImportLog = ({ closeModal, resource }) => {
 
       try {
         dispatch(startLoading());
-
-        console.log(updatedCategories);
-        console.log(updatedEntries);
-
         const res = await updateLog({
           id: logId,
           data: { categories: updatedCategories, entries: updatedEntries },

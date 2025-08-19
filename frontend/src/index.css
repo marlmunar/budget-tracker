@@ -307,6 +307,7 @@ h3 {
 
 .color-menu {
   @apply min-w-full max-w-[16rem] overflow-auto flex items-center p-1 gap-1 md:max-w-[min-content]
+  border-gray-200
   dark:border-gray-500 border-2 rounded
   dark:bg-[#3a3a3a] dark:hover:bg-[#3a3a3a]
   dark:text-[#f0f0f0];
