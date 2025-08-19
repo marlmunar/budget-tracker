@@ -59,6 +59,8 @@ const ImportLog = ({ closeModal, resource }) => {
       (entry) => !referenceEntries.includes(JSON.stringify(entry))
     );
 
+    console.log(filteredEntries);
+
     if (resource?.type === 2) {
       return filteredEntries.filter(
         (entry) => entry.category.type === "Income"
@@ -66,9 +68,9 @@ const ImportLog = ({ closeModal, resource }) => {
     }
 
     if (resource?.type === 3) {
-      return filteredEntries.filter(
-        (entry) => entry.category.type === "Expense"
-      );
+      return filteredEntries
+        .filter((entry) => entry.category.type === "Expense")
+        .filter((entry) => new Date(entry.date) > new Date(resource.startDate));
     }
 
     return filteredEntries;
@@ -117,6 +119,7 @@ const ImportLog = ({ closeModal, resource }) => {
           ) || entry.category,
       }));
       const newTempEntries = filterEntries(entries);
+      console.log(newTempEntries);
 
       if (newTempEntries.length < 1 && newTempCategories.length < 1) {
         return;
