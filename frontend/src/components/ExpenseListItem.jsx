@@ -5,6 +5,7 @@ const ExpenseListItem = ({
   expense,
   amount,
   category,
+  _id,
   timeStamps,
   setEntry,
   setActiveUI,
@@ -58,6 +59,7 @@ const ExpenseListItem = ({
               amount,
               date: timeStamps,
               category,
+              _id,
             });
             setActiveUI("editEntry");
           }}
@@ -71,6 +73,7 @@ const ExpenseListItem = ({
               expense,
               amount,
               category,
+              _id,
             });
             setActiveUI("deleteEntry");
           }}

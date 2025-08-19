@@ -38,6 +38,7 @@ const ExpenseList = ({ props }) => {
     expense: "",
     amount: "",
     category: { name: "", color: "" },
+    _id: "",
   });
 
   return (
@@ -77,12 +78,13 @@ const ExpenseList = ({ props }) => {
         <NoRecords />
       ) : (
         <div className="rounded relative py-2 dark:bg-[#1f1f1f]">
-          {filteredList.map((entry, index) => (
+          {filteredList.map((entry) => (
             <ExpenseListItem
-              key={index}
+              key={entry._id}
               expense={entry.expense}
               amount={entry.amount}
               category={entry.category}
+              _id={entry._id}
               timeStamps={entry.date.split("T")[0]}
               setEntry={setEntry}
               setActiveUI={setActiveUI}

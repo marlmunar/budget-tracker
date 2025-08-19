@@ -9,7 +9,7 @@ const DeleteEntryConfirm = ({ closeUI, props }) => {
 
   const handleConfirm = () => {
     const newTempEntries = tempEntries.filter(
-      (tempEntry) => tempEntry.expense !== entry.expense
+      (tempEntry) => tempEntry._id !== entry._id
     );
     dispatch(setTempEntries(newTempEntries));
     closeUI();
