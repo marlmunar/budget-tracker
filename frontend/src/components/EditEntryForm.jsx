@@ -117,12 +117,13 @@ const EditEntryForm = ({ closeUI, props }) => {
       amount,
       category,
       date: logType === 3 ? new Date(date).toISOString() : "",
+      _id: entry._id,
     };
 
     if (isEqual(newEntry, refEntry)) return closeUI();
 
     const newTempEntries = tempEntries.map((tempEntry) =>
-      tempEntry.expense === entry.expense
+      tempEntry._id === entry._id
         ? {
             ...tempEntry,
             expense: newEntry.expense,
