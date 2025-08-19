@@ -545,7 +545,7 @@ menu li {
 }
 
 .modal-form {
-  @apply flex flex-col gap-2 mx-auto min-w-72;
+  @apply flex flex-col gap-2 mx-auto min-w-60;
 }
 
 .modal-container {
@@ -553,7 +553,7 @@ menu li {
 }
 
 .modal-input-container {
-  @apply xl:min-w-[25vw] lg:min-w-[35vw] min-w-[60vw] space-y-2 dark:text-[#fefefe];
+  @apply xl:min-w-[25vw] lg:min-w-[35vw] md:min-w-[45vw] min-w-[60vw] space-y-2 dark:text-[#fefefe];
 }
 
 .modal-input-container > label,

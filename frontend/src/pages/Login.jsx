@@ -115,7 +115,7 @@ const Login = () => {
           className="p-1 rounded h-full row-span-2 md:flex flex-col justify-end 
         md:bg-amber-300/75 md:absolute right-0 top-0 md:w-[30%] 
         lg:py-6 md:p-4 md:shadow-[2px_0_6px_rgba(0,0,0,0.1)]
-        dark:bg-[#ffe368] dark:text-[#282828]"
+        md:dark:bg-[#ffe368] md:dark:text-[#282828]"
         >
           <p>New user?</p>
 
