@@ -16,17 +16,23 @@ const ExpenseList = ({ props }) => {
   const { tempCategories } = useSelector((state) => state.logs);
   const { tempEntries } = useSelector((state) => state.logs);
   const [activeUI, setActiveUI] = useState("");
+  const [filteredList, setFilteredList] = useState([]);
+  console.log(tempEntries);
 
   useEffect(() => {
-    if (tempCategories.length > 0) {
+    if (tempCategories?.length > 0) {
       const categoryNames = tempCategories.map((cat) => cat.name);
       setSelectedCategories(categoryNames);
     }
   }, [tempCategories, setSelectedCategories]);
 
-  const filteredList = tempEntries.filter((entry) =>
-    selectedCategories.includes(entry.category.name)
-  );
+  useEffect(() => {
+    const list = tempEntries
+      ?.filter((entry) => selectedCategories.includes(entry.category.name))
+      .sort((a, b) => new Date(b.date) - new Date(a.date));
+
+    setFilteredList(list);
+  }, [tempEntries, selectedCategories]);
 
   const [entry, setEntry] = useState({
     expense: "",
@@ -57,7 +63,7 @@ const ExpenseList = ({ props }) => {
               className="log-tool-button-2"
               onClick={() => setActiveUI("filterEntries")}
             >
-              {tempCategories.length > selectedCategories.length ? (
+              {tempCategories?.length > selectedCategories?.length ? (
                 <TbFilterEdit />
               ) : (
                 <TbFilter />
@@ -67,23 +73,21 @@ const ExpenseList = ({ props }) => {
         )}
       </div>
 
-      {filteredList.length < 1 ? (
+      {filteredList?.length < 1 ? (
         <NoRecords />
       ) : (
         <div className="rounded relative py-2 dark:bg-[#1f1f1f]">
-          {filteredList
-            .sort((a, b) => new Date(b.date) - new Date(a.date))
-            .map((entry, index) => (
-              <ExpenseListItem
-                key={index}
-                expense={entry.expense}
-                amount={entry.amount}
-                category={entry.category}
-                timeStamps={entry.date.split("T")[0]}
-                setEntry={setEntry}
-                setActiveUI={setActiveUI}
-              />
-            ))}
+          {filteredList.map((entry, index) => (
+            <ExpenseListItem
+              key={index}
+              expense={entry.expense}
+              amount={entry.amount}
+              category={entry.category}
+              timeStamps={entry.date.split("T")[0]}
+              setEntry={setEntry}
+              setActiveUI={setActiveUI}
+            />
+          ))}
         </div>
       )}
     </section>

@@ -12,17 +12,23 @@ const ExpenseSummary = ({ props }) => {
   const { tempCategories } = useSelector((state) => state.logs);
   const { tempEntries } = useSelector((state) => state.logs);
 
-  const filteredList = tempEntries.filter((entry) =>
-    selectedCategories.includes(entry.category.name)
-  );
+  const [filteredList, setFilteredList] = useState([]);
 
   const [displayReload, setDisplayReload] = useState(false);
 
   useEffect(() => {
-    if (tempCategories.length === selectedCategories.length) {
+    if (tempCategories?.length === selectedCategories?.length) {
       setDisplayReload(false);
     }
   }, [selectedCategories, tempCategories]);
+
+  useEffect(() => {
+    const list = tempEntries?.filter((entry) =>
+      selectedCategories.includes(entry.category.name)
+    );
+
+    setFilteredList(list);
+  }, [tempEntries, selectedCategories]);
 
   const formatNumber = (value) => {
     if (!value) return "0";
@@ -93,7 +99,7 @@ const ExpenseSummary = ({ props }) => {
         )}
       </div>
 
-      {tempEntries.length > 0 ? (
+      {tempEntries?.length > 0 ? (
         <div className="flex text-xs md:text-sm flex-col gap-2 p-2">
           {getSummary()}
         </div>

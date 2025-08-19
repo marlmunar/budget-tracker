@@ -19,10 +19,6 @@ const LogScreen = () => {
   const scrollToRef = useRef(null);
 
   useEffect(() => {
-    return () => dispatch(setTempEntries([]));
-  }, [setTempEntries]);
-
-  useEffect(() => {
     const offset = 200;
     const element = scrollToRef.current;
 

@@ -173,7 +173,7 @@ const LogScreenHeader = ({ logData, handleDownload }) => {
                       setModalState({
                         showModal: true,
                         activeModal: "importLog",
-                        modalData: {},
+                        modalData: logData?.logData,
                       })
                     );
                   }}

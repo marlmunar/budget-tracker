@@ -1,5 +1,4 @@
 import React from "react";
-import { useRef } from "react";
 import { useState } from "react";
 import { TbFile } from "react-icons/tb";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,13 +7,15 @@ import {
   useImportLogMutation,
   useUpdateLogMutation,
 } from "../../slices/logsApiSlice";
-import { setTempCategories, setTempEntries } from "../../slices/logSlice";
-import { startLoading, stopLoading } from "../../slices/appSlice";
+import {
+  setLastAction,
+  startLoading,
+  stopLoading,
+} from "../../slices/appSlice";
 
 const ImportLog = ({ closeModal, resource }) => {
   const [file, setFile] = useState(null);
   const [error, setError] = useState("");
-  //   const fileInputRef = useRef(null);
   const { logId } = useParams();
   const dispatch = useDispatch();
 
@@ -51,13 +52,47 @@ const ImportLog = ({ closeModal, resource }) => {
     );
   });
 
-  const referenceCategories = tempCategories.map((entry) => {
-    const keys = ["name", "color", "type"];
+  const referenceCategories = tempCategories.map((category) => category.name);
 
-    return JSON.stringify(
-      Object.fromEntries(keys.map((key) => [key, entry[key]]))
+  const filterEntries = (entries) => {
+    let filteredEntries = entries.filter(
+      (entry) => !referenceEntries.includes(JSON.stringify(entry))
     );
-  });
+
+    if (resource?.type === 2) {
+      return filteredEntries.filter(
+        (entry) => entry.category.type === "Income"
+      );
+    }
+
+    if (resource?.type === 3) {
+      return filteredEntries.filter(
+        (entry) => entry.category.type === "Expense"
+      );
+    }
+
+    return filteredEntries;
+  };
+
+  const filterCategories = (categories) => {
+    let filteredCategories = categories.filter(
+      (category) => !referenceCategories.includes(category.name)
+    );
+
+    if (resource?.type === 2) {
+      return filteredCategories.filter(
+        (category) => category.type === "Income"
+      );
+    }
+
+    if (resource?.type === 3) {
+      return filteredCategories.filter(
+        (category) => category.type === "Expense"
+      );
+    }
+
+    return filteredCategories;
+  };
 
   const handleImport = async (e) => {
     e.preventDefault();
@@ -68,35 +103,39 @@ const ImportLog = ({ closeModal, resource }) => {
 
     let needUpdate;
     let hadError;
+    let updatedEntries = tempEntries;
+    let updatedCategories = tempCategories;
 
     try {
       const res = await importLog(formData).unwrap();
-      const newTempEntries = res.entries.filter(
-        (entry) => !referenceEntries.includes(JSON.stringify(entry))
-      );
-
-      const newTempCategories = res.categories.filter(
-        (category) => !referenceCategories.includes(JSON.stringify(category))
-      );
+      const newTempCategories = filterCategories(res.categories);
+      const entries = res.entries.map((entry) => ({
+        ...entry,
+        category:
+          updatedCategories.find(
+            (category) => category.name === entry.category.name
+          ) || entry.category,
+      }));
+      const newTempEntries = filterEntries(entries);
 
       if (newTempEntries.length < 1 && newTempCategories.length < 1) {
         return;
       }
 
       if (newTempCategories.length >= 1) {
-        const updatedCategories = [...tempCategories, ...newTempCategories];
-        dispatch(setTempCategories(updatedCategories));
+        updatedCategories = [...tempCategories, ...newTempCategories];
       }
 
       if (newTempEntries.length >= 1) {
-        const updatedEntries = [...tempEntries, ...newTempEntries];
-        dispatch(setTempEntries(updatedEntries));
+        updatedEntries = [...tempEntries, ...newTempEntries];
       }
 
-      needUpdate(true);
+      needUpdate = true;
     } catch (error) {
+      console.log(error);
       const errorMsg = error?.data?.message || error.message;
       hadError = true;
+
       setError(errorMsg);
     } finally {
       if (hadError) return;
@@ -104,10 +143,16 @@ const ImportLog = ({ closeModal, resource }) => {
 
       try {
         dispatch(startLoading());
+
+        console.log(updatedCategories);
+        console.log(updatedEntries);
+
         const res = await updateLog({
           id: logId,
-          data: { categories: tempCategories, entries: tempEntries },
+          data: { categories: updatedCategories, entries: updatedEntries },
         }).unwrap();
+
+        dispatch(setLastAction(Date.now()));
         closeModal();
         setError("");
         setFile(null);
