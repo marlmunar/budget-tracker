@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useNavigate, useParams, Link } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import ExpenseList from "../components/ExpenseList";
 import ExpenseSummary from "../components/ExpenseSummary";
 import {
@@ -12,11 +12,19 @@ import LogScreenHeader from "../components/LogScreenHeader";
 import Footer from "../components/Footer";
 import { setTempCategories, setTempEntries } from "../slices/logSlice";
 import ExcelViewer from "../components/ExcelViewer";
+import CalendarView from "../components/CalendarView";
 
 const LogScreen = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
   const navigate = useNavigate();
   const scrollToRef = useRef(null);
+
+  const [viewCalendar, setViewCalendar] = useState(false);
+
+  useEffect(() => {
+    setViewCalendar(location.pathname.includes("/view"));
+  }, [location]);
 
   useEffect(() => {
     const offset = 200;
@@ -97,6 +105,8 @@ const LogScreen = () => {
     }
   };
 
+  console.log(location);
+
   return (
     <main
       ref={scrollToRef}
@@ -106,7 +116,11 @@ const LogScreen = () => {
         logData.name ? `- ${logData.name}` : ""
       }`}</title>
 
-      <LogScreenHeader logData={logData} handleDownload={handleDownload} />
+      <LogScreenHeader
+        logData={logData}
+        handleDownload={handleDownload}
+        viewCalendar={viewCalendar}
+      />
       {displayDownload ? (
         <ExcelViewer
           logId={logId}
@@ -116,25 +130,37 @@ const LogScreen = () => {
       ) : (
         <div className="h-full relative">
           <div
-            className="@container m-2 grid md:grid-cols-[65%_auto] lg:grid-cols-[75%_auto] 
-            grid-rows-[minmax(1fr,min-content)] gap-2
-            w-[95%] lg:w-[90%] mx-auto items-start"
+            className={`@container m-2 mx-auto w-[95%] lg:w-[90%] 
+              ${
+                !viewCalendar &&
+                `grid items-start gap-2
+                md:grid-cols-[65%_auto] lg:grid-cols-[75%_auto] 
+                grid-rows-[minmax(1fr,min-content)]`
+              }`}
           >
-            <ExpenseList
-              props={{
-                selectedCategories,
-                setSelectedCategories,
-                logType: logData?.logData?.type,
-                logData: logData?.logData,
-              }}
-            />
-            <ExpenseSummary
-              props={{
-                selectedCategories,
-                setSelectedCategories,
-                logData: logData?.logData,
-              }}
-            />
+            {viewCalendar ? (
+              <>
+                <CalendarView />
+              </>
+            ) : (
+              <>
+                <ExpenseList
+                  props={{
+                    selectedCategories,
+                    setSelectedCategories,
+                    logType: logData?.logData?.type,
+                    logData: logData?.logData,
+                  }}
+                />
+                <ExpenseSummary
+                  props={{
+                    selectedCategories,
+                    setSelectedCategories,
+                    logData: logData?.logData,
+                  }}
+                />
+              </>
+            )}
           </div>
         </div>
       )}

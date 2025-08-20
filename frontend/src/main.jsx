@@ -25,6 +25,7 @@ import Logs from "./pages/Logs.jsx";
 import PageWrapper from "./components/PageWrapper.jsx";
 import ModalWrapper from "./components/ModalWrapper.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
+import CalendarView from "./components/CalendarView.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -35,8 +36,7 @@ const router = createBrowserRouter(
         <Route element={<ModalWrapper />}>
           <Route element={<PrivateRoute />}>
             <Route element={<NewTabChecker />}>
-              <Route path="visualize/:logId" element={<Visualize />} />
-              <Route path="log/:logId" element={<LogScreen />} />
+              <Route path="log/:logId/view?" element={<LogScreen />} />
             </Route>
           </Route>
           <Route element={<PageWrapper />}>

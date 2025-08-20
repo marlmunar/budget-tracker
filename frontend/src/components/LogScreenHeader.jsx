@@ -7,6 +7,7 @@ import {
   TbFilePencil,
   TbFileX,
   TbFileUpload,
+  TbMinimize,
 } from "react-icons/tb";
 import { Link } from "react-router-dom";
 import OutsideClick from "./OutsideClick";
@@ -16,7 +17,7 @@ import { setIsNotSaved } from "../slices/logSlice";
 import { setModalState, startLoading, stopLoading } from "../slices/appSlice";
 import { useUpdateLogMutation } from "../slices/logsApiSlice";
 
-const LogScreenHeader = ({ logData, handleDownload }) => {
+const LogScreenHeader = ({ logData, handleDownload, viewCalendar }) => {
   const dispatch = useDispatch();
   const id = logData._id;
   const { name } = logData;
@@ -83,6 +84,7 @@ const LogScreenHeader = ({ logData, handleDownload }) => {
           <Link to="/logs" className="log-button">
             <TbLogs />
           </Link>
+
           <div className="flex-1 flex flex-col">
             <h2 className="font-semibold text-base md:text-xl">{name}</h2>
             <span className="text-gray-500 text-[0.7rem] md:text-xs italic">
@@ -96,24 +98,30 @@ const LogScreenHeader = ({ logData, handleDownload }) => {
             </span>
           </div>
 
-          <div className="flex gap-1 items-center">
-            <div className="hidden md:block">
-              <button className="log-button" onClick={handleSave}>
-                <TbDeviceSdCard />
+          {viewCalendar ? (
+            <Link className="log-button" to={`/log/${id}`}>
+              <TbMinimize />
+            </Link>
+          ) : (
+            <div className="flex gap-1 items-center">
+              <div className="hidden md:block">
+                <button className="log-button" onClick={handleSave}>
+                  <TbDeviceSdCard />
+                </button>
+              </div>
+
+              <button
+                data-id="options"
+                name="buttoners"
+                className="log-button"
+                onClick={() => {
+                  setIsSelecting((prev) => !prev);
+                }}
+              >
+                <TbFileDots />
               </button>
             </div>
-
-            <button
-              data-id="options"
-              name="buttoners"
-              className="log-button"
-              onClick={() => {
-                setIsSelecting((prev) => !prev);
-              }}
-            >
-              <TbFileDots />
-            </button>
-          </div>
+          )}
         </div>
         {isSelecting && (
           <OutsideClick
@@ -196,8 +204,9 @@ const LogScreenHeader = ({ logData, handleDownload }) => {
               </li>
               <li>
                 <Link
+                  onClick={() => setIsSelecting(false)}
                   className="log-options"
-                  //   to={`/visualize/${logId}`}
+                  to={`/log/${id}/view`}
                 >
                   <TbFileAnalytics />
                   <span>Visualize</span>
