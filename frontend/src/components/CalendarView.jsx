@@ -221,24 +221,30 @@ const CalendarView = () => {
               </div>
               <div className="text-sm md:text-base w-full flex flex-col md:items-end">
                 <h2 className="text-xs md:text-sm mb-1">Ranking</h2>
-                {[...summary]
-                  .sort((a, b) => b.total - a.total)
-                  .map((entry, index) => (
-                    <div
-                      key={index}
-                      className="flex justify-between items-center gap-2 mb-1 w-full lg:max-w-52"
-                    >
-                      <div className="flex justify-between items-center gap-2">
-                        <div
-                          className="h-4 w-4 rounded-sm shadow"
-                          style={{ backgroundColor: entry.category.color }}
-                        ></div>
-                        <div>{entry.category.name}</div>
+                <div className="max-h-[4rem] overflow-scroll scrollbar-hide">
+                  {[...summary]
+                    .sort((a, b) => b.total - a.total)
+                    .map((entry, index) => (
+                      <div
+                        key={index}
+                        className="flex justify-between items-center gap-2 mb-1 w-full lg:max-w-64"
+                      >
+                        <div className="flex justify-between items-center gap-2">
+                          <div
+                            className="h-4 w-4 rounded-sm shadow"
+                            style={{ backgroundColor: entry.category.color }}
+                          ></div>
+                          <div>{entry.category.name}</div>
+                        </div>
+                        <div className="text-xs md:text-sm flex gap-2">
+                          <div>{`${
+                            Math.floor((entry.total / total) * 100 * 100) / 100
+                          }%`}</div>
+                          <div>{index + 1}</div>
+                        </div>
                       </div>
-
-                      <div className="text-xs md:text-sm">{index + 1}</div>
-                    </div>
-                  ))}
+                    ))}
+                </div>
               </div>
             </div>
           ) : (
@@ -248,14 +254,14 @@ const CalendarView = () => {
 
         <div className="log-section-container min-h-[100%] flex flex-col gap-1 rounded shadow-lg p-2 ">
           <div
-            className="flex text-xl justify-between items-center h-16 
+            className="flex text-base md:text-xl justify-between items-center h-16 
           shadow bg-slate-600 dark:bg-[#3a3a3a] rounded p-2"
           >
             <button
               className="bg-white 
               dark:bg-[#272727]
               dark:text-[#ffffff]
-              rounded text-2xl 
+              rounded text-xl md:text-2xl  
               text-gray-800
               p-2 font-semibold 
               flex justify-center items-center"
@@ -270,7 +276,7 @@ const CalendarView = () => {
               className="bg-white 
               dark:bg-[#272727]
               dark:text-[#f2f2f2]
-              rounded text-2xl 
+              rounded text-xl md:text-2xl 
               text-gray-800
               p-2 font-semibold 
               flex justify-center items-center"
@@ -301,7 +307,7 @@ const CalendarView = () => {
 
               if (cell.type === "today") {
                 styles = `border-2 border-amber-500 
-                  bg-amber-100 dark:bg-slate-500
+                  bg-amber-100 dark:bg-slate-800
                   dark:border-slate-700 `;
               }
 
@@ -324,7 +330,7 @@ const CalendarView = () => {
                   {daysWithEntries.includes(cell.value) &&
                     cell.type !== "filler" && (
                       <div
-                        className="bg-gray-100 dark:bg-[#3a3a3a]
+                        className="bg-gray-100 dark:bg-[#2d2d2d]
                         rounded w-full h-full text-xs max-h-[8rem]
                         overflow-y-scroll scrollbar-hide
                         flex flex-col p-1 gap-1 border-2 
@@ -338,7 +344,7 @@ const CalendarView = () => {
                               className="px-2 min-h-6 flex items-center rounded w-full truncate"
                               style={{ backgroundColor: entry.category.color }}
                             >
-                              <span className="font-semibold dark:text-[#565656]">
+                              <span className="font-semibold dark:text-[#2d2d2d]">
                                 {formatNumber(entry.amount)}
                               </span>
                             </span>
