@@ -269,10 +269,13 @@ const CalendarView = () => {
         <div className="log-section-container min-h-[100%] flex flex-col gap-1 rounded shadow-lg p-2 ">
           <div
             className="flex text-xl justify-between items-center h-16 
-          shadow bg-slate-600 rounded p-2"
+          shadow bg-slate-600 dark:bg-[#3a3a3a] rounded p-2"
           >
             <button
-              className="bg-white rounded text-2xl 
+              className="bg-white 
+              dark:bg-[#272727]
+              dark:text-[#ffffff]
+              rounded text-2xl 
               text-gray-800
               p-2 font-semibold 
               flex justify-center items-center"
@@ -280,11 +283,14 @@ const CalendarView = () => {
             >
               <TbChevronLeft />
             </button>
-            <div className="bg-white rounded lg:min-w-[12rem] p-2 font-semibold flex justify-center items-center">
+            <div className="bg-white dark:bg-[#272727] rounded lg:min-w-[12rem] p-2 font-semibold flex justify-center items-center">
               {`${months[month].toUpperCase()} - ${year}`}
             </div>
             <button
-              className="bg-white rounded text-2xl 
+              className="bg-white 
+              dark:bg-[#272727]
+              dark:text-[#f2f2f2]
+              rounded text-2xl 
               text-gray-800
               p-2 font-semibold 
               flex justify-center items-center"
@@ -295,9 +301,11 @@ const CalendarView = () => {
           </div>
           {/* <div className="overflow-scroll p-1 grow min-h-[100%] grid grid-cols-[repeat(7, minmax(min-content,1fr))] grid-rows-[3rem_repeat(6,minmax(10rem,1fr))] border-2 rounded gap-1"> */}
           <div
-            className="overflow-x-scroll border-2 border-gray-200 rounded gap-1 p-1 
-          lg:overflow-auto grid grid-cols-[repeat(7,minmax(min-content,1fr))] 
-          w-full grid-rows-[3rem_repeat(6,minmax(10rem,1fr))] align-middle"
+            className="overflow-x-scroll border-2 
+            border-gray-200  dark:border-[#272727] 
+            rounded gap-1 p-1 dark:bg-[#161616] 
+            lg:overflow-auto grid grid-cols-[repeat(7,minmax(min-content,1fr))] 
+            w-full grid-rows-[3rem_repeat(6,minmax(10rem,1fr))] align-middle"
           >
             {days.map((day) => (
               <div
@@ -309,14 +317,17 @@ const CalendarView = () => {
               </div>
             ))}
             {calendarCells.map((cell, i) => {
-              let styles = "bg-gray-200";
+              let styles = "bg-gray-200 dark:bg-[#3a3a3a]";
 
               if (cell.type === "today") {
-                styles = "border-2 border-amber-500 bg-amber-100";
+                styles = `border-2 border-amber-500 
+                  bg-amber-100 dark:bg-slate-500
+                  dark:border-slate-700 `;
               }
 
               if (cell.type === "filler") {
-                styles = "text-gray-400 opacity-100 bg-gray-100";
+                styles =
+                  "text-gray-400 opacity-100 bg-gray-100 dark:bg-[#272727]";
               }
 
               return (
@@ -333,8 +344,10 @@ const CalendarView = () => {
                   {daysWithEntries.includes(cell.value) &&
                     cell.type !== "filler" && (
                       <div
-                        className="bg-gray-100 rounded w-full h-full text-xs 
-                      flex flex-col p-1 gap-1 border-2 border-indigo-500/55"
+                        className="bg-gray-100 dark:bg-[#3a3a3a]
+                        rounded w-full h-full text-xs 
+                        flex flex-col p-1 gap-1 border-2 
+                        border-indigo-500/55 dark:border-[#272727]"
                       >
                         {entries.map((entry, index) =>
                           new Date(entry.date.split("T")[0]).getDate() ===
@@ -344,7 +357,7 @@ const CalendarView = () => {
                               className="px-2 rounded w-full truncate"
                               style={{ backgroundColor: entry.category.color }}
                             >
-                              <span className="font-semibold">
+                              <span className="font-semibold dark:text-[#565656]">
                                 {formatNumber(entry.amount)}
                               </span>
                             </span>
