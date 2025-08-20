@@ -209,7 +209,7 @@ const LogScreenHeader = ({ logData, handleDownload, viewCalendar }) => {
                   to={`/log/${id}/view`}
                 >
                   <TbFileAnalytics />
-                  <span>Visualize</span>
+                  <span>Calendar</span>
                 </Link>
               </li>
               <li>
