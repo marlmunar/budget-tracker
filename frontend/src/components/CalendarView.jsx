@@ -144,23 +144,6 @@ const CalendarView = () => {
     checkDaysWithEntries(entries);
   }, [month]);
 
-  useEffect(() => {
-    const element = parentRef.current;
-    if (!element) return;
-
-    const resizeObserver = new ResizeObserver((entries) => {
-      for (let entry of entries) {
-        setWidth(entry.contentRect.width);
-      }
-    });
-
-    resizeObserver.observe(element);
-
-    return () => {
-      resizeObserver.disconnect();
-    };
-  }, [month, summary]);
-
   const changeMonth = (direction) => {
     if (direction === "prev") {
       if (month === 0) {
@@ -213,8 +196,8 @@ const CalendarView = () => {
         <div className="log-section-container ml-auto shadow min-h-30 grow p-4 rounded mb-2">
           <h2 className="text-xl font-semibold">Summary</h2>
           {!!total ? (
-            <div className="flex flex-col lg:flex-row justify-between gap-2 pt-2">
-              <div className="w-full min-w-[min-content] flex flex-col gap-2 items-start justify-end">
+            <div className="flex flex-col md:flex-row justify-between gap-2 md:gap-4 pt-2">
+              <div className="w-full md:min-w-110 lg:min-w-150 flex flex-col gap-2 items-start justify-end">
                 <h2 className="text-xl md:text-2xl font-semibold flex flex-col">
                   <span className="text-xs md:text-sm font-normal">
                     Monthly Total
@@ -222,31 +205,28 @@ const CalendarView = () => {
                   <span>{formatNumber(total)}</span>
                 </h2>
                 <div
-                  ref={parentRef}
-                  className="h-4 rounded-xl overflow-hidden 
-                  grid grid-rows-
-                  grid-cols-[repeat(auto-fill,min-content)] 
-                  grid-flow-col auto-cols-auto w-full max-w-150"
+                  className="flex w-full 
+                lg:max-w-150 h-4 rounded-full overflow-hidden"
                 >
                   {summary.map((entry, index) => (
                     <div
                       key={index}
                       style={{
                         backgroundColor: entry.category.color,
-                        width: (entry.total / total) * width,
+                        width: `${(entry.total / total) * 100}%`,
                       }}
                     ></div>
                   ))}
                 </div>
               </div>
-              <div className="text-base w-full flex flex-col items-end">
-                <h2 className="text-xs md:text-sm">Ranking</h2>
+              <div className="text-sm md:text-base w-full flex flex-col md:items-end">
+                <h2 className="text-xs md:text-sm mb-1">Ranking</h2>
                 {[...summary]
                   .sort((a, b) => b.total - a.total)
                   .map((entry, index) => (
                     <div
                       key={index}
-                      className="flex justify-between items-center gap-2 mb-1 w-full max-w-52"
+                      className="flex justify-between items-center gap-2 mb-1 w-full lg:max-w-52"
                     >
                       <div className="flex justify-between items-center gap-2">
                         <div
@@ -262,7 +242,7 @@ const CalendarView = () => {
               </div>
             </div>
           ) : (
-            <div className="text-base">No data for this month</div>
+            <div className="text-sm md:text-base">No data for this month</div>
           )}
         </div>
 
@@ -301,7 +281,7 @@ const CalendarView = () => {
           </div>
           {/* <div className="overflow-scroll p-1 grow min-h-[100%] grid grid-cols-[repeat(7, minmax(min-content,1fr))] grid-rows-[3rem_repeat(6,minmax(10rem,1fr))] border-2 rounded gap-1"> */}
           <div
-            className="overflow-x-scroll border-2 
+            className="overflow-x-scroll scrollbar-hide border-2 
             border-gray-200  dark:border-[#272727] 
             rounded gap-1 p-1 dark:bg-[#161616] 
             lg:overflow-auto grid grid-cols-[repeat(7,minmax(min-content,1fr))] 
