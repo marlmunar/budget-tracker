@@ -314,7 +314,7 @@ const CalendarView = () => {
                 <div
                   key={i}
                   className={`${styles} rounded p-2 flex flex-col 
-                  min-w-[10rem] max-w-[10rem] lg:max-w-none`}
+                  min-w-[10rem] max-w-[10rem] max-h-[10rem] lg:max-w-none`}
                 >
                   <div className="flex gap-2 rounded">
                     <span className="pl-1 font-semibold">{cell.value}</span>
@@ -325,7 +325,8 @@ const CalendarView = () => {
                     cell.type !== "filler" && (
                       <div
                         className="bg-gray-100 dark:bg-[#3a3a3a]
-                        rounded w-full h-full text-xs 
+                        rounded w-full h-full text-xs max-h-[8rem]
+                        overflow-y-scroll scrollbar-hide
                         flex flex-col p-1 gap-1 border-2 
                         border-indigo-500/55 dark:border-[#272727]"
                       >
@@ -334,7 +335,7 @@ const CalendarView = () => {
                             cell.value && cell.type !== "filler" ? (
                             <span
                               key={index}
-                              className="px-2 rounded w-full truncate"
+                              className="px-2 min-h-6 flex items-center rounded w-full truncate"
                               style={{ backgroundColor: entry.category.color }}
                             >
                               <span className="font-semibold dark:text-[#565656]">

@@ -105,8 +105,6 @@ const LogScreen = () => {
     }
   };
 
-  console.log(location);
-
   return (
     <main
       ref={scrollToRef}

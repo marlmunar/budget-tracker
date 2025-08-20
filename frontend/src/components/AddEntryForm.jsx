@@ -37,16 +37,13 @@ const AddEntryForm = ({ closeUI, setActiveUi, props }) => {
   };
 
   const getId = () => {
-    const timestamp = Math.floor(new Date().getTime() / 1000).toString(16);
-
-    const random = "xxxxxxxxxxxxxxxx".replace(/x/g, () =>
-      ((Math.random() * 16) | 0).toString(16)
-    );
-    const counter = (
-      "000000" + ((Math.random() * 0xffffff) | 0).toString(16)
-    ).slice(-6);
-
-    return (timestamp + random + counter).toLowerCase();
+    const timestamp = Math.floor(Date.now() / 1000).toString(16);
+    return (
+      timestamp +
+      "xxxxxxxxxxxxxxxx".replace(/x/g, () =>
+        ((Math.random() * 16) | 0).toString(16)
+      )
+    ).substring(0, 24);
   };
 
   const isValidDate = (date) => {
