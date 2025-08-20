@@ -209,7 +209,7 @@ h3 {
 }
 
 .form-input {
-  @apply bg-white dark:rounded h-8 px-2 border-2 w-full
+  @apply bg-white rounded h-8 px-2 border-2 w-full
   focus:outline-none
   dark:border-gray-500
   dark:bg-[#3a3a3a] dark:hover:bg-[#3a3a3a]
